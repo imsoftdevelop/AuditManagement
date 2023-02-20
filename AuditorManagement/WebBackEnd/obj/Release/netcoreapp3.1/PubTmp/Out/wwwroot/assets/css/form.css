@@ -1,0 +1,207 @@
+﻿body {
+    background: #f4f4f8;
+    padding: 30px;
+}
+
+.wrapper {
+    padding: 150px 50px;
+    background: #FFF;
+}
+
+.form-input {
+    height: auto;
+    background: white;
+    margin: auto;
+    position: relative;
+}
+
+.form-element-input {
+    outline: none;
+    height: 2.3rem;
+    display: block;
+    background: none;
+    padding: 2rem 0.6rem 0.0625rem;
+    font-size: 16px;
+    line-height: 1.5;
+    width: 100%;
+    color: #3297ff;
+    box-shadow: none;
+    opacity: 0.001;
+    transition: opacity 0.28s ease;
+    will-change: opacity;
+    border-radius: 4px;
+    opacity: 1;
+    border: 1px solid #dadbe6;
+    -webkit-transition: all .5s ease !important;
+    transition: all .5s ease !important;
+    height: 65px;
+}
+
+
+
+
+.form-element-input::placeholder {
+    color: #a6a6a6;
+    transform: scale(0.9);
+    transform-origin: left top;
+}
+
+.form-element-input-textarea {
+    min-height: 100px !important;
+}
+
+.form-element-bar {
+    height: 1px;
+    background: none;
+    position: relative;
+    display: block;
+}
+
+    .form-element-bar:after {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        height: 0px !important;
+        display: block;
+        transform: rotateY(90deg);
+        transition: transform .28s ease;
+        will-change: transform;
+    }
+
+.form-element-label {
+    position: absolute;
+    top: .85rem;
+    line-height: 1.5rem;
+    pointer-events: none;
+    padding-left: 0.6rem;
+    z-index: 1;
+    font-size: 14px;
+    margin: 0;
+    color: #a6a6a6;
+    transform: translateY(-50%);
+    transform-origin: left center;
+    transition: transform .28s ease, color .28s linear, opacity .28s linear;
+    will-change: transform, color, opacity;
+    cursor: text;
+}
+
+.form-element-required {
+    position: absolute;
+    top: .85rem;
+    right:10px;
+    line-height: 1.5rem;
+    pointer-events: none;
+    padding-left: 0.6rem;
+    z-index: 1;
+    font-size: 16px;
+    margin: 0;
+    color: #e83e8c;
+    transform: translateY(-50%);
+    transform-origin: left center;
+    transition: transform .28s ease, color .28s linear, opacity .28s linear;
+    will-change: transform, color, opacity;
+    cursor: text;
+}
+
+.form-element-dropdown {
+    position: absolute;
+    top: 17px;
+    left: 0px;
+    line-height: 1.5rem;
+    pointer-events: none;
+    padding-left: 0.9rem;
+    z-index: 1;
+    font-size: 14px;
+    margin: 0;
+    color: #000;
+    transform: translateY(-50%);
+    transform-origin: left center;
+    transition: transform .28s ease, color .28s linear, opacity .28s linear;
+    will-change: transform, color, opacity;
+    cursor: text;
+}
+
+.form-element-hint {
+    color: #aaa;
+}
+
+
+
+
+.form-element-input.hasValue ~ .form-element-bar::after,
+.form-element-input:focus ~ .form-element-bar::after {
+    transform: rotateY(0deg);
+}
+
+.form-element-bar:after {
+}
+
+.form-element-input.hasValue ~ .form-element-label,
+.form-element-input:focus ~ .form-element-label {
+    color: #000;
+}
+
+.form-element-input.hasValue,
+.form-element-input:focus {
+    opacity: 1;
+    border: 1px solid #dadbe6;
+    -webkit-transition: all .5s ease !important;
+    transition: all .5s ease !important;
+    height: 65px;
+    border-radius: 4px;
+    color: #3297ff;
+}
+
+.form-element-input:hover {
+    border: 1px solid rgb(99, 99, 132)
+}
+
+.form-element-input:disabled {
+    border: 1px solid #dadbe6;
+    background-color: #EBEBE4 !important;
+    color: #C6C6C6 !important;
+}
+
+.form-element-input:focus {
+    border: 1px solid #3297ff;
+}
+
+    .form-element-input.hasValue ~ .form-element-label,
+    .form-element-input:focus ~ .form-element-label {
+      /*  top: 38px;
+        transform: translateY(-100%) translateY(-0.5em) translateY(-2px);
+        cursor: pointer;
+        pointer-events: auto;*/
+    }
+
+    .form-element-input.hasValue ~ .form-element-bar,
+    .form-element-input:focus ~ .form-element-bar {
+        background-color:none;
+        opacity:0.01;
+    }
+
+
+.form-is-success .form-element-input,
+.form-is-success .form-element-label,
+.form-is-success .form-element-hint {
+    color: #259337;
+}
+
+
+.form-has-error .form-element-label.form-element-label,
+.form-has-error .form-element-hint {
+    color: #d9534f;
+}
+
+.form-has-error .form-element-bar:after {
+    background: #d9534f;
+}
+
+.form-has-error .form-element-input.hasValue ~ .form-element-label,
+.form-has-error .form-element-input:focus ~ .form-element-label {
+    transform: translateY(-100%) translateY(-0.5em) translateY(-2px);
+    color: #d9534f cursor: pointer;
+    pointer-events: auto;
+}
+

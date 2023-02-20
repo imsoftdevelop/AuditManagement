@@ -1,0 +1,312 @@
+﻿@{
+    Layout = "_LayoutAdmin";
+}
+@section RenderScriptWithPage
+    {
+    <script>
+
+        (function ($) {
+
+            $('.dropdown1').select2();
+            $('.dropdown5').select2();
+            $('.dropdown2').select2();
+            $('.dropdown3').select2();
+            $('.dropdown4').select2();
+
+        })(jQuery);
+
+
+
+    </script>
+
+}
+
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="page-title-box">
+                <h4>ตรวจสอบการชำระเงิน</h4>
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">ชำระเงิน</a></li>
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">ตรวจสอบการชำระเงิน</a></li>
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">ภาพรวมทั้งหมด</a></li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-xl-12">
+            <div class="card">
+                <div class="card-body card-body-table">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4 class="card-title mb-3">
+                                <span class="badge-table"><i class="mdi mdi-playlist-minus mx-2"></i></span>
+                                ตารางข้อมูลรายการรอตรวจสอบ
+                            </h4>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex flex-wrap  justify-content-end">
+                                <button type="button" class="btn btn-outline-secondary waves-effect mx-2 py-2 px-3" data-bs-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                    <i class="mdi mdi-filter-menu-outline mx-2"></i>ค้นหาขั้นสูง
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row py-2 collapse" id="collapseExample">
+                        <div class="col-md-6">
+                            <h4 class="card-title mb-3">
+                                <span class="badge-filter"><i class="mdi mdi-filter mx-2"></i></span>
+                                ค้นหาขั้นสูง
+                            </h4>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row justify-content-end px-3">
+                                <div class="col-lg-4 pl-0">
+                                    <div class="form-input ">
+                                        <select class="dropdown2 form-control" id="exampleFormControlSelect11">
+                                            <option value="" class="text-muted" selected style="display:none">กรุณาเลือก</option>
+                                            <option value="">บริษัทจำกัด</option>
+                                            <option value="">ห้างหุ้นส่วน</option>
+                                        </select>
+                                        <label class="form-element-dropdown" for="name">ชื่อกิจการ</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 pl-0">
+                                    <div class="form-input ">
+                                        <select class="dropdown2 form-control" id="exampleFormControlSelect12">
+                                            <option value="" class="text-muted" selected style="display:none">กรุณาเลือก</option>
+                                            <option value="">บริษัทจำกัด</option>
+                                            <option value="">ห้างหุ้นส่วน</option>
+                                        </select>
+                                        <label class="form-element-dropdown" for="name">ประเภทนิติบุคคล</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 pl-0 ">
+                                    <div class="form-input ">
+                                        <select class="dropdown2 form-control" id="exampleFormControlSelect13">
+                                            <option value="" class="text-muted" selected style="display:none">กรุณาเลือก</option>
+                                            <option value="">บริษัทจำกัด</option>
+                                            <option value="">ห้างหุ้นส่วน</option>
+                                        </select>
+                                        <label class="form-element-dropdown" for="name">สถานะ</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row py-2">
+                        <div class="col-md-6">
+                            <h4 class="card-title mb-3">
+                                <span class="badge-filter"><i class="mdi mdi-layers-search mx-2"></i></span>
+                                ค้นหา
+                            </h4>
+                        </div>
+                        <div class="col-md-6 ">
+                            <div class="row justify-content-end px-3">
+                                <div class="col-md-7 gap-3 d-flex">
+                                    <div class="input-group">
+                                        <div class="input-group-text"><i class="mdi mdi-information" data-bs-toggle="tooltip" data-bs-placement="left" title="รหัสพนักงาน , ชื่อ"></i></div>
+                                        <input type="text" class="form-control" autocomplete="off" placeholder="พิมพ์เพื่อค้นหา...">
+                                    </div>
+                                    <button type="button" class="btn-dbd waves-effect "><i class="mdi mdi-magnify me-1"></i>ค้นหา</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-rep-plugin">
+                        <div class="table-responsive mb-0" data-pattern="priority-columns">
+                            <table id="tech-companies-1" class="table-data  table-striped">
+                                <thead>
+                                    <tr class="headerRow">
+                                        <th></th>
+                                        <th>เลขที่</th>
+                                        <th>ชื่อสมาชิก</th>
+                                        <th>วันที่ทำรายการ</th>
+                                        <th>วันที่ชำระเงิน</th>
+                                        <th>จำนวนเงิน</th>
+                                        <th>เอกสาร</th>
+                                        <th class="text-center">สถานะ</th>
+                                        <th class="text-center">เพิ่มเติม</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th>1</th>
+                                        <td width="50px"><span class="text-link">C000001</span></td>
+                                        <td>นายทดสอบระบบสมาชิก</td>
+                                        <td>01/01/2565 13:00</td>
+                                        <td>01/01/2565 17:00</td>
+                                        <td>500.00</td>
+                                        <td><a class="text-search">สลิปโอนเงินธนาคาร.png</a></td>
+                                        <td class="text-center"><span class="badge bg-warning font-size-16">รอตรวจสอบ</span></td>
+                                        <td class="text-center">
+                                            <button type="button" class="btn btn-outline-dark waves-effect waves-light px-3 py-1 dropdown-toggle font-size-15"
+                                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                ตัวเลือก <i class="mdi mdi-chevron-down"></i>
+                                            </button>
+
+                                            <div class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop1" style="">
+                                                <a class="dropdown-item font-size-15" href="#"><i class="mdi mdi-file-find-outline"></i> ดูเอกสาร</a>
+                                                <a class="dropdown-item font-size-15" href="#"><i class="mdi mdi-account-search-outline"></i> ดูข้อมูลสมาชิก</a>
+                                                <a class="dropdown-item font-size-15" href="#"> <i class="mdi mdi-axis-z-rotate-clockwise"></i> ยกเลิกรายการ</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>1</th>
+                                        <td width="50px"><span class="text-link">C000001</span></td>
+                                        <td>นายทดสอบระบบสมาชิก</td>
+                                        <td>01/01/2565 13:00</td>
+                                        <td>01/01/2565 17:00</td>
+                                        <td>500.00</td>
+                                        <td><a class="text-search">สลิปโอนเงินธนาคาร.png</a></td>
+                                        <td class="text-center"><span class="badge bg-warning font-size-16">รอตรวจสอบ</span></td>
+                                        <td class="text-center">
+                                            <button type="button" class="btn btn-outline-dark waves-effect waves-light px-3 py-1 dropdown-toggle font-size-15"
+                                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                ตัวเลือก <i class="mdi mdi-chevron-down"></i>
+                                            </button>
+
+                                            <div class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop1" style="">
+                                                <a class="dropdown-item font-size-15" href="#"><i class="mdi mdi-file-find-outline"></i> ดูเอกสาร</a>
+                                                <a class="dropdown-item font-size-15" href="#"><i class="mdi mdi-account-search-outline"></i> ดูข้อมูลสมาชิก</a>
+                                                <a class="dropdown-item font-size-15" href="#"> <i class="mdi mdi-axis-z-rotate-clockwise"></i> ตรวจสอบเรียบร้อย</a>
+                                                <a class="dropdown-item font-size-15" href="#"> <i class="mdi mdi-axis-z-rotate-clockwise"></i> ยกเลิกรายการ</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>1</th>
+                                        <td width="50px"><span class="text-link">C000001</span></td>
+                                        <td>นายทดสอบระบบสมาชิก</td>
+                                        <td>01/01/2565 13:00</td>
+                                        <td>01/01/2565 17:00</td>
+                                        <td>500.00</td>
+                                        <td><a class="text-search">สลิปโอนเงินธนาคาร.png</a></td>
+                                        <td class="text-center"><span class="badge bg-warning font-size-16">รอตรวจสอบ</span></td>
+                                        <td class="text-center">
+                                            <button type="button" class="btn btn-outline-dark waves-effect waves-light px-3 py-1 dropdown-toggle font-size-15"
+                                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                ตัวเลือก <i class="mdi mdi-chevron-down"></i>
+                                            </button>
+
+                                            <div class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop1" style="">
+                                                <a class="dropdown-item font-size-15" href="#"><i class="mdi mdi-file-find-outline"></i> ดูเอกสาร</a>
+                                                <a class="dropdown-item font-size-15" href="#"><i class="mdi mdi-account-search-outline"></i> ดูข้อมูลสมาชิก</a>
+                                                <a class="dropdown-item font-size-15" href="#"> <i class="mdi mdi-axis-z-rotate-clockwise"></i> ตรวจสอบเรียบร้อย</a>
+                                                <a class="dropdown-item font-size-15" href="#"> <i class="mdi mdi-axis-z-rotate-clockwise"></i> ยกเลิกรายการ</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>1</th>
+                                        <td width="50px"><span class="text-link">C000001</span></td>
+                                        <td>นายทดสอบระบบสมาชิก</td>
+                                        <td>01/01/2565 13:00</td>
+                                        <td>01/01/2565 17:00</td>
+                                        <td>500.00</td>
+                                        <td><a class="text-search">สลิปโอนเงินธนาคาร.png</a></td>
+                                        <td class="text-center"><span class="badge bg-warning font-size-16">รอตรวจสอบ</span></td>
+                                        <td class="text-center">
+                                            <button type="button" class="btn btn-outline-dark waves-effect waves-light px-3 py-1 dropdown-toggle font-size-15"
+                                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                ตัวเลือก <i class="mdi mdi-chevron-down"></i>
+                                            </button>
+
+                                            <div class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop1" style="">
+                                                <a class="dropdown-item font-size-15" href="#"><i class="mdi mdi-file-find-outline"></i> ดูเอกสาร</a>
+                                                <a class="dropdown-item font-size-15" href="#"><i class="mdi mdi-account-search-outline"></i> ดูข้อมูลสมาชิก</a>
+                                                <a class="dropdown-item font-size-15" href="#"> <i class="mdi mdi-axis-z-rotate-clockwise"></i> ยกเลิกรายการ</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>1</th>
+                                        <td width="50px"><span class="text-link">C000001</span></td>
+                                        <td>นายทดสอบระบบสมาชิก</td>
+                                        <td>01/01/2565 13:00</td>
+                                        <td>01/01/2565 17:00</td>
+                                        <td>500.00</td>
+                                        <td><a class="text-search">สลิปโอนเงินธนาคาร.png</a></td>
+                                        <td class="text-center"><span class="badge bg-warning font-size-16">รอตรวจสอบ</span></td>
+                                        <td class="text-center">
+                                            <button type="button" class="btn btn-outline-dark waves-effect waves-light px-3 py-1 dropdown-toggle font-size-15"
+                                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                ตัวเลือก <i class="mdi mdi-chevron-down"></i>
+                                            </button>
+
+                                            <div class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop1" style="">
+                                                <a class="dropdown-item font-size-15" href="#"><i class="mdi mdi-file-find-outline"></i> ดูเอกสาร</a>
+                                                <a class="dropdown-item font-size-15" href="#"><i class="mdi mdi-account-search-outline"></i> ดูข้อมูลสมาชิก</a>
+                                                <a class="dropdown-item font-size-15" href="#"> <i class="mdi mdi-axis-z-rotate-clockwise"></i> ยกเลิกรายการ</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>1</th>
+                                        <td width="50px"><span class="text-link">C000001</span></td>
+                                        <td>นายทดสอบระบบสมาชิก</td>
+                                        <td>01/01/2565 13:00</td>
+                                        <td>01/01/2565 17:00</td>
+                                        <td>500.00</td>
+                                        <td><a class="text-search">สลิปโอนเงินธนาคาร.png</a></td>
+                                        <td class="text-center"><span class="badge bg-warning font-size-16">รอตรวจสอบ</span></td>
+                                        <td class="text-center">
+                                            <button type="button" class="btn btn-outline-dark waves-effect waves-light px-3 py-1 dropdown-toggle font-size-15"
+                                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                ตัวเลือก <i class="mdi mdi-chevron-down"></i>
+                                            </button>
+
+                                            <div class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop1" style="">
+                                                <a class="dropdown-item font-size-15" href="#"><i class="mdi mdi-file-find-outline"></i> ดูเอกสาร</a>
+                                                <a class="dropdown-item font-size-15" href="#"><i class="mdi mdi-account-search-outline"></i> ดูข้อมูลสมาชิก</a>
+                                                <a class="dropdown-item font-size-15" href="#"> <i class="mdi mdi-axis-z-rotate-clockwise"></i> ยกเลิกรายการ</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                @*<tbody>
+                                        <tr class="text-center ">
+                                            <td colspan="6" class="empty">
+                                                ไม่พบรายการ
+                                            </td>
+                                        </tr>
+                                    </tbody>*@
+                            </table>
+                            <hr />
+                            <div class="d-flex justify-content-end">
+                                <div data-v-e8100c36="" class="numberShow">
+                                    <p class="mr-2 mx-2 mb-0 font-size-16">แสดง</p>
+                                    <select class="day form-control form-select form-select-sm" style="width: auto;">
+                                        <option selected value="10">10</option>
+                                        <option value="50">50</option>
+                                        <option value="3">100</option>
+                                    </select>
+                                    <div data-v-76901dc6="" class="selectInputDropdown noLabel" style="width: 100%;">
+                                        <p class="mr-2 mx-2 mb-0 font-size-16">รายการ</p>
+                                    </div>
+                                </div>
+                                <div data-v-e8100c36="" class="page-data">
+                                    <div data-v-e8100c36="" class="prevArrow disabled">
+                                        <i data-v-e8100c36="" class="fa fa-chevron-left"></i>
+                                    </div>
+                                    <p data-v-e8100c36="" class="mr-2 mx-2 mb-0 font-size-16">หน้า</p>
+                                    <select class="day form-control form-select form-select-sm" style="width: auto;"><option value=""></option><option selected value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option></select>
+                                    <div data-v-e8100c36="" class="nextArrow disabled"><i data-v-e8100c36="" class="fa fa-chevron-right"></i></div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div> <!-- container-fluid -->
+</div>

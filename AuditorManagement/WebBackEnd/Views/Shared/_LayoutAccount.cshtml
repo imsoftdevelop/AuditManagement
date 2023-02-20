@@ -1,0 +1,459 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <base href="@Url.Content("~/")" />
+    <meta charset="utf-8" />
+    <title>BFA Group | ระบบตรวจสอบบัญชี</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+    <meta content="Themesbrand" name="author" />
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="assets/favicon.ico">
+
+    <!-- Bootstrap Css -->
+    <link href="~/assets/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css" />
+    <!-- Select2 Css -->
+    <link href="~/assets/libs/select2/select2.min.css" rel="stylesheet" />
+    <link href="~/assets/libs/select2/select2-bootstrap.min.css" rel="stylesheet" />
+    <!-- DatetimePicker Css -->
+    <link href="~/assets/libs/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet" />
+    <!-- Icons Css -->
+    <link href="~/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <!-- App Css-->
+    <link href="~/assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
+    <!-- Textbox Css-->
+    <link href="~/assets/css/form.css" rel="stylesheet" />
+    <!-- Font Css-->
+    <link href="~/assets/css/font-face.css" rel="stylesheet" />
+    <!-- Dropify Css-->
+    <link href="~/assets/libs/dropify/dropify.min.css" rel="stylesheet" />
+    <link href="~/assets/libs/jquery.toast/jquery.toast.min.css" rel="stylesheet" />
+    <link href="~/assets/css/site.css" rel="stylesheet" />
+
+</head>
+<body data-topbar="dark" data-layout="horizontal" ng-app="FOCUSAPP" ng-controller="FOCUSAPPController" data-ng-init="init()">
+
+    <div id="loading">
+        <div id="loading-center">
+        </div>
+    </div>
+
+    <!-- Begin page -->
+    <div id="layout-wrapper">
+
+        <header id="page-topbar">
+            <div class="navbar-header">
+                <div class="container-fluid">
+                    <div class="float-start">
+                        <!-- LOGO -->
+                        <div class="navbar-brand-box">
+                            <a href="index.html" class="logo logo-dark">
+                                <span class="logo-sm">
+                                    <img src="@Url.Content("~/")assets/images/logo-sm.png" alt="" height="22">
+                                </span>
+                                <span class="logo-lg">
+                                    <img src="@Url.Content("~/")assets/images/logo-dark.png" alt="" height="19">
+                                </span>
+                            </a>
+
+                            <a href="index.html" class="logo logo-light">
+                                <span class="logo-sm">
+                                    <img src="@Url.Content("~/")assets/images/logo-sm.png" alt="" height="22">
+                                </span>
+                                <span class="logo-lg">
+                                    <img src="@Url.Content("~/")assets/images/logo-light.png" alt="" height="49">
+                                </span>
+                            </a>
+                        </div>
+
+                        <button type="button" class="btn btn-sm px-3 font-size-24 d-lg-none header-item waves-effect waves-light" data-bs-toggle="collapse" data-bs-target="#topnav-menu-content">
+                            <i class="mdi mdi-menu"></i>
+                        </button>
+                    </div>
+
+                    <div class="float-end profile">
+
+                        <!-- App Search-->
+                        <form class="app-search d-none d-lg-inline-block">
+                            <div class="position-relative">
+                                <input type="text" class="form-control" placeholder="Search...">
+                                <span class="fa fa-search"></span>
+                            </div>
+                        </form>
+
+                        <!-- Full Screen-->
+                        <div class="dropdown d-none d-lg-inline-block">
+                            <button type="button" class="btn header-item noti-icon waves-effect" data-toggle="fullscreen">
+                                <i class="mdi mdi-fullscreen font-size-24"></i>
+                            </button>
+                        </div>
+
+                        <!-- Notification-->
+                        <div class="dropdown d-inline-block ms-1">
+                            <button type="button" class="btn header-item noti-icon waves-effect" id="page-header-notifications-dropdown"
+                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="ti-bell"></i>
+                                <span class="badge bg-danger rounded-pill">3</span>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
+                                 aria-labelledby="page-header-notifications-dropdown">
+                                <div class="p-3">
+                                    <div class="row align-items-center">
+                                        <div class="col">
+                                            <h5 class="m-0"> แจ้งเตือน (258) </h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div data-simplebar style="max-height: 230px;">
+
+                                    <a href="javascript:void(0);" class="text-reset notification-item">
+                                        <div class="d-flex">
+                                            <div class="flex-shrink-0 me-3">
+                                                <div class="avatar-xs">
+                                                    <span class="avatar-title border-warning rounded-circle ">
+                                                        <i class="mdi mdi-message"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="flex-grow-1">
+                                                <h6 class="mb-1">แจ้งเตือนต่ออายุบริการ</h6>
+                                                <div class="text-muted">
+                                                    <p class="mb-1">บริการของท่านสิ้นสุดวันที่ 31/12/2565</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+
+                                    <a href="javascript:void(0);" class="text-reset notification-item">
+                                        <div class="d-flex">
+                                            <div class="flex-shrink-0 me-3">
+                                                <div class="avatar-xs">
+                                                    <span class="avatar-title border-warning rounded-circle ">
+                                                        <i class="mdi mdi-message"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="flex-grow-1">
+                                                <h6 class="mb-1">แจ้งเตือนต่ออายุบริการ</h6>
+                                                <div class="text-muted">
+                                                    <p class="mb-1">บริการของท่านสิ้นสุดวันที่ 31/12/2565</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a href="javascript:void(0);" class="text-reset notification-item">
+                                        <div class="d-flex">
+                                            <div class="flex-shrink-0 me-3">
+                                                <div class="avatar-xs">
+                                                    <span class="avatar-title border-warning rounded-circle ">
+                                                        <i class="mdi mdi-message"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="flex-grow-1">
+                                                <h6 class="mb-1">แจ้งเตือนต่ออายุบริการ</h6>
+                                                <div class="text-muted">
+                                                    <p class="mb-1">บริการของท่านสิ้นสุดวันที่ 31/12/2565</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="p-2 border-top">
+                                    <a class="btn btn-sm btn-link font-size-14 w-100 text-center" href="javascript:void(0)">
+                                        แจ้งเตือนทั้งหมด
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Customer-->
+                        <div class="dropdown d-inline-block">
+                            <div class="profile-arrow-down">
+                                <div id="dropdownMenuClickableInside" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                                    <i class="mdi mdi-chevron-down"></i>
+                                </div>
+                                <button type="button" class="btn header-item waves-effect btn-header" id="dropdownMenuClickableInside" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                                    <img class="rounded-circle header-profile-user" src="@Url.Content("~/")assets/images/icons/customer.png"
+                                         alt="Header Avatar">
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-end dropdown-menu-branch" aria-labelledby="dropdownMenuClickableInside">
+                                    <!-- item-->
+                                    <a class="dropdown-item text-center">ชื่อลูกค้า : {{UserProfiles.CustomerNameActive}}</a>
+                                    <div class="dropdown-divider-90"></div>
+                                    <form class="p-3">
+                                        <div class="form-group m-0">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control heigth-30 test" placeholder="ค้นหาลูกค้า" ng-model="MainSearch.CustomerName" aria-label="Recipient's username">
+                                                <div class="input-group-append">
+                                                    <button class="btn-mini btn-primary heigth-30 rounded-0 test" type="button" ng-click="OnClickSearchCustomer()"><i class="mdi mdi-magnify"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <div ng-repeat="customer in UserProfiles.CustomerData | limitTo: itemperCustomer">
+                                        <a class="dropdown-item" ng-click="OnClickChangeCustomer(customer.CustomerId)"
+                                           ng-class="{ 'text-primary font-bold' : UserProfiles.CustomerNameActive == customer.Name }"><i class="mdi mdi-city-variant-outline font-size-17 text-muted align-middle me-1"></i> {{customer.Name}}</a>
+                                        <div class="dropdown-divider"></div>
+                                    </div>
+                                    <a class="dropdown-item text-primary" ng-show="CustomerTotal" ng-click="OnClickCustomerMore()">ลูกค้าทั้งหมด</a>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Branch-->
+                        <div class="dropdown d-inline-block">
+                            <div class="profile-arrow-down">
+                                <div id="dropdownMenuClickableInside" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                                    <i class="mdi mdi-chevron-down"></i>
+                                </div>
+                                <button type="button" class="btn header-item waves-effect btn-header" id="dropdownMenuClickableInside" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                                    <img class="rounded-circle header-profile-user" src="@Url.Content("~/")assets/images/icons/branch.png"
+                                         alt="Header Avatar">
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-end dropdown-menu-branch" aria-labelledby="dropdownMenuClickableInside">
+                                    <!-- item-->
+                                    <a class="dropdown-item text-center">ชื่อกิจการ : {{UserProfiles.BranchNameActive}}</a>
+                                    <div class="dropdown-divider-90"></div>
+                                    <form class="p-3">
+                                        <div class="form-group m-0">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control heigth-30 test" placeholder="ค้นหากิจการ" ng-model="MainSearch.BranchName" aria-label="Recipient's username">
+                                                <div class="input-group-append">
+                                                    <button class="btn-mini btn-primary heigth-30 rounded-0 test" type="button" ng-click="OnClickSearchBranch()"><i class="mdi mdi-magnify"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <div ng-repeat="branch in UserProfiles.BranchData | limitTo: itemperBranch">
+                                        <a class="dropdown-item" ng-click="OnClickChangeBranch(branch.BranchId)"
+                                           ng-class="{ 'text-primary font-bold' : UserProfiles.BranchNameActive == branch.Name }"><i class="mdi mdi-city-variant-outline font-size-17 text-muted align-middle me-1"></i> {{branch.Name}}</a>
+                                        <div class="dropdown-divider"></div>
+                                    </div>
+                                    <a class="dropdown-item text-primary" ng-show="BranchTotal" ng-click="OnClickBranchMore()">กิจการทั้งหมด</a>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Profile-->
+                        <div class="dropdown d-inline-block">
+                            <div class="profile-arrow-down" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <div>
+                                    <i class="mdi mdi-chevron-down"></i>
+                                </div>
+                                <button type="button" class="btn header-item waves-effect btn-header" id="page-header-user-dropdown">
+                                    <img class="rounded-circle header-profile-user" src="@Url.Content("~/")assets/images/icons/profile.png"
+                                         alt="Header Avatar">
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-end">
+                                    <!-- item-->
+                                    <a class="dropdown-item text-center">
+                                        {{UserProfiles.EmployeeData.FullName}}
+                                    </a>
+                                    <a class="dropdown-item text-center">
+                                        <span class="badge rounded-pill" ng-class="{ 'bg-danger' : UserProfiles.PackageData.PackageLevel == 3
+                                              ,'bg-success' : UserProfiles.PackageData.PackageLevel == 2
+                                              ,'bg-info' : UserProfiles.PackageData.PackageLevel == 1}"> {{UserProfiles.PackageData.PackageName}}</span>
+                                    </a>
+                                    <a class="dropdown-item"><i class="mdi mdi-head-outline font-size-17 text-muted align-middle me-1"></i>{{UserProfiles.PermissionNameActive}}</a>
+                                    <div class="dropdown-divider-80"></div>
+                                    <a class="dropdown-item" ui-sref="account-profiles"><i class="mdi mdi-account-circle font-size-17 text-muted align-middle me-1"></i> ข้อมูลส่วนตัว</a>
+
+                                    <a class="dropdown-item"><i class="mdi mdi-white-balance-incandescent font-size-17 text-muted align-middle me-1"></i> ข้อมูลบริการ</a>
+                                    <a class="dropdown-item"><i class="mdi mdi-alert-circle font-size-17 text-muted align-middle me-1"></i> ช่วยเหลือ</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item text-danger cursor-pointer" ng-click="OnClickLogout()"><i class="mdi mdi-power font-size-17 text-muted align-middle me-1 text-danger"></i> ออกจากระบบ</a>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="top-navigation">
+                <div class="container-fluid">
+                    <div class="topnav">
+                        <nav class="navbar navbar-light navbar-expand-lg topnav-menu">
+
+                            <div class="collapse navbar-collapse" id="topnav-menu-content">
+                                <ul class="navbar-nav">
+                                    <li class="nav-item">
+                                        <a class="nav-link">
+                                            <i class="mdi mdi-equalizer"></i>หน้าหลัก
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle arrow-none"  id="topnav-email" role="button"
+                                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="mdi mdi-account-supervisor-circle"></i>ลูกค้า
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-left" aria-labelledby="topnav-email">
+                                            <a class="dropdown-item cursor-pointer" ng-click="OnClickCustomerDetail()">รายละเอียดลูกค้า</a>
+                                            <a class="dropdown-item">Audit Proprosal</a>
+                                        </div>
+                                    </li>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle arrow-none"  id="topnav-components" role="button"
+                                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="mdi mdi-archive"></i>เอกสาร
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-left" aria-labelledby="topnav-email">
+                                            <a class="dropdown-item" ui-sref-active="active" ui-sref="account-documentlist">ภาพรวมทั้งหมด</a>
+                                            <a class="dropdown-item" ui-sref-active="active" ui-sref="account-documentadd">อัพโหลดเอกสาร</a>
+                                        </div>
+                                    </li>
+
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle arrow-none"  id="topnav-forms" role="button"
+                                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="mdi mdi-alpha-a-circle"></i>บัญชี
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-left" aria-labelledby="topnav-forms">
+                                            <a class="dropdown-item" ui-sref-active="active" ui-sref="account-periodaccountlist">รอบบัญชี</a>
+                                            <a class="dropdown-item" ui-sref-active="active" ui-sref="account-trialbalancelist">Trial Balance</a>
+                                            <a class="dropdown-item" ui-sref-active="active" ui-sref="account-adjustmentlist">Adjustment</a>
+                                        </div>
+                                    </li>
+
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle arrow-none"  id="topnav-forms" role="button"
+                                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="mdi mdi-checkbox-multiple-marked-circle-outline"></i>ตรวจสอบบัญชี
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-left" aria-labelledby="topnav-forms">
+                                            <a class="dropdown-item" ui-sref-active="active" ui-sref="account-fstoplist">FS Top</a>
+                                            <a class="dropdown-item" ui-sref-active="active" ui-sref="account-fsleadlist">FS Lead</a>
+                                        </div>
+                                    </li>
+
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle arrow-none"  id="topnav-forms" role="button"
+                                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="mdi mdi-cog-outline"></i>พารามิเตอร์
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-left" aria-labelledby="topnav-forms">
+                                            <a ui-sref-active="active" ui-sref="owner-fstop" class="dropdown-item">FS Top</a>
+                                            <a ui-sref-active="active" ui-sref="owner-fsgroup" class="dropdown-item">FS Group</a>
+                                            <a ui-sref-active="active" ui-sref="owner-subfsgroup" class="dropdown-item">Sub FS Group</a>
+                                            <a ui-sref-active="active" ui-sref="owner-grouptype" class="dropdown-item">Group Type</a>
+                                            <a ui-sref-active="active" ui-sref="owner-companydocument" class="dropdown-item">Company Document</a>
+                                            <a ui-sref-active="active" ui-sref="owner-auditprogram" class="dropdown-item">Audit Program</a>
+                                            <a ui-sref-active="active" ui-sref="owner-cashflow" class="dropdown-item">Cash Flow</a>
+                                            <a ui-sref-active="active" ui-sref="owner-expenses" class="dropdown-item">Expenses</a>
+                                            <a ui-sref-active="active" ui-sref="owner-taxgroup" class="dropdown-item">Tax Group</a>
+                                            <a ui-sref-active="active" ui-sref="owner-nontaxbleexpense" class="dropdown-item">Non-Taxble Expenses</a>
+                                            <a ui-sref-active="active" ui-sref="owner-ppegroup" class="dropdown-item">PPE Group</a>
+                                            <a ui-sref-active="active" ui-sref="owner-iagroup" class="dropdown-item">IA Group</a>
+                                            <a ui-sref-active="active" ui-sref="owner-customeradd" class="dropdown-item">Audit Report</a>
+                                        </div>
+                                    </li>
+
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle arrow-none"  id="topnav-more" role="button"
+                                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="mdi mdi-database"></i>ตั้งค่า
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="topnav-more">
+                                            <a class="dropdown-item" asp-controller="ServiceBilling" asp-action="CapacityManage">จัดการข้อมูล</a>
+                                            <a class="dropdown-item" ui-sref="account-requestform" ui-sref-active="active">ร้องขอข้อมูล</a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+
+        <!-- ============================================================== -->
+        <!-- Start right Content here -->
+        <!-- ============================================================== -->
+        <div class="main-content">
+
+            <div class="page-content" ui-view="container-view">
+                @RenderBody()
+            </div>
+            <!-- End Page-content -->
+
+            <footer class="footer">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            ©
+                            <script>document.write(new Date().getFullYear())</script> BFA Group <span class="d-none d-sm-inline-block"> - Auditor Pragram Version 1.0.0 by IM-Soft Development.</span>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+        <!-- end main content-->
+
+    </div>
+    <!-- END layout-wrapper -->
+    <!-- JAVASCRIPT -->
+    <script src="~/assets/libs/jquery/jquery.min.js"></script>
+    <script src="~/assets/libs/jquery/jquery-1.10.2.min.js"></script>
+    <script src="~/assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/assets/libs/metismenu/metisMenu.min.js"></script>
+    <script src="~/assets/libs/simplebar/simplebar.min.js"></script>
+    <script src="~/assets/libs/node-waves/waves.min.js"></script>
+    <script src="~/assets/libs/jquery-sparkline/jquery.sparkline.min.js"></script>
+    <script src="~/assets/libs/jquery.toast/jquery.toast.min.js"></script>
+    <script src="~/assets/libs/underscore/underscore-min.js"></script>
+
+    <!--Dropify -->
+    <script src="~/assets/libs/dropify/dropify.min.js"></script>
+
+    <!--Select 2-->
+    <script src="~/assets/libs/select2/select2.min.js"></script>
+    <script src="~/assets/libs/select2/select2.js"></script>
+
+    <!--Morris Chart-->
+    <script src="~/assets/libs/morris.js/morris.min.js"></script>
+    <script src="~/assets/libs/raphael/raphael.min.js"></script>
+
+    <script src="~/assets/js/pages/dashboard.init.js"></script>
+
+    <script src="~/assets/libs/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+    <script src="~/assets/libs/bootstrap-datepicker/bootstrap-datepicker.th.min.js"></script>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
+    <script src="~/assets/libs/bootstrap-datepicker/plugin.js"></script>
+    @*<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>*@
+
+    <!-- App js -->
+    @*<script src="~/assets/js/app.js"></script>*@
+
+    <!-- Component -->
+    <script src="~/assets/libs/angularJS/angular.js"></script>
+    <script src="~/assets/libs/angularJS/angular-ui-router.js"></script>
+    <script src="~/assets/libs/angularJS/angular-animate.min.js?nochace=test"></script>
+    <script src="~/assets/libs/angularJS/ocLazyLoad.min.js"></script>
+    <script src="~/assets/libs/angularJS/ui-bootstrap-tpls.min.js"></script>
+    <script src="~/assets/libs/angularJS/ng-file-upload.min.js"></script>
+    <!-- Router -->
+    <script src="~/controller/router/admin.router.js"></script>
+    <script src="~/controller/router/owner.router.js"></script>
+    <script src="~/controller/router/office.router.js"></script>
+    <script src="~/controller/router/account.router.js"></script>
+    <script src="~/controller/router/audit.router.js"></script>
+    <script src="~/controller/router/manager.router.js"></script>
+
+    <script src="~/controller/appmain.js"></script>
+    <script src="~/controller/custom.js"></script>
+    <script src="~/controller/factory.js"></script>
+    <script src="~/assets/libs/jquery.toast/toastDemo.js"></script>
+
+
+    @if (IsSectionDefined("RenderScriptWithPage"))
+    {@RenderSection("RenderScriptWithPage", required: false)}
+</body>
+
+</html>

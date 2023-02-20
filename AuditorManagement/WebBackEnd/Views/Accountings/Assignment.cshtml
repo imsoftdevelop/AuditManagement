@@ -1,0 +1,410 @@
+﻿@{
+    Layout = null;
+}
+
+<div class="container-fluid" data-ng-init="initModal()">
+
+    <div class="row">
+        <div class="col-sm-12 ">
+            <div class="page-title-box">
+                <h4>มอบหมายงาน</h4>
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">มอบหมายงาน</a></li>
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">ภาพรวมทั้งหมด</a></li>
+                </ol>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-xl-3">
+            <div class="card">
+                <div class="card-body card-body-table">
+                    <div class="row  m-0">
+                        <div class="col-md-8 col-sm-12">
+                            <h5 class="card-title mt-1 px-0 font-weight-bold">
+                                รายการรอบบัญชี
+                            </h5>
+                        </div>
+                        @*<div class="col-md-4 col-sm-12 ">
+                                <button type="button" class="btn-dbd waves-effect "><i class="mdi mdi-magnify me-1"></i>ค้นหา</button>
+                            </div>*@
+                    </div>
+                    @*<div class="row m-0">
+                            <div class="col-md-12 py-3 ">
+                                <div class="input-group">
+                                    <div class="input-group-text"><i class="mdi mdi-information" data-bs-toggle="tooltip" data-bs-placement="left" title="รหัสพนักงาน , ชื่อ"></i></div>
+                                    <input type="text" class="form-control" autocomplete="off" placeholder="พิมพ์เพื่อค้นหา...">
+                                </div>
+                            </div>
+                        </div>*@
+                    <div class="row m-0">
+                        <div class="col-md-12 ">
+                            <h5 class="card-title mt-1 px-0 ">
+                                <span class="font-weight-bold">ชื่อลูกค้า : </span> <span class="text-search">{{Search.SelectCustomer.Name}}  </span>
+                            </h5>
+                        </div>
+                    </div>
+                    <div class="row m-0">
+                        <div class="col-md-12 ">
+                            <h5 class="card-title mt-1 px-0 ">
+                                รอบบัญชี :
+                                <span class="text-search">รอบบัญชีประจำปี  {{TablePeriod.Year}} </span>
+                                <i class="mdi mdi-calendar-account-outline me-1 text-search font-size-20 mx-2 cursor-pointer"
+                                   ng-click="OnClickChangePeriod()"></i>
+                            </h5>
+                        </div>
+                    </div>
+                    <div class="row m-0">
+                        <div class="col-md-12 ">
+                            <select select2 class="dropdown2 form-control" id="selecrperiod1" ng-options="item as item.Code + ' - ' + item.Name for item in Parameter.FSTopList" ng-change="OnChangeSelectFSTop()"
+                                    ng-model="Search.SelectFSTop">
+                                <option value="" class="text-muted" selected style="display:none">กรุณาเลือก</option>
+                            </select>
+                            <label class="form-element-dropdown ml-1" for="name">เลือก FS Top</label>
+                            <label class="form-element-required px-2" for="name">* </label>
+                        </div>
+                    </div>
+
+                    <div class="row m-0">
+                        <div class="col-md-12 ">
+                            <ul class="ul-menulist metismenu list-unstyled" id="side-menu">
+                                <li>
+                                    <a ng-show="Search.SelectFSTop != undefined" href="javascript: void(0);" aria-expanded="true" class="font-weight-bold">
+                                        <i class="mdi mdi-chevron-double-down"></i> {{Search.SelectFSTop.Name}}
+                                    </a>
+                                    <ul class="sub-menu mm-collapse mm-show" aria-expanded="true" style="">
+                                        <li class="cursor-pointer" ng-click="OnClickFSGroup(values)" ng-repeat="values in Parameter.FSTopSelect"><a>{{values.Code}} - {{values.Name}}</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-9">
+            <div class="card">
+                <div class="card-body card-body-table">
+                    <div class="row">
+                        <div class="col-md-6 d-flex flex-wrap ">
+                            <h4 class="card-title mt-2">
+                                {{FSGroupSelect.Code}} - {{FSGroupSelect.Name}}
+                            </h4>
+                        </div>
+                        <div class="col-md-6 d-flex flex-wrap justify-content-end">
+                            <button type="button" class="btn btn-outline-info waves-effect mx-2 px-3  " ng-click="OnClickAddAssign()" ng-show="FSGroupSelect!= undefined">
+                                <i class="mdi mdi-plus mx-2"></i> เพิ่มผู้รับมอบหมาย
+                            </button>
+                        </div>
+                    </div>
+                    <div class="table-rep-plugin py-2">
+                        <div class="table-responsive mb-0" data-pattern="priority-columns">
+                            <table id="tech-companies-1" class="table-data  table-striped">
+                                <thead>
+                                    <tr class="headerRow">
+                                        <th></th>
+                                        <th>รหัส</th>
+                                        <th>ชื่อพนักงาน</th>
+                                        <th>อีเมล</th>
+                                        <th>สิทธิ</th>
+                                        <th>วันที่บันทึก</th>
+                                        <th class="text-center">สถานะ</th>
+                                        <th class="text-center">เพิ่มเติม</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="values in FSGroupSelect.Table | offset: currentPage*itemsPerPage | limitTo: itemsPerPage  ">
+                                        <th>{{values.Seq}}</th>
+                                        <td width="50px"><span class="text-link">{{values.EmployeeData.EmpCode}}</span></td>
+                                        <td>{{values.EmployeeData.FullName}}</td>
+                                        <td>{{values.EmployeeData.Email}}</td>
+                                        <td>{{values.PermissionName}}</td>
+                                        <td>{{values.UpdatedOn}}</td>
+                                        <td class="text-center">
+                                            <span ng-show="values.IsActive == 'Yes'" class="badge bg-success font-size-16">ใช้งาน</span>
+                                            <span ng-show="values.IsActive == 'No'" class="badge bg-danger font-size-16">ปิดใช้งาน</span>
+                                        </td>
+                                        <td class="text-center">
+                                            <button type="button" class="btn btn-outline-dark waves-effect waves-light px-3 py-1 dropdown-toggle font-size-15"
+                                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                ตัวเลือก <i class="mdi mdi-chevron-down"></i>
+                                            </button>
+
+                                            <div class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop1" style="">
+                                                <a class="dropdown-item font-size-15 a-status-success cursor-pointer" ng-show="values.IsActive == 'No'" ng-click="OnClickDeleteAdd(values,'oassign')"><i class="mdi mdi-account-cancel-outline"></i> เปิดใช้งาน</a>
+                                                <a class="dropdown-item font-size-15 a-status-danger cursor-pointer" ng-show="values.IsActive == 'Yes'" ng-click="OnClickDeleteAdd(values,'dassign')"><i class="mdi mdi-account-cancel-outline"></i> ปิดใช้งาน</a>
+                                                <a class="dropdown-item font-size-15 a-status-danger cursor-pointer" ng-click="OnClickDeleteAdd(values,'assign')"> <i class="mdi mdi-delete-circle-outline"></i> ลบ</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tbody ng-show="FSGroupSelect.Table == undefined || FSGroupSelect.Table.length == 0">
+                                    <tr class="text-center ">
+                                        <td colspan="8" class="empty">
+                                            <img src="@Url.Content("~/")assets/images/icons/icon-list.png" width="60" class="d-block m-auto">
+                                            ไม่พบรายการ
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <hr />
+                            <div class="d-flex justify-content-end">
+                                <div data-v-e8100c36="" class="numberShow">
+                                    <p class="mr-2 mx-2 mb-0 font-size-16">แสดง</p>
+                                    <select class="day form-control form-select form-select-sm" style="width: auto;" ng-change="OnClickChangePageTotal()" ng-model="itemsPerPage">
+                                        <option value="10">10</option>
+                                        <option value="22">20</option>
+                                        <option value="50">50</option>
+                                        <option value="100">100</option>
+                                    </select>
+                                    <div data-v-76901dc6="" class="selectInputDropdown noLabel" style="width: 100%;">
+                                        <p class="mr-2 mx-2 mb-0 font-size-16">รายการ</p>
+                                    </div>
+                                </div>
+                                <div data-v-e8100c36="" class="page-data">
+                                    <div data-v-e8100c36="" class="prevArrow" ng-class="prevPageDisabled()" ng-click="prevPage()">
+                                        <i data-v-e8100c36="" class="fa fa-chevron-left"></i>
+                                    </div>
+                                    <p data-v-e8100c36="" class="mr-2 mx-2 mb-0 font-size-16">หน้า</p>
+                                    <select class="day form-control form-select form-select-sm" style="width: auto;" ng-options="item as item.name for item in retpage" ng-model="changePages" ng-change="setPage(item)">
+                                    </select>
+                                    <div data-v-e8100c36="" class="nextArrow" ng-class="nextPageDisabled()" ng-click="nextPage()">
+                                        <i data-v-e8100c36="" class="fa fa-chevron-right"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div> <!-- container-fluid -->
+</div>
+
+<!-- Modal Period -->
+<div id="ModalPeriod" class="modal fade " tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog  modal-dialog-scrollable">
+        <div class="modal-content modal-content-sm">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4 class="card-title mt-2 font-size-18 font-weight-bold">เลือกรอบบัญชีที่ต้องการ</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 ">
+                        <select select2 class="dropdown2 form-control" id="selecrperiod" ng-options="item as item.Year + ' - ' + item.Name for item in Parameter.Period"
+                                ng-model="Search.SelectPeriod">
+                            <option value="" class="text-muted" selected style="display:none">กรุณาเลือก</option>
+                        </select>
+                        <label class="form-element-dropdown ml-1" for="name">เลือกรอบบัญชี</label>
+                        <label class="form-element-required" for="name">* </label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light waves-effect px-5 py-2" ng-click="OnClickAddRedirectPeriod()"> <i class="mdi mdi-plus"></i> เพิ่มรอบบัญชี</button>
+                <button type="button" class="btn btn-primary waves-effect waves-light px-5 py-2 " ng-click="OnClickModalPeriod()">ยืนยัน</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- sample modal content -->
+<!-- sample modal content -->
+<div id="ModalValidate" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog  modal-dialog-scrollable">
+        <div class="modal-content modal-sm">
+            <div class="modal-header">
+                <h2 class="modal-title mt-0" id="myModalLabel">
+                    เกิดข้อผิดพลาด
+                </h2>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3 class="card-title mt-2 font-size-16 font-weight-bold text-danger">{{Error}}</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-danger waves-effect waves-light py-2" ng-click="OnClickDirectTrial()"> <i class="mdi mdi-exit-to-app"></i> ย้อนกลับ Trial Balance</button>
+                <button type="button" class="btn btn-light waves-effect py-2" ng-click="OnClickNewPeriod()"> <i class="mdi mdi-backup-restore"></i> เลือกรอบบัญชีอื่น</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- sample modal content -->
+<div id="ModalConfirm" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog  modal-dialog-scrollable">
+        <div class="modal-content modal-sm">
+            <div class="modal-header">
+                <h2 class="modal-title mt-0" id="myModalLabel">
+                    แจ้งเตือน
+                </h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3 class="card-title mt-2 font-size-16 font-weight-bold">กรุณาปุ่ม " เริ่มทำการตรวจสอบบัญชี " เพื่อทำการตรวจสอบบัญชีต่อไป</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light waves-effect px-5 py-2" data-bs-dismiss="modal">ปิดหน้าต่าง</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+<!-- sample modal content -->
+<div id="ModalEmployee" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+    <div class="modal-dialog  modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title mt-0" id="myModalLabel">
+                    ค้นหาข้อมูลพนักงาน
+                </h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4 class="card-title mt-2 font-size-16 font-weight-bold">ค้นหาข้อมูล</h4>
+                    </div>
+                    <div class="col-md-6 d-flex flex-wrap  justify-content-end">
+                        <button type="button" class="btn-dbd-filter waves-effect " ng-click="OnClickFilterEmployees()"><i class="mdi mdi-magnify me-1"></i>ค้นหา</button>
+                    </div>
+                </div>
+                <div class="row py-2">
+                    <div class="col-lg-12 pl-0">
+                        <div class="form-input">
+                            <input id="name" class="form-element-input form-element-input-show" type="text" placeholder="กรุณาระบุคำค้นหา" ng-model="Search.InputFilterEmployees" />
+                            <div class="form-element-bar"></div>
+                            <label class="form-element-label" for="name">คำค้นหา</label>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <div class="row pt-2">
+                    <div class="col-md-6">
+                        <h4 class="card-title mb-3">
+                            <span class="badge-filter"><i class="mdi mdi-playlist-minus mx-2"></i></span>
+                            ผลลัพธ์
+                        </h4>
+                    </div>
+                    <div class="col-md-6 d-flex flex-wrap  justify-content-end">
+                        <p>*คลิก  <i class="mdi mdi-check-circle text-success"></i> รายการที่ต้องการ</p>
+                    </div>
+                </div>
+                <div class="table-rep-plugin">
+                    <div class="table-responsive mb-0" data-pattern="priority-columns">
+                        <table id="tech-companies-1" class="table-data  table-striped">
+                            <thead>
+                                <tr class="headerRow">
+                                    <th></th>
+                                    <th width="20%">รหัส</th>
+                                    <th width="30%">ชื่อ-นามสกุล</th>
+                                    <th width="20%">อีเมล</th>
+                                    <th width="20%">สิทธิ</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="values in Parameter.Employees | offset: currentPage_3*itemsPerPage_3 | limitTo: itemsPerPage_3  ">
+                                    <th>{{values.Seq}}</th>
+                                    <td>{{values.EmpCode}}</td>
+                                    <td width="100px">{{values.FullName}}</td>
+                                    <td>{{values.Email}}</td>
+                                    <td>{{values.PermissionName}}</td>
+                                    <td class="text-center">
+                                        <i class="mdi mdi-check-circle text-success" ng-click="OnClickSaveAssign(values)"></i>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tbody ng-show=" Parameter.Employees == undefined ||  Parameter.Employees.length == 0">
+                                <tr class="text-center ">
+                                    <td colspan="8" class="empty">
+                                        <img src="@Url.Content("~/")assets/images/icons/icon-list.png" width="60" class="d-block m-auto">
+                                        ไม่พบรายการ
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <hr />
+                        <div class="d-flex justify-content-end">
+                            <div data-v-e8100c36="" class="numberShow">
+                                <p class="mr-2 mx-2 mb-0 font-size-16">แสดง</p>
+                                <select class="day form-control form-select form-select-sm" style="width: auto;" ng-change="OnClickChangePageTotal_3()" ng-model="itemsPerPage_3">
+                                    <option value="10">10</option>
+                                    <option value="22">20</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                </select>
+                                <div data-v-76901dc6="" class="selectInputDropdown noLabel" style="width: 100%;">
+                                    <p class="mr-2 mx-2 mb-0 font-size-16">รายการ</p>
+                                </div>
+                            </div>
+                            <div data-v-e8100c36="" class="page-data">
+                                <div data-v-e8100c36="" class="prevArrow" ng-class="prevPageDisabled_3()" ng-click="prevPage_3()">
+                                    <i data-v-e8100c36="" class="fa fa-chevron-left"></i>
+                                </div>
+                                <p data-v-e8100c36="" class="mr-2 mx-2 mb-0 font-size-16">หน้า</p>
+                                <select class="day form-control form-select form-select-sm" style="width: auto;" ng-options="item as item.name for item in retpage_3" ng-model="changePages_3" ng-change="setPage_3(item)">
+                                </select>
+                                <div data-v-e8100c36="" class="nextArrow" ng-class="nextPageDisabled_3()" ng-click="nextPage_3()">
+                                    <i data-v-e8100c36="" class="fa fa-chevron-right"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light waves-effect px-5 py-2" data-bs-dismiss="modal">ยกเลิก</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- sample modal content -->
+<div id="ModalConfirmDelete" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+    <div class="modal-dialog  modal-dialog-scrollable">
+        <div class="modal-content modal-sm">
+            <div class="modal-header">
+                <h2 class="modal-title mt-0" id="myModalLabel">
+                    ยืนยันทำรายการ
+                </h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3 class="card-title mt-2 font-size-16 font-weight-bold">ยืนยันทำรายการ{{TableDelete.Action}}ข้อมูล</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light waves-effect px-5 py-2" data-bs-dismiss="modal">ยกเลิก</button>
+                <button type="button" class="btn btn-primary waves-effect waves-light px-5 py-2" ng-click="OnClickConfirmDelete()">
+                    ยืนยัน
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

@@ -1,0 +1,71 @@
+﻿@{
+    Layout = null;
+}
+<!-- Begin page -->
+<div class="account-pages my-5 pt-sm-3" data-ng-init="init()">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="card overflow-hidden rounded-4">
+                    <div class="card-body pt-0 rounded-4">
+
+                        <h3 class="text-center mt-5 mb-4">
+                            <a href="index.html" class="d-block auth-logo">
+                                <img src="@Url.Content("~/")assets/images/logo-light.png" alt="" height="60" class="auth-logo-dark">
+                                <img src="@Url.Content("~/")assets/images/logo-light.png" alt="" height="30" class="auth-logo-light">
+                            </a>
+                        </h3>
+
+                        <div class="p-3">
+                            <h2 class="text-muted font-size-24 mb-1 text-center">เลือกสิทธิที่ต้องการ</h2>
+                            <p class="text-muted text-center font-size-16">ติดต่อผู้ดูแลระบบหรือเลือกสิทธิที่ใช้งานอยู่<p>
+
+                                <div class="table-rep-plugin py-2 pb-0">
+                                    <table id="tech-companies-1" class="table-data  table-striped">
+                                        <thead>
+                                            <tr class="headerRow">
+                                                <th></th>
+                                                <th>สิทธิในระบบ</th>
+                                                <th class="text-center"></th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="values in Profiles.PermissionData">
+                                                <th>{{values.Seq}}</th>
+                                                <td>
+                                                    <div class="row">
+                                                        <div class="col-lg-12">
+                                                            <i class="mdi mdi-head-outline font-size-20 text-muted align-middle me-1"></i> {{values.Name}}
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="text-center">
+                                                    <a class="a-select-b" ng-click="OnClickRole(values.Code)"><i class="mdi mdi-arrow-right-thick"></i></a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <hr />
+                                </div>
+                        </div>
+                        <div class="mb-3 row ">
+                            <div class="col-md-1">
+                            </div>
+                            <div class="col-md-10 text-center">
+                                <div class="d-grid">
+                                    <a type="button" class="text-search font-weight-bold font-size-18" ui-sref="login">
+                                        <i class="mdi mdi-logout mx-2"></i>ออกจากระบบ
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-md-1">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END layout-wrapper -->

@@ -1,0 +1,58 @@
+﻿
+@font-face {
+    font-family: 'Aksorn';
+    src: url('../fonts/AksornBold_0_wt.eot');
+    src: url('../fonts/AksornBold_0_wt.eot?#iefix') format('embedded-opentype'), url('../fonts/AksornBold_0_wt.woff2') format('woff2'), url('../fonts/AksornBold_0_wt.woff') format('woff'), url('../fonts/AksornBold_0_wt.ttf') format('truetype'), url('../fonts/AksornBold_0_wt.svg#AksornBold_0_wt') format('svg');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Aksorn';
+    src: url('../fonts/AksornItalic.eot');
+    src: url('../fonts/AksornItalic.eot?#iefix') format('embedded-opentype'), url('../fonts/AksornItalic.woff2') format('woff2'), url('../fonts/AksornItalic.woff') format('woff'), url('../fonts/AksornItalic.ttf') format('truetype'), url('../fonts/AksornItalic.svg#AksornItalic') format('svg');
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Aksorn';
+    src: url('../fonts/AksornLight.eot');
+    src: url('../fonts/AksornLight.eot?#iefix') format('embedded-opentype'), url('../fonts/AksornLight.woff2') format('woff2'), url('../fonts/AksornLight.woff') format('woff'), url('../fonts/AksornLight.ttf') format('truetype'), url('../fonts/AksornLight.svg#AksornLight') format('svg');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Aksorn';
+    src: url('../fonts/AksornRegular.eot');
+    src: url('../fonts/AksornRegular.eot?#iefix') format('embedded-opentype'), url('../fonts/AksornRegular.woff2') format('woff2'), url('../fonts/AksornRegular.woff') format('woff'), url('../fonts/AksornRegular.ttf') format('truetype'), url('../fonts/AksornRegular.svg#AksornRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Prompt';
+    src: url('../fonts/prompt-regular-webfont.eot');
+    src: url('../fonts/prompt-regular-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/prompt-regular-webfont.woff2') format('woff2'), url('../fonts/prompt-regular-webfont.woff') format('woff'), url('../fonts/prompt-regular-webfont.ttf') format('truetype'), url('../fonts/prompt-regular-webfont.svg#prompt-regular-webfont') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+/*
+
+@font-face {
+    font-family: 'Prompt';
+    src: url('../fonts/prompt-medium-webfont.eot');
+    src: url('../fonts/prompt-medium-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/prompt-medium-webfont.woff2') format('woff2'), url('../fonts/prompt-medium-webfont.woff') format('woff'), url('../fonts/prompt-medium-webfont.ttf') format('truetype'), url('../fonts/prompt-medium-webfont.svg#prompt-medium-webfont') format('svg');
+    font-weight: 400;
+    font-style: normal;
+}*/
+
+
+@font-face {
+    font-family: 'Prompt';
+    src: url('../fonts/prompt-bold-webfont.eot');
+    src: url('../fonts/prompt-bold-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/prompt-bold-webfont.woff2') format('woff2'), url('../fonts/prompt-bold-webfont.woff') format('woff'), url('../fonts/prompt-bold-webfont.ttf') format('truetype'), url('../fonts/prompt-bold-webfont.svg#prompt-bold-webfont') format('svg');
+    font-weight: bold;
+    font-style: normal;
+}

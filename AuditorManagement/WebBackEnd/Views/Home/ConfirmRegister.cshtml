@@ -1,0 +1,146 @@
+﻿@{
+    Layout = null;
+}
+<!-- Begin page -->
+<div class="account-pages my-5 pt-sm-3" data-ng-init="initConfirm()">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="card overflow-hidden rounded-4">
+                    <div class="card-body pt-0 rounded-4">
+
+                        <h3 class="text-center mt-5 mb-4">
+                            <a href="index.html" class="d-block auth-logo">
+                                <img src="@Url.Content("~/")assets/images/logo-light.png" alt="" height="60" class="auth-logo-dark">
+                                <img src="@Url.Content("~/")assets/images/logo-light.png" alt="" height="30" class="auth-logo-light">
+                            </a>
+                        </h3>
+
+                        <div class="p-3">
+                            <h2 class="text-muted font-size-24 mb-1 text-center">สมัครใช้งานใหม่</h2>
+                            <p class="text-muted text-center font-size-16">มีบัญชีอยู่แล้ว? <a ui-sref="login" class="text-search">เข้าสู่ระบบ</a><p>
+
+                                <div class="form-horizontal mt-4">
+                                    <div class="row row-form">
+                                        <div class="col-md-1">
+                                        </div>
+                                        <div class="col-lg-10 pl-0">
+                                            <span class="text-muted text-left font-size-16 mb-0">***เพื่อความรวดเร็วสำหรับการสมัคร เราขอรายละเอียดเพิ่มขึ้น.</span>
+                                        </div>
+                                        <div class="col-md-1">
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-md-1">
+                                        </div>
+                                        <div class="col-lg-5 pl-0">
+                                            <div class="form-input">
+                                                <input id="name" class="form-element-input form-element-input-show" type="text" maxlength="100" placeholder="กรุณาระบุชื่อ" ng-model="Register.FirstName" />
+                                                <div class="form-element-bar"></div>
+                                                <label class="form-element-label font-weight-bold" for="name">ชื่อ</label>
+                                                <label class="form-element-required" for="name">* </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-5 pl-0">
+                                            <div class="form-input">
+                                                <input id="name" class="form-element-input form-element-input-show" type="text" maxlength="100" placeholder="กรุณาระบุนามสกุล" ng-model="Register.LastName" />
+                                                <div class="form-element-bar"></div>
+                                                <label class="form-element-label font-weight-bold" for="name">นามสกุล</label>
+                                                <label class="form-element-required" for="name">* </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1">
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-md-1">
+                                        </div>
+                                        <div class="col-lg-5 pl-0">
+                                            <div class="form-input">
+                                                <input id="name" class="form-element-input form-element-input-show" type="text" maxlength="100" placeholder="กรุณาระบุชื่อ (En)" ng-model="Register.FirstNameEn" />
+                                                <div class="form-element-bar"></div>
+                                                <label class="form-element-label font-weight-bold" for="name">ชื่อ (En)</label>
+                                                <label class="form-element-required" for="name">* </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-5 pl-0">
+                                            <div class="form-input">
+                                                <input id="name" class="form-element-input form-element-input-show" type="text" maxlength="100" placeholder="กรุณาระบุนามสกุล (En)" ng-model="Register.LastNameEn" />
+                                                <div class="form-element-bar"></div>
+                                                <label class="form-element-label font-weight-bold" for="name">นามสกุล  (En)</label>
+                                                <label class="form-element-required" for="name">* </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1">
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-md-1">
+                                        </div>
+                                        <div class="col-lg-5 pl-0">
+                                            <div class="form-input">
+                                                <input id="name" class="form-element-input form-element-input-show" type="text" maxlength="10" number-only placeholder="กรุณาระบุเบอร์โทรศัพท์" ng-model="Register.Telephone" />
+                                                <div class="form-element-bar"></div>
+                                                <label class="form-element-label font-weight-bold" for="name">เบอร์โทรศัพท์</label>
+                                                <label class="form-element-required" for="name">* </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-5 pl-0">
+                                            <div class="form-input">
+                                                <input id="name" class="form-element-input form-element-input-show" type="text" maxlength="13" number-only placeholder="กรุณาระบุเลขที่บัตรประชาชน" ng-model="Register.CitizenId" />
+                                                <div class="form-element-bar"></div>
+                                                <label class="form-element-label font-weight-bold" for="name">เลขที่บัตรประชาชน</label>
+                                                <label class="form-element-required" for="name">* </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1">
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-md-1">
+                                        </div>
+                                        <div class="col-lg-10 pl-0">
+                                            <div class="form-input">
+                                                <input id="name" class="form-element-input form-element-input-show" type="text" maxlength="200" placeholder="กรุณากรอกที่อยู่" ng-model="Register.Address" />
+                                                <div class="form-element-bar"></div>
+                                                <label class="form-element-label font-weight-bold" for="name">ที่อยู่</label>
+                                                <label class="form-element-required" for="name"> </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1">
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-md-1">
+                                        </div>
+                                        <div class="col-lg-10 pl-0">
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input" id="customControlInline" ng-model="Register.IsCondition">
+                                                <label class="form-check-label font-size-16" for="customControlInline">
+                                                    ฉันยอมรับ <a class="text-search">เงื่อนไข และ นโยบายรักษาความลับ</a>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1">
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 row mt-3">
+                                        <div class="col-md-1">
+                                        </div>
+                                        <div class="col-md-10">
+                                            <div class="d-grid">
+                                                <button type="button" class="btn btn-primary btn-lg waves-effect waves-light" ng-click="OnClickConfirm()">สมัครใช้งาน</button>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1">
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END layout-wrapper -->

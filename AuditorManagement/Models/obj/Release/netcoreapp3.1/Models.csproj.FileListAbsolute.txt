@@ -1,0 +1,12 @@
+E:\IM-Soft\_ระบบจัดการบัญชี Source Code\Auditor Source Code\AuditorManagement\Models\bin\Release\netcoreapp3.1\Models.deps.json
+E:\IM-Soft\_ระบบจัดการบัญชี Source Code\Auditor Source Code\AuditorManagement\Models\bin\Release\netcoreapp3.1\Models.runtimeconfig.json
+E:\IM-Soft\_ระบบจัดการบัญชี Source Code\Auditor Source Code\AuditorManagement\Models\bin\Release\netcoreapp3.1\Models.runtimeconfig.dev.json
+E:\IM-Soft\_ระบบจัดการบัญชี Source Code\Auditor Source Code\AuditorManagement\Models\bin\Release\netcoreapp3.1\Models.dll
+E:\IM-Soft\_ระบบจัดการบัญชี Source Code\Auditor Source Code\AuditorManagement\Models\bin\Release\netcoreapp3.1\Models.pdb
+E:\IM-Soft\_ระบบจัดการบัญชี Source Code\Auditor Source Code\AuditorManagement\Models\obj\Release\netcoreapp3.1\Models.csprojAssemblyReference.cache
+E:\IM-Soft\_ระบบจัดการบัญชี Source Code\Auditor Source Code\AuditorManagement\Models\obj\Release\netcoreapp3.1\Models.AssemblyInfoInputs.cache
+E:\IM-Soft\_ระบบจัดการบัญชี Source Code\Auditor Source Code\AuditorManagement\Models\obj\Release\netcoreapp3.1\Models.AssemblyInfo.cs
+E:\IM-Soft\_ระบบจัดการบัญชี Source Code\Auditor Source Code\AuditorManagement\Models\obj\Release\netcoreapp3.1\Models.csproj.CoreCompileInputs.cache
+E:\IM-Soft\_ระบบจัดการบัญชี Source Code\Auditor Source Code\AuditorManagement\Models\obj\Release\netcoreapp3.1\Models.dll
+E:\IM-Soft\_ระบบจัดการบัญชี Source Code\Auditor Source Code\AuditorManagement\Models\obj\Release\netcoreapp3.1\Models.pdb
+E:\IM-Soft\_ระบบจัดการบัญชี Source Code\Auditor Source Code\AuditorManagement\Models\obj\Release\netcoreapp3.1\Models.genruntimeconfig.cache

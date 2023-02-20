@@ -1,0 +1,631 @@
+﻿@{
+    Layout = "_LayoutAdmin";
+}
+@section RenderScriptWithPage
+    {
+    <script src="~/assets/libs/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+    <script src="~/assets/libs/bootstrap-datepicker/bootstrap-datepicker.th.min.js"></script>
+    <script>
+
+        (function ($) {
+
+            $('.dropdown1').select2();
+            $('.dropdown5').select2();
+            $('.dropdown2').select2();
+            $('.dropdown3').select2();
+            $('.dropdown4').select2();
+
+        })(jQuery);
+
+        $('.form-element-input').change(function () {
+            if ($(this).val()) {
+                $(this).addClass('hasValue');
+            } else {
+                $(this).removeClass('hasValue');
+            }
+        });
+
+        if ($("#inputreceivechaque-popup").length) {
+            $('#inputreceivechaque-popup').datepicker({
+                enableOnReadonly: true,
+                todayHighlight: true,
+                autoclose: true
+            });
+        }
+
+        $("#product_thumnail").addClass('dropify');
+        $("#product_thumnail1").addClass('dropify');
+
+        //var publicpath_identity_picture = path;
+
+        var drEvent = $('.dropify').dropify();
+        //drEvent.on('dropify.afterClear', function (event, element) {
+        //    $scope.DeleteImages = 1;
+        //});
+        drEvent = drEvent.data('dropify');
+        drEvent.resetPreview();
+        drEvent.clearElement();
+        drEvent.settings.defaultFile = publicpath_identity_picture;
+        drEvent.destroy();
+
+        drEvent.init();
+
+        //$('.dropify#identity_picture').dropify({
+        //    defaultFile: publicpath_identity_picture
+        //});
+
+        $('.form-element-input-show').addClass('hasValue');
+
+    </script>
+
+}
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="page-title-box">
+                <h4>สมาชิก</h4>
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">สมาชิก</a></li>
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">เพิ่มหรือแก้ไขสมาชิก</a></li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-xl-4">
+            <div class="card">
+                <div class="card-body card-body-table">
+                    <div class="text-center bg-light rounded px-4 py-3">
+                        <div class="chat-user-status">
+                            <img src="@Url.Content("~/")assets/images/icons/profile.png" class="avatar-xl rounded-circle" alt="">
+                        </div>
+                        <h5 class="font-size-16 mb-1 mt-3 font-weight-bold">ชื่อ - นามสกุล</h5>
+                        <h5 class="font-size-16 mb-1 mt-3">อิสระ เสียงไพเราะ</h5>
+                        <p class="text-muted mb-0">Issara Siangpiroh</p>
+                        <h5 class="font-size-16 mb-1 mt-3 font-weight-bold">เบอร์โทรศัพท์</h5>
+                        <h5 class="font-size-16 mb-1 mt-3">0812751925</h5>
+                        <h5 class="font-size-16 mb-1 mt-3 font-weight-bold">อีเมล</h5>
+                        <h5 class="font-size-16 mb-1 mt-3">im.softdevelopment@gmail.com</h5>
+                        <h5 class="font-size-16 mb-1 mt-3 font-weight-bold">ตำแหน่ง</h5>
+                        <h5 class="font-size-16 mb-1 mt-3">เจ้าของสำนักงานสอบบัญชี</h5>
+                        <p class="text-muted mb-0">ผู้ช่วยผู้สอบบัญชี Lv1</p>
+                        <h5 class="font-size-16 mb-1 mt-3 font-weight-bold">แพ็คเกจปัจจุบัย</h5>
+                        <span class="badge bg-success font-size-16">แพ็คเกจผู้เชียวชาญ</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-8">
+            <ul class="nav nav-tabs " role="tablist">
+                <li class="nav-item active" data-bs-toggle="tab" href="#lead" role="tab">
+                    <a class="nav-link">
+                        <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
+                        <span class="d-none d-sm-block">ข้อมูลทั่วไป</span>
+                    </a>
+                </li>
+                <li class="nav-item" data-bs-toggle="tab" href="#trial" role="tab">
+                    <a class="nav-link">
+                        <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
+                        <span class="d-none d-sm-block">ข้อมูลกิจกาจ</span>
+                    </a>
+                </li>
+                <li class="nav-item" data-bs-toggle="tab" href="#document" role="tab">
+                    <a class="nav-link">
+                        <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
+                        <span class="d-none d-sm-block">ข้อมูลบริการ</span>
+                    </a>
+                </li>
+                <li class="nav-item" data-bs-toggle="tab" href="#issue" role="tab">
+                    <a class="nav-link">
+                        <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
+                        <span class="d-none d-sm-block">ข้อมูลระบบ</span>
+                    </a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class=" tab-pane card active" id="lead" role="tabpanel">
+                    <div class="card-body card-body-table">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h4 class="card-title mb-3">
+                                    ข้อมูลสมาชิก
+                                </h4>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h4 class="card-title mb-3">
+                                    ข้อมูลทั่วไป
+                                </h4>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3 ">
+                                <p class="px-4 font-weight-bold">ประเภทบุคคล :</p>
+                            </div>
+                            <div class="col-md-9">
+                                <p class="px-3">บุคคลธรรมดา</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3 ">
+                                <p class="px-4 font-weight-bold">ชื่อ - นามสกุล :</p>
+                            </div>
+                            <div class="col-md-9">
+                                <p class="px-3">นายทดสอบ ระบบ</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3 ">
+                                <p class="px-4 font-weight-bold">เลขที่เสียภาษี :</p>
+                            </div>
+                            <div class="col-md-9">
+                                <p class="px-3">1909800530221</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3 ">
+                                <p class="px-4 font-weight-bold">อีเมล :</p>
+                            </div>
+                            <div class="col-md-9">
+                                <p class="px-3">example@gmail.com</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3 ">
+                                <p class="px-4 font-weight-bold">เบอร์โทรศัพท์ :</p>
+                            </div>
+                            <div class="col-md-9">
+                                <p class="px-3">0812751925</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3 ">
+                                <p class="px-4 font-weight-bold">วันที่เริ่มต้นใข้งาน :</p>
+                            </div>
+                            <div class="col-md-9">
+                                <p class="px-3">01/01/2565 </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3 ">
+                                <p class="px-4 font-weight-bold">วันที่อัพเดทล่าสุด :</p>
+                            </div>
+                            <div class="col-md-9">
+                                <p class="px-3">12/01/2565 </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3 ">
+                                <p class="px-4 font-weight-bold">จำนวนพนักงาน :</p>
+                            </div>
+                            <div class="col-md-9">
+                                <p class="px-3">15 </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3 ">
+                                <p class="px-4 font-weight-bold">จำนวนกิจการ :</p>
+                            </div>
+                            <div class="col-md-9">
+                                <p class="px-3">2 </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3 ">
+                                <p class="px-4 font-weight-bold">จำนวนลูกค้า :</p>
+                            </div>
+                            <div class="col-md-9">
+                                <p class="px-3">40 </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class=" tab-pane card " id="trial" role="tabpanel">
+                    <div class="card-body card-body-table">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h4 class="card-title mb-3">
+                                    ข้อมูลกิจการ
+                                </h4>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex flex-wrap  justify-content-end">
+                                    <button type="button" class="btn btn-outline-dark waves-effect mx-2 py-2 px-3" data-bs-toggle="modal" data-bs-target="#myModal3">
+                                        <i class="mdi mdi-plus mx-2"></i> เพิ่มกิจการ
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-rep-plugin py-2">
+                            <div class="table-responsive mb-0" data-pattern="priority-columns">
+                                <table id="tech-companies-1" class="table-data  table-striped">
+                                    <thead>
+                                        <tr class="headerRow">
+                                            <th></th>
+                                            <th>เลขที่</th>
+                                            <th>ชื่อกิจการ</th>
+                                            <th>ประเภทนิติบุคคล</th>
+                                            <th>เลขที่เสียภาษี</th>
+                                            <th>เบอร์โทรศัพท์</th>
+                                            <th class="text-center">สถานะ</th>
+                                            <th class="text-center">เพิ่มเติม</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th>1</th>
+                                            <td width="50px"><span class="text-link">C000001</span></td>
+                                            <td>บริษัททดสอบ จำกัด</td>
+                                            <td>บริษัทจำกัด</td>
+                                            <td>9-99-999-99-9</td>
+                                            <td>02-1234567</td>
+                                            <td class="text-center"><span class="badge bg-success font-size-16">ใช้งาน</span></td>
+                                            <td class="text-center">
+                                                <button type="button" class="btn btn-outline-dark waves-effect waves-light px-3 py-1 dropdown-toggle font-size-15"
+                                                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    ตัวเลือก <i class="mdi mdi-chevron-down"></i>
+                                                </button>
+
+                                                <div class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop1" style="">
+                                                    <a class="dropdown-item font-size-15" href="#"><i class="mdi mdi-circle-edit-outline"></i> แก้ไข</a>
+                                                    <a class="dropdown-item font-size-15" href="#"> <i class="mdi mdi-delete-circle-outline"></i> ลบ</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>1</th>
+                                            <td width="50px"><span class="text-link">C000001</span></td>
+                                            <td>บริษัททดสอบ จำกัด</td>
+                                            <td>บริษัทจำกัด</td>
+                                            <td>9-99-999-99-9</td>
+                                            <td>02-1234567</td>
+                                            <td class="text-center"><span class="badge bg-success font-size-16">ใช้งาน</span></td>
+                                            <td class="text-center">
+                                                <button type="button" class="btn btn-outline-dark waves-effect waves-light px-3 py-1 dropdown-toggle font-size-15"
+                                                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    ตัวเลือก <i class="mdi mdi-chevron-down"></i>
+                                                </button>
+
+                                                <div class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop1" style="">
+                                                    <a class="dropdown-item font-size-15" href="#"><i class="mdi mdi-circle-edit-outline"></i> แก้ไข</a>
+                                                    <a class="dropdown-item font-size-15" href="#"> <i class="mdi mdi-delete-circle-outline"></i> ลบ</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>1</th>
+                                            <td width="50px"><span class="text-link">C000001</span></td>
+                                            <td>บริษัททดสอบ จำกัด</td>
+                                            <td>บริษัทจำกัด</td>
+                                            <td>9-99-999-99-9</td>
+                                            <td>02-1234567</td>
+                                            <td class="text-center"><span class="badge bg-success font-size-16">ใช้งาน</span></td>
+                                            <td class="text-center">
+                                                <button type="button" class="btn btn-outline-dark waves-effect waves-light px-3 py-1 dropdown-toggle font-size-15"
+                                                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    ตัวเลือก <i class="mdi mdi-chevron-down"></i>
+                                                </button>
+
+                                                <div class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop1" style="">
+                                                    <a class="dropdown-item font-size-15" href="#"><i class="mdi mdi-circle-edit-outline"></i> แก้ไข</a>
+                                                    <a class="dropdown-item font-size-15" href="#"> <i class="mdi mdi-delete-circle-outline"></i> ลบ</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>1</th>
+                                            <td width="50px"><span class="text-link">C000001</span></td>
+                                            <td>บริษัททดสอบ จำกัด</td>
+                                            <td>บริษัทจำกัด</td>
+                                            <td>9-99-999-99-9</td>
+                                            <td>02-1234567</td>
+                                            <td class="text-center"><span class="badge bg-success font-size-16">ใช้งาน</span></td>
+                                            <td class="text-center">
+                                                <button type="button" class="btn btn-outline-dark waves-effect waves-light px-3 py-1 dropdown-toggle font-size-15"
+                                                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    ตัวเลือก <i class="mdi mdi-chevron-down"></i>
+                                                </button>
+
+                                                <div class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop1" style="">
+                                                    <a class="dropdown-item font-size-15" href="#"><i class="mdi mdi-circle-edit-outline"></i> แก้ไข</a>
+                                                    <a class="dropdown-item font-size-15" href="#"> <i class="mdi mdi-delete-circle-outline"></i> ลบ</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>1</th>
+                                            <td width="50px"><span class="text-link">C000001</span></td>
+                                            <td>บริษัททดสอบ จำกัด</td>
+                                            <td>บริษัทจำกัด</td>
+                                            <td>9-99-999-99-9</td>
+                                            <td>02-1234567</td>
+                                            <td class="text-center"><span class="badge bg-success font-size-16">ใช้งาน</span></td>
+                                            <td class="text-center">
+                                                <button type="button" class="btn btn-outline-dark waves-effect waves-light px-3 py-1 dropdown-toggle font-size-15"
+                                                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    ตัวเลือก <i class="mdi mdi-chevron-down"></i>
+                                                </button>
+
+                                                <div class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop1" style="">
+                                                    <a class="dropdown-item font-size-15" href="#"><i class="mdi mdi-circle-edit-outline"></i> แก้ไข</a>
+                                                    <a class="dropdown-item font-size-15" href="#"> <i class="mdi mdi-delete-circle-outline"></i> ลบ</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    @*<tbody>
+                                            <tr class="text-center ">
+                                                <td colspan="6" class="empty">
+                                                    ไม่พบรายการ
+                                                </td>
+                                            </tr>
+                                        </tbody>*@
+                                </table>
+                                <hr />
+                                <div class="d-flex justify-content-end">
+                                    <div data-v-e8100c36="" class="numberShow">
+                                        <p class="mr-2 mx-2 mb-0 font-size-16">แสดง</p>
+                                        <select class="day form-control form-select form-select-sm" style="width: auto;">
+                                            <option selected value="10">10</option>
+                                            <option value="50">50</option>
+                                            <option value="3">100</option>
+                                        </select>
+                                        <div data-v-76901dc6="" class="selectInputDropdown noLabel" style="width: 100%;">
+                                            <p class="mr-2 mx-2 mb-0 font-size-16">รายการ</p>
+                                        </div>
+                                    </div>
+                                    <div data-v-e8100c36="" class="page-data">
+                                        <div data-v-e8100c36="" class="prevArrow disabled">
+                                            <i data-v-e8100c36="" class="fa fa-chevron-left"></i>
+                                        </div>
+                                        <p data-v-e8100c36="" class="mr-2 mx-2 mb-0 font-size-16">หน้า</p>
+                                        <select class="day form-control form-select form-select-sm" style="width: auto;"><option value=""></option><option selected value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option></select>
+                                        <div data-v-e8100c36="" class="nextArrow disabled"><i data-v-e8100c36="" class="fa fa-chevron-right"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class=" tab-pane card " id="document" role="tabpanel">
+                    <div class="card-body card-body-table">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h4 class="card-title mb-3">
+                                    ข้อมลูบริการ
+                                </h4>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h4 class="card-title mb-3">
+                                    แพ็คเกจปัจจุบัน
+                                </h4>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3 ">
+                                <p class="px-4 font-weight-bold">แพ็คเกจ :</p>
+                            </div>
+                            <div class="col-md-9">
+                                <span class="badge bg-success font-size-16">แพ็คเกจผู้เชียวชาญ</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3 ">
+                                <p class="px-4 font-weight-bold">พื้นที่ , จำนวนลูกค้า , จำนวนเอกสาร :</p>
+                            </div>
+                            <div class="col-md-9">
+                                <p class="px-3">50 GB , 5 รายการ , ไม่จำกัด</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3 ">
+                                <p class="px-4 font-weight-bold">ระยะวันที่บริการ :</p>
+                            </div>
+                            <div class="col-md-9">
+                                <p class="px-3">01/01/2565 - 31/12/2565</p>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h4 class="card-title mb-3">
+                                    ประวัติการชำระเงิน
+                                </h4>
+                            </div>
+                        </div>
+                        <div class="table-rep-plugin py-2">
+                            <div class="table-responsive mb-0" data-pattern="priority-columns">
+                                <table id="tech-companies-1" class="table-data  table-striped">
+                                    <thead>
+                                        <tr class="headerRow">
+                                            <th></th>
+                                            <th>เลขที่</th>
+                                            <th>วันที่ทำรายการ</th>
+                                            <th>วันที่ชำระเงิน</th>
+                                            <th>แพ็คเกจ</th>
+                                            <th>จำนวนเงิน</th>
+                                            <th>ระยะเวลา</th>
+                                            <th class="text-center">เพิ่มเติม</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th>1</th>
+                                            <td width="50px"><span class="text-link">C000001</span></td>
+                                            <td>01/01/2565</td>
+                                            <td>01/01/2565</td>
+                                            <td>แพ็คเกจทั่วไป</td>
+                                            <td>500.00</td>
+                                            <td>01/01/2565 - 31/12/2565</td>
+                                            <td class="text-center">
+                                                <button type="button" class="btn btn-outline-dark waves-effect waves-light px-3 py-1 dropdown-toggle font-size-15"
+                                                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    ตัวเลือก <i class="mdi mdi-chevron-down"></i>
+                                                </button>
+
+                                                <div class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop1" style="">
+                                                    <a class="dropdown-item font-size-15" href="#"><i class="mdi mdi-open-in-new"></i> ดูหลักฐานโอนเงิน</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>1</th>
+                                            <td width="50px"><span class="text-link">C000001</span></td>
+                                            <td>01/01/2565</td>
+                                            <td>01/01/2565</td>
+                                            <td>แพ็คเกจทั่วไป</td>
+                                            <td>500.00</td>
+                                            <td>01/01/2565 - 31/12/2565</td>
+                                            <td class="text-center">
+                                                <button type="button" class="btn btn-outline-dark waves-effect waves-light px-3 py-1 dropdown-toggle font-size-15"
+                                                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    ตัวเลือก <i class="mdi mdi-chevron-down"></i>
+                                                </button>
+
+                                                <div class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop1" style="">
+                                                    <a class="dropdown-item font-size-15" href="#"><i class="mdi mdi-open-in-new"></i> ดูหลักฐานโอนเงิน</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>1</th>
+                                            <td width="50px"><span class="text-link">C000001</span></td>
+                                            <td>01/01/2565</td>
+                                            <td>01/01/2565</td>
+                                            <td>แพ็คเกจทั่วไป</td>
+                                            <td>500.00</td>
+                                            <td>01/01/2565 - 31/12/2565</td>
+                                            <td class="text-center">
+                                                <button type="button" class="btn btn-outline-dark waves-effect waves-light px-3 py-1 dropdown-toggle font-size-15"
+                                                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    ตัวเลือก <i class="mdi mdi-chevron-down"></i>
+                                                </button>
+
+                                                <div class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop1" style="">
+                                                    <a class="dropdown-item font-size-15" href="#"><i class="mdi mdi-open-in-new"></i> ดูหลักฐานโอนเงิน</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>1</th>
+                                            <td width="50px"><span class="text-link">C000001</span></td>
+                                            <td>01/01/2565</td>
+                                            <td>01/01/2565</td>
+                                            <td>แพ็คเกจทั่วไป</td>
+                                            <td>500.00</td>
+                                            <td>01/01/2565 - 31/12/2565</td>
+                                            <td class="text-center">
+                                                <button type="button" class="btn btn-outline-dark waves-effect waves-light px-3 py-1 dropdown-toggle font-size-15"
+                                                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    ตัวเลือก <i class="mdi mdi-chevron-down"></i>
+                                                </button>
+
+                                                <div class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop1" style="">
+                                                    <a class="dropdown-item font-size-15" href="#"><i class="mdi mdi-open-in-new"></i> ดูหลักฐานโอนเงิน</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <hr />
+                                <div class="d-flex justify-content-end">
+                                    <div data-v-e8100c36="" class="numberShow">
+                                        <p class="mr-2 mx-2 mb-0 font-size-16">แสดง</p>
+                                        <select class="day form-control form-select form-select-sm" style="width: auto;">
+                                            <option selected value="10">10</option>
+                                            <option value="50">50</option>
+                                            <option value="3">100</option>
+                                        </select>
+                                        <div data-v-76901dc6="" class="selectInputDropdown noLabel" style="width: 100%;">
+                                            <p class="mr-2 mx-2 mb-0 font-size-16">รายการ</p>
+                                        </div>
+                                    </div>
+                                    <div data-v-e8100c36="" class="page-data">
+                                        <div data-v-e8100c36="" class="prevArrow disabled">
+                                            <i data-v-e8100c36="" class="fa fa-chevron-left"></i>
+                                        </div>
+                                        <p data-v-e8100c36="" class="mr-2 mx-2 mb-0 font-size-16">หน้า</p>
+                                        <select class="day form-control form-select form-select-sm" style="width: auto;"><option value=""></option><option selected value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option></select>
+                                        <div data-v-e8100c36="" class="nextArrow disabled"><i data-v-e8100c36="" class="fa fa-chevron-right"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class=" tab-pane card " id="issue" role="tabpanel">
+                    <div class="card-body card-body-table">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h4 class="card-title mb-3">
+                                    ข้อมูลปริมาณพื้นที่
+                                </h4>
+                            </div>
+                        </div>
+                        <div class="row px-2 py-3">
+
+                            <div class="col-xl-6">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h6 class="text-uppercase mb-1 font-size-16 text-search">พื้นที่จัดเก็บข้อมูล</h6>
+
+                                        <div class="row text-center mt-4">
+                                            <div class="col-4">
+                                                <h5 class="font-size-20">7.12 GB</h5>
+                                                <p class="text-muted">Used Space</p>
+                                            </div>
+                                            <div class="col-4">
+                                                <h5 class="font-size-20">3.88</h5>
+                                                <p class="text-muted">Free Space</p>
+                                            </div>
+                                            <div class="col-4">
+                                                <h5 class="font-size-20">10.00</h5>
+                                                <p class="text-muted">Total Space</p>
+                                            </div>
+                                        </div>
+
+                                        <div id="morris-donut-example" data-colors='["#f0f1f4","--bs-primary","--bs-info"]' class="morris-charts morris-charts-height" dir="ltr"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-6">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h6 class="text-uppercase mb-1 font-size-16 text-search">พื้นที่การใช้งาน</h6>
+
+                                        <div class="row text-center mt-4">
+                                            <div class="col-4">
+                                                <h5 class="font-size-20">7.12 GB</h5>
+                                                <p class="text-muted">เอกสาร</p>
+                                            </div>
+                                            <div class="col-4">
+                                                <h5 class="font-size-20">3.88</h5>
+                                                <p class="text-muted">ข้อมูล</p>
+                                            </div>
+                                            <div class="col-4">
+                                                <h5 class="font-size-20">10.00</h5>
+                                                <p class="text-muted">อื่นๆ</p>
+                                            </div>
+                                        </div>
+
+                                        <div id="morris-donut-example-1" data-colors='["#f0f1f4","--bs-primary","--bs-info"]' class="morris-charts morris-charts-height" dir="ltr"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> <!-- container-fluid -->

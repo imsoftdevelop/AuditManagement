@@ -1,0 +1,41 @@
+﻿@{
+    if (@ViewBag.Role == "SUPER001")
+    {
+        Layout = "_LayoutAdmin";
+    }
+    else if (@ViewBag.Role == "ADMIN001")
+    {
+        Layout = "_Layout";
+    }
+    else if (@ViewBag.Role == "ASSIS001" || @ViewBag.Role =="ASSIS002")
+    {
+        Layout = "_LayoutAccount";
+    }
+    else if (@ViewBag.Role == "AUDIT001")
+    {
+        Layout = "_LayoutAudit";
+    }
+    else if (@ViewBag.Role == "CUS001")
+    {
+        Layout = "_Layout";
+    }
+    else if (@ViewBag.Role == "MAG001")
+    {
+        Layout = "_Layout";
+    }
+    else if (@ViewBag.Role == "OFFICE001")
+    {
+        Layout = "_LayoutOffice";
+    }
+    else
+    {
+        Layout = "_Layout";
+    }
+}
+
+@section RenderScriptWithPage
+    {
+    <script>
+        $("#loading").fadeOut();
+    </script>
+}

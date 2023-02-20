@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <base href="@Url.Content("~/")" />
+    <meta charset="utf-8" />
+    <title>BFA Group | ระบบตรวจสอบบัญชี</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+    <meta content="Themesbrand" name="author" />
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="assets/favicon.ico">
+
+    <!-- Bootstrap Css -->
+    <link href="~/assets/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css" />
+    <!-- Select2 Css -->
+    <link href="~/assets/libs/select2/select2.min.css" rel="stylesheet" />
+    <link href="~/assets/libs/select2/select2-bootstrap.min.css" rel="stylesheet" />
+    <!-- DatetimePicker Css -->
+    <link href="~/assets/libs/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet" />
+    <!-- Icons Css -->
+    <link href="~/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <!-- App Css-->
+    <link href="~/assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
+    <!-- Textbox Css-->
+    <link href="~/assets/css/form.css" rel="stylesheet" />
+    <!-- Font Css-->
+    <link href="~/assets/css/font-face.css" rel="stylesheet" />
+    <!-- Dropify Css-->
+    <link href="~/assets/libs/dropify/dropify.min.css" rel="stylesheet" />
+    <link href="~/assets/libs/jquery.toast/jquery.toast.min.css" rel="stylesheet" />
+</head>
+<body data-topbar="dark" data-layout="horizontal" ng-app="FOCUSAPP" ng-controller="FOCUSAPPController">
+    <div id="loading">
+        <div id="loading-center">
+        </div>
+    </div>
+    <!-- Begin page -->
+    <div ui-view="container-view">
+        @RenderBody()
+    </div>
+    <!-- END layout-wrapper -->
+    <!-- JAVASCRIPT -->
+    <script src="~/assets/libs/jquery/jquery.min.js"></script>
+    <script src="~/assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/assets/libs/metismenu/metisMenu.min.js"></script>
+    <script src="~/assets/libs/simplebar/simplebar.min.js"></script>
+    <script src="~/assets/libs/node-waves/waves.min.js"></script>
+    <script src="~/assets/libs/jquery-sparkline/jquery.sparkline.min.js"></script>
+    <script src="~/assets/libs/jquery.toast/jquery.toast.min.js"></script>
+    <script src="~/assets/libs/underscore/underscore-min.js"></script>
+
+    <!--Dropify -->
+    <script src="~/assets/libs/dropify/dropify.min.js"></script>
+
+    <!--Select 2-->
+    <script src="~/assets/libs/select2/select2.min.js"></script>
+    <script src="~/assets/libs/select2/select2.js"></script>
+
+    <!--Morris Chart-->
+    <script src="~/assets/libs/morris.js/morris.min.js"></script>
+    <script src="~/assets/libs/raphael/raphael.min.js"></script>
+
+    <script src="~/assets/js/pages/dashboard.init.js"></script>
+
+    <!-- App js -->
+    @*<script src="~/assets/js/app.js"></script>*@
+
+    <!-- Component -->
+    <script src="~/assets/libs/angularJS/angular.js"></script>
+    <script src="~/assets/libs/angularJS/angular-ui-router.js"></script>
+    <script src="~/assets/libs/angularJS/angular-animate.min.js?nochace=test"></script>
+    <script src="~/assets/libs/angularJS/ocLazyLoad.min.js"></script>
+    <script src="~/assets/libs/angularJS/ui-bootstrap-tpls.min.js"></script>
+    <script src="~/assets/libs/angularJS/ng-file-upload.min.js"></script>
+    <!-- Router -->
+    <script src="~/controller/router/app.router.js"></script>
+
+    <script src="~/controller/app.js"></script>
+    <script src="~/controller/custom.js"></script>
+    <script src="~/controller/factory.js"></script>
+    <script src="~/assets/libs/jquery.toast/toastDemo.js"></script>
+    @if (IsSectionDefined("RenderScriptWithPage"))
+    {@RenderSection("RenderScriptWithPage", required: false)}
+</body>
+
+</html>

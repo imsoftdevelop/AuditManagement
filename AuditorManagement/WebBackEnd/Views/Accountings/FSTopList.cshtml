@@ -1,0 +1,780 @@
+﻿@{
+    Layout = null;
+}
+
+
+<div class="container-fluid" data-ng-init="initModal()">
+
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="page-title-box">
+                <h4>FS Top</h4>
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">ตรวจสอบบัญชี</a></li>
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">FS Top</a></li>
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">ภาพรวมทั้งหมด</a></li>
+                </ol>
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <div class="d-flex flex-wrap gap-3 justify-content-end">
+                <button type="button" class="btn btn-success waves-effect waves-light px-4 dropdown-toggle  mx-2 " ng-show="TablePeriod.IsAudit == 'No'" ng-click="OnClickBeforeAudit()">
+                    <i class="mdi mdi-check-all mx-2"></i> เริ่มทำการตรวจสอบบัญชี
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-1">
+        <div class="col-xl-12">
+            <div class="card mb-1">
+                <div class="card-body card-body-table">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <h4 class="card-title mb-3">
+                                <span class="badge-table"><i class="mdi mdi-calendar-account-outline mx-2"></i></span>
+                                ข้อมูล FS Top
+                            </h4>
+                        </div>
+                        <div class="col-md-9 d-flex gap-5 text-center">
+                            <div class="p-1">
+                                <h5 class="font-weight-bold">
+                                    ชื่อลูกค้า
+                                    <i class="mdi mdi-account-edit-outline me-1 text-search font-size-20 mx-2 cursor-pointer"
+                                       ng-show="UserProfiles.CustomerIdActive == undefined || UserProfiles.CustomerIdActive == ''"
+                                       data-bs-toggle="modal" data-bs-target="#ModalCustomer"></i>
+                                </h5>
+                                <span class="text-search">{{Search.SelectCustomer.Name}}  </span>
+                            </div>
+                            <div class="p-1">
+                                <h5 class="font-weight-bold">
+                                    รอบบัญชี
+                                    <i class="mdi mdi-calendar-account-outline me-1 text-search font-size-20 mx-2 cursor-pointer"
+                                       ng-click="OnClickChangePeriod()"></i>
+                                </h5>
+                                <span class="text-search">รอบบัญชีประจำปี  {{TablePeriod.Year}} </span>
+                            </div>
+                            <div class="p-1 mt-2">
+                                <h5 class="font-weight-bold">วันที่รอบบัญชี</h5>
+                                <span> {{TablePeriod.Date}} </span>
+                            </div>
+                            <div class="p-1 mt-2">
+                                <h5 class="font-weight-bold">วันที่อัพโหลดล่าสุด</h5>
+                                <span> {{TablePeriod.UploadDate}}</span>
+                            </div>
+                            <div class="p-1 mt-2">
+                                <h5 class="font-weight-bold">เปรียบเทียบปี</h5>
+                                <span>{{TablePeriod.MappingYear}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- container-fluid -->
+
+    <div class="row py-2">
+        <div class="col-md-12">
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="nav-item active" data-bs-toggle="tab" href="#AST" role="tab">
+                    <a class="nav-link">
+                        <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
+                        <span class="d-none d-sm-block">ASSET</span>
+                    </a>
+                </li>
+                <li class="nav-item" data-bs-toggle="tab" href="#LSE" role="tab">
+                    <a class="nav-link">
+                        <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
+                        <span class="d-none d-sm-block">LIABILITIES AND SHAREHOLDERS' EQUITY</span>
+                    </a>
+                </li>
+                <li class="nav-item" data-bs-toggle="tab" href="#FCI" role="tab">
+                    <a class="nav-link">
+                        <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
+                        <span class="d-none d-sm-block">FINANCIAL COST AND INCOME TAX</span>
+                    </a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class=" tab-pane card active" id="AST" role="tabpanel">
+                    <div class="card-body card-body-table card-accordion pt-0">
+                        <div class="table-rep-plugin">
+                            <div class="table-responsive mb-0" data-pattern="priority-columns">
+                                <table id="tech-companies-1" class="table-data-mulH  table-striped">
+                                    <thead>
+                                        <tr class="headerRow">
+                                            <th width="2%" rowspan="2"></th>
+                                            <th width="15%" rowspan="2" class="text-center">Name</th>
+                                            <th width="8%" rowspan="2" class="text-center">W/P No</th>
+                                            <th width="15%" class="text-center" rowspan="2">Current Year</th>
+                                            <th width="20%" colspan="2" class="text-center">Adj / Rje</th>
+                                            <th width="10%" class="text-center" rowspan="2">Per Audit</th>
+                                            <th width="10%" class="text-center" rowspan="2">Last Year</th>
+                                            <th width="20%" class="text-center" colspan="2">Movement</th>
+                                        </tr>
+                                        <tr class="headerRow">
+                                            <th width="10%" class="text-center">Dr</th>
+                                            <th width="10%" class="text-center">Cr</th>
+                                            <th width="10%" class="text-center">In (de)</th>
+                                            <th width="10%" class="text-center">%</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="10">
+                                                <table id="tech-companies-1" class="table-inner  table-striped">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td></td>
+                                                            <td class="font-weight-bold" colspan="10">
+                                                                Current Assets
+                                                            </td>
+                                                        </tr>
+                                                        <tr ng-repeat="values in TablePeriod.Asset" ng-show="TablePeriod.Asset != undefined && TablePeriod.Asset.length >= 1">
+                                                            <td width="2%">{{values.Seq}}</td>
+                                                            <td width="15%">{{values.Name}}</td>
+                                                            <td width="8%" class="text-center text-search"><a ng-click="OnClickAuditFSGroup(values)"><i class="mdi mdi-magnify font-size-18"></i>{{values.Code}}</a></td>
+                                                            <td width="15%" class="text-right">{{values.Current | number : 2}}</td>
+                                                            <td width="10%" class="text-right text-danger">{{values.Debit| number : 2}}</td>
+                                                            <td width="10%" class="text-right text-danger">{{values.Credit| number : 2}}</td>
+                                                            <td width="10%" class="text-right">{{values.Audit| number : 2}}</td>
+                                                            <td width="10%" class="text-right">{{values.Previous| number : 2}}</td>
+                                                            <td width="10%" class="text-right">{{values.Move| number : 2}}</td>
+                                                            <td width="10%" class="text-right">{{values.Percent| number : 2}}%</td>
+                                                        </tr>
+                                                        <tr class="text-center " ng-show="TablePeriod.Asset == undefined || TablePeriod.Asset.length == 0">
+                                                            <td colspan="10" class="empty">
+                                                                <img src="@Url.Content("~/")assets/images/icons/icon-list.png" width="60" class="d-block m-auto">
+                                                                ไม่พบรายการ
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                    <tfoot>
+                                                        <tr>
+                                                            <th></th>
+                                                            <td class="text-right font-weight-bold" colspan="2">Total Current Assets</td>
+                                                            <td class="text-right font-weight-bold">{{TablePeriod.Footer.Asset.Current | number : 2}}</td>
+                                                            <td class="text-right font-weight-bold text-danger">{{TablePeriod.Footer.Asset.Debit | number : 2}}</td>
+                                                            <td class="text-right font-weight-bold text-danger">{{TablePeriod.Footer.Asset.Credit | number : 2}}</td>
+                                                            <td class="text-right font-weight-bold">{{TablePeriod.Footer.Asset.Audit | number : 2}}</td>
+                                                            <td class="text-right font-weight-bold">{{TablePeriod.Footer.Asset.Previous | number : 2}}</td>
+                                                            <td class="text-right font-weight-bold">{{TablePeriod.Footer.Asset.Move | number : 2}}</td>
+                                                            <td class="text-right font-weight-bold">{{TablePeriod.Footer.Asset.Percent | number : 2}}%</td>
+                                                        </tr>
+                                                    </tfoot>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="10">
+                                                <table id="tech-companies-1" class="table-inner  table-striped">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td></td>
+                                                            <td class="font-weight-bold" colspan="10">
+                                                                NON-Current Assets
+                                                            </td>
+                                                        </tr>
+                                                        <tr ng-repeat="values in TablePeriod.NonAsset" ng-show="TablePeriod.NonAsset != undefined && TablePeriod.NonAsset.length >= 1">
+                                                            <td width="2%">{{values.Seq}}</td>
+                                                            <td width="15%">{{values.Name}}</td>
+                                                            <td width="8%" class="text-center text-search"><a ng-click="OnClickAuditFSGroup(values)"><i class="mdi mdi-magnify font-size-18"></i>{{values.Code}}</a></td>
+                                                            <td width="15%" class="text-right">{{values.Current | number : 2}}</td>
+                                                            <td width="10%" class="text-right text-danger">{{values.Debit| number : 2}}</td>
+                                                            <td width="10%" class="text-right text-danger">{{values.Credit| number : 2}}</td>
+                                                            <td width="10%" class="text-right">{{values.Audit| number : 2}}</td>
+                                                            <td width="10%" class="text-right">{{values.Previous| number : 2}}</td>
+                                                            <td width="10%" class="text-right">{{values.Move| number : 2}}</td>
+                                                            <td width="10%" class="text-right">{{values.Percent| number : 2}}%</td>
+                                                        </tr>
+                                                        <tr class="text-center " ng-show="TablePeriod.NonAsset == undefined || TablePeriod.NonAsset.length == 0">
+                                                            <td colspan="10" class="empty">
+                                                                <img src="@Url.Content("~/")assets/images/icons/icon-list.png" width="60" class="d-block m-auto">
+                                                                ไม่พบรายการ
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                    <tfoot>
+                                                        <tr>
+                                                            <th></th>
+                                                            <td class="text-right font-weight-bold" colspan="2">Total NON-Current Assets</td>
+                                                            <td class="text-right font-weight-bold">{{TablePeriod.Footer.NonAsset.Current | number : 2}}</td>
+                                                            <td class="text-right font-weight-bold text-danger">{{TablePeriod.Footer.NonAsset.Debit | number : 2}}</td>
+                                                            <td class="text-right font-weight-bold text-danger">{{TablePeriod.Footer.NonAsset.Credit | number : 2}}</td>
+                                                            <td class="text-right font-weight-bold">{{TablePeriod.Footer.NonAsset.Audit | number : 2}}</td>
+                                                            <td class="text-right font-weight-bold">{{TablePeriod.Footer.NonAsset.Previous | number : 2}}</td>
+                                                            <td class="text-right font-weight-bold">{{TablePeriod.Footer.NonAsset.Move | number : 2}}</td>
+                                                            <td class="text-right font-weight-bold">{{TablePeriod.Footer.NonAsset.Percent | number : 2}}%</td>
+                                                        </tr>
+                                                    </tfoot>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th></th>
+                                            <td class="text-right font-weight-bold" colspan="2">Total Assets</td>
+                                            <td class="text-right font-weight-bold">{{TablePeriod.Footer.SumAsset.Current | number : 2}}</td>
+                                            <td class="text-right font-weight-bold text-danger">{{TablePeriod.Footer.SumAsset.Debit | number : 2}}</td>
+                                            <td class="text-right font-weight-bold text-danger">{{TablePeriod.Footer.SumAsset.Credit | number : 2}}</td>
+                                            <td class="text-right font-weight-bold">{{TablePeriod.Footer.SumAsset.Audit | number : 2}}</td>
+                                            <td class="text-right font-weight-bold">{{TablePeriod.Footer.SumAsset.Previous | number : 2}}</td>
+                                            <td class="text-right font-weight-bold">{{TablePeriod.Footer.SumAsset.Move | number : 2}}</td>
+                                            <td class="text-right font-weight-bold">{{TablePeriod.Footer.SumAsset.Percent | number : 2}}%</td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-content">
+                <div class=" tab-pane card" id="LSE" role="tabpanel">
+                    <div class="card-body card-body-table card-accordion pt-0">
+                        <div class="table-rep-plugin">
+                            <div class="table-responsive mb-0" data-pattern="priority-columns">
+                                <table id="tech-companies-1" class="table-data-mulH  table-striped">
+                                    <thead>
+                                        <tr class="headerRow">
+                                            <th width="2%" rowspan="2"></th>
+                                            <th width="15%" rowspan="2" class="text-center">Name</th>
+                                            <th width="8%" rowspan="2" class="text-center">W/P No</th>
+                                            <th width="15%" class="text-center" rowspan="2">Current Year</th>
+                                            <th width="20%" colspan="2" class="text-center">Adj / Rje</th>
+                                            <th width="10%" class="text-center" rowspan="2">Per Audit</th>
+                                            <th width="10%" class="text-center" rowspan="2">Last Year</th>
+                                            <th width="20%" class="text-center" colspan="2">Movement</th>
+                                        </tr>
+                                        <tr class="headerRow">
+                                            <th width="10%" class="text-center">Dr</th>
+                                            <th width="10%" class="text-center">Cr</th>
+                                            <th width="10%" class="text-center">In (de)</th>
+                                            <th width="10%" class="text-center">%</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="10">
+                                                <table id="tech-companies-1" class="table-inner  table-striped">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td></td>
+                                                            <td class="font-weight-bold" colspan="10">
+                                                                Current Liabilities
+                                                            </td>
+                                                        </tr>
+                                                        <tr ng-repeat="values in TablePeriod.Liabilities" ng-show="TablePeriod.Liabilities != undefined && TablePeriod.Liabilities.length >= 1">
+                                                            <td width="2%">{{values.Seq}}</td>
+                                                            <td width="15%">{{values.Name}}</td>
+                                                            <td width="8%" class="text-center text-search"><a ng-click="OnClickAuditFSGroup(values)"><i class="mdi mdi-magnify font-size-18"></i>{{values.Code}}</a></td>
+                                                            <td width="15%" class="text-right">{{values.Current | number : 2}}</td>
+                                                            <td width="10%" class="text-right text-danger">{{values.Debit| number : 2}}</td>
+                                                            <td width="10%" class="text-right text-danger">{{values.Credit| number : 2}}</td>
+                                                            <td width="10%" class="text-right">{{values.Audit| number : 2}}</td>
+                                                            <td width="10%" class="text-right">{{values.Previous| number : 2}}</td>
+                                                            <td width="10%" class="text-right">{{values.Move| number : 2}}</td>
+                                                            <td width="10%" class="text-right">{{values.Percent| number : 2}}%</td>
+                                                        </tr>
+                                                        <tr class="text-center " ng-show="TablePeriod.Liabilities == undefined || TablePeriod.Liabilities.length == 0">
+                                                            <td colspan="10" class="empty">
+                                                                <img src="@Url.Content("~/")assets/images/icons/icon-list.png" width="60" class="d-block m-auto">
+                                                                ไม่พบรายการ
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                    <tfoot>
+                                                        <tr>
+                                                            <th></th>
+                                                            <td class="text-right font-weight-bold" colspan="2">Total Current Liabilities</td>
+                                                            <td class="text-right font-weight-bold">{{TablePeriod.Footer.Liabilities.Current | number : 2}}</td>
+                                                            <td class="text-right font-weight-bold text-danger">{{TablePeriod.Footer.Liabilities.Debit | number : 2}}</td>
+                                                            <td class="text-right font-weight-bold text-danger">{{TablePeriod.Footer.Liabilities.Credit | number : 2}}</td>
+                                                            <td class="text-right font-weight-bold">{{TablePeriod.Footer.Liabilities.Audit | number : 2}}</td>
+                                                            <td class="text-right font-weight-bold">{{TablePeriod.Footer.Liabilities.Previous | number : 2}}</td>
+                                                            <td class="text-right font-weight-bold">{{TablePeriod.Footer.Liabilities.Move | number : 2}}</td>
+                                                            <td class="text-right font-weight-bold">{{TablePeriod.Footer.Liabilities.Percent | number : 2}}%</td>
+                                                        </tr>
+                                                    </tfoot>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="10">
+                                                <table id="tech-companies-1" class="table-inner  table-striped">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td></td>
+                                                            <td class="font-weight-bold" colspan="10">
+                                                                NON-Current Liabilities
+                                                            </td>
+                                                        </tr>
+                                                        <tr ng-repeat="values in TablePeriod.NonLiabilities" ng-show="TablePeriod.NonLiabilities != undefined && TablePeriod.NonLiabilities.length >= 1">
+                                                            <td width="2%">{{values.Seq}}</td>
+                                                            <td width="15%">{{values.Name}}</td>
+                                                            <td width="8%" class="text-center text-search"><a ng-click="OnClickAuditFSGroup(values)"><i class="mdi mdi-magnify font-size-18"></i>{{values.Code}}</a></td>
+                                                            <td width="15%" class="text-right">{{values.Current | number : 2}}</td>
+                                                            <td width="10%" class="text-right text-danger">{{values.Debit| number : 2}}</td>
+                                                            <td width="10%" class="text-right text-danger">{{values.Credit| number : 2}}</td>
+                                                            <td width="10%" class="text-right">{{values.Audit| number : 2}}</td>
+                                                            <td width="10%" class="text-right">{{values.Previous| number : 2}}</td>
+                                                            <td width="10%" class="text-right">{{values.Move| number : 2}}</td>
+                                                            <td width="10%" class="text-right">{{values.Percent| number : 2}}%</td>
+                                                        </tr>
+                                                        <tr class="text-center " ng-show="TablePeriod.NonLiabilities == undefined || TablePeriod.NonLiabilities.length == 0">
+                                                            <td colspan="10" class="empty">
+                                                                <img src="@Url.Content("~/")assets/images/icons/icon-list.png" width="60" class="d-block m-auto">
+                                                                ไม่พบรายการ
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                    <tfoot>
+                                                        <tr>
+                                                            <th></th>
+                                                            <td class="text-right font-weight-bold" colspan="2">Total Liabilities</td>
+                                                            <td class="text-right font-weight-bold">{{TablePeriod.Footer.SumLiabilities.Current | number : 2}}</td>
+                                                            <td class="text-right font-weight-bold text-danger">{{TablePeriod.Footer.SumLiabilities.Debit | number : 2}}</td>
+                                                            <td class="text-right font-weight-bold text-danger">{{TablePeriod.Footer.SumLiabilities.Credit | number : 2}}</td>
+                                                            <td class="text-right font-weight-bold">{{TablePeriod.Footer.SumLiabilities.Audit | number : 2}}</td>
+                                                            <td class="text-right font-weight-bold">{{TablePeriod.Footer.SumLiabilities.Previous | number : 2}}</td>
+                                                            <td class="text-right font-weight-bold">{{TablePeriod.Footer.SumLiabilities.Move | number : 2}}</td>
+                                                            <td class="text-right font-weight-bold">{{TablePeriod.Footer.SumLiabilities.Percent | number : 2}}%</td>
+                                                        </tr>
+                                                    </tfoot>
+                                                    <tfoot>
+                                                        <tr>
+                                                            <th></th>
+                                                            <td class="text-right font-weight-bold" colspan="2">Total NON-Current Liabilities</td>
+                                                            <td class="text-right font-weight-bold">{{TablePeriod.Footer.NonLiabilities.Current | number : 2}}</td>
+                                                            <td class="text-right font-weight-bold text-danger">{{TablePeriod.Footer.NonLiabilities.Debit | number : 2}}</td>
+                                                            <td class="text-right font-weight-bold text-danger">{{TablePeriod.Footer.NonLiabilities.Credit | number : 2}}</td>
+                                                            <td class="text-right font-weight-bold">{{TablePeriod.Footer.NonLiabilities.Audit | number : 2}}</td>
+                                                            <td class="text-right font-weight-bold">{{TablePeriod.Footer.NonLiabilities.Previous | number : 2}}</td>
+                                                            <td class="text-right font-weight-bold">{{TablePeriod.Footer.NonLiabilities.Move | number : 2}}</td>
+                                                            <td class="text-right font-weight-bold">{{TablePeriod.Footer.NonLiabilities.Percent | number : 2}}%</td>
+                                                        </tr>
+                                                    </tfoot>
+
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="10">
+                                                <table id="tech-companies-1" class="table-inner  table-striped">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td></td>
+                                                            <td class="font-weight-bold" colspan="10">
+                                                                Shareholders' Equity
+                                                            </td>
+                                                        </tr>
+                                                        <tr ng-repeat="values in TablePeriod.Shareholder" ng-show="TablePeriod.Shareholder != undefined && TablePeriod.Shareholder.length >= 1">
+                                                            <td width="2%">{{values.Seq}}</td>
+                                                            <td width="15%">{{values.Name}}</td>
+                                                            <td width="8%" class="text-center text-search"><a ng-click="OnClickAuditFSGroup(values)"><i class="mdi mdi-magnify font-size-18"></i>{{values.Code}}</a></td>
+                                                            <td width="15%" class="text-right">{{values.Current | number : 2}}</td>
+                                                            <td width="10%" class="text-right text-danger">{{values.Debit| number : 2}}</td>
+                                                            <td width="10%" class="text-right text-danger">{{values.Credit| number : 2}}</td>
+                                                            <td width="10%" class="text-right">{{values.Audit| number : 2}}</td>
+                                                            <td width="10%" class="text-right">{{values.Previous| number : 2}}</td>
+                                                            <td width="10%" class="text-right">{{values.Move| number : 2}}</td>
+                                                            <td width="10%" class="text-right">{{values.Percent| number : 2}}%</td>
+                                                        </tr>
+                                                        <tr class="text-center " ng-show="TablePeriod.Shareholder == undefined || TablePeriod.Shareholder.length == 0">
+                                                            <td colspan="10" class="empty">
+                                                                <img src="@Url.Content("~/")Shareholders/images/icons/icon-list.png" width="60" class="d-block m-auto">
+                                                                ไม่พบรายการ
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                    <tfoot>
+                                                        <tr>
+                                                            <th></th>
+                                                            <td class="text-right font-weight-bold" colspan="2">Total Shareholders' Equity</td>
+                                                            <td class="text-right font-weight-bold">{{TablePeriod.Footer.Shareholder.Current | number : 2}}</td>
+                                                            <td class="text-right font-weight-bold text-danger">{{TablePeriod.Footer.Shareholder.Debit | number : 2}}</td>
+                                                            <td class="text-right font-weight-bold text-danger">{{TablePeriod.Footer.Shareholder.Credit | number : 2}}</td>
+                                                            <td class="text-right font-weight-bold">{{TablePeriod.Footer.Shareholder.Audit | number : 2}}</td>
+                                                            <td class="text-right font-weight-bold">{{TablePeriod.Footer.Shareholder.Previous | number : 2}}</td>
+                                                            <td class="text-right font-weight-bold">{{TablePeriod.Footer.Shareholder.Move | number : 2}}</td>
+                                                            <td class="text-right font-weight-bold">{{TablePeriod.Footer.Shareholder.Percent | number : 2}}%</td>
+                                                        </tr>
+                                                    </tfoot>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th></th>
+                                            <td class="text-right font-weight-bold" colspan="2">Total Liabilities And Shareholders' Equity</td>
+                                            <td class="text-right font-weight-bold">{{TablePeriod.Footer.SumLiqShare.Current | number : 2}}</td>
+                                            <td class="text-right font-weight-bold text-danger">{{TablePeriod.Footer.SumLiqShare.Debit | number : 2}}</td>
+                                            <td class="text-right font-weight-bold text-danger">{{TablePeriod.Footer.SumLiqShare.Credit | number : 2}}</td>
+                                            <td class="text-right font-weight-bold">{{TablePeriod.Footer.SumLiqShare.Audit | number : 2}}</td>
+                                            <td class="text-right font-weight-bold">{{TablePeriod.Footer.SumLiqShare.Previous | number : 2}}</td>
+                                            <td class="text-right font-weight-bold">{{TablePeriod.Footer.SumLiqShare.Move | number : 2}}</td>
+                                            <td class="text-right font-weight-bold">{{TablePeriod.Footer.SumLiqShare.Percent | number : 2}}%</td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-content">
+                <div class=" tab-pane card" id="FCI" role="tabpanel">
+                    <div class="card-body card-body-table card-accordion pt-0">
+                        <div class="table-rep-plugin">
+                            <div class="table-responsive mb-0" data-pattern="priority-columns">
+                                <table id="tech-companies-1" class="table-data-mulH  table-striped">
+                                    <thead>
+                                        <tr class="headerRow">
+                                            <th width="2%" rowspan="2"></th>
+                                            <th width="15%" rowspan="2" class="text-center">Name</th>
+                                            <th width="8%" rowspan="2" class="text-center">W/P No</th>
+                                            <th width="15%" class="text-center" rowspan="2">Current Year</th>
+                                            <th width="20%" colspan="2" class="text-center">Adj / Rje</th>
+                                            <th width="10%" class="text-center" rowspan="2">Per Audit</th>
+                                            <th width="10%" class="text-center" rowspan="2">Last Year</th>
+                                            <th width="20%" class="text-center" colspan="2">Movement</th>
+                                        </tr>
+                                        <tr class="headerRow">
+                                            <th width="10%" class="text-center">Dr</th>
+                                            <th width="10%" class="text-center">Cr</th>
+                                            <th width="10%" class="text-center">In (de)</th>
+                                            <th width="10%" class="text-center">%</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="10">
+                                                <table id="tech-companies-1" class="table-inner  table-striped">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td></td>
+                                                            <td class="font-weight-bold" colspan="10">
+                                                                Revenues
+                                                            </td>
+                                                        </tr>
+                                                        <tr ng-repeat="values in TablePeriod.Revenues" ng-show="TablePeriod.Revenues != undefined && TablePeriod.Revenues.length >= 1">
+                                                            <td width="2%">{{values.Seq}}</td>
+                                                            <td width="15%">{{values.Name}}</td>
+                                                            <td width="8%" class="text-center text-search"><a ng-click="OnClickAuditFSGroup(values)"><i class="mdi mdi-magnify font-size-18"></i>{{values.Code}}</a></td>
+                                                            <td width="15%" class="text-right">{{values.Current | number : 2}}</td>
+                                                            <td width="10%" class="text-right text-danger">{{values.Debit| number : 2}}</td>
+                                                            <td width="10%" class="text-right text-danger">{{values.Credit| number : 2}}</td>
+                                                            <td width="10%" class="text-right">{{values.Audit| number : 2}}</td>
+                                                            <td width="10%" class="text-right">{{values.Previous| number : 2}}</td>
+                                                            <td width="10%" class="text-right">{{values.Move| number : 2}}</td>
+                                                            <td width="10%" class="text-right">{{values.Percent| number : 2}}%</td>
+                                                        </tr>
+                                                        <tr class="text-center " ng-show="TablePeriod.Revenues == undefined || TablePeriod.Revenues.length == 0">
+                                                            <td colspan="10" class="empty">
+                                                                <img src="@Url.Content("~/")assets/images/icons/icon-list.png" width="60" class="d-block m-auto">
+                                                                ไม่พบรายการ
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                    <tfoot>
+                                                        <tr>
+                                                            <th></th>
+                                                            <td class="text-right font-weight-bold" colspan="2">Total Revenues</td>
+                                                            <td class="text-right font-weight-bold">{{TablePeriod.Footer.Revenues.Current | number : 2}}</td>
+                                                            <td class="text-right font-weight-bold text-danger">{{TablePeriod.Footer.Revenues.Debit | number : 2}}</td>
+                                                            <td class="text-right font-weight-bold text-danger">{{TablePeriod.Footer.Revenues.Credit | number : 2}}</td>
+                                                            <td class="text-right font-weight-bold">{{TablePeriod.Footer.Revenues.Audit | number : 2}}</td>
+                                                            <td class="text-right font-weight-bold">{{TablePeriod.Footer.Revenues.Previous | number : 2}}</td>
+                                                            <td class="text-right font-weight-bold">{{TablePeriod.Footer.Revenues.Move | number : 2}}</td>
+                                                            <td class="text-right font-weight-bold">{{TablePeriod.Footer.Revenues.Percent | number : 2}}%</td>
+                                                        </tr>
+                                                    </tfoot>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="10">
+                                                <table id="tech-companies-1" class="table-inner  table-striped">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td></td>
+                                                            <td class="font-weight-bold" colspan="10">
+                                                                Expenses
+                                                            </td>
+                                                        </tr>
+                                                        <tr ng-repeat="values in TablePeriod.Expenses" ng-show="TablePeriod.Expenses != undefined && TablePeriod.Expenses.length >= 1">
+                                                            <td width="2%">{{values.Seq}}</td>
+                                                            <td width="15%">{{values.Name}}</td>
+                                                            <td width="8%" class="text-center text-search"><a ng-click="OnClickAuditFSGroup(values)"><i class="mdi mdi-magnify font-size-18"></i>{{values.Code}}</a></td>
+                                                            <td width="15%" class="text-right">{{values.Current | number : 2}}</td>
+                                                            <td width="10%" class="text-right text-danger">{{values.Debit| number : 2}}</td>
+                                                            <td width="10%" class="text-right text-danger">{{values.Credit| number : 2}}</td>
+                                                            <td width="10%" class="text-right">{{values.Audit| number : 2}}</td>
+                                                            <td width="10%" class="text-right">{{values.Previous| number : 2}}</td>
+                                                            <td width="10%" class="text-right">{{values.Move| number : 2}}</td>
+                                                            <td width="10%" class="text-right">{{values.Percent| number : 2}}%</td>
+                                                        </tr>
+                                                        <tr class="text-center " ng-show="TablePeriod.Expenses == undefined || TablePeriod.Expenses.length == 0">
+                                                            <td colspan="10" class="empty">
+                                                                <img src="@Url.Content("~/")assets/images/icons/icon-list.png" width="60" class="d-block m-auto">
+                                                                ไม่พบรายการ
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                    <tfoot>
+                                                        <tr>
+                                                            <th></th>
+                                                            <td class="text-right font-weight-bold" colspan="2">Earnings Before Financial Cost And Income Tax</td>
+                                                            <td class="text-right font-weight-bold">{{TablePeriod.Footer.SumEarnings.Current | number : 2}}</td>
+                                                            <td class="text-right font-weight-bold text-danger">{{TablePeriod.Footer.SumEarnings.Debit | number : 2}}</td>
+                                                            <td class="text-right font-weight-bold text-danger">{{TablePeriod.Footer.SumEarnings.Credit | number : 2}}</td>
+                                                            <td class="text-right font-weight-bold">{{TablePeriod.Footer.SumEarnings.Audit | number : 2}}</td>
+                                                            <td class="text-right font-weight-bold">{{TablePeriod.Footer.SumEarnings.Previous | number : 2}}</td>
+                                                            <td class="text-right font-weight-bold">{{TablePeriod.Footer.SumEarnings.Move | number : 2}}</td>
+                                                            <td class="text-right font-weight-bold">{{TablePeriod.Footer.SumEarnings.Percent | number : 2}}%</td>
+                                                        </tr>
+                                                    </tfoot>
+                                                    <tfoot>
+                                                        <tr>
+                                                            <th></th>
+                                                            <td class="text-right font-weight-bold" colspan="2">Total Expenses</td>
+                                                            <td class="text-right font-weight-bold">{{TablePeriod.Footer.Expenses.Current | number : 2}}</td>
+                                                            <td class="text-right font-weight-bold text-danger">{{TablePeriod.Footer.Expenses.Debit | number : 2}}</td>
+                                                            <td class="text-right font-weight-bold text-danger">{{TablePeriod.Footer.Expenses.Credit | number : 2}}</td>
+                                                            <td class="text-right font-weight-bold">{{TablePeriod.Footer.Expenses.Audit | number : 2}}</td>
+                                                            <td class="text-right font-weight-bold">{{TablePeriod.Footer.Expenses.Previous | number : 2}}</td>
+                                                            <td class="text-right font-weight-bold">{{TablePeriod.Footer.Expenses.Move | number : 2}}</td>
+                                                            <td class="text-right font-weight-bold">{{TablePeriod.Footer.Expenses.Percent | number : 2}}%</td>
+                                                        </tr>
+                                                    </tfoot>
+
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="10">
+                                                <table id="tech-companies-1" class="table-inner  table-striped">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td></td>
+                                                            <td class="font-weight-bold" colspan="10">
+                                                                Finance Costs
+                                                            </td>
+                                                        </tr>
+                                                        <tr ng-repeat="values in TablePeriod.Financecosts" ng-show="TablePeriod.Financecosts != undefined && TablePeriod.Financecosts.length >= 1">
+                                                            <td width="2%">{{values.Seq}}</td>
+                                                            <td width="15%">{{values.Name}}</td>
+                                                            <td width="8%" class="text-center text-search"><a ng-click="OnClickAuditFSGroup(values)"><i class="mdi mdi-magnify font-size-18"></i>{{values.Code}}</a></td>
+                                                            <td width="15%" class="text-right">{{values.Current | number : 2}}</td>
+                                                            <td width="10%" class="text-right text-danger">{{values.Debit| number : 2}}</td>
+                                                            <td width="10%" class="text-right text-danger">{{values.Credit| number : 2}}</td>
+                                                            <td width="10%" class="text-right">{{values.Audit| number : 2}}</td>
+                                                            <td width="10%" class="text-right">{{values.Previous| number : 2}}</td>
+                                                            <td width="10%" class="text-right">{{values.Move| number : 2}}</td>
+                                                            <td width="10%" class="text-right">{{values.Percent| number : 2}}%</td>
+                                                        </tr>
+                                                        <tr class="text-center " ng-show="TablePeriod.Financecosts == undefined || TablePeriod.Financecosts.length == 0">
+                                                            <td colspan="10" class="empty">
+                                                                <img src="@Url.Content("~/")Financecostss/images/icons/icon-list.png" width="60" class="d-block m-auto">
+                                                                ไม่พบรายการ
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                    <tfoot>
+                                                        <tr>
+                                                            <th></th>
+                                                            <td class="text-right font-weight-bold" colspan="2">Total Financial Cost And Income Tax</td>
+                                                            <td class="text-right font-weight-bold">{{TablePeriod.Footer.Financecosts.Current | number : 2}}</td>
+                                                            <td class="text-right font-weight-bold text-danger">{{TablePeriod.Footer.Financecosts.Debit | number : 2}}</td>
+                                                            <td class="text-right font-weight-bold text-danger">{{TablePeriod.Footer.Financecosts.Credit | number : 2}}</td>
+                                                            <td class="text-right font-weight-bold">{{TablePeriod.Footer.Financecosts.Audit | number : 2}}</td>
+                                                            <td class="text-right font-weight-bold">{{TablePeriod.Footer.Financecosts.Previous | number : 2}}</td>
+                                                            <td class="text-right font-weight-bold">{{TablePeriod.Footer.Financecosts.Move | number : 2}}</td>
+                                                            <td class="text-right font-weight-bold">{{TablePeriod.Footer.Financecosts.Percent | number : 2}}%</td>
+                                                        </tr>
+                                                    </tfoot>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th></th>
+                                            <td class="text-right font-weight-bold" colspan="2">NET PROFIT (LOSS)</td>
+                                            <td class="text-right font-weight-bold">{{TablePeriod.Footer.NetProfit.Current | number : 2}}</td>
+                                            <td class="text-right font-weight-bold text-danger">{{TablePeriod.Footer.NetProfit.Debit | number : 2}}</td>
+                                            <td class="text-right font-weight-bold text-danger">{{TablePeriod.Footer.NetProfit.Credit | number : 2}}</td>
+                                            <td class="text-right font-weight-bold">{{TablePeriod.Footer.NetProfit.Audit | number : 2}}</td>
+                                            <td class="text-right font-weight-bold">{{TablePeriod.Footer.NetProfit.Previous | number : 2}}</td>
+                                            <td class="text-right font-weight-bold">{{TablePeriod.Footer.NetProfit.Move | number : 2}}</td>
+                                            <td class="text-right font-weight-bold">{{TablePeriod.Footer.NetProfit.Percent | number : 2}}%</td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- sample modal content -->
+<!--<div id="ModalCustomer" class="modal fade " tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog  modal-dialog-scrollable">
+        <div class="modal-content modal-content-sm">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4 class="card-title mt-2 font-size-18 font-weight-bold">เลือกลูกค้าและรอบบัญชีที่ต้องการ</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 ">
+                        <div class="form-input ">
+                            <select select2 class="dropdown2 form-control" id="selectcustomer" ng-options="item as item.Name for item in Parameter.Customer"
+                                    ng-model="Search.SelectCustomer" ng-change="OnChangeCustomer()">
+                                <option value="" class="text-muted" selected style="display:none">กรุณาเลือก</option>
+                            </select>
+                            <label class="form-element-dropdown" for="name">ชื่อลูกค้า</label>
+                            <label class="form-element-required" for="name">* </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row  py-2">
+                    <div class="col-md-12 ">
+                        <div class="form-input ">
+                            <select select2 class="dropdown2 form-control" id="selectperiod" ng-options="item as item.Year + ' - ' + item.Name for item in Parameter.Period"
+                                    ng-model="Search.SelectPeriod">
+                                <option value="" class="text-muted" selected style="display:none">กรุณาเลือก</option>
+                            </select>
+                            <label class="form-element-dropdown ml-1" for="name">รอบบัญชี</label>
+                            <label class="form-element-required" for="name">* </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light waves-effect px-5 py-2" ng-click="OnClickAddCustomer()"> <i class="mdi mdi-account-multiple-plus"></i> เพิ่มลูกค้า</button>
+                <button type="button" class="btn btn-primary waves-effect waves-light px-5 py-2 " ng-click="OnClickChangePeriod()">ยืนยัน</button>
+            </div>
+        </div>-->
+<!-- /.modal-content -->
+<!--</div>--><!-- /.modal-dialog -->
+<!--</div>--><!-- /.modal -->
+<!-- sample modal content -->
+<div id="ModalValidate" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog  modal-dialog-scrollable">
+        <div class="modal-content modal-sm">
+            <div class="modal-header">
+                <h2 class="modal-title mt-0" id="myModalLabel">
+                    เกิดข้อผิดพลาด
+                </h2>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3 class="card-title mt-2 font-size-16 font-weight-bold text-danger">{{Error}}</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-danger waves-effect waves-light py-2" ng-click="OnClickDirectTrial()"> <i class="mdi mdi-exit-to-app"></i> ย้อนกลับ Trial Balance</button>
+                <button type="button" class="btn btn-light waves-effect py-2" ng-click="OnClickNewPeriod()"> <i class="mdi mdi-backup-restore"></i> เลือกรอบบัญชีอื่น</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- sample modal content -->
+<div id="ModalConfirm" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog  modal-dialog-scrollable">
+        <div class="modal-content modal-sm">
+            <div class="modal-header">
+                <h2 class="modal-title mt-0" id="myModalLabel">
+                    แจ้งเตือน
+                </h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3 class="card-title mt-2 font-size-16 font-weight-bold">กรุณาปุ่ม " เริ่มทำการตรวจสอบบัญชี " เพื่อทำการตรวจสอบบัญชีต่อไป</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light waves-effect px-5 py-2" data-bs-dismiss="modal">ปิดหน้าต่าง</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+<!-- Modal Customer -->
+<div id="ModalCustomer" class="modal fade " tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog  modal-dialog-scrollable">
+        <div class="modal-content modal-content-sm">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4 class="card-title mt-2 font-size-18 font-weight-bold">เลือกลูกค้าที่ต้องการ</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 ">
+                        <div class="form-input ">
+                            <select select2 class="dropdown2 form-control" id="selectcustomer" ng-options="item as item.Name for item in Parameter.Customer"
+                                    ng-model="Search.SelectCustomer">
+                                <option value="" class="text-muted" selected style="display:none">กรุณาเลือก</option>
+                            </select>
+                            <label class="form-element-dropdown" for="name">ชื่อลูกค้า</label>
+                            <label class="form-element-required" for="name">* </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light waves-effect px-5 py-2" ng-click="OnClickAddCustomer()"> <i class="mdi mdi-account-multiple-plus"></i> เพิ่มลูกค้า</button>
+                <button type="button" class="btn btn-primary waves-effect waves-light px-5 py-2 " ng-click="OnClickChangeCustomer()">ยืนยัน</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- Modal Period -->
+<div id="ModalPeriod" class="modal fade " tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog  modal-dialog-scrollable">
+        <div class="modal-content modal-content-sm">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4 class="card-title mt-2 font-size-18 font-weight-bold">เลือกรอบบัญชีที่ต้องการ</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 ">
+                        <div class="form-input ">
+                            <select select2 class="dropdown2 form-control" id="selecrperiod" ng-options="item as item.Year + ' - ' + item.Name for item in Parameter.Period"
+                                    ng-model="Search.SelectPeriod">
+                                <option value="" class="text-muted" selected style="display:none">กรุณาเลือก</option>
+                            </select>
+                            <label class="form-element-dropdown ml-1" for="name">เลือกรอบบัญชี</label>
+                            <label class="form-element-required" for="name">* </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light waves-effect px-5 py-2" ng-click="OnClickAddRedirectPeriod()"> <i class="mdi mdi-plus"></i> เพิ่มรอบบัญชี</button>
+                <button type="button" class="btn btn-primary waves-effect waves-light px-5 py-2 " ng-click="OnClickModalPeriod()">ยืนยัน</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

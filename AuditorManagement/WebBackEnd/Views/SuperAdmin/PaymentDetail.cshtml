@@ -1,0 +1,306 @@
+﻿@{
+    Layout = "_LayoutAdmin";
+}
+@section RenderScriptWithPage
+    {
+    <script src="~/assets/libs/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+    <script src="~/assets/libs/bootstrap-datepicker/bootstrap-datepicker.th.min.js"></script>
+    <script>
+        $('.form-element-input').change(function () {
+            if ($(this).val()) {
+                $(this).addClass('hasValue');
+            } else {
+                $(this).removeClass('hasValue');
+            }
+        });
+
+        $('.form-element-input-show').addClass('hasValue');
+
+
+        (function ($) {
+
+            $('.dropdown1').select2();
+            $('.dropdown5').select2();
+            $('.dropdown2').select2();
+            $('.dropdown3').select2();
+            $('.dropdown4').select2();
+
+            if ($("#inputreceivechaque-popup").length) {
+                $('#inputreceivechaque-popup').datepicker({
+                    enableOnReadonly: true,
+                    todayHighlight: true,
+                    autoclose: true
+                });
+            }
+
+            $("#product_thumnail").addClass('dropify');
+            $("#product_thumnail1").addClass('dropify');
+
+            //var publicpath_identity_picture = path;
+
+            var drEvent = $('.dropify').dropify();
+            //drEvent.on('dropify.afterClear', function (event, element) {
+            //    $scope.DeleteImages = 1;
+            //});
+            drEvent = drEvent.data('dropify');
+            drEvent.resetPreview();
+            drEvent.clearElement();
+            drEvent.settings.defaultFile = publicpath_identity_picture;
+            drEvent.destroy();
+
+            drEvent.init();
+
+            //$('.dropify#identity_picture').dropify({
+            //    defaultFile: publicpath_identity_picture
+            //});
+
+        })(jQuery);
+
+
+
+    </script>
+
+}
+
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="page-title-box">
+                <h4>ข้อมุลชำระเงิน</h4>
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">ชำระเงิน</a></li>
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">ข้อมูลการชำระเงิน</a></li>
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">P001011</a></li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-xl-12">
+            <div class="card ">
+                <div class="card-body card-form">
+
+                    <div class="row">
+                        <div class="col-md-10">
+                            <h2 class="card-title mb-2">ข้อมูลการชำระเงิน</h2>
+                        </div>
+
+                        <div class="col-lg-2 pl-0">
+                            <div class="form-input">
+                                <input id="name" class="form-element-input" type="input" placeholder="" required />
+                                <div class="form-element-bar"></div>
+                                <label class="form-element-label" for="name">เลขที่ชำระเงิน</label>
+                                <label class="form-element-required" for="name">* </label>
+                            </div>
+                        </div>
+
+                        <!-- end col -->
+                    </div>
+                    <hr />
+                    <div class="row row-form">
+                        <div class="col-md-4">
+                            <h4 class="card-title mb-2 font-weight-bold h4-flex"><i data-v-4e8aa93a="" class="color-circle"></i>ข้อมูลผู้ทำรายการ</h4>
+                        </div>
+                        <div class="col-lg-4 pl-0">
+                            <div class="form-input">
+                                <input id="name" class="form-element-input" type="input" placeholder="กรุณาระบุชื่อกิจการ" required />
+                                <div class="form-element-bar"></div>
+                                <label class="form-element-label" for="name">ชื่อ</label>
+                                <label class="form-element-required" for="name">* </label>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 pl-0">
+                            <div class="form-input">
+                                <input id="name" class="form-element-input" type="input" placeholder="กรุณาระบุชื่อกิจการ" required />
+                                <div class="form-element-bar"></div>
+                                <label class="form-element-label" for="name">นามสกุล</label>
+                                <label class="form-element-required" for="name">* </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row row-form">
+                        <div class="col-md-4">
+                        </div>
+                        <div class="col-lg-4 pl-0">
+                            <div class="form-input">
+                                <input id="name" class="form-element-input" type="input" placeholder="กรุณาระบุชื่อกิจการ" required />
+                                <div class="form-element-bar"></div>
+                                <label class="form-element-label" for="name">รหัสสมาชิก</label>
+                                <label class="form-element-required" for="name">* </label>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 pl-0">
+                            <div class="form-input">
+                                <input id="name" class="form-element-input" type="input" placeholder="กรุณาระบุชื่อกิจการ" required />
+                                <div class="form-element-bar"></div>
+                                <label class="form-element-label" for="name">เลขที่เสียภาษี</label>
+                                <label class="form-element-required" for="name">* </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row row-form">
+                        <div class="col-md-4">
+                        </div>
+                        <div class="col-lg-4 pl-0">
+                            <div class="form-input">
+                                <input id="name" class="form-element-input" type="input" placeholder="กรุณาระบุเลขเสียภาษี" required />
+                                <div class="form-element-bar"></div>
+                                <label class="form-element-label" for="name">เบอร์โทรศัพท์</label>
+                                <label class="form-element-required" for="name">* </label>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row  row-form">
+                        <div class="col-md-4">
+                            <h4 class="card-title mb-2 font-weight-bold h4-flex"><i data-v-4e8aa93a="" class="color-circle"></i>ข้อมูลแพ็คเกจ</h4>
+                        </div>
+                        <div class="col-lg-4 pl-0">
+                            <div class="form-input ">
+                                <select class="dropdown2 form-control" id="exampleFormControlSelect1-1">
+                                    <option value="" class="text-muted" selected style="display:none">กรุณาเลือก</option>
+                                    <option value="">ชื่อกิจการ</option>
+                                    <option value="">เลขที่จดทะเบียน</option>
+                                </select>
+                                <label class="form-element-dropdown" for="name">แพ็คเกจ</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 pl-0">
+                            <div class="form-input">
+                                <input id="name" class="form-element-input" type="input" placeholder="กรุณาระบุเลขเสียภาษี" required />
+                                <div class="form-element-bar"></div>
+                                <label class="form-element-label" for="name">ราคา</label>
+                                <label class="form-element-required" for="name">* </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row row-form ">
+                        <div class="col-md-4">
+                        </div>
+                        <div class="col-lg-8 pl-0">
+                            <div class="form-input">
+                                <div id="inputreceivechaque-popup" class="input-group-date date datepicker no-border">
+                                    <input type="text" class="form-element-input input-group-addon" onkeydown="return false">
+                                    <div class="form-element-bar"></div>
+                                    <label class="form-element-label" for="name">รายละเอียดแพ็ตเกจ</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row row-form ">
+                        <div class="col-md-4">
+                        </div>
+                        <div class="col-lg-4 pl-0">
+                            <div class="form-input">
+                                <div id="inputreceivechaque-popup" class="input-group-date date datepicker no-border">
+                                    <input type="text" class="form-element-input input-group-addon" onkeydown="return false">
+                                    <div class="form-element-bar"></div>
+                                    <label class="form-element-label" for="name">ระยะวันที่เริ่มต้น</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 pl-0">
+                            <div class="form-input">
+                                <input id="name" class="form-element-input" type="input" placeholder="กรุณาระบุเลขเสียภาษี" required />
+                                <div class="form-element-bar"></div>
+                                <label class="form-element-label" for="name">ระยะวันที่สิ้นสุด</label>
+                                <label class="form-element-required" for="name">* </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row row-form ">
+                        <div class="col-md-4">
+                        </div>
+                        <div class="col-lg-4 pl-0">
+                            <div class="form-input">
+                                <div id="inputreceivechaque-popup" class="input-group-date date datepicker no-border">
+                                    <input type="text" class="form-element-input input-group-addon" onkeydown="return false">
+                                    <div class="form-element-bar"></div>
+                                    <label class="form-element-label" for="name">วันที่ทำรายการ</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 pl-0">
+                            <div class="form-input">
+                                <input id="name" class="form-element-input" type="input" placeholder="กรุณาระบุเลขเสียภาษี" required />
+                                <div class="form-element-bar"></div>
+                                <label class="form-element-label" for="name">เวลาที่ทำรายการ</label>
+                                <label class="form-element-required" for="name">* </label>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row  row-form">
+                        <div class="col-md-4">
+                            <h4 class="card-title mb-2 font-weight-bold h4-flex"><i data-v-4e8aa93a="" class="color-circle"></i>ข้อมูลการชำระเงิน</h4>
+                        </div>
+                        <div class="col-lg-4 pl-0">
+                            <div class="form-input">
+                                <div id="inputreceivechaque-popup" class="input-group-date date datepicker no-border">
+                                    <input type="text" class="form-element-input input-group-addon" onkeydown="return false">
+                                    <div class="form-element-bar"></div>
+                                    <label class="form-element-label" for="name">วันที่ทำรายการ</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 pl-0">
+                            <div class="form-input">
+                                <input id="name" class="form-element-input" type="input" placeholder="กรุณาระบุเลขเสียภาษี" required />
+                                <div class="form-element-bar"></div>
+                                <label class="form-element-label" for="name">เวลาที่ทำรายการ</label>
+                                <label class="form-element-required" for="name">* </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row row-form ">
+                        <div class="col-md-4">
+                        </div>
+                        <div class="col-lg-4 pl-0">
+                            <div class="form-input">
+                                <input id="name" class="form-element-input" type="input" placeholder="กรุณาระบุชื่อผู้ติดต่อ" required />
+                                <div class="form-element-bar"></div>
+                                <label class="form-element-label" for="name">จำนวนเงิน </label>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 pl-0">
+                            <div class="form-input">
+                                <input id="name" class="form-element-input" type="input" placeholder="กรุณาระบุชื่อผู้ติดต่อ" required />
+                                <div class="form-element-bar"></div>
+                                <label class="form-element-label" for="name">หมายเหตุ </label>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row row-form ">
+                        <div class="col-md-4">
+                            <h4 class="card-title mb-2 font-weight-bold h4-flex"><i data-v-4e8aa93a="" class="color-circle"></i>รูปหลักฐานการโอนเงิน</h4>
+                        </div>
+                        <div class="col-lg-6 pl-0">
+                            <img class="img-thumbnail" alt="200x200" width="200" src="@Url.Content("~/")assets/images/layouts/img-3.jpg" data-holder-rendered="true">
+                        </div>
+                    </div>
+
+                    <div class="row mt-5">
+                        <div class="col-md-12">
+                            <div class="d-flex flex-wrap gap-3 justify-content-end">
+                                <button type="button" class="btn btn-light waves-effect px-5 py-2">ยกเลิก</button>
+                                <button type="button" class="btn btn-primary waves-effect waves-light px-4 py-2 dropdown-toggle"
+                                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    บันทึกข้อมูล <i class="mdi mdi-chevron-down"></i>
+                                </button>
+
+                                <div class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop1" style="">
+                                    <a class="dropdown-item" href="#">บันทึก และยืนยันการตรวจสอบ</a>
+                                    <a class="dropdown-item" href="#">บันทึก และยกเลิกรายการ</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

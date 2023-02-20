@@ -1,0 +1,383 @@
+﻿@{
+    Layout = null;
+}
+
+<div class="container-fluid" data-ng-init="initAdd()">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="page-title-box">
+                <h4>กิจการ</h4>
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a ui-sref="owner-organization">กิจการ</a></li>
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">เพิ่มข้อมูล</a></li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-xl-12">
+            <div class="card ">
+                <div class="card-body card-form">
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h2 class="card-title mb-2">ข้อมูลกิจการ</h2>
+                        </div>
+                        <!-- end col -->
+                        <div class="col-lg-3">
+                            <div class="form-check form-switch form-switch-md mb-3" dir="ltr">
+                                <input type="checkbox" class="form-check-input" checked id="customSwitchsizemd" ng-model="TableAdd.IsActive">
+                                <label class="form-check-label mt-1" for="customSwitchsizemd">เปิดการใช้งาน</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 pl-0">
+                            <div class="form-input">
+                                <input class="form-element-input" type="text" placeholder="กรุณาระบุรหัสกิจการ" ng-model="TableAdd.BranchCode" />
+                                <div class="form-element-bar"></div>
+                                <label class="form-element-label">รหัสกิจการ</label>
+                                <label class="form-element-required">* </label>
+                            </div>
+                        </div>
+
+                        <!-- end col -->
+                    </div>
+                    <hr />
+                    <div class="row row-form">
+                        <div class="col-md-4">
+                            <h4 class="card-title mb-2 font-weight-bold h4-flex"><i data-v-4e8aa93a="" class="color-circle"></i>ข้อมูลทั่วไป</h4>
+                        </div>
+                        <div class="col-lg-2 pl-0">
+                            <div class="form-input ">
+                                <select select2 class="dropdown2 form-control" id="exampleFormControlSelect21" ng-options="item as item.Name for item in Parameter.Model"
+                                        ng-model="TableAdd.SelectModel ">
+                                    <option value="" class="text-muted" selected style="display:none">กรุณาเลือก</option>
+                                </select>
+                                <label class="form-element-dropdown">ประเภทนิติบุคคล</label>
+                                <label class="form-element-required">* </label>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 pl-0">
+                            <div class="form-input">
+                                <input class="form-element-input" type="text" placeholder="กรุณาระบุชื่อกิจการ" ng-model="TableAdd.Name" />
+                                <div class="form-element-bar"></div>
+                                <label class="form-element-label">ชื่อกิจการ ( ภาษาไทย )</label>
+                                <label class="form-element-required">* </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row row-form">
+                        <div class="col-md-4">
+                        </div>
+                        <div class="col-lg-2 pl-0">
+                            <div class="form-input ">
+                                <select select2 class="dropdown2 form-control" id="exampleFormControlSelect2" ng-options="item as item.NameEn for item in Parameter.Model"
+                                        ng-model="TableAdd.SelectModel ">
+                                    <option value="" class="text-muted" selected style="display:none">กรุณาเลือก</option>
+                                </select>
+                                <label class="form-element-dropdown">ประเภทนิติบุคคล ( EN )</label>
+                                <label class="form-element-required">* </label>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 pl-0">
+                            <div class="form-input">
+                                <input class="form-element-input" type="text" placeholder="กรุณาระบุชื่อกิจการ" ng-model="TableAdd.NameEn" />
+                                <div class="form-element-bar"></div>
+                                <label class="form-element-label">ชื่อกิจการ ( ภาษาอังกฤษ )</label>
+                                <label class="form-element-required">* </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row row-form">
+                        <div class="col-md-4">
+                        </div>
+                        <div class="col-lg-4 pl-0">
+                            <div class="form-input">
+                                <input class="form-element-input" type="text" placeholder="กรุณาระบุเลขเสียภาษี" number-only ng-model="TableAdd.TaxId" />
+                                <div class="form-element-bar"></div>
+                                <label class="form-element-label">เลขที่เสียภาษี</label>
+                                <label class="form-element-required">* </label>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 pl-0">
+                            <div class="form-input ">
+                                <select select2 class="dropdown2 form-control" id="exampleFormControlSelect2" ng-model="TableAdd.SelectType">
+                                    <option value="" class="text-muted" selected style="display:none">กรุณาเลือก</option>
+                                    <option value="สำนักงานใหญ่">สำนักงานใหญ่</option>
+                                    <option value="สาขา">สำนักงานย่อย</option>
+                                </select>
+                                <label class="form-element-dropdown">ประเภทสำนักงาน</label>
+                                <label class="form-element-required">* </label>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row row-form">
+                        <div class="col-md-4">
+                        </div>
+                        <div class="col-lg-4 pl-0">
+                            <div class="form-input">
+                                <div id="inputreceivechaque-popup" class="input-group-date date datepicker no-border" >
+                                    <input type="text" class="form-element-input input-group-addon" onkeydown="return false" ng-model="TableAdd.RegisterDate">
+                                    <div class="form-element-bar"></div>
+                                    <label class="form-element-label">วันที่จดทะเบียน</label>
+                                    <label class="form-element-required">* </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 pl-0">
+                            <div class="form-input">
+                                <input class="form-element-input" type="text" placeholder="กรุณาระบุเบอร์สำนักงาน" number-only ng-model="TableAdd.Telephone" />
+                                <div class="form-element-bar"></div>
+                                <label class="form-element-label">เบอร์สำนักงาน</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row row-form">
+                        <div class="col-md-4">
+                        </div>
+                        <div class="col-lg-4 pl-0">
+                            <div class="form-input">
+                                <input class="form-element-input" type="text" placeholder="กรุณาระบุเบอร์มือถือ" number-only ng-model="TableAdd.MobilePhone" />
+                                <div class="form-element-bar"></div>
+                                <label class="form-element-label">เบอร์มือถือ</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 pl-0">
+                            <div class="form-input">
+                                <input class="form-element-input" type="text" placeholder="กรุณาระบุแฟกซ์" number-only ng-model="TableAdd.FaxPhone" />
+                                <div class="form-element-bar"></div>
+                                <label class="form-element-label">แฟกซ์</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row row-form">
+                        <div class="col-md-4">
+                        </div>
+                        <div class="col-lg-4 pl-0">
+                            <div class="form-input">
+                                <input class="form-element-input" type="email" placeholder="กรุณาระบุอีเมล" ng-model="TableAdd.Email" />
+                                <div class="form-element-bar"></div>
+                                <label class="form-element-label">อีเมล</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 pl-0">
+                            <div class="form-input">
+                                <input class="form-element-input" type="text" placeholder="กรุณาระบุเว็ปไซต์" ng-model="TableAdd.WebSite" />
+                                <div class="form-element-bar"></div>
+                                <label class="form-element-label">เว็ปไซต์</label>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row  row-form">
+                        <div class="col-md-4">
+                            <h4 class="card-title mb-2 font-weight-bold h4-flex"><i data-v-4e8aa93a="" class="color-circle"></i>ข้อมูลที่อยู่</h4>
+                        </div>
+                        <div class="col-lg-8 pl-0">
+                            <div class="form-input">
+                                <input class="form-element-input" type="text" placeholder="กรุณาระบุเลขที่ ซอน ถนน อาคาร ห้องเลขที หรือหมู่บ้าน" ng-model="TableAdd.Address" />
+                                <div class="form-element-bar"></div>
+                                <label class="form-element-label">ที่อยู่</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row row-form ">
+                        <div class="col-md-4">
+                        </div>
+                        <div class="col-lg-4 pl-0">
+                            <div class="form-input">
+                                <select class="dropdown2 form-control" select2 id="exampleFormControlSelect31" ng-options="item as item.Name for item in Parameter.Province" ng-change="OnChangeProvince()"
+                                        ng-model="TableAdd.SelectProvince ">
+                                    <option value="" class="text-muted" selected style="display:none">กรุณาเลือก</option>
+                                </select>
+                                <label class="form-element-dropdown" for="name">จังหวัด</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 pl-0">
+                            <div class="form-input">
+                                <select class="dropdown2 form-control" select2 id="exampleFormControlSelect31" ng-options="item as item.Name + ' - ' + item.PostCode for item in Parameter.Amphur"
+                                        ng-change="OnChangeAmphur()" ng-model="TableAdd.SelectAmphur">
+                                    <option value="" class="text-muted" selected style="display:none">กรุณาเลือก</option>
+                                </select>
+                                <label class="form-element-dropdown" for="name">เขต/อำเภอ</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row  row-form">
+                        <div class="col-md-4">
+                        </div>
+                        <div class="col-lg-4 pl-0">
+                            <div class="form-input">
+                                <input id="name" class="form-element-input" type="text" placeholder="กรุณาระบุแขวง/ตำบล" ng-model="TableAdd.Tambol" />
+                                <div class="form-element-bar"></div>
+                                <label class="form-element-label" for="name">แขวง/ตำบล</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 pl-0">
+                            <div class="form-input">
+                                <input id="name" class="form-element-input" type="text" placeholder="กรุณาระบุรหัสไปรษณีย์" ng-model="TableAdd.PostCode" number-only />
+                                <div class="form-element-bar"></div>
+                                <label class="form-element-label" for="name">รหัสไปรษณีย์</label>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row  row-form">
+                        <div class="col-md-4">
+                            <h4 class="card-title mb-2 font-weight-bold h4-flex"><i data-v-4e8aa93a="" class="color-circle"></i>ข้อมูลที่อยู่ ( ภาษาอังกฤษ )</h4>
+                        </div>
+                        <div class="col-lg-8 pl-0">
+                            <div class="form-input">
+                                <input class="form-element-input" type="text" placeholder="กรุณาระบุเลขที่ ซอน ถนน อาคาร ห้องเลขที หรือหมู่บ้าน" ng-model="TableAdd.AddressEn" />
+                                <div class="form-element-bar"></div>
+                                <label class="form-element-label">ที่อยู่</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row row-form ">
+                        <div class="col-md-4">
+                        </div>
+                        <div class="col-lg-4 pl-0">
+                            <div class="form-input">
+                                <select class="dropdown2 form-control" select2 id="exampleFormControlSelect31" ng-options="item as item.Name for item in Parameter.Province" ng-change="OnChangeProvinceEn()"
+                                        ng-model="TableAdd.SelectProvinceEn ">
+                                    <option value="" class="text-muted" selected style="display:none">กรุณาเลือก</option>
+                                </select>
+                                <label class="form-element-dropdown" for="name">จังหวัด</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 pl-0">
+                            <div class="form-input">
+                                <select class="dropdown2 form-control" select2 id="exampleFormControlSelect31" ng-options="item as item.Name + ' - ' + item.PostCode for item in Parameter.Amphur"
+                                        ng-change="OnChangeAmphurEn()" ng-model="TableAdd.SelectAmphurEn">
+                                    <option value="" class="text-muted" selected style="display:none">กรุณาเลือก</option>
+                                </select>
+                                <label class="form-element-dropdown" for="name">เขต/อำเภอ</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row  row-form">
+                        <div class="col-md-4">
+                        </div>
+                        <div class="col-lg-4 pl-0">
+                            <div class="form-input">
+                                <input id="name" class="form-element-input" type="text" placeholder="กรุณาระบุแขวง/ตำบล" ng-model="TableAdd.TambolEn" />
+                                <div class="form-element-bar"></div>
+                                <label class="form-element-label" for="name">แขวง/ตำบล</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 pl-0">
+                            <div class="form-input">
+                                <input id="name" class="form-element-input" type="text" placeholder="กรุณาระบุรหัสไปรษณีย์" ng-model="TableAdd.PostCodeEn" number-only />
+                                <div class="form-element-bar"></div>
+                                <label class="form-element-label" for="name">รหัสไปรษณีย์</label>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row row-form ">
+                        <div class="col-md-4">
+                            <h4 class="card-title mb-2 font-weight-bold h4-flex"><i data-v-4e8aa93a="" class="color-circle"></i>ข้อมูลการติดต่อ</h4>
+                        </div>
+                        <div class="col-lg-4 pl-0">
+                            <div class="form-input">
+                                <input class="form-element-input" type="text" placeholder="กรุณาระบุชื่อผู้ติดต่อ" ng-model="TableAdd.ContractName" />
+                                <div class="form-element-bar"></div>
+                                <label class="form-element-label">ชื่อผู้ติดต่อ </label>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 pl-0">
+                            <div class="form-input">
+                                <input class="form-element-input" type="text" placeholder="กรุณาระบุตำแหน่ง" ng-model="TableAdd.ContractPosition" />
+                                <div class="form-element-bar"></div>
+                                <label class="form-element-label">ตำแหน่ง </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row row-form ">
+                        <div class="col-md-4">
+                        </div>
+                        <div class="col-lg-4 pl-0">
+                            <div class="form-input">
+                                <input class="form-element-input" type="text" placeholder="กรุณาระบุเบอร์โทรศัพท์" number-only ng-model="TableAdd.ContractMobile" />
+                                <div class="form-element-bar"></div>
+                                <label class="form-element-label">เบอร์โทรศัพท์ </label>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 pl-0">
+                            <div class="form-input">
+                                <input class="form-element-input" type="text" placeholder="กรุณาระบุเบอร์โทรศัพท์ 2" number-only ng-model="TableAdd.ContractMobile1" />
+                                <div class="form-element-bar"></div>
+                                <label class="form-element-label">เบอร์โทรศัพท์ 2 </label>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row  row-form ">
+                        <div class="col-md-4">
+                            <h4 class="card-title mb-2 font-weight-bold h4-flex"><i data-v-4e8aa93a="" class="color-circle"></i>รายละเอียดและหมายเหตุ</h4>
+                        </div>
+                        <div class="col-lg-8 pl-0">
+                            <div class="form-input">
+                                <textarea rows="5" class="form-element-input form-element-input-textarea" type="text" placeholder="กรุณาระบุรายละเอียด" ng-model="TableAdd.Description"></textarea>
+                                <div class="form-element-bar"></div>
+                                <label class="form-element-label">รายละเอียด</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row row-form ">
+                        <div class="col-md-4">
+                        </div>
+                        <div class="col-lg-8 pl-0">
+                            <div class="form-input">
+                                <textarea rows="5" class="form-element-input form-element-input-textarea" type="text" placeholder="กรุณาระบุหมายเหตุ" ng-model="TableAdd.Remark"></textarea>
+                                <div class="form-element-bar"></div>
+                                <label class="form-element-label">หมายเหตุ</label>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-xl-12">
+            <div class="card ">
+                <div class="card-body card-form">
+                    <div class="row  row-form ">
+                        <div class="col-md-4">
+                            <h4 class="card-title mb-2 font-weight-bold h4-flex"><i class="color-circle"></i>โลโก้กิจการ</h4>
+                        </div>
+                        <div class="col-lg-8 pl-0">
+                            <input id="product_thumnail" type="file" ngf-select="UploadFiles($files)"
+                                   data-max-file-size="3M" data-allowed-file-extensions="jpg png jpeg" />
+                        </div>
+                    </div>
+
+                    <div class="row mt-5">
+                        <div class="col-md-12">
+                            <div class="d-flex flex-wrap gap-3 justify-content-end">
+                                <button type="button" class="btn btn-light waves-effect px-5 py-2" ui-sref="owner-organization">ยกเลิก</button>
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-primary  waves-effect waves-light px-3 py-2 aksorn f-1-2" ng-click="OnClickSave()">บันทึกข้อมูล</button>
+                                    <button type="button" class="btn btn-primary   waves-effect waves-light px-2 py-1 dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="mdi mdi-chevron-down"></i>
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop1" style="">
+                                        <a class="dropdown-item cursor-pointer" ng-click="OnClickSave('new')">บันทึก และทำรายการใหม่</a>
+                                        <a class="dropdown-item cursor-pointer" ng-click="OnClickSave('back')">บันทึก และย้อนกลับ</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- container-fluid -->

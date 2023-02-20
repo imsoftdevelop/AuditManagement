@@ -1,0 +1,1012 @@
+﻿@{
+    Layout = null;
+}
+
+
+<div class="container-fluid" data-ng-init="initModal()">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="page-title-box">
+                <h4>Trial Balance</h4>
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">บัญชี</a></li>
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Trial Balance</a></li>
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">ภาพรวมทั้งหมด</a></li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-xl-12">
+            <div class="card">
+                <div class="card-body card-body-table">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <h4 class="card-title mb-3">
+                                <span class="badge-table"><i class="mdi mdi-calendar-account-outline mx-2"></i></span>
+                                ข้อมูล Trial Balance
+                            </h4>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="d-flex flex-wrap  justify-content-end">
+                                @*<button type="button" class="btn btn-outline-danger waves-effect mx-2 py-2 px-3" data-bs-toggle="modal" data-bs-target="#myModal3">
+            <i class="mdi mdi-alert-box mx-2"></i> แจ้งลูกค้าอัพโหลดใหม่
+        </button>*@
+
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-outline-dark waves-effect waves-light px-3 py-2 aksorn f-1-2" ng-click="OnClickSave()">อัพโหลด / ดาวน์โหลด Trial Balance</button>
+                                    <button type="button" class="btn btn-outline-dark waves-effect   waves-effect waves-light px-2 py-1 dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="mdi mdi-chevron-down"></i>
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop1" style="">
+                                        <a class="dropdown-item cursor-pointer" ng-click="OnClickUploadTrial()"><i class="mdi mdi-file-upload-outline mx-2"></i> อัพโหลด Trial Balance</a>
+                                        <a class="dropdown-item cursor-pointer" ng-click="OnClickDownTrial()"><i class="mdi mdi-file-download-outline mx-2"></i> ดาวน์โหลด Template Trial</a>
+                                    </div>
+                                </div>
+                                <div class="btn-group mx-2" ng-show="TablePeriod.IsMapPeriod == 'N'">
+                                    <button type="button" class="btn btn-outline-dark waves-effect waves-light px-3 py-2 aksorn f-1-2" ng-click="OnClickSave()">อัพโหลด / ดาวน์โหลด Previous Yr</button>
+                                    <button type="button" class="btn btn-outline-dark waves-effect   waves-effect waves-light px-2 py-1 dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="mdi mdi-chevron-down"></i>
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop1" style="">
+                                        <a class="dropdown-item cursor-pointer" ng-click="OnClickUploadPreviousTrial()"><i class="mdi mdi-file-upload-outline mx-2"></i> อัพโหลด Previous Yr</a>
+                                        <a class="dropdown-item cursor-pointer" ng-click="OnClickDownPreviousTrial()"><i class="mdi mdi-file-download-outline mx-2"></i> ดาวน์โหลด Template Previous</a>
+                                    </div>
+                                </div>
+                                <button type="button" class="btn btn-primary waves-effect mx-2 py-2 px-3" ng-click="OnClickAddAccountPeriod()">
+                                    <i class="mdi mdi-plus mx-2"></i> เพิ่มรอบบัญชี
+                                </button>
+                            </div>
+                        </div>
+                        @*<div class="col-md-3">
+                            <div class="row justify-content-end px-3">
+                                <div class="form-input ">
+                                    <select select2 class="dropdown2 form-control" id="exampleFormControlSelect31" ng-options="item as item.Year + ' - ' + item.Name for item in Parameter.Period"
+                                            ng-model="Search.SelectPeriod" ng-change="OnChangePeriod()">
+                                        <option value="" class="text-muted" selected style="display:none">กรุณาเลือก</option>
+                                    </select>
+                                    <label class="form-element-dropdown ml-1" for="name">เลือกรอบบัญชี</label>
+                                </div>
+                            </div>
+                        </div>*@
+                    </div>
+                    <hr />
+                    <div class="row py-2">
+                        <div class="col-md-6">
+                            <h4 class="card-title mb-3 px-4">
+                                ข้อมูลรอบบัญชี
+                            </h4>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <h5 class="card-title mb-3 px-4 font-weight-bold line-height">
+                                ลูกค้า :<br />
+                            </h5>
+                            <h5 class="card-title mb-3 px-4 font-weight-bold line-height">
+                                รอบบัญชี :<br />
+                            </h5>
+                            <h5 class="card-title mb-3 px-4 font-weight-bold line-height">
+                                วันที่อัพโหลดล่าสุด :<br />
+                                ผู้อัพโหลดล่าสุด :<br />
+                                จำนวนรายการ :<br />
+                                ชื่อรอบบัญชี : <br />
+                                ประจำปี :<br />
+                                ประจำไตรมาส :<br />
+                                ประเภทรอบบัญชี :<br />
+                                วันที่ : <br />
+                                ปีเปรียบเทียบ :
+                            </h5>
+                        </div>
+                        <div class="col-md-9 ">
+                            <h5 class="card-title mb-3 px-4 line-height d-flex">
+                                <span class="text-search">{{Search.SelectCustomer.Name}} </span>
+                                <i class="mdi mdi-account-edit-outline me-1 text-search font-size-20 mx-2 cursor-pointer"
+                                   ng-show="UserProfiles.CustomerIdActive == undefined || UserProfiles.CustomerIdActive == ''"
+                                   data-bs-toggle="modal" data-bs-target="#ModalCustomer"></i>
+                            </h5>
+                            <h5 class="card-title mb-3 px-4 line-height d-flex">
+                                <span class="text-search">{{Search.SelectPeriod.Name}} </span>
+                                <i class="mdi mdi-calendar-account-outline me-1 text-search font-size-20 mx-2 cursor-pointer"
+                                   data-bs-toggle="modal" data-bs-target="#ModalPeriod"></i>
+                            </h5>
+                            <h5 class="card-title mb-3 px-4 line-height">
+                                {{TablePeriod.UploadDate}} <br />
+                                {{TablePeriod.UploadBy}} <br />
+                                {{TablePeriod.Record}} <br />
+                                {{TablePeriod.Name}}<br />
+                                {{TablePeriod.Year}}<br />
+                                {{TablePeriod.Quater}}<br />
+                                {{TablePeriod.Type}}<br />
+                                {{TablePeriod.Date}}<br />
+                                {{TablePeriod.Mapping}}
+                            </h5>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <div class="row justify-content-start px-3">
+                                <div class="col-md-12 gap-3 d-flex">
+                                    <div class="input-group">
+                                        <div class="input-group-text"><i class="mdi mdi-information" data-bs-toggle="tooltip" data-bs-placement="left" title="เลขที่บัญชี , ชื่อบัญชี "></i></div>
+                                        <input type="text" class="form-control" autocomplete="off" placeholder="พิมพ์เพื่อค้นหา..." ng-model="Search.InputFilter">
+                                    </div>
+                                    <button type="button" class="btn-dbd waves-effect " ng-click="OnClickFilter()"><i class="mdi mdi-magnify me-1"></i>ค้นหา</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="d-flex flex-wrap  justify-content-end" ng-show="TablePeriod.Table != undefined && TablePeriod.Table.length > 0">
+                               
+                                <button type="button" class="btn btn-outline-dark waves-effect mx-2 py-2 px-3" ng-click="OnClickAddAdjustment()">
+                                    <i class="mdi mdi-plus mx-2"></i> Adjustment
+                                </button>
+                                <button type="button" class="btn btn-info waves-effect mx-2 py-2 px-3" ng-click="OnClickAddTrial()">
+                                    <i class="mdi mdi-plus mx-2"></i> Trial Balance
+                                </button>
+                                <button type="button" class="btn btn-primary waves-effect mx-2 py-2 px-3" ng-click="OnClickSaveTrial()">
+                                    <i class="mdi mdi-content-save-all mx-2"></i> บันทึกข้อมูล
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-rep-plugin" ng-show="UserProfiles.PermissionCodeActive == 'OFFICE001'">
+                        <div class="table-responsive mb-0" data-pattern="priority-columns">
+                            <table id="tech-companies-1" class="table-data  table-striped">
+                                <thead>
+                                    <tr class="headerRow">
+                                        <th></th>
+                                        <th width="25%">W/P No.</th>
+                                        <th width="25%">A/C Name</th>
+                                        <th width="20%">A/C Code</th>
+                                        <th width="15%">Current Yr</th>
+                                        <th width="15%">Pervious Yr</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="values in TablePeriod.Table">
+                                        <th>{{values.Seq}}</th>
+                                        <td>
+                                            <div class="form-input ">
+                                                <select select2 class="dropdown2 form-control" id="exampleFormControlSelect11" ng-disabled="TableAdd.IsAudit == 'Yes'"
+                                                        ng-options="item as item.Code + ' - ' + item.Name for item in Parameter.FSGroup"
+                                                        ng-model="values.SelectFSGroup">
+                                                    <option value="" class="text-muted" selected style="display:none">กรุณาเลือก</option>
+                                                </select>
+                                                <div class="invalid-feedback" ng-show="values.iserror == 'Y'">
+                                                    {{values.error}}
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>{{values.AccountName}}</td>
+                                        <td>{{values.AccountCode}}</td>
+                                        <td class="text-right">{{values.Amount | number : 2}}</td>
+                                        <td class="text-primary text-right">
+                                            <input type="text" class="form-element font-size-14" ng-disabled="TablePeriod.IsMapPeriod == 'Y'" ng-model="values.PreviousYear" ng-blur="OnSummary()" decimal-only>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tfoot ng-show="TablePeriod.Table != undefined && TablePeriod.Table.length > 0">
+                                    <tr>
+                                        <th></th>
+                                        <td colspan="3">รวม</td>
+                                        <td class="text-right">{{TablePeriod.Footer.Amount | number :2}}</td>
+                                        <td class="text-primary text-right">{{TablePeriod.Footer.Previous | number :2}}</td>
+                                        <th></th>
+                                    </tr>
+                                </tfoot>
+                                <tbody ng-show="TablePeriod.Table == undefined || TablePeriod.Table.length == 0">
+                                    <tr class="text-center ">
+                                        <td colspan="6" class="empty">
+                                            <img src="@Url.Content("~/")assets/images/icons/icon-list.png" width="60" class="d-block m-auto">
+                                            ไม่พบรายการ
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <hr />
+                        </div>
+                    </div>
+
+                    <div class="table-rep-plugin" ng-show="UserProfiles.PermissionCodeActive != 'OFFICE001'">
+                        <div class="table-responsive mb-0" data-pattern="priority-columns">
+                            <table id="tech-companies-1" class="table-data table-data-font-14   table-striped">
+                                <thead>
+                                    <tr class="headerRow">
+                                        <th width="2%"></th>
+                                        <th width="15%">W/P No.</th>
+                                        <th width="13%">A/C Name</th>
+                                        <th width="10%">A/C Code</th>
+                                        <th width="10%" class="text-right">Current Yr</th>
+                                        <th width="10%" class="text-right">Dr</th>
+                                        <th width="10%" class="text-right">Cr</th>
+                                        <th width="10%" class="text-right">Per Audit</th>
+                                        <th width="10%" class="text-right">Pervious Yr</th>
+                                        <th width="10%" class="text-center">เพิ่มเติม</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="values in TablePeriod.Table" ng-show="values.IsDelete == 'No' ">
+                                        <th>{{values.Seq}}</th>
+                                        <td>
+                                            <div class="form-input ">
+                                                <select select2 class="dropdown2 form-control" id="exampleFormControlSelect11"
+                                                        ng-options="item as item.Code + ' - ' + item.Name for item in Parameter.FSGroup"
+                                                        ng-model="values.SelectFSGroup">
+                                                    <option value="" class="text-muted" selected style="display:none">กรุณาเลือก</option>
+                                                </select>
+                                                <div class="invalid-feedback" ng-show="values.iserror == 'Y'">
+                                                    {{values.error}}
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>{{values.AccountName}}</td>
+                                        <td>{{values.AccountCode}}</td>
+                                        <td class="text-right">{{values.Amount | number : 2}}</td>
+                                        <td class="text-danger text-right">
+                                            <span ng-show="values.Debit == 0 || values.Debit == undefined">-</span>
+                                            <span ng-show="values.Debit != 0 && values.Debit != undefined">{{values.Debit | number : 2}}</span>
+                                        </td>
+                                        <td class="text-danger text-right">
+                                            <span ng-show="values.Credit == 0 || values.Credit == undefined">-</span>
+                                            <span ng-show="values.Credit != 0 && values.Credit != undefined">{{values.Credit | number : 2}}</span>
+                                        </td>
+                                        <td class="text-primary text-right">{{values.Audit | number : 2}}</td>
+                                        <td class="text-primary text-right">
+                                            <input type="text" class="form-element font-size-14" ng-disabled="TablePeriod.IsMapPeriod == 'Y'" ng-model="values.PreviousYear" ng-blur="OnSummary()" decimal-only>
+                                        </td>
+                                        <td class="text-center">
+                                            <button type="button" class="btn btn-outline-dark waves-effect waves-light px-3 py-1 dropdown-toggle font-size-15"
+                                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                ตัวเลือก <i class="mdi mdi-chevron-down"></i>
+                                            </button>
+
+                                            <div class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop1" style="">
+                                                <a ng-show="values.Amount == 0 && values.PreviousYear == 0" class="dropdown-item font-size-15" ng-click="OnClickDeleteTrial(values)"> <i class="mdi mdi-delete-circle-outline"></i> ลบ</a>
+                                                <a class="dropdown-item font-size-15" ng-click="OnClickAddNoted(values)"><i class="mdi mdi-note"></i>Notes</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tfoot ng-show="TablePeriod.Table != undefined && TablePeriod.Table.length > 0">
+                                    <tr>
+                                        <th></th>
+                                        <td colspan="3">รวม</td>
+                                        <td class="text-right">{{TablePeriod.Footer.Amount | number :2}}</td>
+                                        <td class="text-danger text-right">{{TablePeriod.Footer.Debit | number :2}}</td>
+                                        <td class="text-danger text-right">{{TablePeriod.Footer.Credit | number :2}}</td>
+                                        <td class="text-primary text-right">{{TablePeriod.Footer.Audit | number :2}}</td>
+                                        <td class="text-primary text-right">{{TablePeriod.Footer.Previous | number :2}}</td>
+                                        <th></th>
+                                    </tr>
+                                </tfoot>
+                                <tbody ng-show="TablePeriod.Table == undefined || TablePeriod.Table.length == 0">
+                                    <tr class="text-center ">
+                                        <td colspan="10" class="empty">
+                                            <img src="@Url.Content("~/")assets/images/icons/icon-list.png" width="60" class="d-block m-auto">
+                                            ไม่พบรายการ
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <hr />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- container-fluid -->
+</div>
+
+<!-- Add Period -->
+<div id="ModalAddPeriod" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+    <div class="modal-dialog  modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title mt-0" id="myModalLabel">
+                    {{TableAdd.Action }}ข้อมูลรอบบัญชี
+                </h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h4 class="card-title mt-2 font-size-16 font-weight-bold">รายละเอียดข้อมูล</h4>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-check form-switch form-switch-md mb-3" dir="ltr">
+                            <input type="checkbox" class="form-check-input" id="customSwitchsizemd" ng-model="TableAdd.IsActive">
+                            <label class="form-check-label mt-1" for="customSwitchsizemd">ใช้งาน</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4 d-flex flex-wrap  justify-content-end">
+                        <div class="form-input">
+                            <input id="name" class="form-element-input form-element-input-show" type=text placeholder="กรุณาระบุรหัส" ng-model="TableAdd.PeriodCode" />
+                            <div class="form-element-bar"></div>
+                            <label class="form-element-label" for="name">รหัส</label>
+                            <label class="form-element-required" for="name">* </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h3 class="card-title mt-2 font-size-16 font-weight-bold">ข้อมูลลูกค้า</h3>
+                    </div>
+                </div>
+                <div class="row py-2">
+                    <div class="col-lg-12 pl-0">
+                        <div class="form-input ">
+                            <select select2 class="dropdown2 form-control" id="exampleFormControlSelect31" ng-options="item as item.Name for item in Parameter.Customer"
+                                    ng-model="TableAdd.SelectCustomer" ng-change="OnChangeYearMap()">
+                                <option value="" class="text-muted" selected style="display:none">กรุณาเลือก</option>
+                            </select>
+                            <label class="form-element-dropdown" for="name">ชื่อลูกค้า</label>
+                            <label class="form-element-required" for="name">* </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h3 class="card-title mt-2 font-size-16 font-weight-bold">ข้อมูลรอบบัญชี</h3>
+                    </div>
+                </div>
+                <div class="row py-2">
+                    <div class="col-lg-12 pl-0">
+                        <div class="form-input">
+                            <input id="name" class="form-element-input form-element-input-show" type=text placeholder="กรุณาระบุชื่อรอบบัญชี (TH)" ng-model="TableAdd.Name" />
+                            <div class="form-element-bar"></div>
+                            <label class="form-element-label" for="name">ชื่อรอบบัญชี (TH)</label>
+                            <label class="form-element-required" for="name">* </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row py-2">
+                    <div class="col-lg-6 pl-0">
+                        <div class="form-input ">
+                            <select select2 class="dropdown2 form-control" id="exampleFormControlSelect13" ng-model="TableAdd.PeriodType">
+                                <option value="" class="text-muted" selected style="display:none">กรุณาเลือก</option>
+                                <option value="Year">ปี</option>
+                                <option value="Quarter">ไตรมาส</option>
+                            </select>
+                            <label class="form-element-dropdown" for="name">ประเภท</label>
+                            <label class="form-element-required" for="name">* </label>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 pl-0">
+                        <div class="form-input ">
+                            <select select2 class="dropdown2 form-control" id="exampleFormControlSelect131" ng-options="item for item in Parameter.Year"
+                                    ng-model="TableAdd.Year">
+                                <option value="" class="text-muted" selected style="display:none">กรุณาเลือก</option>
+                            </select>
+                            <label class="form-element-dropdown" for="name">ปีรอบบัญชี</label>
+                            <label class="form-element-required" for="name">* </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row py-2" ng-show="TableAdd.PeriodType == 'Quarter'">
+                    <div class="col-lg-6 pl-0">
+                        <div class="form-input">
+                            <select select2 class="dropdown2 form-control" id="exampleFormControlSelect13" ng-model="TableAdd.Quater">
+                                <option value="" class="text-muted" selected style="display:none">กรุณาเลือก</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                            <div class="form-element-bar"></div>
+                            <label class="form-element-label" for="name">ไตรมาส</label>
+                            <label class="form-element-required" for="name">* </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row py-2">
+                    <div class="col-lg-6 pl-0">
+                        <div id="inputstartperiod-popup" class="input-group-date date datepicker no-border">
+                            <input type="text" class="form-element-input input-group-addon" onkeydown="return false" ng-model="TableAdd.StartDate">
+                            <div class="form-element-bar"></div>
+                            <label class="form-element-label" for="name">วันที่เริ่มต้นรอบบัญชี</label>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 pl-0">
+                        <div id="inputendperiod-popup" class="input-group-date date datepicker no-border">
+                            <input type="text" class="form-element-input input-group-addon" onkeydown="return false" ng-model="TableAdd.EndDate">
+                            <div class="form-element-bar"></div>
+                            <label class="form-element-label" for="name">วันที่สิ้นสุดรอบบัญชี</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row py-2">
+                    <div class="col-lg-12 pl-0">
+                        <div class="form-input">
+                            <textarea rows="5" class="form-element-input form-element-input-show" type=text placeholder="กรุณาระบุหมายเหตุ" ng-model="TableAdd.Remark" />
+                            <div class="form-element-bar"></div>
+                            <label class="form-element-label" for="name">หมายเหตุ</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h3 class="card-title mt-2 font-size-16 font-weight-bold">ข้อมูลรอบบัญชีเปรียบเทียบ</h3>
+                    </div>
+                </div>
+                <div class="row py-2">
+                    <div class="col-lg-3 pl-0">
+                        <div class="form-input ">
+                            <div class="form-check mb-3">
+                                <input class="form-check-input" type="radio" name="MapformRadios" value="Y" id="MapformRadios1" checked="" ng-model="TableAdd.IsMapPeriod">
+                                <label class="form-check-label" for="MapformRadios1">
+                                    เปรียบเทียบข้อมูล
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 pl-0">
+                        <div class="form-input ">
+                            <div class="form-check mb-3">
+                                <input class="form-check-input" type="radio" name="MapformRadios" value="N" id="MapformRadios2" ng-model="TableAdd.IsMapPeriod">
+                                <label class="form-check-label" for="MapformRadios2">
+                                    ไม่เปรียบเทียบข้อมูล
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row py-2">
+                    <div class="col-lg-6 pl-0">
+                        <div class="form-input ">
+                            <select select2 class="dropdown2 form-control" id="exampleFormControlSelect131" ng-options="item for item in Parameter.Year" ng-disabled="TableAdd.IsMapPeriod == 'N'"
+                                    ng-model="TableAdd.SelectMapYear" ng-change="OnChangeYearMap()">
+                                <option value="" class="text-muted" selected style="display:none">กรุณาเลือก</option>
+                            </select>
+                            <label class="form-element-dropdown" for="name">ปีรอบบัญชี</label>
+                            <label class="form-element-required" for="name">* </label>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 pl-0">
+                        <div class="form-input ">
+                            <select select2 class="dropdown2 form-control" id="exampleFormControlSelect135" ng-options="item as item.Name for item in Parameter.MapPeriod" ng-disabled="TableAdd.IsMapPeriod == 'N'"
+                                    ng-model="TableAdd.SelectMapId">
+                                <option value="" class="text-muted" selected style="display:none">กรุณาเลือก</option>
+                            </select>
+                            <label class="form-element-dropdown" for="name">ชื่อรอบบัญชี</label>
+                            <label class="form-element-required" for="name">* </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light waves-effect px-5 py-2" data-bs-dismiss="modal">ยกเลิก</button>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary  waves-effect waves-light px-3 py-2 aksorn f-1-2" ng-click="OnClickSavePeriod()">บันทึกข้อมูล</button>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- Noted -->
+<div id="ModalNoted" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+    <div class="modal-dialog  modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title mt-0" id="myModalLabel">
+                    Noted
+                </h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h4 class="card-title mt-2 font-size-16 font-weight-bold">รายละเอียดข้อมูล</h4>
+                    </div>
+                    <div class="col-md-4 ">
+                        <div class="form-input">
+                            <input id="name" class="form-element-input form-element-input-show" type="text" placeholder="กรุณาระบุรหัส" ng-model="TableAdd.AccountCode" disabled />
+                            <div class="form-element-bar"></div>
+                            <label class="form-element-label" for="name">รหัส</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row py-2">
+                    <div class="col-lg-12 pl-0">
+                        <div class="form-input">
+                            <textarea rows="5" id="name" class="form-element-input form-element-input-show form-element-input-textarea" type="input" placeholder="กรุณาระบุรายละเอียด" ng-model="TableAdd.Noted"></textarea>
+                            <div class="form-element-bar"></div>
+                            <label class="form-element-label" for="name">รายละเอียด</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light waves-effect px-5 py-2" data-bs-dismiss="modal">ยกเลิก</button>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary  waves-effect waves-light px-5 py-2 aksorn f-1-2" ng-click="OnClickSaveNoted()">บันทึกข้อมูล</button>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- Upload Trial -->
+<div id="ModalUploadTrial" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+    <div class="modal-dialog  modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title mt-0" id="myModalLabel">
+                    {{TablePeriod.ModalAction}}
+                </h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4 class="card-title mt-2 font-size-16 font-weight-bold">เลือกไฟล์อัพโหลด (*.xlsx เท่านั้น)</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 ">
+                        <input id="product_thumnail" type="file" ngf-select="UploadFiles($files)"
+                               data-max-file-size="3M" data-allowed-file-extensions="xlsx" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4 class="card-title mt-2 font-size-16 font-weight-bold">ผลการอัพโหลดข้อมูล</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <h4 class="card-title mt-2 font-size-16 font-weight-bold">จำนวนทั้งหมด : </h4>
+                    </div>
+                    <div class="col-md-9">
+                        <span class="badge bg-dark text-light">{{TablePeriod.Result.total}}</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <h4 class="card-title mt-2 font-size-16 font-weight-bold">นำเข้าเรียบร้อย : </h4>
+                    </div>
+                    <div class="col-md-9">
+                        <span class="badge bg-success">{{TablePeriod.Result.success}}</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <h4 class="card-title mt-2 font-size-16 font-weight-bold">ไม่ผ่านเงื่อนไข : </h4>
+                    </div>
+                    <div class="col-md-9">
+                        <span class="badge bg-danger">{{TablePeriod.Result.error}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light waves-effect px-5 py-2" data-bs-dismiss="modal">ยกเลิก</button>
+                <button type="button" class="btn btn-light waves-effect px-5 py-2" ng-show="TablePeriod.Result != undefined" data-bs-dismiss="modal">ปิดหน้าต่าง</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- Modal Customer -->
+<div id="ModalCustomer" class="modal fade " tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog  modal-dialog-scrollable">
+        <div class="modal-content modal-content-sm">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4 class="card-title mt-2 font-size-18 font-weight-bold">เลือกลูกค้าที่ต้องการ</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 ">
+                        <div class="form-input ">
+                            <select select2 class="dropdown2 form-control" id="selectcustomer" ng-options="item as item.Name for item in Parameter.Customer"
+                                    ng-model="Search.SelectCustomer">
+                                <option value="" class="text-muted" selected style="display:none">กรุณาเลือก</option>
+                            </select>
+                            <label class="form-element-dropdown" for="name">ชื่อลูกค้า</label>
+                            <label class="form-element-required" for="name">* </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light waves-effect px-5 py-2" ng-click="OnClickAddCustomer()"> <i class="mdi mdi-account-multiple-plus"></i> เพิ่มลูกค้า</button>
+                <button type="button" class="btn btn-primary waves-effect waves-light px-5 py-2 " ng-click="OnClickChangeCustomer()">ยืนยัน</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- New Upload Confirm -->
+<div id="ModalNewUploadConfirm" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+    <div class="modal-dialog  modal-dialog-scrollable">
+        <div class="modal-content modal-sm">
+            <div class="modal-header">
+                <h2 class="modal-title mt-0" id="myModalLabel">
+                    ยืนยันทำรายการ
+                </h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3 class="card-title mt-2 font-size-16 font-weight-bold">ท่านต้องการยืนยันทำการอัพโหลดใหม่ หรือไม่ </h3>
+                        <h3 class="card-title mt-2 font-size-16 font-weight-bold text-danger">**ข้อมูลที่อัพโหลดไปจะถูกล้างค่าทั้งหมดส่วนของ</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light waves-effect px-5 py-2" data-bs-dismiss="modal">ยกเลิก</button>
+                <button type="button" class="btn btn-primary waves-effect waves-light px-5 py-2" ng-click="OnClickConfirmNewUpload()">
+                    ยืนยัน
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- Add Trial -->
+<div id="ModalAddTrialBalance" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+    <div class="modal-dialog  modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title mt-0" id="myModalLabel">
+                    {{TableAdd.Action }} ข้อมูล Trial Balance
+                </h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h4 class="card-title mt-2 font-size-16 font-weight-bold">รายละเอียดข้อมูล</h4>
+                    </div>
+                    <div class="col-md-4 d-flex flex-wrap  justify-content-end">
+                        <div class="form-input">
+                            <input id="name" class="form-element-input form-element-input-show" type=text placeholder="กรุณาระบุรหัส" ng-model="TableAdd.TrialBalanceId" disabled />
+                            <div class="form-element-bar"></div>
+                            <label class="form-element-label" for="name">รหัส</label>
+                            <label class="form-element-required" for="name">* </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row py-2">
+                    <div class="col-lg-6 pl-0">
+                        <div class="form-input">
+                            <input id="name" class="form-element-input form-element-input-show" type=text placeholder="กรุณาระบุ A/C Code" ng-model="TableAdd.AccountCode" />
+                            <div class="form-element-bar"></div>
+                            <label class="form-element-label" for="name">A/C Code</label>
+                            <label class="form-element-required" for="name">* </label>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 pl-0">
+                        <div class="form-input">
+                            <input id="name" class="form-element-input form-element-input-show" type=text placeholder="กรุณาระบุ A/C Name" ng-model="TableAdd.AccountName" />
+                            <div class="form-element-bar"></div>
+                            <label class="form-element-label" for="name">A/C Name</label>
+                            <label class="form-element-required" for="name">* </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row py-2">
+                    <div class="col-lg-6 pl-0">
+                        <div class="form-input ">
+                            <select select2 class="dropdown2 form-control" id="exampleFormControlSelect131" ng-options="item as item.Code + ' - ' + item.Name for item in Parameter.FSGroup"
+                                    ng-model="TableAdd.SelectFsGroup">
+                                <option value="" class="text-muted" selected style="display:none">กรุณาเลือก</option>
+                            </select>
+                            <label class="form-element-dropdown" for="name">W/P No</label>
+                            <label class="form-element-required" for="name">* </label>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 pl-0">
+                        <div class="form-input">
+                            <input id="name" class="form-element-input form-element-input-show" type=text placeholder="กรุณาระบุ A/C Name" decimal-only ng-model="TableAdd.Amount" />
+                            <div class="form-element-bar"></div>
+                            <label class="form-element-label" for="name">Current Yr</label>
+                            <label class="form-element-required" for="name">* </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row py-2" ng-show="TableAdd.IsMapPeriod == 'No'">
+                    <div class="col-lg-6 pl-0">
+                        <div class="form-input">
+                            <input id="name" class="form-element-input form-element-input-show" type=text placeholder="กรุณาระบุ A/C Name" decimal-only ng-model="TableAdd.PreviousYear" />
+                            <div class="form-element-bar"></div>
+                            <label class="form-element-label" for="name">Pervious Yr</label>
+                            <label class="form-element-required" for="name">* </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row py-2">
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light waves-effect px-5 py-2" data-bs-dismiss="modal">ยกเลิก</button>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary  waves-effect waves-light px-5 py-2 aksorn f-1-2" ng-click="OnClickSaveAddTrialBalance()">บันทึกข้อมูล</button>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- Adjustment -->
+<div id="ModalAdjustment" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+    <div class="modal-dialog  modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title mt-0" id="myModalLabel">
+                    {{TableAdd.Action}} Adjustment
+                </h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <h4 class="card-title mt-2 font-size-16 font-weight-bold">รายละเอียดข้อมูล</h4>
+                    </div>
+                    <div class="col-md-5  pl-0 d-flex gap-3">
+                        <div class="mt-2  form-check mb-3">
+                            <input class="form-check-input" type="radio" name="formRadios" id="AdjustformRadios1" value="Agree" ng-model="TableAdd.IsAgree">
+                            <label class="form-check-label font-size-16" for="AdjustformRadios1">
+                                Agree
+                            </label>
+                        </div>
+                        <div class="mt-2 form-check mb-3">
+                            <input class="form-check-input" type="radio" name="formRadios" id="AdjustformRadios2" value="Disagree" ng-model="TableAdd.IsAgree">
+                            <label class="form-check-label font-size-16" for="AdjustformRadios2">
+                                Disagree
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-4 ">
+                        <div class="form-input">
+                            <input id="name" class="form-element-input form-element-input-show" type="text" placeholder="กรุณาระบุรหัส" ng-model="TableAdd.Code" />
+                            <div class="form-element-bar"></div>
+                            <label class="form-element-label" for="name">รหัส</label>
+                            <label class="form-element-required" for="name">* </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h3 class="card-title mt-2 font-size-16 font-weight-bold">ข้อมูล Adjustment</h3>
+                    </div>
+                </div>
+                <div class="row py-2">
+                    <div class="col-lg-12 pl-0">
+                        <div class="form-input">
+                            <input id="name" class="form-element-input form-element-input-show" type="text" placeholder="กรุณาระบุชื่อรายละเอียดการปรับปรุง" ng-model="TableAdd.Name" />
+                            <div class="form-element-bar"></div>
+                            <label class="form-element-label" for="name">ชื่อรายละเอียดการปรับปรุง</label>
+                            <label class="form-element-required" for="name">* </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row py-2">
+                    <div class="col-lg-12 pl-0">
+                        <div class="form-input">
+                            <input id="name" class="form-element-input form-element-input-show" type="text" placeholder="กรุณาระบุรายละเอียดเพิ่มเติม" ng-model="TableAdd.Description" />
+                            <div class="form-element-bar"></div>
+                            <label class="form-element-label" for="name">รายละเอียดเพิ่มเติม</label>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-md-6">
+                        <h3 class="card-title mt-2 font-size-16 font-weight-bold">ตาราง Adjustment</h3>
+                    </div>
+                    <div class="col-md-6  pl-0 d-flex justify-content-end gap-3">
+                        <button type="button" class="mt-1 btn btn-modal-add waves-effect waves-light" ng-click="OnClickAddSub()"><i class="mdi mdi-plus me-1"></i>เพิ่มข้อมูล</button>
+                    </div>
+                </div>
+                <div class="table-rep-plugin mt-3">
+                    <div class="table-responsive mb-0" data-pattern="priority-columns">
+                        <table id="tech-companies-1" class="table-data  table-striped font-size-14">
+                            <thead>
+                                <tr class="headerRow">
+                                    <th colspan="3" class="text-center">Description</th>
+                                    <th colspan="2" class="text-center">Balance Sheet</th>
+                                    <th colspan="2" class="text-center">P&L</th>
+                                    <th></th>
+                                </tr>
+                                <tr class="headerRow">
+                                    <th width="20px"></th>
+                                    <th width="200px">A/C Name</th>
+                                    <th width="150px">A/C Code</th>
+                                    <th class="text-center" width="150px">Dr</th>
+                                    <th class="text-center" width="150px">Cr</th>
+                                    <th class="text-center" width="150px">Dr</th>
+                                    <th class="text-center" width="150px">Cr</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="values in TableAdd.SubAdjustment" ng-show="values.IsDelete == 'No' ">
+                                    <th>{{values.Seq}}</th>
+                                    <td>{{values.AccountName}}</td>
+                                    <td>{{values.AccountCode}}</td>
+                                    <td class="text-right">
+                                        <span ng-show="values.AdjustmentModel == 'BS' && values.AdjustmentType == 'Debit'">{{values.Debit | number : 2}}</span>
+                                        <span ng-show="values.AdjustmentModel == 'PL' || values.AdjustmentType == 'Credit'">-</span>
+                                    </td>
+                                    <td class="text-right">
+                                        <span ng-show="values.AdjustmentModel == 'BS' && values.AdjustmentType == 'Credit'">{{values.Credit | number : 2}}</span>
+                                        <span ng-show="values.AdjustmentModel == 'PL' || values.AdjustmentType == 'Debit'">-</span>
+                                    </td>
+                                    <td class="text-right">
+                                        <span ng-show="values.AdjustmentModel == 'PL' && values.AdjustmentType == 'Debit'">{{values.Debit | number : 2}}</span>
+                                        <span ng-show="values.AdjustmentModel == 'BS' || values.AdjustmentType == 'Credit'">-</span>
+                                    </td>
+                                    <td class="text-right">
+                                        <span ng-show="values.AdjustmentModel == 'PL' && values.AdjustmentType == 'Credit'">{{values.Credit | number : 2}}</span>
+                                        <span ng-show="values.AdjustmentModel == 'BS' || values.AdjustmentType == 'Debit'">-</span>
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-outline-danger btn-sm edit" title="Edit" ng-click="OnClickDeleteSub($index,values)">
+                                            <i class="mdi mdi-delete" title="Save"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th></th>
+                                    <td colspan="2">รวม</td>
+                                    <td class="text-right">{{TableAdd.SumBSDebit  | number : 2}}</td>
+                                    <td class="text-right">{{TableAdd.SumBSCredit | number : 2}}</td>
+                                    <td class="text-right">{{TableAdd.SumPLDebit  | number : 2}}</td>
+                                    <td class="text-right">{{TableAdd.SumPLCredit | number : 2}}</td>
+                                    <th></th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light waves-effect px-5 py-2" data-bs-dismiss="modal">ยกเลิก</button>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary  waves-effect waves-light px-3 py-2 aksorn f-1-2" ng-click="OnClickSave()">บันทึกข้อมูล</button>
+                    <button type="button" class="btn btn-primary   waves-effect waves-light px-2 py-1 dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="mdi mdi-chevron-down"></i>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop1" style="">
+                        <a class="dropdown-item cursor-pointer" ng-click="OnClickSave('close')">บันทึก และปิดหน้าต่าง</a>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- Sub Adjustment -->
+<div id="ModalSubAdjustment" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog  modal-dialog-scrollable">
+        <div class="modal-content modal-content-sm">
+            <div class="modal-header">
+                <h4 class="modal-title mt-0" id="myModalLabel">
+                    {{TableAdd.Action}} Adjustment
+                </h4>
+                <button type="button" class="btn-close" ng-click="OnClickCloseSub()"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3 class="card-title mt-2 font-size-16 font-weight-bold">จัดการข้อมูล Adjustment</h3>
+                    </div>
+                    <div class="col-md-12  pl-0 d-flex gap-3">
+                        <div class="mt-2  form-check mb-3">
+                            <input class="form-check-input" type="radio" name="SubformRadios" id="SubformRadios1" ng-model="TableAddSub.AdjustmentType" value="Debit">
+                            <label class="form-check-label font-size-16" for="SubformRadios1">
+                                Debit
+                            </label>
+                        </div>
+                        <div class="mt-2 form-check mb-3">
+                            <input class="form-check-input" type="radio" name="SubformRadios" id="SubformRadios2" value="Credit" ng-model="TableAddSub.AdjustmentType">
+                            <label class="form-check-label font-size-16" for="SubformRadios2">
+                                Credit
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row py-2">
+                    <div class="col-lg-12 pl-0">
+                        <div class="form-input ">
+                            <select select2 class="dropdown2 form-control" id="exampleFormControlSelect513" ng-model="TableAddSub.AdjustmentModel">
+                                <option value="" class="text-muted" selected style="display:none">กรุณาเลือก</option>
+                                <option value="BS">Balance Sheet</option>
+                                <option value="PL">P&L</option>
+                            </select>
+                            <label class="form-element-dropdown" for="name">Balance Sheet / P&L</label>
+                            <label class="form-element-required" for="name">* </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row py-2">
+                    <div class="col-lg-12 pl-0">
+                        <div class="form-input ">
+                            <select select2 class="dropdown2 form-control" id="adjustmentaccount"
+                                    ng-options="item as item.AccountCode + ' - ' + item.AccountName for item in Parameter.TrialBalance"
+                                    ng-model="TableAddSub.SelectAccount">
+                                <option value="" class="text-muted" selected style="display:none">กรุณาเลือก</option>
+                            </select>
+                            <label class="form-element-dropdown" for="name">Account No</label>
+                            <label class="form-element-required" for="name">* </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row py-2">
+                    <div class="col-lg-12 pl-0">
+                        <div class="form-input">
+                            <input id="name" class="form-element-input form-element-input-show" type="text" placeholder="กรุณาระบุจำนวนปรับปรุง"
+                                   decimal-only
+                                   ng-model="TableAddSub.Amount" />
+                            <div class="form-element-bar"></div>
+                            <label class="form-element-label" for="name">จำนวนปรับปรุง</label>
+                            <label class="form-element-required" for="name">* </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light waves-effect px-5 py-2" data-bs-dismiss="modal" ng-click="OnClickCloseSub()">ยกเลิก</button>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary  waves-effect waves-light px-3 py-2 aksorn f-1-2" ng-click="OnClickSaveSub()">บันทึกข้อมูล</button>
+                    <button type="button" class="btn btn-primary   waves-effect waves-light px-2 py-1 dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="mdi mdi-chevron-down"></i>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop1" style="">
+                        <a class="dropdown-item cursor-pointer" ng-click="OnClickSaveSub('close')">บันทึก และปิดหน้าต่าง</a>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- Modal Period -->
+<div id="ModalPeriod" class="modal fade " tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog  modal-dialog-scrollable">
+        <div class="modal-content modal-content-sm">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4 class="card-title mt-2 font-size-18 font-weight-bold">เลือกรอบบัญชีที่ต้องการ</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 ">
+                        <div class="form-input ">
+                            <select select2 class="dropdown2 form-control" id="selecrperiod" ng-options="item as item.Year + ' - ' + item.Name for item in Parameter.Period"
+                                    ng-model="Search.SelectPeriod">
+                                <option value="" class="text-muted" selected style="display:none">กรุณาเลือก</option>
+                            </select>
+                            <label class="form-element-dropdown ml-1" for="name">เลือกรอบบัญชี</label>
+                            <label class="form-element-required" for="name">* </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light waves-effect px-5 py-2" ng-click="OnClickAddRedirectPeriod()"> <i class="mdi mdi-plus"></i> เพิ่มรอบบัญชี</button>
+                <button type="button" class="btn btn-primary waves-effect waves-light px-5 py-2 " ng-click="OnClickModalPeriod()">ยืนยัน</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

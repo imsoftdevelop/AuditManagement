@@ -1,0 +1,739 @@
+﻿@{
+    Layout = "_LayoutCustomer";
+}
+@section RenderScriptWithPage
+    {
+    <script src="~/assets/libs/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+    <script src="~/assets/libs/bootstrap-datepicker/bootstrap-datepicker.th.min.js"></script>
+    <script>
+        $('.form-element-input').change(function () {
+            if ($(this).val()) {
+                $(this).addClass('hasValue');
+            } else {
+                $(this).removeClass('hasValue');
+            }
+        });
+
+        $('.form-element-input-show').addClass('hasValue');
+
+
+        (function ($) {
+
+            $('.dropdown1').select2();
+            $('.dropdown5').select2();
+            $('.dropdown2').select2();
+            $('.dropdown3').select2();
+            $('.dropdown4').select2();
+
+            if ($("#inputreceivechaque-popup").length) {
+                $('#inputreceivechaque-popup').datepicker({
+                    enableOnReadonly: true,
+                    todayHighlight: true,
+                    autoclose: true
+                });
+            }
+
+            $("#product_thumnail").addClass('dropify');
+            $("#product_thumnail1").addClass('dropify');
+
+            //var publicpath_identity_picture = path;
+
+            var drEvent = $('.dropify').dropify();
+            //drEvent.on('dropify.afterClear', function (event, element) {
+            //    $scope.DeleteImages = 1;
+            //});
+            drEvent = drEvent.data('dropify');
+            drEvent.resetPreview();
+            drEvent.clearElement();
+            drEvent.settings.defaultFile = publicpath_identity_picture;
+            drEvent.destroy();
+
+            drEvent.init();
+
+            //$('.dropify#identity_picture').dropify({
+            //    defaultFile: publicpath_identity_picture
+            //});
+
+        })(jQuery);
+
+
+
+    </script>
+
+}
+
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="page-title-box">
+                <h4>รอบบัญชี</h4>
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">บัญชี</a></li>
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">รอบบัญชี</a></li>
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">ภาพรวมทั้งหมด</a></li>
+                </ol>
+            </div>
+            <div class="card">
+                <div class="card-body card-body-table">
+                    <div class="row  m-0">
+                        <div class="col-md-6 col-sm-12">
+                            <h5 class="card-title mt-1 px-0 font-weight-bold">
+                                รายการรอบบัญชี
+                            </h5>
+                        </div>
+                        <div class="col-md-6 col-sm-12 d-flex justify-content-end">
+                            <button type="button" class="btn-dbd waves-effect "><i class="mdi mdi-magnify me-1"></i>ค้นหา</button>
+                        </div>
+                    </div>
+                    <div class="row m-0">
+                        <div class="col-md-12 py-3 ">
+                            <div class="input-group">
+                                <div class="input-group-text"><i class="mdi mdi-information" data-bs-toggle="tooltip" data-bs-placement="left" title="รหัสพนักงาน , ชื่อ"></i></div>
+                                <input type="text" class="form-control" autocomplete="off" placeholder="พิมพ์เพื่อค้นหา...">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row m-0">
+                        <div class="col-md-12 ">
+                            <h5 class="card-title mt-1 px-0 ">
+                                <span class="font-weight-bold">ชื่อลูกค้า : </span> บริษัททดสอบมหาชนจำกัด
+                            </h5>
+                        </div>
+                    </div>
+                    <div class="row m-0">
+                        <div class="col-md-12 ">
+                            <ul class="ul-menulist metismenu list-unstyled" id="side-menu">
+                                <li>
+                                    <a href="javascript: void(0);" aria-expanded="true"><i class="mdi mdi-chevron-double-down"></i> ข้อมูลปี 2565</a>
+                                    <ul class="sub-menu mm-collapse mm-show" aria-expanded="true" style="">
+                                        <li><a href="javascript: void(0);">รอบบัญชีประจำปี 2565</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="javascript: void(0);"><i class="mdi mdi-chevron-double-right"></i> ข้อมูลปี 2564</a>
+                                    <ul class="sub-menu" aria-expanded="true" style="">
+                                        <li><a href="javascript: void(0);">รอบบัญชีประจำไตรมาส 1</a></li>
+                                        <li><a href="javascript: void(0);">รอบบัญชีประจำไตรมาส 2</a></li>
+                                        <li><a href="javascript: void(0);">รอบบัญชีประจำไตรมาส 3</a></li>
+                                        <li><a href="javascript: void(0);">รอบบัญชีประจำไตรมาส 4</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="javascript: void(0);"><i class="mdi mdi-chevron-double-right"></i> ข้อมูลปี 2563</a>
+                                    <ul class="sub-menu" aria-expanded="true" style="">
+                                        <li><a href="javascript: void(0);">รอบบัญชีประจำไตรมาส 1</a></li>
+                                        <li><a href="javascript: void(0);">รอบบัญชีประจำไตรมาส 2</a></li>
+                                        <li><a href="javascript: void(0);">รอบบัญชีประจำไตรมาส 3</a></li>
+                                        <li><a href="javascript: void(0);">รอบบัญชีประจำไตรมาส 4</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="javascript: void(0);"><i class="mdi mdi-chevron-double-right"></i> ข้อมูลปี 2562</a>
+                                    <ul class="sub-menu" aria-expanded="true" style="">
+                                        <li><a href="javascript: void(0);">รอบบัญชีประจำไตรมาส 1</a></li>
+                                        <li><a href="javascript: void(0);">รอบบัญชีประจำไตรมาส 2</a></li>
+                                        <li><a href="javascript: void(0);">รอบบัญชีประจำไตรมาส 3</a></li>
+                                        <li><a href="javascript: void(0);">รอบบัญชีประจำไตรมาส 4</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="javascript: void(0);"><i class="mdi mdi-chevron-double-right"></i> ข้อมูลปี 2561</a>
+                                    <ul class="sub-menu" aria-expanded="true" style="">
+                                        <li><a href="javascript: void(0);">รอบบัญชีประจำไตรมาส 1</a></li>
+                                        <li><a href="javascript: void(0);">รอบบัญชีประจำไตรมาส 2</a></li>
+                                        <li><a href="javascript: void(0);">รอบบัญชีประจำไตรมาส 3</a></li>
+                                        <li><a href="javascript: void(0);">รอบบัญชีประจำไตรมาส 4</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-9">
+            <ul class="nav nav-tabs mt-4" role="tablist">
+                <li class="nav-item active" data-bs-toggle="tab" href="#lead" role="tab">
+                    <a class="nav-link">
+                        <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
+                        <span class="d-none d-sm-block">ข้อมูลรอบบัญชี</span>
+                    </a>
+                </li>
+                <li class="nav-item" data-bs-toggle="tab" href="#trial" role="tab">
+                    <a class="nav-link">
+                        <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
+                        <span class="d-none d-sm-block">Trial Balance</span>
+                    </a>
+                </li>
+                <li class="nav-item" data-bs-toggle="tab" href="#document" role="tab">
+                    <a class="nav-link">
+                        <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
+                        <span class="d-none d-sm-block">Document</span>
+                    </a>
+                </li>
+                <li class="nav-item" data-bs-toggle="tab" href="#issue" role="tab">
+                    <a class="nav-link">
+                        <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
+                        <span class="d-none d-sm-block">Audit Issue</span>
+                    </a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class=" tab-pane card active" id="lead" role="tabpanel">
+                    <div class="card-body card-body-table">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h4 class="card-title mb-3">
+                                    ข้อมูลรอบบัญชี
+                                </h4>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h4 class="card-title mb-3">
+                                    ข้อมูลทั่วไป
+                                </h4>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3 ">
+                                <p class="px-4 font-weight-bold">ชื่อบริษัท :</p>
+                            </div>
+                            <div class="col-md-9">
+                                <p class="px-3">บริษัททดสอบมหาชนจำกัด</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3 ">
+                                <p class="px-4 font-weight-bold">ข้อมูลปี :</p>
+                            </div>
+                            <div class="col-md-9">
+                                <p class="px-3">2565</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3 ">
+                                <p class="px-4 font-weight-bold">ชื่อรอบบัญชี :</p>
+                            </div>
+                            <div class="col-md-9">
+                                <p class="px-3">รอบบัญชีประจำปี 2565</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3 ">
+                                <p class="px-4 font-weight-bold">ประเภทรอบบัญชี :</p>
+                            </div>
+                            <div class="col-md-9">
+                                <p class="px-3">ไตรมาส</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3 ">
+                                <p class="px-4 font-weight-bold">วันที่รอบบัญชี :</p>
+                            </div>
+                            <div class="col-md-9">
+                                <p class="px-3">01/01/2565 - 31/03/2565</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3 ">
+                                <p class="px-4 font-weight-bold">ชื่อผู้ดูแล :</p>
+                            </div>
+                            <div class="col-md-9">
+                                <p class="px-3">นายทดสอบระบบ </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3 ">
+                                <p class="px-4 font-weight-bold">วันที่บันทึกรายการ :</p>
+                            </div>
+                            <div class="col-md-9">
+                                <p class="px-3">12/01/2565 </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3 ">
+                                <p class="px-4 font-weight-bold">ข้อมูล Trial Balancee :</p>
+                            </div>
+                            <div class="col-md-9 d-flex">
+                                <p class="px-3 text-success">อัพโหลดเรียบร้อย</p> / <p class="px-3 text-info">รออัพโหลดข้อมูล</p> / <p class="px-3 text-danger"> แจ้งให้อัพโหลดข้อมูลอีกครั้ง </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3 ">
+                                <p class="px-4 font-weight-bold">วันที่อัพโหลด Trial Balancee ล่าสุด:</p>
+                            </div>
+                            <div class="col-md-9">
+                                <p class="px-3 ">01/01/2565</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class=" tab-pane card " id="trial" role="tabpanel">
+                    <div class="card-body card-body-table">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h4 class="card-title mb-3">
+                                    ข้อมูล Trial Balance
+                                </h4>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex flex-wrap  justify-content-end">
+                                    <button type="button" class="btn btn-outline-dark waves-effect mx-2 py-2 px-3" data-bs-toggle="modal" data-bs-target="#myModal3">
+                                        <i class="mdi mdi-file-upload-outline mx-2"></i> อัพโหลด Trial Balance
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-rep-plugin py-2">
+                            <div class="table-responsive mb-0" data-pattern="priority-columns">
+                                <table id="tech-companies-1" class="table-data  table-striped">
+                                    <thead>
+                                        <tr class="headerRow">
+                                            <th></th>
+                                            <th>A/C Name</th>
+                                            <th>A/C Code</th>
+                                            <th>Amount</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th>1</th>
+                                            <td>เงินสด</td>
+                                            <td>1111-00</td>
+                                            <td>10,000.00</td>
+                                        </tr>
+                                        <tr>
+                                            <th>1</th>
+                                            <td>เงินสด</td>
+                                            <td>1111-00</td>
+                                            <td>10,000.00</td>
+                                        </tr>
+                                        <tr>
+                                            <th>1</th>
+                                            <td>เงินสด</td>
+                                            <td>1111-00</td>
+                                            <td>10,000.00</td>
+                                        </tr>
+                                        <tr>
+                                            <th>1</th>
+                                            <td>เงินสด</td>
+                                            <td>1111-00</td>
+                                            <td>10,000.00</td>
+                                        </tr>
+                                        <tr>
+                                            <th>1</th>
+                                            <td>เงินสด</td>
+                                            <td>1111-00</td>
+                                            <td>10,000.00</td>
+                                        </tr>
+                                        <tr>
+                                            <th>1</th>
+                                            <td>เงินสด</td>
+                                            <td>1111-00</td>
+                                            <td>10,000.00</td>
+                                        </tr>
+                                        <tr>
+                                            <th>1</th>
+                                            <td>เงินสด</td>
+                                            <td>1111-00</td>
+                                            <td>10,000.00</td>
+                                        </tr>
+                                        <tr>
+                                            <th>1</th>
+                                            <td>เงินสด</td>
+                                            <td>1111-00</td>
+                                            <td>10,000.00</td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th></th>
+                                            <td colspan="2">รวม</td>
+                                            <td class="text-primary">5,561.92</td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                                <hr />
+                                <div class="d-flex justify-content-end">
+                                    <div data-v-e8100c36="" class="numberShow">
+                                        <p class="mr-2 mx-2 mb-0 font-size-16">แสดง</p>
+                                        <select class="day form-control form-select form-select-sm" style="width: auto;">
+                                            <option selected value="10">10</option>
+                                            <option value="50">50</option>
+                                            <option value="3">100</option>
+                                        </select>
+                                        <div data-v-76901dc6="" class="selectInputDropdown noLabel" style="width: 100%;">
+                                            <p class="mr-2 mx-2 mb-0 font-size-16">รายการ</p>
+                                        </div>
+                                    </div>
+                                    <div data-v-e8100c36="" class="page-data">
+                                        <div data-v-e8100c36="" class="prevArrow disabled">
+                                            <i data-v-e8100c36="" class="fa fa-chevron-left"></i>
+                                        </div>
+                                        <p data-v-e8100c36="" class="mr-2 mx-2 mb-0 font-size-16">หน้า</p>
+                                        <select class="day form-control form-select form-select-sm" style="width: auto;"><option value=""></option><option selected value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option></select>
+                                        <div data-v-e8100c36="" class="nextArrow disabled"><i data-v-e8100c36="" class="fa fa-chevron-right"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class=" tab-pane card " id="document" role="tabpanel">
+                    <div class="card-body card-body-table">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h4 class="card-title mb-3">
+                                    ข้อมูลเอกสาร
+                                </h4>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex flex-wrap  justify-content-end">
+                                    <a type="button" class="btn btn-outline-dark waves-effect waves-light px-4 dropdown-toggle  mx-2" data-bs-toggle="modal" data-bs-target="#myModal2">
+                                        <i class="mdi mdi-file-upload mx-2"></i>อัพโหลดเอกสาร
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-rep-plugin py-2">
+                            <div class="table-responsive mb-0" data-pattern="priority-columns">
+                                <table id="tech-companies-1" class="table-data  table-striped">
+                                    <thead>
+                                        <tr class="headerRow">
+                                            <th></th>
+                                            <th>เลขที่</th>
+                                            <th>ประเภทเอกสาร</th>
+                                            <th>ชื่อเอกสาร</th>
+                                            <th>ขนาดเอกสาร</th>
+                                            <th>ชื่อผู้อัพโหลด</th>
+                                            <th class="text-center">เพิ่มเติม</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th>1</th>
+                                            <td width="50px"><span class="text-link">C000001</span></td>
+                                            <td>ใบจดทะเบียนบริษัท</td>
+                                            <td>เอกสารจดทะเบียน.pdf</td>
+                                            <td>1.21 MB</td>
+                                            <td>นายทดสอบ</td>
+                                            <td class="text-center">
+                                                <button type="button" class="btn btn-outline-dark waves-effect waves-light px-3 py-1 dropdown-toggle font-size-15"
+                                                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    ตัวเลือก <i class="mdi mdi-chevron-down"></i>
+                                                </button>
+
+                                                <div class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop1" style="">
+                                                    <a class="dropdown-item font-size-15" href="#"><i class="mdi mdi-open-in-new"></i> ดูเอกสาร</a>
+                                                    <a class="dropdown-item font-size-15" href="#"> <i class="mdi mdi-delete-circle-outline"></i> ลบ</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>1</th>
+                                            <td width="50px"><span class="text-link">C000001</span></td>
+                                            <td>ใบจดทะเบียนบริษัท</td>
+                                            <td>เอกสารจดทะเบียน.pdf</td>
+                                            <td>1.21 MB</td>
+                                            <td>นายทดสอบ</td>
+                                            <td class="text-center">
+                                                <button type="button" class="btn btn-outline-dark waves-effect waves-light px-3 py-1 dropdown-toggle font-size-15"
+                                                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    ตัวเลือก <i class="mdi mdi-chevron-down"></i>
+                                                </button>
+
+                                                <div class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop1" style="">
+                                                    <a class="dropdown-item font-size-15" href="#"><i class="mdi mdi-open-in-new"></i> ดูเอกสาร</a>
+                                                    <a class="dropdown-item font-size-15" href="#"> <i class="mdi mdi-delete-circle-outline"></i> ลบ</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>1</th>
+                                            <td width="50px"><span class="text-link">C000001</span></td>
+                                            <td>ใบจดทะเบียนบริษัท</td>
+                                            <td>เอกสารจดทะเบียน.pdf</td>
+                                            <td>1.21 MB</td>
+                                            <td>นายทดสอบ</td>
+                                            <td class="text-center">
+                                                <button type="button" class="btn btn-outline-dark waves-effect waves-light px-3 py-1 dropdown-toggle font-size-15"
+                                                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    ตัวเลือก <i class="mdi mdi-chevron-down"></i>
+                                                </button>
+
+                                                <div class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop1" style="">
+                                                    <a class="dropdown-item font-size-15" href="#"><i class="mdi mdi-open-in-new"></i> ดูเอกสาร</a>
+                                                    <a class="dropdown-item font-size-15" href="#"> <i class="mdi mdi-delete-circle-outline"></i> ลบ</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>1</th>
+                                            <td width="50px"><span class="text-link">C000001</span></td>
+                                            <td>ใบจดทะเบียนบริษัท</td>
+                                            <td>เอกสารจดทะเบียน.pdf</td>
+                                            <td>1.21 MB</td>
+                                            <td>นายทดสอบ</td>
+                                            <td class="text-center">
+                                                <button type="button" class="btn btn-outline-dark waves-effect waves-light px-3 py-1 dropdown-toggle font-size-15"
+                                                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    ตัวเลือก <i class="mdi mdi-chevron-down"></i>
+                                                </button>
+
+                                                <div class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop1" style="">
+                                                    <a class="dropdown-item font-size-15" href="#"><i class="mdi mdi-open-in-new"></i> ดูเอกสาร</a>
+                                                    <a class="dropdown-item font-size-15" href="#"> <i class="mdi mdi-delete-circle-outline"></i> ลบ</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>1</th>
+                                            <td width="50px"><span class="text-link">C000001</span></td>
+                                            <td>ใบจดทะเบียนบริษัท</td>
+                                            <td>เอกสารจดทะเบียน.pdf</td>
+                                            <td>1.21 MB</td>
+                                            <td>นายทดสอบ</td>
+                                            <td class="text-center">
+                                                <button type="button" class="btn btn-outline-dark waves-effect waves-light px-3 py-1 dropdown-toggle font-size-15"
+                                                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    ตัวเลือก <i class="mdi mdi-chevron-down"></i>
+                                                </button>
+
+                                                <div class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop1" style="">
+                                                    <a class="dropdown-item font-size-15" href="#"><i class="mdi mdi-open-in-new"></i> ดูเอกสาร</a>
+                                                    <a class="dropdown-item font-size-15" href="#"> <i class="mdi mdi-delete-circle-outline"></i> ลบ</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <hr />
+                                <div class="d-flex justify-content-end">
+                                    <div data-v-e8100c36="" class="numberShow">
+                                        <p class="mr-2 mx-2 mb-0 font-size-16">แสดง</p>
+                                        <select class="day form-control form-select form-select-sm" style="width: auto;">
+                                            <option selected value="10">10</option>
+                                            <option value="50">50</option>
+                                            <option value="3">100</option>
+                                        </select>
+                                        <div data-v-76901dc6="" class="selectInputDropdown noLabel" style="width: 100%;">
+                                            <p class="mr-2 mx-2 mb-0 font-size-16">รายการ</p>
+                                        </div>
+                                    </div>
+                                    <div data-v-e8100c36="" class="page-data">
+                                        <div data-v-e8100c36="" class="prevArrow disabled">
+                                            <i data-v-e8100c36="" class="fa fa-chevron-left"></i>
+                                        </div>
+                                        <p data-v-e8100c36="" class="mr-2 mx-2 mb-0 font-size-16">หน้า</p>
+                                        <select class="day form-control form-select form-select-sm" style="width: auto;"><option value=""></option><option selected value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option></select>
+                                        <div data-v-e8100c36="" class="nextArrow disabled"><i data-v-e8100c36="" class="fa fa-chevron-right"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class=" tab-pane card " id="issue" role="tabpanel">
+                    <div class="card-body card-body-table">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h4 class="card-title mb-3">
+                                    ข้อมูล Audit Issue
+                                </h4>
+                            </div>
+                        </div>
+                        <div class="table-rep-plugin py-2">
+                            <div class="table-responsive mb-0" data-pattern="priority-columns">
+                                <table id="tech-companies-1" class="table-data  table-striped">
+                                    <thead>
+                                        <tr class="headerRow">
+                                            <th></th>
+                                            <th width="200px">รายละเอียด</th>
+                                            <th>วิธีแก้ไข</th>
+                                            <th class="text-center">สถานะ</th>
+                                            <th>ผู้รับผิดชอบ</th>
+                                            <th>วันที่เพิ่มข้อมูล</th>
+                                            <th class="text-center">เพิ่มเติม</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th>1</th>
+                                            <td>เอกสารไม่ครบ เลขที่บัญชีไม่ตรงกับ Account No</td>
+                                            <td>อัพโหลดเอกสารใหม่</td>
+                                            <td class="text-center"><span class="badge bg-success font-size-16">ดำเนินการเรียบร้อย</span></td>
+                                            <td>นายทดสอบระบบ</td>
+                                            <td>15/10/2565 12:45</td>
+                                            <td class="text-center">
+                                                <button type="button" class="btn btn-outline-dark waves-effect waves-light px-3 py-1 dropdown-toggle font-size-15"
+                                                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    ตัวเลือก <i class="mdi mdi-chevron-down"></i>
+                                                </button>
+
+                                                <div class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop1" style="">
+                                                    <a class="dropdown-item font-size-15" href="#"><i class="mdi mdi-circle-edit-outline"></i> ดูข้อมูล</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>1</th>
+                                            <td>เอกสารไม่ครบ เลขที่บัญชีไม่ตรงกับ Account No</td>
+                                            <td></td>
+                                            <td class="text-center"><span class="badge bg-info font-size-16">รอดำเนินการ</span></td>
+                                            <td>นายทดสอบระบบ</td>
+                                            <td>15/10/2565 12:45</td>
+                                            <td class="text-center">
+                                                <button type="button" class="btn btn-outline-dark waves-effect waves-light px-3 py-1 dropdown-toggle font-size-15"
+                                                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    ตัวเลือก <i class="mdi mdi-chevron-down"></i>
+                                                </button>
+
+                                                <div class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop1" style="">
+                                                    <a class="dropdown-item font-size-15" href="#"><i class="mdi mdi-circle-edit-outline"></i> ดูข้อมูล</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    @*<tbody>
+                    <tr class="text-center ">
+                        <td colspan="6" class="empty">
+                            ไม่พบรายการ
+                        </td>
+                    </tr>
+                </tbody>*@
+                                </table>
+                                <hr />
+                                <div class="d-flex justify-content-end">
+                                    <div data-v-e8100c36="" class="numberShow">
+                                        <p class="mr-2 mx-2 mb-0 font-size-16">แสดง</p>
+                                        <select class="day form-control form-select form-select-sm" style="width: auto;">
+                                            <option selected value="10">10</option>
+                                            <option value="50">50</option>
+                                            <option value="3">100</option>
+                                        </select>
+                                        <div data-v-76901dc6="" class="selectInputDropdown noLabel" style="width: 100%;">
+                                            <p class="mr-2 mx-2 mb-0 font-size-16">รายการ</p>
+                                        </div>
+                                    </div>
+                                    <div data-v-e8100c36="" class="page-data">
+                                        <div data-v-e8100c36="" class="prevArrow disabled">
+                                            <i data-v-e8100c36="" class="fa fa-chevron-left"></i>
+                                        </div>
+                                        <p data-v-e8100c36="" class="mr-2 mx-2 mb-0 font-size-16">หน้า</p>
+                                        <select class="day form-control form-select form-select-sm" style="width: auto;"><option value=""></option><option selected value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option></select>
+                                        <div data-v-e8100c36="" class="nextArrow disabled"><i data-v-e8100c36="" class="fa fa-chevron-right"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+
+
+    </div> <!-- container-fluid -->
+</div>
+
+
+<!-- sample modal content -->
+<div id="myModal2" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+    <div class="modal-dialog  modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title mt-0" id="myModalLabel">
+                    อัพโหลดเอกสาร
+                </h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h4 class="card-title mt-2 font-size-16 font-weight-bold">รายละเอียดข้อมูล</h4>
+                    </div>
+                    <div class="col-md-4 ">
+                        <div class="form-input">
+                            <input id="name" class="form-element-input form-element-input-show" type="input" placeholder="กรุณาระบุรหัส" required />
+                            <div class="form-element-bar"></div>
+                            <label class="form-element-label" for="name">เลขที่</label>
+                            <label class="form-element-required" for="name">* </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row py-2">
+                    <div class="col-lg-12 pl-0">
+                        <div class="form-input">
+                            <select class="dropdown1 form-control" id="exampleFormControlSelect322">
+                                <option value="" class="text-muted" selected style="display:none">กรุณาเลือก</option>
+                            </select>
+                            <label class="form-element-dropdown" for="name">หมวดหมู่เอกสาร</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row py-2">
+                    <div class="col-lg-12 pl-0">
+                        <div class="form-input">
+                            <input id="product_thumnail1" type="file" ngf-select="UploadFiles($files)"
+                                   data-max-file-size="3M" data-allowed-file-extensions="jpg png jpeg" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light waves-effect px-5 py-2" data-bs-dismiss="modal">ยกเลิก</button>
+                <button type="button" class="btn btn-primary waves-effect waves-light px-4 py-2 dropdown-toggle"
+                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    อัพโหลด <i class="mdi mdi-chevron-down"></i>
+                </button>
+
+                <div class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop1" style="">
+                    <a class="dropdown-item" href="#">อัพโหลด และทำรายการใหม่</a>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- sample modal content -->
+<div id="myModal3" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+    <div class="modal-dialog  modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title mt-0" id="myModalLabel">
+                    อัพโหลด Trial Balance
+                </h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4 class="card-title mt-2 font-size-16 font-weight-bold">เลือกไฟล์อัพโหลด (*.xlsx เท่านั้น)</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 ">
+                        <input id="product_thumnail1" type="file" ngf-select="UploadFiles($files)"
+                               data-max-file-size="3M" data-allowed-file-extensions="xlsx" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light waves-effect px-5 py-2" data-bs-dismiss="modal">ยกเลิก</button>
+                <button type="button" class="btn btn-primary waves-effect waves-light px-4 py-2 ">อัพโหลด</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

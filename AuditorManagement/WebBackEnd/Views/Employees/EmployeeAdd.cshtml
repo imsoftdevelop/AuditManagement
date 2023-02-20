@@ -1,0 +1,288 @@
+﻿@{
+    Layout = null;
+}
+
+
+<div class="container-fluid" data-ng-init="initAdd()">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="page-title-box">
+                <h4>พนักงาน</h4>
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a ui-sref="owner-employee">พนักงาน</a></li>
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">เพิ่มข้อมูล</a></li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-xl-12">
+            <div class="card ">
+                <div class="card-body card-form">
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h2 class="card-title mb-2">ข้อมูลพนักงาน</h2>
+                        </div>
+                        <!-- end col -->
+                        <div class="col-lg-3">
+                            <div class="form-check form-switch form-switch-md mb-3" dir="ltr">
+                                <input type="checkbox" class="form-check-input" id="customSwitchsizemd" ng-model="Employee.IsActive">
+                                <label class="form-check-label mt-1" for="customSwitchsizemd">เปิดการใช้งาน</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 pl-0">
+                            <div class="form-input">
+                                <input id="name" class="form-element-input" type="text" placeholder="รหัสพนักงาน" ng-model="Employee.EmpCode" />
+                                <div class="form-element-bar"></div>
+                                <label class="form-element-label" for="name">รหัสพนักงาน</label>
+                                <label class="form-element-required" for="name">* </label>
+                            </div>
+                        </div>
+
+                        <!-- end col -->
+                    </div>
+                    <hr />
+                    <div class="row row-form">
+                        <div class="col-md-4">
+                            <h4 class="card-title mb-2 font-weight-bold h4-flex"><i data-v-4e8aa93a="" class="color-circle"></i>ข้อมูลทั่วไป</h4>
+                        </div>
+                        <div class="col-lg-2 pl-0">
+                            <div class="form-input ">
+                                <select class="dropdown2 form-control" select2 id="exampleFormControlSelect2" ng-model="Employee.SelectTitle">
+                                    <option value="" class="text-muted" selected style="display:none">กรุณาเลือก</option>
+                                    <option value="นาย">นาย</option>
+                                    <option value="นาง">นาง</option>
+                                    <option value="นางสาว">นางสาว</option>
+                                </select>
+                                <label class="form-element-dropdown" for="name">คำนำหน้า</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 pl-0">
+                            <div class="form-input">
+                                <input id="name" class="form-element-input" type="text" placeholder="กรุณาระบุชื่อ" ng-model="Employee.FirstName" />
+                                <div class="form-element-bar"></div>
+                                <label class="form-element-label" for="name">ชื่อ</label>
+                                <label class="form-element-required" for="name">* </label>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 pl-0">
+                            <div class="form-input">
+                                <input id="name" class="form-element-input" type="text" placeholder="กรุณาระบุนามสกุล" ng-model="Employee.LastName" />
+                                <div class="form-element-bar"></div>
+                                <label class="form-element-label" for="name">นามสกุล</label>
+                                <label class="form-element-required" for="name">* </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row  row-form">
+                        <div class="col-md-4">
+                        </div>
+                        <div class="col-lg-2 pl-0">
+                            <div class="form-input ">
+                                <select class="dropdown2 form-control" select2 id="exampleFormControlSelect2" ng-model="Employee.SelectTitle">
+                                    <option value="" class="text-muted" selected style="display:none">กรุณาเลือก</option>
+                                    <option value="นาย">Mr</option>
+                                    <option value="นาง">Mrs</option>
+                                    <option value="นางสาว">Miss</option>
+                                </select>
+                                <label class="form-element-dropdown" for="name">คำนำหน้า (En)</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 pl-0">
+                            <div class="form-input">
+                                <input id="name" class="form-element-input" type="text" placeholder="กรุณาระบุชื่อ" ng-model="Employee.FirstNameEn" />
+                                <div class="form-element-bar"></div>
+                                <label class="form-element-label" for="name">ชื่อ (En)</label>
+                                <label class="form-element-required" for="name">* </label>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 pl-0">
+                            <div class="form-input">
+                                <input id="name" class="form-element-input" type="text" placeholder="กรุณาระบุนามสกุล" ng-model="Employee.LastNameEn" />
+                                <div class="form-element-bar"></div>
+                                <label class="form-element-label" for="name">นามสกุล (En)</label>
+                                <label class="form-element-required" for="name">* </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row  row-form">
+                        <div class="col-md-4">
+                        </div>
+                        <div class="col-lg-1 pl-0">
+                            <label for="example-date-input" class="">เพศ</label>
+                        </div>
+                        <div class="col-lg-1 pl-0">
+                            <div class="form-check mb-3">
+                                <input class="form-check-input" type="radio" value="ชาย" name="formRadios" id="formRadios1" ng-model="Employee.Gender">
+                                <label class="form-check-label font-size-16" for="formRadios1">
+                                    ชาย
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-lg-1 pl-0">
+                            <div class="form-check mb-3">
+                                <input class="form-check-input" type="radio" value="หญิง" name="formRadios" id="formRadios1" ng-model="Employee.Gender">
+                                <label class="form-check-label font-size-16" for="formRadios1">
+                                    หญิง
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                        </div>
+                        <div class="col-lg-4 pl-0">
+                            <div class="form-input">
+                                <input id="name" class="form-element-input" type="text" placeholder="กรุณาระบุเลขบัตรประชาชน" ng-model="Employee.CitizenId"  number-only/>
+                                <div class="form-element-bar"></div>
+                                <label class="form-element-label" for="name">เลขที่บัตรประจำตัวประชาชน</label>
+                                <label class="form-element-required" for="name">* </label>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 pl-0">
+                            <div class="form-input">
+                                <input id="name" class="form-element-input" type="email" placeholder="example@mail.com" ng-model="Employee.Email" />
+                                <div class="form-element-bar"></div>
+                                <label class="form-element-label" for="name">อีเมล</label>
+                                <label class="form-element-required" for="name">* </label>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row  row-form">
+                        <div class="col-md-4">
+                            <h4 class="card-title mb-2 font-weight-bold h4-flex"><i data-v-4e8aa93a="" class="color-circle"></i>ข้อมูลที่อยู่</h4>
+                        </div>
+                        <div class="col-lg-8 pl-0">
+                            <div class="form-input">
+                                <input id="name" class="form-element-input" type="text" placeholder="กรุณาระบุเลขที่ ซอน ถนน อาคาร ห้องเลขที หรือหมู่บ้าน" ng-model="Employee.Address" />
+                                <div class="form-element-bar"></div>
+                                <label class="form-element-label" for="name">ที่อยู่</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row row-form ">
+                        <div class="col-md-4">
+                        </div>
+                        <div class="col-lg-4 pl-0">
+                            <div class="form-input">
+                                <select class="dropdown2 form-control" select2 id="exampleFormControlSelect31" ng-options="item as item.Name for item in Parameter.Province" ng-change="OnChangeProvince()"
+                                        ng-model="Employee.SelectProvince ">
+                                    <option value="" class="text-muted" selected style="display:none">กรุณาเลือก</option>
+                                </select>
+                                <label class="form-element-dropdown" for="name">จังหวัด</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 pl-0">
+                            <div class="form-input">
+                                <select class="dropdown2 form-control" select2 id="exampleFormControlSelect31" ng-options="item as item.Name + ' - ' + item.PostCode for item in Parameter.Amphur"
+                                        ng-change="OnChangeAmphur()" ng-model="Employee.SelectAmphur">
+                                    <option value="" class="text-muted" selected style="display:none">กรุณาเลือก</option>
+                                </select>
+                                <label class="form-element-dropdown" for="name">เขต/อำเภอ</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row  row-form">
+                        <div class="col-md-4">
+                        </div>
+                        <div class="col-lg-4 pl-0">
+                            <div class="form-input">
+                                <input id="name" class="form-element-input" type="text" placeholder="กรุณาระบุแขวง/ตำบล" ng-model="Employee.Tambol" />
+                                <div class="form-element-bar"></div>
+                                <label class="form-element-label" for="name">แขวง/ตำบล</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 pl-0">
+                            <div class="form-input">
+                                <input id="name" class="form-element-input" type="text" placeholder="กรุณาระบุรหัสไปรษณีย์" ng-model="Employee.PostCode" number-only/>
+                                <div class="form-element-bar"></div>
+                                <label class="form-element-label" for="name">รหัสไปรษณีย์</label>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row row-form ">
+                        <div class="col-md-4">
+                            <h4 class="card-title mb-2 font-weight-bold h4-flex"><i data-v-4e8aa93a="" class="color-circle"></i>ข้อมูลการติดต่อ</h4>
+                        </div>
+                        <div class="col-lg-4 pl-0">
+                            <div class="form-input">
+                                <input id="name" class="form-element-input" type="text" placeholder="กรุณาระบุเบอร์โทรศัพท์" ng-model="Employee.MobilePhone" number-only />
+                                <div class="form-element-bar"></div>
+                                <label class="form-element-label" for="name">เบอร์โทรศัพท์ </label>
+                                <label class="form-element-required" for="name">* </label>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 pl-0">
+                            <div class="form-input">
+                                <input id="name" class="form-element-input" type="text" placeholder="กรุณาระบุเบอร์โทรศัพท์ 2" ng-model="Employee.MobilePhone1" number-only />
+                                <div class="form-element-bar"></div>
+                                <label class="form-element-label" for="name">เบอร์โทรศัพท์ 2 </label>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row row-form ">
+                        <div class="col-md-4">
+                            <h4 class="card-title mb-2 font-weight-bold h4-flex"><i data-v-4e8aa93a="" class="color-circle"></i>ข้อมูลสิทธิการใช้งาน</h4>
+                        </div>
+                        <div class="col-lg-4 pl-0">
+                            <div class="form-input">
+                                <select class="dropdown2 form-control" select2 id="exampleFormControlSelect31" ng-options="item as item.Name for item in Parameter.Permission"
+                                        ng-model="Employee.SelectPermission">
+                                    <option value="" class="text-muted" selected style="display:none">กรุณาเลือก</option>
+                                </select>
+                                <label class="form-element-dropdown" for="name">สิทธิ</label>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row row-form ">
+                        <div class="col-md-4">
+                            <h4 class="card-title mb-2 font-weight-bold h4-flex"><i data-v-4e8aa93a="" class="color-circle"></i>ข้อมูลความปลอดภัย</h4>
+                        </div>
+                        <div class="col-lg-4 pl-0">
+                            <div class="form-input">
+                                <input id="name" class="form-element-input" type="password" placeholder="กรุณาระบุรหัสผ่าน" ng-model="Employee.Password" ng-disabled="Employee.EmpId != undefined" />
+                                <div class="form-element-bar"></div>
+                                <label class="form-element-label" for="name">รหัสผ่าน </label>
+                                <label class="form-element-required" for="name">* </label>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 pl-0">
+                            <div class="form-input">
+                                <input id="name" class="form-element-input" type="password" placeholder="กรุณาระบุยืนยันรหัสผ่าน" ng-model="Employee.ConfirmPassword" ng-disabled="Employee.EmpId != undefined" />
+                                <div class="form-element-bar"></div>
+                                <label class="form-element-label" for="name">ยืนยันรหัสผ่าน</label>
+                                <label class="form-element-required" for="name">* </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-5">
+                        <div class="col-md-12">
+                            <div class="d-flex flex-wrap gap-3 justify-content-end">
+                                <button type="button" class="btn btn-light waves-effect px-5 py-2" ui-sref="owner-employee">ยกเลิก</button>
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-primary  waves-effect waves-light px-3 py-2 aksorn f-1-2" ng-click="OnClickSave()">บันทึกข้อมูล</button>
+                                    <button type="button" class="btn btn-primary   waves-effect waves-light px-2 py-1 dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="mdi mdi-chevron-down"></i>
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop1" style="">
+                                        <a class="dropdown-item cursor-pointer" ng-click="OnClickSave('new')">บันทึก และทำรายการใหม่</a>
+                                        <a class="dropdown-item cursor-pointer" ng-click="OnClickSave('back')">บันทึก และย้อนกลับ</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div> <!-- container-fluid -->

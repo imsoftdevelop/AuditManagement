@@ -1,0 +1,97 @@
+﻿@{
+    Layout = null;
+}
+<!-- Begin page -->
+<div class="account-pages my-5 pt-sm-3" data-ng-init="init()">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="card overflow-hidden rounded-4">
+                    <div class="card-body pt-0 rounded-4">
+
+                        <h3 class="text-center mt-5 mb-4">
+                            <a href="index.html" class="d-block auth-logo">
+                                <img src="@Url.Content("~/")assets/images/logo-light.png" alt="" height="60" class="auth-logo-dark">
+                                <img src="@Url.Content("~/")assets/images/logo-light.png" alt="" height="30" class="auth-logo-light">
+                            </a>
+                        </h3>
+
+                        <div class="p-3">
+                            <h2 class="text-muted font-size-24 mb-1 text-center">สมัครใช้งานใหม่</h2>
+                            <p class="text-muted text-center font-size-16">
+                                มีบัญชีอยู่แล้ว? <a ui-sref="login" class="text-search">เข้าสู่ระบบ</a><span>
+
+                                    <div class="form-horizontal mt-4">
+                                        <div class="row row-form">
+                                            <div class="col-md-1">
+                                            </div>
+                                            <div class="col-lg-10 pl-0">
+                                                <span class="text-muted text-left font-size-16 mb-0">
+                                                    ***สมัครใช้งานฟรี ทดลองใช้ฟรีไม่มีจำนวนวันจำกัด
+                                                </span>
+                                            </div>
+                                            <div class="col-md-1">
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="col-md-1">
+                                            </div>
+                                            <div class="col-lg-10 pl-0">
+                                                <div class="form-input">
+                                                    <input id="name" class="form-element-input form-element-input-show" type="email" placeholder="กรุณากรอกอีเมล ( exmaple@mail.com )" ng-model="Register.Email" />
+                                                    <div class="form-element-bar"></div>
+                                                    <label class="form-element-label font-weight-bold" for="name">อีเมล</label>
+                                                    <label class="form-element-required" for="name">* </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-1">
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="col-md-1">
+                                            </div>
+                                            <div class="col-lg-10 pl-0">
+                                                <div class="form-input">
+                                                    <input id="name" class="form-element-input form-element-input-show" type="password" placeholder="กรุณากรอกรหัสผ่าน" ng-model="Register.Password" />
+                                                    <div class="form-element-bar"></div>
+                                                    <label class="form-element-label font-weight-bold" for="name">รหัสผ่าน</label>
+                                                    <label class="form-element-required" for="name">* </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-1">
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="col-md-1">
+                                            </div>
+                                            <div class="col-lg-10 pl-0">
+                                                <div class="form-input">
+                                                    <input id="name" class="form-element-input form-element-input-show" type="password" placeholder="กรุณากรอกยืนยันรหัสผ่าน" ng-model="Register.ConfirmPassword" />
+                                                    <div class="form-element-bar"></div>
+                                                    <label class="form-element-label font-weight-bold" for="name">ยืนยันรหัสผ่าน</label>
+                                                    <label class="form-element-required" for="name">* </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-1">
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 row mt-3">
+                                            <div class="col-md-1">
+                                            </div>
+                                            <div class="col-md-10">
+                                                <div class="d-grid">
+                                                    <a class="btn btn-primary btn-lg waves-effect waves-light" ng-click="OnClickNext()">ต่อไป</a>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-1">
+                                            </div>
+                                        </div>
+                                    </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END layout-wrapper -->

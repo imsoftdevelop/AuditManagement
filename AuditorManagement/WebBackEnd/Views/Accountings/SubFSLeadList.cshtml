@@ -1,0 +1,1807 @@
+﻿@{
+    Layout = null;
+}
+
+<div class="container-fluid" data-ng-init="initModal()">
+
+    <div class="row">
+        <div class="col-sm-5">
+            <div class="page-title-box">
+                <h4>Sub Lead</h4>
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">ตรวจสอบบัญชี</a></li>
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">FS Lead</a></li>
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Sub Lead</a></li>
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">ภาพรวมทั้งหมด</a></li>
+                </ol>
+            </div>
+        </div>
+        <div class="col-sm-7">
+            <div class="d-flex flex-wrap gap-3 justify-content-end">
+                <a class="btn btn-light waves-effect px-5 py-2" ui-sref="account-fstoplist">FS Top</a>
+                <a class="btn btn-light waves-effect px-5 py-2" ui-sref="account-fsleadlist">FS Lead</a>
+                <div class="btn-group" ng-show="TablePeriod.AccountSelect.Status == 'Wait' || TablePeriod.AccountSelect.Status == 'Back'">
+                    <button type="button" class="btn btn-primary  waves-effect waves-light px-3 py-2 aksorn f-1-2" ng-click="OnClickSave()">บันทึกข้อมูล</button>
+                    <button type="button" class="btn btn-primary   waves-effect waves-light px-2 py-1 dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                        <i class="mdi mdi-chevron-down"></i>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop1" style="">
+                        <a class="dropdown-item cursor-pointer" ng-click="OnClickSave('back')">บันทึก และย้อนกลับ</a>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-dark waves-effect waves-light px-4 dropdown-toggle  mx-2" ng-click="OnClickAddConfirm('Back')" ng-show="TablePeriod.AccountSelect.Status == 'Confirm'">
+                    <i class="mdi mdi-comment-arrow-left-outline mx-2"></i>Back
+                </button>
+                <button type="button" class="btn btn-success waves-effect waves-light px-4 dropdown-toggle  mx-2 " ng-click="OnClickAddConfirm('Confirm')" ng-show="TablePeriod.AccountSelect.Status == 'Wait' || TablePeriod.AccountSelect.Status == 'Back'">
+                    <i class="mdi mdi-check-all mx-2"></i>Confirm
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-1">
+        <div class="col-xl-12">
+            <div class="card mb-1">
+                <div class="card-body card-body-table">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <h4 class="card-title mb-3">
+                                <span class="badge-table"><i class="mdi mdi-calendar-account-outline mx-2"></i></span>
+                                ข้อมูล Sub Lead
+                            </h4>
+                        </div>
+                        <div class="col-md-9 d-flex gap-5 text-center">
+                            <div class="p-1">
+                                <h5 class="font-weight-bold">
+                                    ชื่อลูกค้า
+                                    <i class="mdi mdi-account-edit-outline me-1 text-search font-size-20 mx-2 cursor-pointer"
+                                       ng-show="UserProfiles.CustomerIdActive == undefined || UserProfiles.CustomerIdActive == ''"
+                                       data-bs-toggle="modal" data-bs-target="#ModalCustomer"></i>
+                                </h5>
+                                <span class="text-search">{{Search.SelectCustomer.Name}}  </span>
+                            </div>
+                            <div class="p-1">
+                                <h5 class="font-weight-bold">
+                                    รอบบัญชี
+                                </h5>
+                                <span class="text-search">รอบบัญชีประจำปี  {{TablePeriod.Year}} </span>
+                            </div>
+                            <div class="p-1 ">
+                                <h5 class="font-weight-bold">วันที่รอบบัญชี</h5>
+                                <span> {{TablePeriod.Date}} </span>
+                            </div>
+                            <div class="p-1 ">
+                                <h5 class="font-weight-bold">วันที่อัพโหลดล่าสุด</h5>
+                                <span> {{TablePeriod.UploadDate}}</span>
+                            </div>
+                            <div class="p-1 ">
+                                <h5 class="font-weight-bold">เปรียบเทียบปี</h5>
+                                <span>{{TablePeriod.MappingYear}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row  row-form">
+                        <div class="col-md-3">
+                            <h5 class="card-title mb-2 font-weight-bold h4-flex"><i data-v-4e8aa93a="" class="color-circle"></i>กลุ่มประเภท</h5>
+                            <button type="button" class="mt-1 mx-2 btn btn-modal-add waves-effect waves-light" ng-click="OnClickAddReference()" ng-hide="TablePeriod.AccountSelect.Status == 'Confirm'"><i class="mdi mdi-link-variant-plus me-1"></i>อ้างอิงการตรวจสอบ</button>
+                        </div>
+                        <div class="col-md-9 d-flex gap-5 text-center">
+                            <div class="p-1 text-center">
+                                <h5 class="font-weight-bold ">Ref No.</h5>
+                                <span class="text-search font-weight-bold cursor-pointer">
+                                    {{TablePeriod.AccountSelect.AccountRefCode}}
+                                </span>
+                            </div>
+                            <div class="p-1 text-center">
+                                <h5 class="font-weight-bold ">
+                                    Prepared by
+                                </h5>
+                                <span class="badge font-size-14 display-block" ng-class="{ 'bg-info' : TablePeriod.AccountSelect.PrepareStatus == 'Wait',
+                                      'bg-success' : TablePeriod.AccountSelect.PrepareStatus == 'Confirm',
+                                      'bg-danger' : TablePeriod.AccountSelect.PrepareStatus == 'Back'}">{{TablePeriod.AccountSelect.PrepareStatus}}</span>
+                                <span class="display-block">{{TablePeriod.AccountSelect.PrepareData.FullName}}</span>
+                                <span>{{TablePeriod.AccountSelect.PrepareDate}}</span>
+                            </div>
+                            <div class="p-1 text-center">
+                                <h5 class="font-weight-bold ">
+                                    Reveiwed by
+                                </h5>
+                                <span class="badge font-size-14 display-block" ng-class="{ 'bg-info' : TablePeriod.AccountSelect.ReveiwedStatus == 'Wait',
+                                      'bg-success' : TablePeriod.AccountSelect.ReveiwedStatus == 'Confirm',
+                                      'bg-danger' : TablePeriod.AccountSelect.ReveiwedStatus == 'Back'}">{{TablePeriod.AccountSelect.ReveiwedStatus}}</span>
+                                <span class="display-block">{{TablePeriod.AccountSelect.ReveiwedData.FullName}}</span>
+                                <span>{{TablePeriod.AccountSelect.ReveiwedDate}}</span>
+                            </div>
+                            <div class="p-1 text-center">
+                                <h5 class="font-weight-bold ">
+                                    Auditor by
+                                </h5>
+                                <span class="badge font-size-14 display-block" ng-class="{ 'bg-info' : TablePeriod.AccountSelect.AuditorStatus == 'Wait',
+                                      'bg-success' : TablePeriod.AccountSelect.AuditorStatus == 'Confirm',
+                                      'bg-danger' : TablePeriod.AccountSelect.AuditorStatus == 'Back'}">{{TablePeriod.AccountSelect.AuditorStatus}}</span>
+                                <span class="display-block">{{TablePeriod.AccountSelect.AuditorData.FullName}}</span>
+                                <span>{{TablePeriod.AccountSelect.AuditorDate}}</span>
+                            </div>
+                            <div class="p-1 text-center">
+                                <h5 class="font-weight-bold ">
+                                    Ref No. Verify
+                                </h5>
+                                <span class="text-search font-weight-bold cursor-pointer">
+                                    <a ng-click="OnClickReference()">
+                                        <i class="mdi mdi-magnify font-size-18" ng-show="TablePeriod.AccountSelect.ReferenceVerify.AuditAccount.AccountRefCode != '-'"></i> {{TablePeriod.AccountSelect.ReferenceVerify.AuditAccount.AccountRefCode}}
+                                    </a>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- container-fluid -->
+
+    <div class="row">
+
+        <div class="col-xl-12">
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="nav-item active" data-bs-toggle="tab" href="#lead" role="tab">
+                    <a class="nav-link">
+                        <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
+                        <span class="d-none d-sm-block">Sub Lead</span>
+                    </a>
+                </li>
+                <li class="nav-item" data-bs-toggle="tab" href="#adjustment" role="tab">
+                    <a class="nav-link">
+                        <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
+                        <span class="d-none d-sm-block">Adjustment</span>
+                    </a>
+                </li>
+                <li class="nav-item" data-bs-toggle="tab" href="#document" role="tab">
+                    <a class="nav-link">
+                        <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
+                        <span class="d-none d-sm-block">Document</span>
+                    </a>
+                </li>
+                <li class="nav-item" data-bs-toggle="tab" href="#conclusion" role="tab">
+                    <a class="nav-link">
+                        <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
+                        <span class="d-none d-sm-block">Audit Conclusion</span>
+                    </a>
+                </li>
+                <li class="nav-item" data-bs-toggle="tab" href="#comment" role="tab">
+                    <a class="nav-link">
+                        <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
+                        <span class="d-none d-sm-block">Audit Comment</span>
+                    </a>
+                </li>
+                <li class="nav-item" data-bs-toggle="tab" href="#issue" role="tab">
+                    <a class="nav-link">
+                        <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
+                        <span class="d-none d-sm-block">Audit Issue</span>
+                    </a>
+                </li>
+                <li class="nav-item" data-bs-toggle="tab" href="#timeline" role="tab">
+                    <a class="nav-link">
+                        <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
+                        <span class="d-none d-sm-block">Timeline</span>
+                    </a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class=" tab-pane card active" id="lead" role="tabpanel">
+                    <div class="card-body card-body-form card-accordion p-0">
+                        <div class="table-rep-plugin">
+                            <div class="table-responsive mb-0" data-pattern="priority-columns">
+                                <table id="tech-companies-1" class="table-data-mulH-padding   table-striped">
+                                    <thead>
+                                        <tr class="headerRow">
+                                            <th width="2%" rowspan="2"></th>
+                                            <th width="23%" rowspan="2" class="text-center">A/C Code - Name</th>
+                                            <th width="10%" rowspan="2" class="text-center">Sub Group</th>
+                                            <th width="10%" rowspan="2" class="text-center">Sub Lead</th>
+                                            <th width="10%" class="text-center" rowspan="2">Current Year</th>
+                                            <th width="16%" colspan="2" class="text-center">Adj / Rje</th>
+                                            <th width="10%" class="text-center" rowspan="2">Per Audit</th>
+                                            <th width="10%" class="text-center" rowspan="2">Last Year</th>
+                                            <th width="14%" class="text-center" colspan="2">Movement</th>
+                                        </tr>
+                                        <tr class="headerRow">
+                                            <th width="8%" class="text-center">Dr</th>
+                                            <th width="8%" class="text-center">Cr</th>
+                                            <th width="8%" class="text-center">In (de)</th>
+                                            <th width="6%" class="text-center">%</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="values in TablePeriod.AccountTable" ng-show="TablePeriod.AccountTable != undefined && TablePeriod.AccountTable.length > 0">
+                                            <td width="2%">{{values.Seq}}</td>
+                                            <td width="23%">{{values.Code}} - {{values.Name}}</td>
+                                            <td width="10%">
+                                                <div class="form-input " ng-show="TablePeriod.AccountSelect.AccountRefCode == values.AccountRefCode">
+                                                    <select select2 class="dropdown2 form-control" id="exampleFormControlSelect11" ng-disabled="TablePeriod.AccountSelect.Status == 'Confirm'" 
+                                                            ng-options="item as item.SubFSGroup.Code + ' - ' + item.SubFSGroup.Name for item in Parameter.SubFSGroup"
+                                                            ng-model="values.SelectSubFSGroup">
+                                                        <option value="" class="text-muted" selected style="display:none">กรุณาเลือก</option>
+                                                    </select>
+                                                </div>
+                                            </td>
+                                            <td width="10%" class="text-center text-search">{{values.AccountRefCode}}</td>
+                                            <td width="10%" class="text-right">{{values.Current | number : 2}}</td>
+                                            <td width="8%" class="text-right text-danger">{{values.Debit| number : 2}}</td>
+                                            <td width="8%" class="text-right text-danger">{{values.Credit| number : 2}}</td>
+                                            <td width="10%" class="text-right">{{values.Audit| number : 2}}</td>
+                                            <td width="10%" class="text-right">{{values.Previous| number : 2}}</td>
+                                            <td width="8%" class="text-right">{{values.Move| number : 2}}</td>
+                                            <td width="6%" class="text-right">{{values.Percent| number : 2}}%</td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th></th>
+                                            <td class="text-right font-weight-bold" colspan="3">รวม</td>
+                                            <td class="text-right font-weight-bold">{{TablePeriod.Footer.Current | number : 2}}</td>
+                                            <td class="text-right font-weight-bold text-danger">{{TablePeriod.Footer.Debit | number : 2}}</td>
+                                            <td class="text-right font-weight-bold text-danger">{{TablePeriod.Footer.Credit | number : 2}}</td>
+                                            <td class="text-right font-weight-bold">{{TablePeriod.Footer.Audit | number : 2}}</td>
+                                            <td class="text-right font-weight-bold">{{TablePeriod.Footer.Previous | number : 2}}</td>
+                                            <td class="text-right font-weight-bold">{{TablePeriod.Footer.Move | number : 2}}</td>
+                                            <td class="text-right font-weight-bold">{{TablePeriod.Footer.Percent | number : 2}}%</td>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        <tr class="text-center " ng-show="TablePeriod.AccountTable == undefined || TablePeriod.AccountTable.length <= 0">
+                                            <td colspan="9" class="empty">
+                                                ไม่พบรายการ
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <hr />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class=" tab-pane card " id="adjustment" role="tabpanel">
+                    <div class="card-body card-body-form card-accordion">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h4 class="card-title mb-3">
+                                    <span class="badge-table"><i class="mdi mdi-calendar-account-outline mx-2"></i></span>
+                                    Adjustment
+                                </h4>
+                            </div>
+                            <div class="col-md-6 text-right">
+                                <button type="button" class="btn btn-outline-dark waves-effect mx-2 py-2 px-3" ng-click="OnClickAddAdjustment()" ng-hide="TablePeriod.AccountSelect.Status == 'Confirm'">
+                                    <i class="mdi mdi-plus mx-2"></i> Adjustment
+                                </button>
+                            </div>
+                        </div>
+
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li class="nav-item active" ng-click="OnClickTabAdjustment('agree')" data-bs-toggle="tab" role="tab">
+                                <a class="nav-link">
+                                    <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
+                                    <span class="d-none d-sm-block">Agree</span>
+                                </a>
+                            </li>
+                            <li class="nav-item" ng-click="OnClickTabAdjustment('disagree')" data-bs-toggle="tab" role="tab">
+                                <a class="nav-link">
+                                    <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
+                                    <span class="d-none d-sm-block">Disagree</span>
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class=" tab-pane card " ng-class="{ 'active' : TabAdjustment == 'agree'}">
+                                <div class="table-rep-plugin ">
+                                    <div class="table-responsive mb-0" data-pattern="priority-columns">
+                                        <table id="tech-companies-1" class="table-data-mulH  table-striped">
+                                            <thead>
+                                                <tr class="headerRow">
+                                                    <th class="text-center" colspan="5">Agree - Description</th>
+                                                    <th class="text-center" colspan="2">Balance Sheet</th>
+                                                    <th class="text-center" colspan="2">P&L</th>
+                                                </tr>
+                                                <tr class="headerRow">
+                                                    <th width="2%"></th>
+                                                    <th width="5%">Dr/Cr</th>
+                                                    <th width="13%">A/C Name</th>
+                                                    <th width="10%">A/C Code</th>
+                                                    <th width="10%">Ref No</th>
+                                                    <th class="text-center" width="15%">Dr</th>
+                                                    <th class="text-center" width="15%">Cr</th>
+                                                    <th class="text-center" width="15%">Dr</th>
+                                                    <th class="text-center" width="15%">Cr</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody ng-show="TablePeriod.AccountSelect.AdjustmentsAgree != undefined && TablePeriod.AccountSelect.AdjustmentsAgree.length > 0">
+                                                <tr>
+                                                    <td colspan="9">
+                                                        <table id="tech-companies-1" class="table-inner  table-striped" ng-repeat="detail in TablePeriod.AccountSelect.AdjustmentsAgree">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th width="2%">{{detail.Seq}}</th>
+                                                                    <td width="30%" class="font-weight-bold" colspan="3">
+                                                                        {{detail.Name}}
+                                                                    </td>
+                                                                    <td width="25%" class="font-weight-bold" colspan="2">
+                                                                        <span class="text-link" ng-click="OnClickTableAdjustment(detail)"> {{detail.Code}}</span>
+                                                                    </td>
+                                                                    <td width="15%">
+                                                                    </td>
+                                                                    <td width="15%">
+                                                                    </td>
+                                                                    <td width="15%" class="text-right">
+                                                                        <button type="button" class="btn btn-outline-dark waves-effect waves-light px-3 py-1 dropdown-toggle font-size-15" ng-hide="TablePeriod.AccountSelect.Status == 'Confirm'"
+                                                                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                            ตัวเลือก <i class="mdi mdi-chevron-down"></i>
+                                                                        </button>
+                                                                        <div class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop1" style="">
+                                                                            <a class="dropdown-item font-size-15" ng-click="OnClickTableAdjustment(detail)"><i class="mdi mdi-circle-edit-outline"></i> แก้ไข</a>
+                                                                            <a class="dropdown-item font-size-15  a-status-danger" ng-click="OnClickDeleteAdjustment(detail)"> <i class="mdi mdi-delete-circle-outline"></i> ลบ</a>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr ng-repeat="subdetail in detail.SubAdjustment">
+                                                                    <th width="2%"></th>
+                                                                    <td width="5%">
+                                                                        {{subdetail.AdjustmentType}}
+                                                                    </td>
+                                                                    <td width="13%">{{subdetail.AccountName}}</td>
+                                                                    <td width="20%" colspan="2">{{subdetail.AccountCode}}</td>
+                                                                    <td width="15%" class="text-right text-danger">
+                                                                        <span ng-show="subdetail.AdjustmentModel == 'BS' && subdetail.AdjustmentType == 'Debit'">{{subdetail.Debit | number : 2}}</span>
+                                                                        <span ng-show="subdetail.AdjustmentModel == 'PL' || subdetail.AdjustmentType == 'Credit'">-</span>
+                                                                    </td>
+                                                                    <td width="15%" class="text-right text-danger">
+                                                                        <span ng-show="subdetail.AdjustmentModel == 'BS' && subdetail.AdjustmentType == 'Credit'">{{subdetail.Credit | number : 2}}</span>
+                                                                        <span ng-show="subdetail.AdjustmentModel == 'PL' || subdetail.AdjustmentType == 'Debit'">-</span>
+                                                                    </td>
+                                                                    <td width="15%" class="text-right text-danger">
+                                                                        <span ng-show="subdetail.AdjustmentModel == 'PL' && subdetail.AdjustmentType == 'Debit'">{{subdetail.Debit | number : 2}}</span>
+                                                                        <span ng-show="subdetail.AdjustmentModel == 'BS' || subdetail.AdjustmentType == 'Credit'">-</span>
+                                                                    </td>
+                                                                    <td width="15%" class="text-right text-danger">
+                                                                        <span ng-show="subdetail.AdjustmentModel == 'PL' && subdetail.AdjustmentType == 'Credit'">{{subdetail.Credit | number : 2}}</span>
+                                                                        <span ng-show="subdetail.AdjustmentModel == 'BS' || subdetail.AdjustmentType == 'Debit'">-</span>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                            <tfoot ng-show=" TablePeriod.AccountSelect.AdjustmentsAgree != undefined &&  TablePeriod.AccountSelect.AdjustmentsAgree.length > 0">
+                                                <tr>
+                                                    <th></th>
+                                                    <td colspan="4">รวม</td>
+                                                    <td class="text-right text-danger">{{TablePeriod.Adjustments.Footer.SumAgreeBSDebit  | number : 2}}</td>
+                                                    <td class="text-right text-danger">{{TablePeriod.Adjustments.Footer.SumAgreeBSCredit | number : 2}}</td>
+                                                    <td class="text-right text-danger">{{TablePeriod.Adjustments.Footer.SumAgreePLDebit  | number : 2}}</td>
+                                                    <td class="text-right text-danger">{{TablePeriod.Adjustments.Footer.SumAgreePLCredit | number : 2}}</td>
+                                                </tr>
+                                            </tfoot>
+                                            <tbody ng-show=" TablePeriod.AccountSelect.AdjustmentsAgree == undefined ||  TablePeriod.AccountSelect.AdjustmentsAgree.length == 0">
+                                                <tr class="text-center ">
+                                                    <td colspan="9" class="empty">
+                                                        <img src="@Url.Content("~/")assets/images/icons/icon-list.png" width="60" class="d-block m-auto">
+                                                        ไม่พบรายการ
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class=" tab-pane card " ng-class="{ 'active' : TabAdjustment == 'disagree'}">
+                                <div class="table-rep-plugin ">
+                                    <div class="table-responsive mb-0" data-pattern="priority-columns">
+                                        <table id="tech-companies-1" class="table-data-mulH  table-striped">
+                                            <thead>
+                                                <tr class="headerRow">
+                                                    <th class="text-center" colspan="5">DisAgree - Description</th>
+                                                    <th class="text-center" colspan="2">Balance Sheet</th>
+                                                    <th class="text-center" colspan="2">P&L</th>
+                                                </tr>
+                                                <tr class="headerRow">
+                                                    <th width="2%"></th>
+                                                    <th width="5%">Dr/Cr</th>
+                                                    <th width="13%">A/C Name</th>
+                                                    <th width="10%">A/C Code</th>
+                                                    <th width="10%">Ref No</th>
+                                                    <th class="text-center" width="15%">Dr</th>
+                                                    <th class="text-center" width="15%">Cr</th>
+                                                    <th class="text-center" width="15%">Dr</th>
+                                                    <th class="text-center" width="15%">Cr</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody ng-show="TablePeriod.AccountSelect.AdjustmentsDisAgree != undefined && TablePeriod.AccountSelect.AdjustmentsDisAgree.length > 0">
+                                                <tr>
+                                                    <td colspan="9">
+                                                        <table id="tech-companies-1" class="table-inner  table-striped" ng-repeat="detail in TablePeriod.AccountSelect.AdjustmentsDisAgree">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th width="2%">{{detail.Seq}}</th>
+                                                                    <td width="30%" class="font-weight-bold" colspan="3">
+                                                                        {{detail.Name}}
+                                                                    </td>
+                                                                    <td width="25%" class="font-weight-bold" colspan="2">
+                                                                        <span class="text-link" ng-click="OnClickTableAdjustment(detail)"> {{detail.Code}}</span>
+                                                                    </td>
+                                                                    <td width="15%">
+                                                                    </td>
+                                                                    <td width="15%">
+                                                                    </td>
+                                                                    <td width="15%" class="text-right">
+                                                                        <button type="button" class="btn btn-outline-dark waves-effect waves-light px-3 py-1 dropdown-toggle font-size-15" ng-hide="TablePeriod.AccountSelect.Status == 'Confirm'"
+                                                                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                            ตัวเลือก <i class="mdi mdi-chevron-down"></i>
+                                                                        </button>
+                                                                        <div class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop1" style="">
+                                                                            <a class="dropdown-item font-size-15" ng-click="OnClickTableAdjustment(detail)"><i class="mdi mdi-circle-edit-outline"></i> แก้ไข</a>
+                                                                            <a class="dropdown-item font-size-15  a-status-danger" ng-click="OnClickDeleteAdjustment(detail)"> <i class="mdi mdi-delete-circle-outline"></i> ลบ</a>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr ng-repeat="subdetail in detail.SubAdjustment">
+                                                                    <th width="2%"></th>
+                                                                    <td width="5%">
+                                                                        {{subdetail.AdjustmentType}}
+                                                                    </td>
+                                                                    <td width="13%">{{subdetail.AccountName}}</td>
+                                                                    <td width="20%" colspan="2">{{subdetail.AccountCode}}</td>
+                                                                    <td width="15%" class="text-right text-danger">
+                                                                        <span ng-show="subdetail.AdjustmentModel == 'BS' && subdetail.AdjustmentType == 'Debit'">{{subdetail.Debit | number : 2}}</span>
+                                                                        <span ng-show="subdetail.AdjustmentModel == 'PL' || subdetail.AdjustmentType == 'Credit'">-</span>
+                                                                    </td>
+                                                                    <td width="15%" class="text-right text-danger">
+                                                                        <span ng-show="subdetail.AdjustmentModel == 'BS' && subdetail.AdjustmentType == 'Credit'">{{subdetail.Credit | number : 2}}</span>
+                                                                        <span ng-show="subdetail.AdjustmentModel == 'PL' || subdetail.AdjustmentType == 'Debit'">-</span>
+                                                                    </td>
+                                                                    <td width="15%" class="text-right text-danger">
+                                                                        <span ng-show="subdetail.AdjustmentModel == 'PL' && subdetail.AdjustmentType == 'Debit'">{{subdetail.Debit | number : 2}}</span>
+                                                                        <span ng-show="subdetail.AdjustmentModel == 'BS' || subdetail.AdjustmentType == 'Credit'">-</span>
+                                                                    </td>
+                                                                    <td width="15%" class="text-right text-danger">
+                                                                        <span ng-show="subdetail.AdjustmentModel == 'PL' && subdetail.AdjustmentType == 'Credit'">{{subdetail.Credit | number : 2}}</span>
+                                                                        <span ng-show="subdetail.AdjustmentModel == 'BS' || subdetail.AdjustmentType == 'Debit'">-</span>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                            <tfoot ng-show=" TablePeriod.AccountSelect.AdjustmentsDisAgree != undefined &&  TablePeriod.AccountSelect.AdjustmentsDisAgree.length > 0">
+                                                <tr>
+                                                    <th></th>
+                                                    <td colspan="4">รวม</td>
+                                                    <td class="text-right text-danger">{{TablePeriod.Adjustments.Footer.SumDisgreeBSDebit  | number : 2}}</td>
+                                                    <td class="text-right text-danger">{{TablePeriod.Adjustments.Footer.SumDisgreeBSCredit | number : 2}}</td>
+                                                    <td class="text-right text-danger">{{TablePeriod.Adjustments.Footer.SumDisgreePLDebit  | number : 2}}</td>
+                                                    <td class="text-right text-danger">{{TablePeriod.Adjustments.Footer.SumDisgreePLCredit | number : 2}}</td>
+                                                </tr>
+                                            </tfoot>
+                                            <tbody ng-show=" TablePeriod.AccountSelect.AdjustmentsDisAgree == undefined ||  TablePeriod.AccountSelect.AdjustmentsDisAgree.length == 0">
+                                                <tr class="text-center ">
+                                                    <td colspan="9" class="empty">
+                                                        <img src="@Url.Content("~/")assets/images/icons/icon-list.png" width="60" class="d-block m-auto">
+                                                        ไม่พบรายการ
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class=" tab-pane card " id="document" role="tabpanel">
+                    <div class="card-body card-body-form card-accordion">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h4 class="card-title mb-3">
+                                    <span class="badge-table"><i class="mdi mdi-calendar-account-outline mx-2"></i></span>
+                                    เอกสาร
+                                </h4>
+                            </div>
+                            <div class="col-md-6 text-right">
+                                <button type="button" class="btn btn-outline-dark waves-effect waves-light px-4 dropdown-toggle  mx-2" ng-click="OnClickAddDocumentPool()" ng-hide="TablePeriod.AccountSelect.Status == 'Confirm'">
+                                    <i class="mdi mdi-file-download mx-2"></i>ดึงเอกสาร
+                                </button>
+                                <button type="button" class="btn btn-outline-dark waves-effect waves-light px-4 dropdown-toggle  mx-2" ng-click="OnClickAddDocument()" ng-hide="TablePeriod.AccountSelect.Status == 'Confirm'">
+                                    <i class="mdi mdi-file-upload mx-2"></i>อัพโหลดเอกสาร
+                                </button>
+                            </div>
+                        </div>
+                        <div class="table-rep-plugin py-2">
+                            <div class="table-responsive mb-0" data-pattern="priority-columns">
+                                <table id="tech-companies-1" class="table-data  table-striped">
+                                    <thead>
+                                        <tr class="headerRow">
+                                            <th></th>
+                                            <th width="15%">รหัสอ้างอิง / รหัสเอกสาร</th>
+                                            <th width="15%">รูปแบบเอกสาร</th>
+                                            <th width="15%">ประเภทเอกสาร</th>
+                                            <th width="25%">ชื่อเอกสาร</th>
+                                            <th width="10%">ขนาดเอกสาร</th>
+                                            <th width="10%">วันที่ดึงเอกสาร</th>
+                                            <th width="10%" class="text-center">เพิ่มเติม</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="values in TablePeriod.AccountSelect.Documents | offset: currentPage*itemsPerPage | limitTo: itemsPerPage  ">
+                                            <th>{{values.Seq}}</th>
+                                            <td>
+                                                {{values.DocumentRefCode}}<br />
+                                                <span class="text-muted">{{values.Document.DocumentListCode}}</span>
+                                            </td>
+                                            <td>{{values.Document.DocumentStyleName}}</td>
+                                            <td>{{values.Document.DocumentTypeName}}</td>
+                                            <td ng-click="OnClickViewDocument(values.Document)">
+                                                <i class="mdi mdi-search-web"></i>
+                                                <span ng-show="values.Document.DocumentStyleId == 'DS001'" class="text-link font-size-16">{{values.Document.NameFile}}</span>
+                                                <span ng-show="values.Document.DocumentStyleId == 'DS002'" class="text-link font-size-16">{{values.Document.LinkPath}}</span>
+                                            </td>
+                                            <td>
+                                                <span ng-show="values.Document.DocumentStyleId == 'DS001'" class="font-size-16">{{values.Document.Size | number : 2 }} MB.</span>
+                                                <span ng-show="values.Document.DocumentStyleId == 'DS002'" class="font-size-16">-</span>
+                                            </td>
+                                            <td>{{values.CreatedOn}}</td>
+                                            <td class="text-center">
+                                                <button type="button" class="btn btn-outline-dark waves-effect waves-light px-3 py-1 dropdown-toggle font-size-15" ng-hide="TablePeriod.AccountSelect.Status == 'Confirm'"
+                                                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    ตัวเลือก <i class="mdi mdi-chevron-down"></i>
+                                                </button>
+
+                                                <div class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop1" style="">
+                                                    <a class="dropdown-item font-size-15 a-status-danger  cursor-pointer" ng-click="OnClickDeleteDocument(values)"> <i class="mdi mdi-delete-circle-outline"></i> ลบ</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <tbody ng-show="TablePeriod.AccountSelect.Documents == undefined || TablePeriod.AccountSelect.Documents.length == 0">
+                                        <tr class="text-center ">
+                                            <td colspan="8" class="empty">
+                                                <img src="@Url.Content("~/")assets/images/icons/icon-list.png" width="60" class="d-block m-auto">
+                                                ไม่พบรายการ
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <hr />
+                                <div class="d-flex justify-content-end">
+                                    <div data-v-e8100c36="" class="numberShow">
+                                        <p class="mr-2 mx-2 mb-0 font-size-16">แสดง</p>
+                                        <select class="day form-control form-select form-select-sm" style="width: auto;" ng-change="OnClickChangePageTotal()" ng-model="itemsPerPage">
+                                            <option value="10">10</option>
+                                            <option value="22">20</option>
+                                            <option value="50">50</option>
+                                            <option value="100">100</option>
+                                        </select>
+                                        <div data-v-76901dc6="" class="selectInputDropdown noLabel" style="width: 100%;">
+                                            <p class="mr-2 mx-2 mb-0 font-size-16">รายการ</p>
+                                        </div>
+                                    </div>
+                                    <div data-v-e8100c36="" class="page-data">
+                                        <div data-v-e8100c36="" class="prevArrow" ng-class="prevPageDisabled()" ng-click="prevPage()">
+                                            <i data-v-e8100c36="" class="fa fa-chevron-left"></i>
+                                        </div>
+                                        <p data-v-e8100c36="" class="mr-2 mx-2 mb-0 font-size-16">หน้า</p>
+                                        <select class="day form-control form-select form-select-sm" style="width: auto;" ng-options="item as item.name for item in retpage" ng-model="changePages" ng-change="setPage(item)">
+                                            @*<option ng-repeat="rows in retpage" value="{{rows.code}}" >{{rows.name}}</option>*@
+                                        </select>
+                                        <div data-v-e8100c36="" class="nextArrow" ng-class="nextPageDisabled()" ng-click="nextPage()">
+                                            <i data-v-e8100c36="" class="fa fa-chevron-right"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class=" tab-pane card " id="conclusion" role="tabpanel">
+                    <div class="card-body card-form card-accordion">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h4 class="card-title mb-3">
+                                    <span class="badge-table"><i class="mdi mdi-comment-quote-outline mx-2"></i></span>
+                                    Audit Conclusion
+                                </h4>
+                            </div>
+                            <!-- end col -->
+                            <div class="col-md-6 text-right">
+                                <button type="button" class="btn btn-outline-dark waves-effect waves-light px-4 dropdown-toggle  mx-2" ng-hide="TablePeriod.AccountSelect.Status == 'Confirm'"
+                                        ng-click="OnClickAddConclusion()">
+                                    <i class="mdi mdi-plus mx-2"></i>Audit Conclusion
+                                </button>
+                            </div>
+                            <!-- end col -->
+                        </div>
+                        <div class="table-rep-plugin py-2">
+                            <div class="table-responsive mb-0" data-pattern="priority-columns">
+                                <table id="tech-companies-1" class="table-data  table-striped">
+                                    <thead>
+                                        <tr class="headerRow">
+                                            <th></th>
+                                            <th width="10%">รหัสอ้างอิง</th>
+                                            <th width="5%">ลำดับอ้างอิง</th>
+                                            <th width="25%">วิธีการตรวจสอบ</th>
+                                            <th width="27%">บันทึกผลการตรวจสอบ</th>
+                                            <th width="10%" class="text-center">ความพึงพอใจ</th>
+                                            <th width="10%">ผู้รับผิดชอบ</th>
+                                            <th width="8%">วันที่เพิ่มข้อมูล</th>
+                                            <th width="5%" class="text-center">เพิ่มเติม</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="values in TablePeriod.AccountSelect.Conclusions | offset: currentPage_1*itemsPerPage_1 | limitTo: itemsPerPage_1  " ng-show="values.IsDelete == 'No'">
+                                            <th>{{values.Seq}}</th>
+                                            <td ng-click="OnClickTableConclusion(values)" width="50px"><span class="text-link">{{values.ConclusionRefCode}}</span></td>
+                                            <td class="text-center">{{values.SequenceAuditProgram}}</td>
+                                            <td> <div class="text-long">{{values.VerifyDesc}}</div></td>
+                                            <td> <div class="text-long">{{values.ConclusionDesc}}</div></td>
+                                            <td class="text-center">
+                                                <span ng-show="values.IsConclusion == 'Satisfied'" class="badge bg-success font-size-16">พึงพอใจ</span>
+                                                <span ng-show="values.IsConclusion == 'NotSatisfied'" class="badge bg-danger font-size-16">ไม่พึงพอใจ</span>
+                                            </td>
+                                            <td>{{values.CreatedData.FullName}}</td>
+                                            <td>{{values.CreatedOn}}</td>
+                                            <td class="text-center">
+                                                <button type="button" class="btn btn-outline-dark waves-effect waves-light px-3 py-1 dropdown-toggle font-size-15" ng-hide="TablePeriod.AccountSelect.Status == 'Confirm'"
+                                                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    ตัวเลือก <i class="mdi mdi-chevron-down"></i>
+                                                </button>
+                                                <div class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop1" style="">
+                                                    <a class="dropdown-item font-size-15" ng-click="OnClickTableConclusion(values)"><i class="mdi mdi-circle-edit-outline"></i> แก้ไข</a>
+                                                    <a class="dropdown-item font-size-15  a-status-danger" ng-click="OnClickDeleteConclusion(values)"> <i class="mdi mdi-delete-circle-outline"></i> ลบ</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <tbody ng-show="TablePeriod.AccountSelect.Conclusions == undefined || TablePeriod.AccountSelect.Conclusions.length == 0">
+                                        <tr class="text-center ">
+                                            <td colspan="8" class="empty">
+                                                <img src="@Url.Content("~/")assets/images/icons/icon-list.png" width="60" class="d-block m-auto">
+                                                ไม่พบรายการ
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <hr />
+                                <div class="d-flex justify-content-end">
+                                    <div data-v-e8100c36="" class="numberShow">
+                                        <p class="mr-2 mx-2 mb-0 font-size-16">แสดง</p>
+                                        <select class="day form-control form-select form-select-sm" style="width: auto;" ng-change="OnClickChangePageTotal_1()" ng-model="itemsPerPage_1">
+                                            <option value="10">10</option>
+                                            <option value="20">20</option>
+                                            <option value="50">50</option>
+                                            <option value="100">100</option>
+                                        </select>
+                                        <div data-v-76901dc6="" class="selectInputDropdown noLabel" style="width: 100%;">
+                                            <p class="mr-2 mx-2 mb-0 font-size-16">รายการ</p>
+                                        </div>
+                                    </div>
+                                    <div data-v-e8100c36="" class="page-data">
+                                        <div data-v-e8100c36="" class="prevArrow" ng-class="prevPageDisabled_1()" ng-click="prevPage_1()">
+                                            <i data-v-e8100c36="" class="fa fa-chevron-left"></i>
+                                        </div>
+                                        <p data-v-e8100c36="" class="mr-2 mx-2 mb-0 font-size-16">หน้า</p>
+                                        <select class="day form-control form-select form-select-sm" style="width: auto;" ng-options="item as item.name for item in retpage_1" ng-model="changePages_1" ng-change="setPage_1(item)">
+                                            @*<option ng-repeat="rows in retpage" value="{{rows.code}}" >{{rows.name}}</option>*@
+                                        </select>
+                                        <div data-v-e8100c36="" class="nextArrow" ng-class="nextPageDisabled_1()" ng-click="nextPage_1()">
+                                            <i data-v-e8100c36="" class="fa fa-chevron-right"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class=" tab-pane card " id="comment" role="tabpanel">
+                    <div class="card-body card-form card-accordion">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h4 class="card-title mb-3">
+                                    <span class="badge-table"><i class="mdi mdi-comment-text-multiple-outline mx-2"></i></span>
+                                    Audit Comment
+                                </h4>
+                            </div>
+                            <!-- end col -->
+                        </div>
+                        <hr />
+                        <div class="row  row-form ">
+                            <div class="col-md-4">
+                                <h4 class="card-title mb-2 font-weight-bold h4-flex"><i data-v-4e8aa93a="" class="color-circle"></i>รายละเอียด</h4>
+                            </div>
+                            <div class="col-lg-8 pl-0">
+                                <div class="form-input">
+                                    <textarea rows="20" id="name" class="form-element-input form-element-input-textarea" style="height:400px;"
+                                              ng-disabled="UserProfiles.PermissionCodeActive != 'AUDIT001'"
+                                              type="input" placeholder="กรุณาระบุรายละเอียด" ng-model="$scope.TablePeriod.AccountSelect.AuditComment"></textarea>
+                                    <div class="form-element-bar"></div>
+                                    <label class="form-element-label" for="name">รายละเอียด</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class=" tab-pane card " id="issue" role="tabpanel">
+                    <div class="card-body card-form card-accordion">
+                        <div class="row py-2">
+                            <div class="col-md-6">
+                                <h4 class="card-title mb-3">
+                                    <span class="badge-table"><i class="mdi mdi-comment-text-multiple-outline mx-2"></i></span>
+                                    Audit Issue
+                                </h4>
+                            </div>
+                            <div class="col-md-6 d-flex justify-content-end">
+                                <button type="button" class="btn btn-outline-dark waves-effect waves-light px-4 dropdown-toggle  mx-2" ng-click="OnClickAddIssue()" ng-hide="TablePeriod.AccountSelect.Status == 'Confirm'">
+                                    <i class="mdi mdi-plus mx-2"></i> Audit Issuee
+                                </button>
+                            </div>
+                        </div>
+                        <div class="table-rep-plugin py-2">
+                            <div class="table-responsive mb-0" data-pattern="priority-columns">
+                                <table id="tech-companies-1" class="table-data  table-striped">
+                                    <thead>
+                                        <tr class="headerRow">
+                                            <th></th>
+                                            <th width="10%">รหัสอ้างอิง</th>
+                                            <th width="20%">รายละเอียด</th>
+                                            <th width="20%">วิธีแก้ไข</th>
+                                            <th class="text-center" width="10%">สถานะ</th>
+                                            <th class="text-center" width="10%">วันที่เพิ่มข้อมูล</th>
+                                            <th width="10%">ผู้ดำเนินการ</th>
+                                            <th class="text-center" width="10%">วันที่ดำเนินการเรียบร้อย</th>
+                                            <th width="10%" class="text-center">เพิ่มเติม</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="values in TablePeriod.AccountSelect.Issues | offset: currentPage_2*itemsPerPage_2 | limitTo: itemsPerPage_2  ">
+                                            <th>{{values.Seq}}</th>
+                                            <td ng-click="OnClickTableIssue(values)" width="50px"><span class="text-link">{{values.AuditIssueRefCode}}</span></td>
+                                            <td> <div class="text-long">{{values.Issue}}</div></td>
+                                            <td> <div class="text-long">{{values.Solution}}</div></td>
+                                            <td class="text-center">
+                                                <span ng-show="values.IsStatus == 'Complete'" class="badge bg-success font-size-16">ดำเนินการเรียบร้อย</span>
+                                                <span ng-show="values.IsStatus == 'Wait'" class="badge bg-info font-size-16">รอดำเนินการ</span>
+                                                <span ng-show="values.IsStatus == 'Cancel'" class="badge bg-danger font-size-16">ยกเลิกรายการ</span>
+                                            </td>
+                                            <td class="text-center">{{values.CreatedOn}}</td>
+                                            <td>{{values.CompleteData.FullName}}</td>
+                                            <td class="text-center">{{values.CompleteOn}}</td>
+                                            <td class="text-center">
+                                                <button type="button" class="btn btn-outline-dark waves-effect waves-light px-3 py-1 dropdown-toggle font-size-15" ng-hide="TablePeriod.AccountSelect.Status == 'Confirm'"
+                                                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    ตัวเลือก <i class="mdi mdi-chevron-down"></i>
+                                                </button>
+
+                                                <div class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop1" style="">
+                                                    <a ng-show="values.IsStatus == 'Wait'" class="dropdown-item font-size-15 cursor-pointer a-status-success" ng-click="OnClickSaveChangeIssue(values,'Complete')"><i class="mdi mdi-circle-edit-outline"></i> ดำเนินการเรียบร้อย</a>
+                                                    <a ng-show="values.IsStatus == 'Wait' || values.IsStatus == 'Complete'" class="dropdown-item font-size-15
+                                                       cursor-pointer a-status-danger" ng-click="OnClickSaveChangeIssue(values,'Cancel')"><i class="mdi mdi-circle-edit-outline"></i> ยกเลิก</a>
+                                                    <a class="dropdown-item font-size-15" ng-click="OnClickTableIssue(values)"><i class="mdi mdi-circle-edit-outline"></i> แก้ไข</a>
+                                                    <a class="dropdown-item font-size-15  a-status-danger" ng-click="OnClickDeleteIssue(values)"> <i class="mdi mdi-delete-circle-outline"></i> ลบ</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <tbody ng-show="TablePeriod.AccountSelect.Issues == undefined || TablePeriod.AccountSelect.Issues.length == 0">
+                                        <tr class="text-center ">
+                                            <td colspan="8" class="empty">
+                                                <img src="@Url.Content("~/")assets/images/icons/icon-list.png" width="60" class="d-block m-auto">
+                                                ไม่พบรายการ
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <hr />
+                                <div class="d-flex justify-content-end">
+                                    <div data-v-e8100c36="" class="numberShow">
+                                        <p class="mr-2 mx-2 mb-0 font-size-16">แสดง</p>
+                                        <select class="day form-control form-select form-select-sm" style="width: auto;" ng-change="OnClickChangePageTotal_2()" ng-model="itemsPerPage_2">
+                                            <option value="10">10</option>
+                                            <option value="22">20</option>
+                                            <option value="50">50</option>
+                                            <option value="100">100</option>
+                                        </select>
+                                        <div data-v-76901dc6="" class="selectInputDropdown noLabel" style="width: 100%;">
+                                            <p class="mr-2 mx-2 mb-0 font-size-16">รายการ</p>
+                                        </div>
+                                    </div>
+                                    <div data-v-e8100c36="" class="page-data">
+                                        <div data-v-e8100c36="" class="prevArrow" ng-class="prevPageDisabled_2()" ng-click="prevPage_2()">
+                                            <i data-v-e8100c36="" class="fa fa-chevron-left"></i>
+                                        </div>
+                                        <p data-v-e8100c36="" class="mr-2 mx-2 mb-0 font-size-16">หน้า</p>
+                                        <select class="day form-control form-select form-select-sm" style="width: auto;" ng-options="item as item.name for item in retpage_2" ng-model="changePages_2" ng-change="setPage_2(item)">
+                                        </select>
+                                        <div data-v-e8100c36="" class="nextArrow" ng-class="nextPageDisabled_2()" ng-click="nextPage_2()">
+                                            <i data-v-e8100c36="" class="fa fa-chevron-right"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class=" tab-pane card " id="timeline" role="tabpanel">
+                    <div class="card-body card-form card-accordion">
+                        <div class="row py-2">
+                            <div class="col-md-6">
+                                <h4 class="card-title mb-3">
+                                    <span class="badge-table"><i class="mdi mdi-calendar-account-outline mx-2"></i></span>
+                                    Timeline
+                                </h4>
+                            </div>
+                        </div>
+                        <section id="cd-timeline" class="cd-container text-center" ng-show="TablePeriod.AccountSelect.Events== undefined  || TablePeriod.AccountSelect.Events.length == 0">
+                            <img src="@Url.Content("~/")assets/images/icons/icon-list.png" width="60" class="d-block m-auto">
+                            ไม่พบรายการ
+                        </section>
+                        <section id="cd-timeline" class="cd-container" ng-show="TablePeriod.AccountSelect.Events!= undefined  &&TablePeriod.AccountSelect.Events.length > 0">
+                            <div class="cd-timeline-block timeline-{{values.Align}}" ng-repeat="values in TablePeriod.AccountSelect.Events">
+                                <div class="cd-timeline-img bg-info">
+                                    <i class="mdi mdi-adjust"></i>
+                                </div>
+                                <!-- cd-timeline-img -->
+
+                                <div class="cd-timeline-content">
+                                    <h3><i class="mdi mdi-account-clock-outline"></i>{{values.CreateData.FullName}}</h3>
+                                    @*<p class="mb-0 text-muted">{{values.IsStatusDesc}}</p>*@
+                                    <span class="badge font-size-14" ng-class="{ 'bg-success' : values.IsEvent == 'Confirm',
+                                      'bg-danger' : values.IsEvent == 'Back'}">สถานะ : {{values.IsStatusDesc}}</span>
+
+                                    <p class="mb-0 text-muted" ng-show=" values.IsEvent == 'Confirm'">ใช้เวลาทั้งหมด : {{values.TimeUse}} ชั่วโมง</p>
+                                    <p class="mb-0 text-muted">หมายเหตุ :  {{values.Remark}}</p>
+                                    <span class="cd-date">วันที่ทำรายการ :  {{values.CreatedOn}}</span>
+                                </div>
+                                <!-- cd-timeline-content -->
+                            </div>
+                            <!-- cd-timeline-block -->
+                            <!--<div class="cd-timeline-block timeline-left">
+                            <div class="cd-timeline-img bg-info">
+                                <i class="mdi mdi-adjust"></i>
+                            </div>-->
+                            <!-- cd-timeline-img -->
+                            <!--<div class="cd-timeline-content">
+                                <h3><i class="mdi mdi-account-clock-outline"></i> นายทดสอบบัญชี Lv1</h3>
+                                <p class="mb-0 text-muted">กดยืนยันการตรวจสอบ</p>
+                                <p class="mb-0 text-muted">ใช้เวลาทั้งหมด : 5 ชั่วโมง</p>
+                                <p class="mb-0 text-muted">หมายเหตุ : เอกสารโครงการจัดทำระบบสำนักงานตรวจสอบบัญชี v1.0 (defect)</p>
+                                <span class="cd-date">10/11/2565 18:21</span>
+                            </div>-->
+                            <!-- cd-timeline-content -->
+                            <!--</div>-->
+                            <!-- cd-timeline-block -->
+
+
+                        </section>
+                        <!-- cd-timeline -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div> <!-- container-fluid -->
+<!-- sample modal content -->
+<div id="ModalDocument" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog  modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title mt-0" id="myModalLabel">
+                    อัพโหลดเอกสาร
+                </h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h4 class="card-title mt-2 font-size-16 font-weight-bold">รายละเอียดข้อมูล</h4>
+                    </div>
+                    <div class="col-md-4 ">
+                        <div class="form-input">
+                            <input id="name" class="form-element-input" type="text" placeholder="กรุณาระบุรหัส" ng-model="TableAdd.RefCode" />
+                            <div class="form-element-bar"></div>
+                            <label class="form-element-label" for="name">รหัสอ้างอิง</label>
+                            <label class="form-element-required" for="name">* </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row py-2">
+                    <div class="col-lg-12 pl-0">
+                        <div class="form-input ">
+                            <select select2 class="dropdown2 form-control" id="exampleFormControlSelect2" ng-options="item as item.Name for item in Parameter.DocumentStyle"
+                                    ng-model="TableAdd.SelectDocumentStyle" ng-disabled="TableAdd.DocumentListId != undefined">
+                                <option value="" class="text-muted" selected style="display:none">กรุณาเลือก</option>
+                            </select>
+                            <label class="form-element-dropdown" for="name">รูปแบบเอกสาร</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row py-2">
+                    <div class="col-lg-12 pl-0">
+                        <div class="form-input ">
+                            <select select2 class="dropdown2 form-control" id="exampleFormControlSelect2" ng-options="item as item.Name for item in Parameter.DocumentType"
+                                    ng-model="TableAdd.SelectDocumentType">
+                                <option value="" class="text-muted" selected style="display:none">กรุณาเลือก</option>
+                            </select>
+                            <label class="form-element-dropdown" for="name">ประเภทเอกสาร</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row py-2" ng-show="TableAdd.SelectDocumentStyle.Code == 'DS001' || TableAdd.SelectDocumentStyle == undefined">
+                    <div class="col-lg-12 pl-0">
+                        <div class="form-input">
+                            <input id="product_thumnail" type="file" ngf-select="UploadFiles($files)"
+                                   data-max-file-size="3M" data-allowed-file-extensions="jpg png jpeg" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row py-2" ng-show="TableAdd.SelectDocumentStyle.Code == 'DS002'">
+                    <div class="col-lg-12 pl-0">
+                        <div class="form-input">
+                            <input class="form-element-input" type="url" placeholder="example* ( https://example.com )" ng-model="TableAdd.LinkPath" />
+                            <div class="form-element-bar"></div>
+                            <label class="form-element-label">ลิ้งค์</label>
+                            <label class="form-element-required">* </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row py-2">
+                    <div class="col-lg-12 pl-0">
+                        <div class="form-input">
+                            <textarea rows="5" id="name" class="form-element-input form-element-input-textarea" type="text" placeholder="กรุณาระบุหมายเหตุ" ng-model="TableAdd.Remark"></textarea>
+                            <div class="form-element-bar"></div>
+                            <label class="form-element-label" for="name">หมายเหตุ (ถ้ามี)</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light waves-effect px-5 py-2" data-bs-dismiss="modal" aria-label="Close">ยกเลิก</button>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary  waves-effect waves-light px-3 py-2 aksorn f-1-2" ng-click="OnClickSaveDocument()">บันทึกเอกสาร</button>
+                    <button type="button" class="btn btn-primary   waves-effect waves-light px-2 py-1 dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="mdi mdi-chevron-down"></i>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop1" style="">
+                        <a class="dropdown-item cursor-pointer" ng-click="OnClickSaveDocument('back')">บันทึก และย้อนกลับ</a>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- sample modal content -->
+<div id="ModalIssue" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog  modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title mt-0" id="myModalLabel">
+                    Audit Issue
+                </h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h4 class="card-title mt-2 font-size-16 font-weight-bold">รายละเอียดข้อมูล</h4>
+                    </div>
+                    <div class="col-md-4 ">
+                        <div class="form-input">
+                            <input id="name" class="form-element-input form-element-input-show" type="text" placeholder="กรุณาระบุรหัส" ng-model="TableAdd.AuditIssueRefCode" />
+                            <div class="form-element-bar"></div>
+                            <label class="form-element-label" for="name">รหัส</label>
+                            <label class="form-element-required" for="name">* </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row py-2">
+                    <div class="col-lg-12 pl-0">
+                        <div class="form-input">
+                            <textarea rows="5" id="name" class="form-element-input form-element-input-show form-element-input-textarea" type="input" placeholder="กรุณาระบุรายละเอียด" ng-model="TableAdd.Issue"></textarea>
+                            <div class="form-element-bar"></div>
+                            <label class="form-element-label" for="name">รายละเอียด</label>
+                            <label class="form-element-required" for="name">* </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row py-2">
+                    <div class="col-lg-12 pl-0">
+                        <div class="form-input">
+                            <textarea rows="5" id="name" class="form-element-input form-element-input-show form-element-input-textarea" type="input" placeholder="กรุณาระบุวิธีการแก้ไข" ng-model="TableAdd.Solution"></textarea>
+                            <div class="form-element-bar"></div>
+                            <label class="form-element-label" for="name">วิธีการแก้ไข</label>
+                            <label class="form-element-required" for="name">* </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light waves-effect px-5 py-2" data-bs-dismiss="modal" aria-label="Close">ยกเลิก</button>
+                <div class="btn-group" ng-hide="TablePeriod.AccountSelect.Status == 'Confirm'">
+                    <button type="button" class="btn btn-primary  waves-effect waves-light px-3 py-2 aksorn f-1-2" ng-click="OnClickSaveIssue()">บันทึกข้อมูล</button>
+                    <button type="button" class="btn btn-primary   waves-effect waves-light px-2 py-1 dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="mdi mdi-chevron-down"></i>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop1" style="">
+                        <a class="dropdown-item cursor-pointer" ng-click="OnClickSaveIssue('back')">บันทึก และย้อนกลับ</a>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- sample modal content -->
+<div id="ModalConclusion" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog  modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title mt-0" id="myModalLabel">
+                    Audit Conclusion
+                </h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h4 class="card-title mt-2 font-size-16 font-weight-bold">รายละเอียดข้อมูล</h4>
+                        <button type="button" class="mt-1 btn btn-modal-add waves-effect waves-light" ng-click="OnClickAuditProgram()" ng-hide="TablePeriod.AccountSelect.Status == 'Confirm'"><i class="mdi mdi-plus me-1"></i>Audit Program</button>
+                    </div>
+                    <div class="col-md-4 ">
+                        <div class="form-input">
+                            <input id="name" class="form-element-input form-element-input-show" type="text" placeholder="กรุณาระบุรหัส" ng-model="TableAdd.ConclusionRefCode" />
+                            <div class="form-element-bar"></div>
+                            <label class="form-element-label" for="name">รหัส</label>
+                            <label class="form-element-required" for="name">* </label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-input">
+                            <input id="name" class="form-element-input form-element-input-show" type="text" placeholder="กรุณาระบุรหัส" ng-model="TableAdd.SequenceAuditProgram" disabled />
+                            <div class="form-element-bar"></div>
+                            <label class="form-element-label" for="name">Audit Program Sequence</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row py-2">
+                    <div class="col-lg-12 pl-0">
+                        <div class="form-input">
+                            <textarea rows="5" id="name" class="form-element-input form-element-input-show form-element-input-textarea" type="input" placeholder="กรุณาระบุวิธีการตรวจสอบ" ng-model="TableAdd.VerifyDesc"></textarea>
+                            <div class="form-element-bar"></div>
+                            <label class="form-element-label" for="name">วิธีการตรวจสอบ</label>
+                            <label class="form-element-required" for="name">* </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row py-2">
+                    <div class="col-lg-12 pl-0">
+                        <div class="form-input">
+                            <textarea rows="5" id="name" class="form-element-input form-element-input-show form-element-input-textarea" type="input" placeholder="กรุณาระบุบันทึกผลการตรวจสอบ" ng-model="TableAdd.ConclusionDesc"></textarea>
+                            <div class="form-element-bar"></div>
+                            <label class="form-element-label" for="name">บันทึกผลการตรวจสอบ</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row py-2">
+                    <div class="col-lg-2 pl-0">
+                        <label for="example-date-input" class="">ความพึงพอใจ</label>
+                    </div>
+                    <div class="col-lg-2 pl-0">
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="radio" value="Satisfied" name="ConclusionformRadios" id="ConformRadios1" ng-model="TableAdd.IsConclusion">
+                            <label class="form-check-label font-size-16" for="ConformRadios1">
+                                พึงพอใจ
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 pl-0">
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="radio" value="NotSatisfied" name="ConclusionformRadios" id="ConformRadios2" ng-model="TableAdd.IsConclusion">
+                            <label class="form-check-label font-size-16" for="ConformRadios2">
+                                ไม่พึงพอใจ
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light waves-effect px-5 py-2" data-bs-dismiss="modal">ยกเลิก</button>
+                <div class="btn-group" ng-hide="TablePeriod.AccountSelect.Status == 'Confirm'">
+                    <button type="button" class="btn btn-primary  waves-effect waves-light px-3 py-2 aksorn f-1-2" ng-click="OnClickSaveConclusion()">บันทึกข้อมูล</button>
+                    <button type="button" class="btn btn-primary   waves-effect waves-light px-2 py-1 dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="mdi mdi-chevron-down"></i>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop1" style="">
+                        <a class="dropdown-item cursor-pointer" ng-click="OnClickSaveConclusion('back')">บันทึก และย้อนกลับ</a>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- sample modal content -->
+<div id="ModalAuditProgram" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog  modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title mt-0" id="myModalLabel">
+                    Audit Program
+                </h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                @*<div class="row">
+                        <div class="col-md-6">
+                            <h4 class="card-title mt-2 font-size-16 font-weight-bold">ค้นหาข้อมูล</h4>
+                        </div>
+                        <div class="col-md-6 d-flex flex-wrap  justify-content-end">
+                            <button type="button" class="btn-dbd-filter waves-effect "><i class="mdi mdi-magnify me-1"></i>ค้นหา</button>
+                        </div>
+                    </div>
+                    <div class="row py-2">
+                        <div class="col-lg-12 pl-0">
+                            <div class="form-input">
+                                <input id="name" class="form-element-input form-element-input-show" type="text" placeholder="กรุณาระบุคำค้นหา" required />
+                                <div class="form-element-bar"></div>
+                                <label class="form-element-label" for="name">คำค้นหา</label>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />*@
+                <div class="row pt-2">
+                    <div class="col-md-8">
+                        <h4 class="card-title mb-3">
+                            <span class="badge-filter"><i class="mdi mdi-playlist-minus mx-2"></i></span>
+                            {{AuditProgram.AuditPrograms.Name}}
+                        </h4>
+                    </div>
+                    <div class="col-md-4 d-flex flex-wrap  justify-content-end">
+                        <p>*คลิก  <i class="mdi mdi-check-circle text-success"></i> รายการที่ต้องการ</p>
+                    </div>
+                </div>
+                <div class="table-rep-plugin">
+                    <div class="table-responsive mb-0" data-pattern="priority-columns">
+                        <table id="tech-companies-1" class="table-data  table-striped">
+                            <thead>
+                                <tr class="headerRow">
+                                    <th></th>
+                                    <th width="90%">วิธีการตรวจสอบ</th>
+                                    <th width="10%"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="values in AuditProgram.AuditPrograms.AuditDetail | offset: currentPage_3*itemsPerPage_3 | limitTo: itemsPerPage_3  ">
+                                    <th>{{values.Sequence}}</th>
+                                    <td>{{values.Name}}</td>
+                                    <td>
+                                        <i class="mdi mdi-check-circle text-success" ng-click="OnClickAuditProgramSelect(values)"></i>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tbody ng-show="AuditProgram.AuditPrograms.AuditDetail == undefined || AuditProgram.AuditPrograms.AuditDetail.length == 0">
+                                <tr class="text-center ">
+                                    <td colspan="8" class="empty">
+                                        <img src="@Url.Content("~/")assets/images/icons/icon-list.png" width="60" class="d-block m-auto">
+                                        ไม่พบรายการ
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <hr />
+                        <div class="d-flex justify-content-end">
+                            <div data-v-e8100c36="" class="numberShow">
+                                <p class="mr-2 mx-2 mb-0 font-size-16">แสดง</p>
+                                <select class="day form-control form-select form-select-sm" style="width: auto;" ng-change="OnClickChangePageTotal_3()" ng-model="itemsPerPage_3">
+                                    <option value="10">10</option>
+                                    <option value="22">20</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                </select>
+                                <div data-v-76901dc6="" class="selectInputDropdown noLabel" style="width: 100%;">
+                                    <p class="mr-2 mx-2 mb-0 font-size-16">รายการ</p>
+                                </div>
+                            </div>
+                            <div data-v-e8100c36="" class="page-data">
+                                <div data-v-e8100c36="" class="prevArrow" ng-class="prevPageDisabled_3()" ng-click="prevPage_3()">
+                                    <i data-v-e8100c36="" class="fa fa-chevron-left"></i>
+                                </div>
+                                <p data-v-e8100c36="" class="mr-2 mx-2 mb-0 font-size-16">หน้า</p>
+                                <select class="day form-control form-select form-select-sm" style="width: auto;" ng-options="item as item.name for item in retpage_3" ng-model="changePages_3" ng-change="setPage_3(item)">
+                                </select>
+                                <div data-v-e8100c36="" class="nextArrow" ng-class="nextPageDisabled_3()" ng-click="nextPage_3()">
+                                    <i data-v-e8100c36="" class="fa fa-chevron-right"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light waves-effect px-5 py-2" data-bs-dismiss="modal">ยกเลิก</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- container-fluid -->
+<div id="ModalConfirmflow" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog  modal-dialog-scrollable">
+        <div class="modal-content modal-sm">
+            <div class="modal-header">
+                <h2 class="modal-title mt-0" id="myModalLabel">
+                    ยืนยันการตรวจสอบ
+                </h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4 class="card-title mt-2 font-size-16 font-weight-bold">รายละเอียดการตรวจสอบ</h4>
+                    </div>
+                </div>
+                <div class="row py-2" ng-show="TableAdd.IsStatus == 'Confirm'">
+                    <div class="col-lg-8 pl-0">
+                        <div id="inputstartperiod-popup" class="input-group-date date datepicker no-border">
+                            <input type="text" class="form-element-input input-group-addon" onkeydown="return false" ng-model="TableAdd.StartDate">
+                            <div class="form-element-bar"></div>
+                            <label class="form-element-label">วันที่เริ่มต้น</label>
+                            <label class="form-element-required">* </label>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 pl-0">
+                        <div id="datetimepicker3" class="input-append form-input">
+                            <input data-format="hh:mm" class="datetime-addon form-element-input input-group-addon add-on" type="text" data-time-icon="icon-time" data-date-icon="icon-calendar" ng-model="TableAdd.TimeStart" />
+                            <div class="form-element-bar"></div>
+                            <label class="form-element-label">เวลาที่เริ่มต้น</label>
+                            <label class="form-element-required">* </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row py-2" ng-show="TableAdd.IsStatus == 'Confirm'">
+                    <div class="col-lg-8 pl-0">
+                        <div id="inputendperiod-popup" class="input-group-date date datepicker no-border">
+                            <input type="text" class="form-element-input input-group-addon" onkeydown="return false" ng-model="TableAdd.EndDate">
+                            <div class="form-element-bar"></div>
+                            <label class="form-element-label">วันที่เสร็จสิ้น</label>
+                            <label class="form-element-required">* </label>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 pl-0">
+                        <div id="datetimepicker4" class="input-append form-input">
+                            <input data-format="hh:mm" class="datetime-addon form-element-input input-group-addon add-on" type="text" data-time-icon="icon-time" data-date-icon="icon-calendar" ng-model="TableAdd.TimeEnd" />
+                            <div class="form-element-bar"></div>
+                            <label class="form-element-label">เวลาที่เสร้จสิ้น</label>
+                            <label class="form-element-required">* </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row py-2">
+                    <div class="col-lg-12 pl-0">
+                        <div class="form-input">
+                            <textarea rows="5" id="name" class="form-element-input form-element-input-show form-element-input-textarea" type="input" placeholder="กรุณาระบุหมายเหตุ" ng-model="TableAdd.Remark"></textarea>
+                            <div class="form-element-bar"></div>
+                            <label class="form-element-label" for="name">หมายเหตุ</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light waves-effect px-5 py-2" data-bs-dismiss="modal">ยกเลิก</button>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary  waves-effect waves-light px-3 py-2 aksorn f-1-2" ng-click="OnClickConfirm()">ยืนยันข้อมูล</button>
+                    <button type="button" class="btn btn-primary   waves-effect waves-light px-2 py-1 dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="mdi mdi-chevron-down"></i>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop1" style="">
+                        <a class="dropdown-item cursor-pointer" ng-click="OnClickConfirm('back')">ยืนยัน และย้อนกลับ</a>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- container-fluid -->
+<!-- Adjustment -->
+<div id="ModalAdjustment" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog  modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title mt-0" id="myModalLabel">
+                    {{TableAdd.Action}} Adjustment
+                </h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <h4 class="card-title mt-2 font-size-16 font-weight-bold">รายละเอียดข้อมูล</h4>
+                    </div>
+                    <div class="col-md-5  pl-0 d-flex gap-3">
+                        <div class="mt-2  form-check mb-3">
+                            <input class="form-check-input" type="radio" name="formRadios" id="AdjustformRadios1" value="Agree" ng-model="TableAdd.IsAgree">
+                            <label class="form-check-label font-size-16" for="AdjustformRadios1">
+                                Agree
+                            </label>
+                        </div>
+                        <div class="mt-2 form-check mb-3">
+                            <input class="form-check-input" type="radio" name="formRadios" id="AdjustformRadios2" value="Disagree" ng-model="TableAdd.IsAgree">
+                            <label class="form-check-label font-size-16" for="AdjustformRadios2">
+                                Disagree
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-4 ">
+                        <div class="form-input">
+                            <input id="name" class="form-element-input form-element-input-show" type="text" placeholder="กรุณาระบุรหัส" ng-model="TableAdd.Code" />
+                            <div class="form-element-bar"></div>
+                            <label class="form-element-label" for="name">รหัส</label>
+                            <label class="form-element-required" for="name">* </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h3 class="card-title mt-2 font-size-16 font-weight-bold">ข้อมูล Adjustment</h3>
+                    </div>
+                </div>
+                <div class="row py-2">
+                    <div class="col-lg-12 pl-0">
+                        <div class="form-input">
+                            <input id="name" class="form-element-input form-element-input-show" type="text" placeholder="กรุณาระบุชื่อรายละเอียดการปรับปรุง" ng-model="TableAdd.Name" />
+                            <div class="form-element-bar"></div>
+                            <label class="form-element-label" for="name">ชื่อรายละเอียดการปรับปรุง</label>
+                            <label class="form-element-required" for="name">* </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row py-2">
+                    <div class="col-lg-12 pl-0">
+                        <div class="form-input">
+                            <input id="name" class="form-element-input form-element-input-show" type="text" placeholder="กรุณาระบุรายละเอียดเพิ่มเติม" ng-model="TableAdd.Description" />
+                            <div class="form-element-bar"></div>
+                            <label class="form-element-label" for="name">รายละเอียดเพิ่มเติม</label>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-md-6">
+                        <h3 class="card-title mt-2 font-size-16 font-weight-bold">ตาราง Adjustment</h3>
+                    </div>
+                    <div class="col-md-6  pl-0 d-flex justify-content-end gap-3">
+                        <button type="button" class="mt-1 btn btn-modal-add waves-effect waves-light" ng-click="OnClickAddSub()" ng-hide="TablePeriod.AccountSelect.Status == 'Confirm'"><i class="mdi mdi-plus me-1"></i>เพิ่มข้อมูล</button>
+                    </div>
+                </div>
+                <div class="table-rep-plugin mt-3">
+                    <div class="table-responsive mb-0" data-pattern="priority-columns">
+                        <table id="tech-companies-1" class="table-data  table-striped font-size-14">
+                            <thead>
+                                <tr class="headerRow">
+                                    <th colspan="3" class="text-center">Description</th>
+                                    <th colspan="2" class="text-center">Balance Sheet</th>
+                                    <th colspan="2" class="text-center">P&L</th>
+                                    <th></th>
+                                </tr>
+                                <tr class="headerRow">
+                                    <th width="20px"></th>
+                                    <th width="200px">A/C Name</th>
+                                    <th width="150px">A/C Code</th>
+                                    <th class="text-center" width="150px">Dr</th>
+                                    <th class="text-center" width="150px">Cr</th>
+                                    <th class="text-center" width="150px">Dr</th>
+                                    <th class="text-center" width="150px">Cr</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="values in TableAdd.SubAdjustment" ng-show="values.IsDelete == 'No' ">
+                                    <th>{{values.Seq}}</th>
+                                    <td>{{values.AccountName}}</td>
+                                    <td>{{values.AccountCode}}</td>
+                                    <td class="text-right">
+                                        <span ng-show="values.AdjustmentModel == 'BS' && values.AdjustmentType == 'Debit'">{{values.Debit | number : 2}}</span>
+                                        <span ng-show="values.AdjustmentModel == 'PL' || values.AdjustmentType == 'Credit'">-</span>
+                                    </td>
+                                    <td class="text-right">
+                                        <span ng-show="values.AdjustmentModel == 'BS' && values.AdjustmentType == 'Credit'">{{values.Credit | number : 2}}</span>
+                                        <span ng-show="values.AdjustmentModel == 'PL' || values.AdjustmentType == 'Debit'">-</span>
+                                    </td>
+                                    <td class="text-right">
+                                        <span ng-show="values.AdjustmentModel == 'PL' && values.AdjustmentType == 'Debit'">{{values.Debit | number : 2}}</span>
+                                        <span ng-show="values.AdjustmentModel == 'BS' || values.AdjustmentType == 'Credit'">-</span>
+                                    </td>
+                                    <td class="text-right">
+                                        <span ng-show="values.AdjustmentModel == 'PL' && values.AdjustmentType == 'Credit'">{{values.Credit | number : 2}}</span>
+                                        <span ng-show="values.AdjustmentModel == 'BS' || values.AdjustmentType == 'Debit'">-</span>
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-outline-danger btn-sm edit" title="Edit" ng-click="OnClickDeleteSub($index,values)" ng-hide="TablePeriod.AccountSelect.Status == 'Confirm'">
+                                            <i class="mdi mdi-delete" title="Save"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th></th>
+                                    <td colspan="2">รวม</td>
+                                    <td class="text-right">{{TableAdd.SumBSDebit  | number : 2}}</td>
+                                    <td class="text-right">{{TableAdd.SumBSCredit | number : 2}}</td>
+                                    <td class="text-right">{{TableAdd.SumPLDebit  | number : 2}}</td>
+                                    <td class="text-right">{{TableAdd.SumPLCredit | number : 2}}</td>
+                                    <th></th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light waves-effect px-5 py-2" data-bs-dismiss="modal">ยกเลิก</button>
+                <div class="btn-group" ng-hide="TablePeriod.AccountSelect.Status == 'Confirm'">
+                    <button type="button" class="btn btn-primary  waves-effect waves-light px-3 py-2 aksorn f-1-2" ng-click="OnClickSaveAdjustment()">บันทึกข้อมูล</button>
+                    <button type="button" class="btn btn-primary   waves-effect waves-light px-2 py-1 dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="mdi mdi-chevron-down"></i>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop1" style="">
+                        <a class="dropdown-item cursor-pointer" ng-click="OnClickSaveAdjustment('close')">บันทึก และปิดหน้าต่าง</a>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- Sub Adjustment -->
+<div id="ModalSubAdjustment" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog  modal-dialog-scrollable">
+        <div class="modal-content modal-content-sm">
+            <div class="modal-header">
+                <h4 class="modal-title mt-0" id="myModalLabel">
+                    {{TableAdd.Action}} Adjustment
+                </h4>
+                <button type="button" class="btn-close" ng-click="OnClickCloseSub()"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3 class="card-title mt-2 font-size-16 font-weight-bold">จัดการข้อมูล Adjustment</h3>
+                    </div>
+                    <div class="col-md-12  pl-0 d-flex gap-3">
+                        <div class="mt-2  form-check mb-3">
+                            <input class="form-check-input" type="radio" name="SubformRadios" id="SubformRadios1" ng-model="TableAddSub.AdjustmentType" value="Debit">
+                            <label class="form-check-label font-size-16" for="SubformRadios1">
+                                Debit
+                            </label>
+                        </div>
+                        <div class="mt-2 form-check mb-3">
+                            <input class="form-check-input" type="radio" name="SubformRadios" id="SubformRadios2" value="Credit" ng-model="TableAddSub.AdjustmentType">
+                            <label class="form-check-label font-size-16" for="SubformRadios2">
+                                Credit
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row py-2">
+                    <div class="col-lg-12 pl-0">
+                        <div class="form-input ">
+                            <select select2 class="dropdown2 form-control" id="exampleFormControlSelect513" ng-model="TableAddSub.AdjustmentModel">
+                                <option value="" class="text-muted" selected style="display:none">กรุณาเลือก</option>
+                                <option value="BS">Balance Sheet</option>
+                                <option value="PL">P&L</option>
+                            </select>
+                            <label class="form-element-dropdown" for="name">Balance Sheet / P&L</label>
+                            <label class="form-element-required" for="name">* </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row py-2">
+                    <div class="col-lg-12 pl-0">
+                        <div class="form-input ">
+                            <select select2 class="dropdown2 form-control" id="adjustmentaccount"
+                                    ng-options="item as item.AccountCode + ' - ' + item.AccountName for item in Parameter.TrialBalance"
+                                    ng-model="TableAddSub.SelectAccount">
+                                <option value="" class="text-muted" selected style="display:none">กรุณาเลือก</option>
+                            </select>
+                            <label class="form-element-dropdown" for="name">Account No</label>
+                            <label class="form-element-required" for="name">* </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row py-2">
+                    <div class="col-lg-12 pl-0">
+                        <div class="form-input">
+                            <input id="name" class="form-element-input form-element-input-show" type="text" placeholder="กรุณาระบุจำนวนปรับปรุง"
+                                   decimal-only
+                                   ng-model="TableAddSub.Amount" />
+                            <div class="form-element-bar"></div>
+                            <label class="form-element-label" for="name">จำนวนปรับปรุง</label>
+                            <label class="form-element-required" for="name">* </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light waves-effect px-5 py-2" data-bs-dismiss="modal" ng-click="OnClickCloseSub()">ยกเลิก</button>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary  waves-effect waves-light px-3 py-2 aksorn f-1-2" ng-click="OnClickSaveSub()">บันทึกข้อมูล</button>
+                    <button type="button" class="btn btn-primary   waves-effect waves-light px-2 py-1 dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="mdi mdi-chevron-down"></i>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop1" style="">
+                        <a class="dropdown-item cursor-pointer" ng-click="OnClickSaveSub('close')">บันทึก และปิดหน้าต่าง</a>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- Confirm -->
+<div id="ModalConfirm" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog  modal-dialog-scrollable">
+        <div class="modal-content modal-sm">
+            <div class="modal-header">
+                <h2 class="modal-title mt-0" id="myModalLabel">
+                    ยืนยันทำรายการ
+                </h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3 class="card-title mt-2 font-size-16 font-weight-bold">ยืนยันทำรายการลบข้อมูล</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light waves-effect px-5 py-2" data-bs-dismiss="modal">ยกเลิก</button>
+                <button type="button" class="btn btn-primary waves-effect waves-light px-5 py-2" ng-click="OnClickConfirmAll()">
+                    ยืนยัน
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+<!-- sample modal content -->
+<div id="ModalDocumentPool" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog  modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title mt-0" id="myModalLabel">
+                    ตารางเอกสารทั้งหมด
+                </h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4 class="card-title mt-2 font-size-16 font-weight-bold">ค้นหาข้อมูล</h4>
+                    </div>
+                    <div class="col-md-6 d-flex flex-wrap  justify-content-end">
+                        <button type="button" class="btn-dbd-filter waves-effect" ng-click="OnClickSearchDocumentPool()"><i class="mdi mdi-magnify me-1"></i>ค้นหา</button>
+                    </div>
+                </div>
+                <div class="row py-2">
+                    <div class="col-lg-4 pl-0">
+                        <div class="form-input ">
+                            <select class="dropdown2 form-control" select2 id="exampleFormControlSelect31" ng-options="item as item.Name for item in Parameter.DocumentType"
+                                    ng-model="SearchDocument.SelectType">
+                                <option value="" class="text-muted" selected style="display:none">ทั้งหมด</option>
+                            </select>
+                            <label class="form-element-dropdown" for="name">ประเภทเอกสาร</label>
+                        </div>
+                    </div>
+                    <div class="col-lg-8 pl-0">
+                        <div class="form-input">
+                            <input id="name" class="form-element-input form-element-input-show" type="text" placeholder="กรุณาระบุคำค้นหา" ng-model="SearchDocument.InputFilter" />
+                            <div class="form-element-bar"></div>
+                            <label class="form-element-label" for="name">คำค้นหา</label>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <div class="row pt-2">
+                    <div class="col-md-12 d-flex flex-wrap  justify-content-end">
+                        <p>*คลิก  <i class="mdi mdi-check-circle text-success"></i> รายการที่ต้องการ</p>
+                    </div>
+                </div>
+                <div class="table-rep-plugin">
+                    <div class="table-responsive mb-0" data-pattern="priority-columns">
+                        <table id="tech-companies-1" class="table-data  table-striped">
+                            <thead>
+                                <tr class="headerRow">
+                                    <th></th>
+                                    <th width="5%">เลขที่</th>
+                                    <th width="8%">รูปแบบเอกสาร</th>
+                                    <th width="15%">ประเภทเอกสาร</th>
+                                    <th width="15%">ชื่อเอกสาร</th>
+                                    <th class="text-center">เพิ่มเติม</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="values in Parameter.DocumentList  | offset: currentPage_4*itemsPerPage_4 | limitTo: itemsPerPage_4  ">
+                                    <th>{{values.Seq}}</th>
+                                    <td ng-click="OnClickTable(values)" width="50px"><span class="text-link">{{values.DocumentListCode}}</span></td>
+                                    <td>{{values.DocumentStyleName}}</td>
+                                    <td>{{values.DocumentTypeName}}</td>
+                                    <td ng-click="OnClickView(values)">
+                                        <i class="mdi mdi-search-web"></i>
+                                        <span ng-show="values.DocumentStyleId == 'DS001'" class="text-link font-size-16">{{values.NameFile}}</span>
+                                        <span ng-show="values.DocumentStyleId == 'DS002'" class="text-link font-size-16">{{values.LinkPath}}</span>
+                                    </td>
+                                    <td class="text-center">
+                                        <i class="mdi mdi-check-circle text-success" ng-click="OnclickSaveDocumentPool(values)"></i>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tbody ng-show="Parameter.DocumentList == undefined || Parameter.DocumentList.length == 0">
+                                <tr class="text-center ">
+                                    <td colspan="8" class="empty">
+                                        <img src="@Url.Content("~/")assets/images/icons/icon-list.png" width="60" class="d-block m-auto">
+                                        ไม่พบรายการ
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <hr />
+                        <div class="d-flex justify-content-end">
+                            <div data-v-e8100c36="" class="numberShow">
+                                <p class="mr-2 mx-2 mb-0 font-size-16">แสดง</p>
+                                <select class="day form-control form-select form-select-sm" style="width: auto;" ng-change="OnClickChangePageTotal_4()" ng-model="itemsPerPage_4">
+                                    <option value="10">10</option>
+                                    <option value="22">20</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                </select>
+                                <div data-v-76901dc6="" class="selectInputDropdown noLabel" style="width: 100%;">
+                                    <p class="mr-2 mx-2 mb-0 font-size-16">รายการ</p>
+                                </div>
+                            </div>
+                            <div data-v-e8100c36="" class="page-data">
+                                <div data-v-e8100c36="" class="prevArrow" ng-class="prevPageDisabled_4()" ng-click="prevPage_4()">
+                                    <i data-v-e8100c36="" class="fa fa-chevron-left"></i>
+                                </div>
+                                <p data-v-e8100c36="" class="mr-2 mx-2 mb-0 font-size-16">หน้า</p>
+                                <select class="day form-control form-select form-select-sm" style="width: auto;" ng-options="item as item.name for item in retpage_4" ng-model="changePages_4" ng-change="setPage_4(item)">
+                                </select>
+                                <div data-v-e8100c36="" class="nextArrow" ng-class="nextPageDisabled_4()" ng-click="nextPage_4()">
+                                    <i data-v-e8100c36="" class="fa fa-chevron-right"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light waves-effect px-5 py-2" data-bs-dismiss="modal">ยกเลิก</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- sample modal content -->
+<div id="ModalTrialReference" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog  modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title mt-0" id="myModalLabel">
+                    ตารางอ้างอิงตรวจสอบ TrialBalance
+                </h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4 class="card-title mt-2 font-size-16 font-weight-bold">ค้นหาข้อมูล</h4>
+                    </div>
+                    <div class="col-md-6 d-flex flex-wrap  justify-content-end">
+                        <button type="button" class="btn-dbd-filter waves-effect" ng-click="OnClickSearchReference()"><i class="mdi mdi-magnify me-1"></i>ค้นหา</button>
+                    </div>
+                </div>
+                <div class="row py-2">
+                    <div class="col-lg-12 pl-0">
+                        <div class="form-input">
+                            <input id="name" class="form-element-input form-element-input-show" type="text" placeholder="กรุณาระบุคำค้นหา" ng-model="SearchTrial.InputFilter" />
+                            <div class="form-element-bar"></div>
+                            <label class="form-element-label" for="name">คำค้นหา</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-rep-plugin">
+                    <div class="table-responsive mb-0" data-pattern="priority-columns">
+                        <table id="tech-companies-1" class="table-data  table-striped">
+                            <thead>
+                                <tr class="headerRow">
+                                    <th></th>
+                                    <th  width="5%" class="text-center">เลือก</th>
+                                    <th width="30%">A/C Code</th>
+                                    <th width="30%">A/C Name</th>
+                                    <th width="30%">Current Yr</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="values in Parameter.TrialBalanceList | offset: currentPage_5*itemsPerPage_5 | limitTo: itemsPerPage_5  ">
+                                    <th>{{values.Seq}}</th>
+                                    <td><input class="form-check-input" type="checkbox" ng-model="values.IsReference"></td>
+                                    <td>{{values.TrialBalance.AccountCode}}</td>
+                                    <td>{{values.TrialBalance.AccountName}}</td>
+                                    <td class="text-right">{{values.TrialBalance.Amount | number : 2}}</td>
+                                </tr>
+                            </tbody>
+                            <tbody ng-show="Parameter.TrialBalanceList == undefined || Parameter.TrialBalanceList.length == 0">
+                                <tr class="text-center ">
+                                    <td colspan="8" class="empty">
+                                        <img src="@Url.Content("~/")assets/images/icons/icon-list.png" width="60" class="d-block m-auto">
+                                        ไม่พบรายการ
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <hr />
+                        <div class="d-flex justify-content-end">
+                            <div data-v-e8100c36="" class="numberShow">
+                                <p class="mr-2 mx-2 mb-0 font-size-16">แสดง</p>
+                                <select class="day form-control form-select form-select-sm" style="width: auto;" ng-change="OnClickChangePageTotal_5()" ng-model="itemsPerPage_5">
+                                    <option value="10">10</option>
+                                    <option value="22">20</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                </select>
+                                <div data-v-76901dc6="" class="selectInputDropdown noLabel" style="width: 100%;">
+                                    <p class="mr-2 mx-2 mb-0 font-size-16">รายการ</p>
+                                </div>
+                            </div>
+                            <div data-v-e8100c36="" class="page-data">
+                                <div data-v-e8100c36="" class="prevArrow" ng-class="prevPageDisabled_5()" ng-click="prevPage_5()">
+                                    <i data-v-e8100c36="" class="fa fa-chevron-left"></i>
+                                </div>
+                                <p data-v-e8100c36="" class="mr-2 mx-2 mb-0 font-size-16">หน้า</p>
+                                <select class="day form-control form-select form-select-sm" style="width: auto;" ng-options="item as item.name for item in retpage_5" ng-model="changePages_5" ng-change="setPage_5(item)">
+                                </select>
+                                <div data-v-e8100c36="" class="nextArrow" ng-class="nextPageDisabled_5()" ng-click="nextPage_5()">
+                                    <i data-v-e8100c36="" class="fa fa-chevron-right"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light waves-effect px-5 py-2" data-bs-dismiss="modal">ยกเลิก</button>
+                <button type="button" class="btn btn-primary waves-effect waves-light px-5 py-2" ng-click="OnClickSaveReference()">
+                    ยืนยัน
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
