@@ -564,6 +564,10 @@
     $scope.prevPage = function () {
         if ($scope.currentPage > 0) {
             $scope.currentPage--;
+            var type = $scope.retpage.filter(function (item) { return item.code == $scope.currentPage; });
+            if (type.length > 0) {
+                $scope.changePages = type[0];
+            }
         }
 
         if ($scope.currentPage < $scope.LimitFirst && $scope.currentPage >= 1) {
@@ -586,6 +590,10 @@
     $scope.nextPage = function () {
         if ($scope.currentPage < $scope.pageCount()) {
             $scope.currentPage++;
+            var type = $scope.retpage.filter(function (item) { return item.code == $scope.currentPage; });
+            if (type.length > 0) {
+                $scope.changePages = type[0];
+            }
         }
 
         if ($scope.currentPage >= $scope.LimitPage && $scope.currentPage <= $scope.pageCount()) {
@@ -664,6 +672,11 @@
     $scope.prevPage_1 = function () {
         if ($scope.currentPage_1 > 0) {
             $scope.currentPage_1--;
+
+            var type = $scope.retpage_1.filter(function (item) { return item.code == $scope.currentPage_1; });
+            if (type.length > 0) {
+                $scope.currentPage_1 = type[0];
+            }
         }
 
         if ($scope.currentPage_1 < $scope.LimitFirst && $scope.currentPage_1 >= 1) {
@@ -686,6 +699,11 @@
     $scope.nextPage_1 = function () {
         if ($scope.currentPage_1 < $scope.pageCount_1()) {
             $scope.currentPage_1++;
+
+            var type = $scope.retpage_1.filter(function (item) { return item.code == $scope.currentPage_1; });
+            if (type.length > 0) {
+                $scope.currentPage_1 = type[0];
+            }
         }
 
         if ($scope.currentPage_1 >= $scope.LimitPage && $scope.currentPage_1 <= $scope.pageCount_1()) {
@@ -763,6 +781,11 @@
     $scope.prevPage_2 = function () {
         if ($scope.currentPage_2 > 0) {
             $scope.currentPage_2--;
+
+            var type = $scope.retpage_2.filter(function (item) { return item.code == $scope.currentPage_2; });
+            if (type.length > 0) {
+                $scope.currentPage_2 = type[0];
+            }
         }
 
         if ($scope.currentPage_2 < $scope.LimitFirst && $scope.currentPage_2 >= 1) {
@@ -785,6 +808,11 @@
     $scope.nextPage_2 = function () {
         if ($scope.currentPage_2 < $scope.pageCount_2()) {
             $scope.currentPage_2++;
+
+            var type = $scope.retpage_2.filter(function (item) { return item.code == $scope.currentPage_2; });
+            if (type.length > 0) {
+                $scope.currentPage_2 = type[0];
+            }
         }
 
         if ($scope.currentPage_2 >= $scope.LimitPage && $scope.currentPage_2 <= $scope.pageCount_2()) {

@@ -105,6 +105,7 @@ namespace WebBackEnd
 
 
             app.UseHttpsRedirection();
+            app.UseDefaultFiles();
             app.UseStaticFiles();
             app.UseCookiePolicy();
             app.UseSession();

@@ -132,6 +132,19 @@
             $scope.retpage_1 = [];
             $scope.range_1();
 
+            //Count Use
+            if ($scope.TableAdd.AuditDetail != undefined && $scope.TableAdd.AuditDetail.length > 0) {
+                _.each($scope.TableAdd.AuditDetail, function (item) {
+                    item.SumHour = 0;
+                    if (item.DetailUse != undefined && item.DetailUse.length > 0) {
+                        amount = item.DetailUse.reduce((s, f) => {
+                            return s + parseFloat(f.Hours);
+                        }, 0);
+                        item.SumHour = amount;
+                    }
+                });
+            }
+
             $('#ModalAdd').modal('show');
         }
     }
@@ -375,6 +388,40 @@
         }
     }
 
+    $scope.OnClickDetailReference = function (index,values) {
+        try {
+            if (values != undefined) {
+               
+                $scope.TableAddDetail = {};
+                $scope.TableAddDetail = angular.copy(values);
+
+                if ($scope.TableAddDetail.DetailUse != undefined && $scope.TableAddDetail.DetailUse.length > 0) {
+                    _.each($scope.TableAddDetail.DetailUse, function (item) {
+                        item.CreatedOn = formatDateFull(item.CreatedOn);
+                    });
+                }
+
+                $scope.itemsPerPage_3 = "10";
+                globalService.SetupSequence($scope.TableAddDetail.DetailUse);
+                $scope.retpage_3 = [];
+                $scope.range_3();
+
+                $('#ModalAdd').modal('hide');
+                $('#ModalRefernce').modal('show');
+            }
+        }
+        catch (ex) {
+            showErrorToast(ex);
+        }
+    }
+
+    $scope.OnClickCloseReference = function()
+    {
+        $scope.TableAddDetail = {};
+        $('#ModalRefernce').modal('hide');
+        $('#ModalAdd').modal('show');
+    }
+
     $scope.OnClickFilterDetail = function () {
         $scope.TableAdd.AuditDetail = $scope.TableAdd.AuditDetailMain;
         $("#loading").fadeIn();
@@ -410,7 +457,7 @@
                     $scope.TableAddRelation.SelectFSGroup = type[0];
             }
             else {
-                    $scope.TableAddRelation.SelectFSGroup = undefined;
+                $scope.TableAddRelation.SelectFSGroup = undefined;
             }
 
             $('#ModalAuditRelation').modal('show');
@@ -567,6 +614,11 @@
     $scope.prevPage = function () {
         if ($scope.currentPage > 0) {
             $scope.currentPage--;
+
+            var type = $scope.retpage.filter(function (item) { return item.code == $scope.currentPage; });
+            if (type.length > 0) {
+                $scope.changePages = type[0];
+            }
         }
 
         if ($scope.currentPage < $scope.LimitFirst && $scope.currentPage >= 1) {
@@ -589,6 +641,11 @@
     $scope.nextPage = function () {
         if ($scope.currentPage < $scope.pageCount()) {
             $scope.currentPage++;
+
+            var type = $scope.retpage.filter(function (item) { return item.code == $scope.currentPage; });
+            if (type.length > 0) {
+                $scope.changePages = type[0];
+            }
         }
 
         if ($scope.currentPage >= $scope.LimitPage && $scope.currentPage <= $scope.pageCount()) {
@@ -624,11 +681,11 @@
     }
 
     $scope.pageCount_1 = function () {
-        return Math.ceil($scope.TableAdd.AuditDetail.length / parseInt($scope.itemsPerPage_1)) - 1;
+        return $scope.TableAdd != undefined ? Math.ceil(    $scope.TableAdd.AuditDetail.length / parseInt($scope.itemsPerPage_1)) - 1 : 1;
     };
 
     $scope.range_1 = function () {
-        $scope.itemsCount_1 = $scope.TableAdd.AuditDetail.length;
+        $scope.itemsCount_1 = $scope.TableAdd != undefined ?   $scope.TableAdd.AuditDetail.length : 0;
         $scope.pageshow_1 = $scope.pageCount_1() > $scope.LimitPage && $scope.pageCount_1() > 0 ? 1 : 0;
 
         var rangeSize = 50;
@@ -667,6 +724,11 @@
     $scope.prevPage_1 = function () {
         if ($scope.currentPage_1 > 0) {
             $scope.currentPage_1--;
+
+            var type = $scope.retpage_1.filter(function (item) { return item.code == $scope.currentPage_1; });
+            if (type.length > 0) {
+                $scope.currentPage_1 = type[0];
+            }
         }
 
         if ($scope.currentPage_1 < $scope.LimitFirst && $scope.currentPage_1 >= 1) {
@@ -689,6 +751,11 @@
     $scope.nextPage_1 = function () {
         if ($scope.currentPage_1 < $scope.pageCount_1()) {
             $scope.currentPage_1++;
+
+            var type = $scope.retpage_1.filter(function (item) { return item.code == $scope.currentPage_1; });
+            if (type.length > 0) {
+                $scope.currentPage_1 = type[0];
+            }
         }
 
         if ($scope.currentPage_1 >= $scope.LimitPage && $scope.currentPage_1 <= $scope.pageCount_1()) {
@@ -723,11 +790,11 @@
     }
 
     $scope.pageCount_2 = function () {
-        return Math.ceil($scope.TableGroup.length / parseInt($scope.itemsPerPage_2)) - 1;
+        return $scope.TableGroup != undefined ?  Math.ceil($scope.TableGroup.length / parseInt($scope.itemsPerPage_2)) - 1 : 1;
     };
 
     $scope.range_2 = function () {
-        $scope.itemsCount_2 = $scope.TableGroup.length;
+        $scope.itemsCount_2 = $scope.TableGroup != undefined ? $scope.TableGroup.length : 0;
         $scope.pageshow_2 = $scope.pageCount_2() > $scope.LimitPage && $scope.pageCount_2() > 0 ? 1 : 0;
 
         var rangeSize = 50;
@@ -766,6 +833,10 @@
     $scope.prevPage_2 = function () {
         if ($scope.currentPage_2 > 0) {
             $scope.currentPage_2--;
+            var type = $scope.retpage_2.filter(function (item) { return item.code == $scope.currentPage_2; });
+            if (type.length > 0) {
+                $scope.currentPage_2 = type[0];
+            }
         }
 
         if ($scope.currentPage_2 < $scope.LimitFirst && $scope.currentPage_2 >= 1) {
@@ -788,6 +859,10 @@
     $scope.nextPage_2 = function () {
         if ($scope.currentPage_2 < $scope.pageCount_2()) {
             $scope.currentPage_2++;
+            var type = $scope.retpage_2.filter(function (item) { return item.code == $scope.currentPage_2; });
+            if (type.length > 0) {
+                $scope.currentPage_2 = type[0];
+            }
         }
 
         if ($scope.currentPage_2 >= $scope.LimitPage && $scope.currentPage_2 <= $scope.pageCount_2()) {
@@ -810,5 +885,116 @@
 
     $scope.setPage_2 = function (n) {
         $scope.currentPage_2 = $scope.changePages_2.code;
+    };
+
+    // #3
+
+    $scope.currentPage_3 = 0;
+
+    $scope.OnClickChangePageTotal_3 = function () {
+        $scope.retpage_3 = [];
+        $scope.range_3();
+    }
+
+    $scope.pageCount_3 = function () {
+        return Math.ceil($scope.TableAddDetail == undefined ? 0 : $scope.TableAddDetail.DetailUse.length / parseInt($scope.itemsPerPage_3)) - 1;
+    };
+
+    $scope.range_3 = function () {
+
+        $scope.itemsCount_3 = $scope.TableAddDetail == undefined ? 0 : $scope.TableAddDetail.DetailUse.length;
+
+        $scope.pageshow_3 = $scope.pageCount_3() > $scope.LimitPage && $scope.pageCount_3() > 0 ? 1 : 0;
+
+        var rangeSize = 50;
+        var ret_3 = [];
+        var start = 1;
+
+        for (var i = 0; i <= $scope.pageCount_3(); i++) {
+            ret_3.push({ code: i, name: i + 1, show: i <= rangeSize ? 1 : 0 });
+        }
+        $scope.pageshowdata_3 = 1;
+        $scope.retpage_3 = ret_3;
+
+        $scope.changePages_3 = $scope.retpage_3[0];
+        if ($scope.retpage_3 != undefined && $scope.retpage_3.length > 0)
+            $scope.currentPage_3 = $scope.retpage_3[0].code;
+    };
+
+    $scope.showallpages_3 = function () {
+        if ($scope.pageshowdata_3 == 1) {
+            _.each($scope.retpage_3, function (e) {
+                e.show = 1;
+            });
+            $scope.pageshowdata_3 = 0;
+        }
+        else {
+            _.each($scope.retpage_3, function (e) {
+                if (e.code >= $scope.LimitFirst && e.code <= $scope.LimitPage)
+                    e.show = 1;
+                else
+                    e.show = 0;
+            });
+            $scope.pageshowdata_3 = 1;
+        }
+    };
+
+    $scope.prevPage_3 = function () {
+        if ($scope.currentPage_3 > 0) {
+            $scope.currentPage_3--;
+
+            var type = $scope.retpage_3.filter(function (item) { return item.code == $scope.currentPage_3; });
+            if (type.length > 0) {
+                $scope.currentPage_3 = type[0];
+            }
+        }
+
+        if ($scope.currentPage_3 < $scope.LimitFirst && $scope.currentPage_3 >= 1) {
+            $scope.LimitFirst = $scope.LimitFirst - $scope.LimitPage;
+            $scope.LimitPage = $scope.LimitPage - $scope.LimitPage;
+            for (var i = 1; i <= $scope.retpage_3.length; i++) {
+                if (i >= $scope.LimitFirst && i <= $scope.LimitPage) {
+                    $scope.retpage_3[i - 1].show = 1;
+                }
+                else
+                    $scope.retpage_3[i - 1].show = 0;
+            }
+        }
+    };
+
+    $scope.prevPageDisabled_3 = function () {
+        return $scope.currentPage_3 === 0 ? "disabled" : "";
+    };
+
+    $scope.nextPage_3 = function () {
+        if ($scope.currentPage_3 < $scope.pageCount_3()) {
+            $scope.currentPage_3++;
+
+            var type = $scope.retpage_3.filter(function (item) { return item.code == $scope.currentPage_3; });
+            if (type.length > 0) {
+                $scope.currentPage_3 = type[0];
+            }
+        }
+
+        if ($scope.currentPage_3 >= $scope.LimitPage && $scope.currentPage_3 <= $scope.pageCount_3()) {
+            $scope.LimitFirst = $scope.LimitFirst + $scope.LimitPage;
+            $scope.LimitPage = $scope.LimitPage + $scope.LimitPage;
+            for (var i = 1; i <= $scope.retpage_3.length; i++) {
+                if (i >= $scope.LimitFirst && i <= $scope.LimitPage) {
+                    $scope.retpage_3[i - 1].show = 1;
+                }
+                else
+                    $scope.retpage_3[i - 1].show = 0;
+            }
+        }
+
+    };
+
+    $scope.nextPageDisabled_3 = function () {
+        return $scope.currentPage_3 === $scope.pageCount_3() ? "disabled" : "";
+    };
+
+    $scope.setPage_3 = function (n) {
+        $scope.currentPage_3 = $scope.changePages_3.code;
     };
 });

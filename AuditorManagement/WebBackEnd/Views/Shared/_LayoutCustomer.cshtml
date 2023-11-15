@@ -27,8 +27,16 @@
     <link href="~/assets/css/font-face.css" rel="stylesheet" />
     <!-- Dropify Css-->
     <link href="~/assets/libs/dropify/dropify.min.css" rel="stylesheet" />
+    <link href="~/assets/libs/jquery.toast/jquery.toast.min.css" rel="stylesheet" />
+    <link href="~/assets/css/site.css" rel="stylesheet" />
+    <link href="~/assets/css/draftreport.css" rel="stylesheet" />
 </head>
-<body data-topbar="dark" data-layout="horizontal">
+<body data-topbar="dark" data-layout="horizontal" ng-app="FOCUSAPP" ng-controller="FOCUSAPPController" data-ng-init="init()">
+
+    <div id="loading">
+        <div id="loading-center">
+        </div>
+    </div>
 
     <!-- Begin page -->
     <div id="layout-wrapper">
@@ -159,48 +167,6 @@
                             </div>
                         </div>
 
-                        <!-- Branch-->
-                        <div class="dropdown d-inline-block">
-                            <div class="profile-arrow-down" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <div>
-                                    <i class="mdi mdi-chevron-down"></i>
-                                </div>
-                                <button type="button" class="btn header-item waves-effect btn-header" id="page-header-user-dropdown">
-                                    <img class="rounded-circle header-profile-user" src="@Url.Content("~/")assets/images/icons/branch.png"
-                                         alt="Header Avatar">
-                                </button>
-                                <div class="dropdown-menu dropdown-menu-end dropdown-menu-branch">
-                                    <!-- item-->
-                                    <a class="dropdown-item text-center">ชื่อกิจการ : สำนักงานใหญ่</a>
-                                    <div class="dropdown-divider-90"></div>
-                                    <form class="p-3">
-                                        <div class="form-group m-0">
-                                            <div class="input-group">
-                                                <input type="text" class="form-control heigth-30" placeholder="ค้นหากิจการ" aria-label="Recipient's username">
-                                                <div class="input-group-append">
-                                                    <button class="btn-mini btn-primary heigth-30 rounded-0" type="submit"><i class="mdi mdi-magnify"></i></button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
-                                    <div>
-                                        <a class="dropdown-item" href="#"><i class="mdi mdi-city-variant-outline font-size-17 text-muted align-middle me-1"></i> ออฟฟิต 1</a>
-                                        <div class="dropdown-divider"></div>
-                                    </div>
-                                    <div>
-                                        <a class="dropdown-item" href="#"><i class="mdi mdi-city-variant-outline font-size-17 text-muted align-middle me-1"></i> ออฟฟิต 2</a>
-                                        <div class="dropdown-divider"></div>
-                                    </div>
-                                    <div>
-                                        <a class="dropdown-item" href="#"><i class="mdi mdi-city-variant-outline font-size-17 text-muted align-middle me-1"></i> ออฟฟิต 3</a>
-                                        <div class="dropdown-divider"></div>
-                                    </div>
-                                    <a class="dropdown-item text-primary" href="#">กิจการทั้งหมด</a>
-                                </div>
-                            </div>
-
-                        </div>
-
                         <!-- Profile-->
                         <div class="dropdown d-inline-block">
                             <div class="profile-arrow-down" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -213,22 +179,18 @@
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-end">
                                     <!-- item-->
-                                    <a class="dropdown-item text-center"> Issara.S</a>
-                                    <a class="dropdown-item text-center"> <span class="badge rounded-pill bg-success">Professional</span></a>
-                                    <a class="dropdown-item"><i class="mdi mdi-head-outline font-size-17 text-muted align-middle me-1"></i>  ลูกค้า</a>
+                                    <a class="dropdown-item text-center">
+                                        {{UserProfiles.ProfileData.FullName}}
+                                    </a>
+                                    <a class="dropdown-item"><i class="mdi mdi-head-outline font-size-17 text-muted align-middle me-1"></i>{{UserProfiles.PermissionNameActive}}</a>
                                     <div class="dropdown-divider-80"></div>
-                                    <a class="dropdown-item" onclick="redirectprofile();" ><i class="mdi mdi-account-circle font-size-17 text-muted align-middle me-1"></i> ข้อมูลส่วนตัว</a>
-
-                                    <a class="dropdown-item" href="#"><i class="mdi mdi-white-balance-incandescent font-size-17 text-muted align-middle me-1"></i> ข้อมูลบริการ</a>
-                                    <a class="dropdown-item" href="#"><i class="mdi mdi-alert-circle font-size-17 text-muted align-middle me-1"></i> ช่วยเหลือ</a>
+                                    <a class="dropdown-item" ui-sref="customer-profiles"><i class="mdi mdi-account-circle font-size-17 text-muted align-middle me-1"></i> ข้อมูลส่วนตัว</a>
+                                    <a class="dropdown-item"><i class="mdi mdi-alert-circle font-size-17 text-muted align-middle me-1"></i> ช่วยเหลือ</a>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item text-danger"  onclick="redirectlogout()"><i class="mdi mdi-power font-size-17 text-muted align-middle me-1 text-danger"></i> ออกจากระบบ</a>
+                                    <a class="dropdown-item text-danger cursor-pointer" ng-click="OnClickLogout()"><i class="mdi mdi-power font-size-17 text-muted align-middle me-1 text-danger"></i> ออกจากระบบ</a>
                                 </div>
                             </div>
-
-
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -246,40 +208,40 @@
                                     </li>
 
                                     <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-forms" role="button">
+                                        <a class="nav-link dropdown-toggle arrow-none" id="topnav-forms" role="button">
                                             <i class="mdi mdi-storefront"></i>ข้อมูลบริษัท
                                         </a>
                                     </li>
 
                                     <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-forms" role="button"
+                                        <a class="nav-link dropdown-toggle arrow-none" id="topnav-forms" role="button"
                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <i class="mdi mdi-alpha-a-circle"></i>บัญชี
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-left" aria-labelledby="topnav-forms">
-                                            <a class="dropdown-item" asp-controller="Customers" asp-action="PeriodAccountList">รอบบัญชี</a>
+                                            <a class="dropdown-item" ui-sref-active="active" ui-sref="customer-periodaccountlist">รอบบัญชี</a>
                                         </div>
                                     </li>
 
                                     <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-components" role="button"
+                                        <a class="nav-link dropdown-toggle arrow-none" id="topnav-components" role="button"
                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <i class="mdi mdi-archive"></i>เอกสาร
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-left" aria-labelledby="topnav-email">
-                                            <a class="dropdown-item" asp-controller="Customers" asp-action="DocumentList">ภาพรวมทั้งหมด</a>
-                                            <a class="dropdown-item" asp-controller="Customers" asp-action="DocumentAdd">อัพโหลดเอกสาร</a>
+                                            <a class="dropdown-item" ui-sref-active="active" ui-sref="customer-documentlist">ภาพรวมทั้งหมด</a>
+                                            <a class="dropdown-item" ui-sref-active="active" ui-sref="customer-documentadd">อัพโหลดเอกสาร</a>
                                         </div>
                                     </li>
 
                                     <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-components" role="button"
+                                        <a class="nav-link dropdown-toggle arrow-none" id="topnav-components" role="button"
                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <i class="mdi mdi-clipboard-pulse-outline"></i>งบการเงิน
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-left" aria-labelledby="topnav-email">
-                                            <a class="dropdown-item" asp-controller="Customers" asp-action="ConfirmAccountList">ยืนยันงบการเงิน</a>
-                                            <a class="dropdown-item" asp-controller="Organizations" asp-action="DocumentAdd">รายงานงบการเงิน</a>
+                                            <a class="dropdown-item" ui-sref-active="active" ui-sref="customer-confirmaccountlist">ยืนยันงบการเงิน</a>
+                                            <a class="dropdown-item" ui-sref-active="active" ui-sref="customer-confirmaccountlist">รายงานงบการเงิน</a>
                                         </div>
                                     </li>
                                 </ul>
@@ -320,11 +282,14 @@
     <!-- END layout-wrapper -->
     <!-- JAVASCRIPT -->
     <script src="~/assets/libs/jquery/jquery.min.js"></script>
+    <script src="~/assets/libs/jquery/jquery-1.10.2.min.js"></script>
     <script src="~/assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="~/assets/libs/metismenu/metisMenu.min.js"></script>
     <script src="~/assets/libs/simplebar/simplebar.min.js"></script>
     <script src="~/assets/libs/node-waves/waves.min.js"></script>
     <script src="~/assets/libs/jquery-sparkline/jquery.sparkline.min.js"></script>
+    <script src="~/assets/libs/jquery.toast/jquery.toast.min.js"></script>
+    <script src="~/assets/libs/underscore/underscore-min.js"></script>
 
     <!--Dropify -->
     <script src="~/assets/libs/dropify/dropify.min.js"></script>
@@ -339,18 +304,40 @@
 
     <script src="~/assets/js/pages/dashboard.init.js"></script>
 
+    <script src="~/assets/libs/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+    <script src="~/assets/libs/bootstrap-datepicker/bootstrap-datepicker.th.min.js"></script>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
+    <script src="~/assets/libs/bootstrap-datepicker/plugin.js"></script>
+    @*<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>*@
+
     <!-- App js -->
-    <script src="~/assets/js/app.js"></script>
-    <script>
-        function redirectprofile() {
-            var baseURL = $("base")[0].href;
-            window.location.href =baseURL + "Settings/Profiles"
-        }
-        function redirectlogout() {
-            var baseURL = $("base")[0].href;
-            window.location.href = baseURL + "Home/Login"
-        }
-    </script>
+    @*<script src="~/assets/js/app.js"></script>*@
+
+    <!-- Component -->
+    <script src="~/assets/libs/angularJS/angular.js"></script>
+    <script src="~/assets/libs/angularJS/angular-ui-router.js"></script>
+    <script src="~/assets/libs/angularJS/angular-animate.min.js?nochace=test"></script>
+    <script src="~/assets/libs/angularJS/ocLazyLoad.min.js"></script>
+    <script src="~/assets/libs/angularJS/ui-bootstrap-tpls.min.js"></script>
+    <script src="~/assets/libs/angularJS/ng-file-upload.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-sanitize.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <!-- Router -->
+    <script src="~/controller/router/admin.router.js"></script>
+    <script src="~/controller/router/owner.router.js"></script>
+    <script src="~/controller/router/office.router.js"></script>
+    <script src="~/controller/router/account.router.js"></script>
+    <script src="~/controller/router/audit.router.js"></script>
+    <script src="~/controller/router/manager.router.js"></script>
+    <script src="~/controller/router/customer.router.js"></script>
+
+    <script src="~/controller/appmain.js"></script>
+    <script src="~/controller/custom.js"></script>
+    <script src="~/controller/factory.js"></script>
+    <script src="~/assets/libs/jquery.toast/toastDemo.js"></script>
+
+
     @if (IsSectionDefined("RenderScriptWithPage"))
     {@RenderSection("RenderScriptWithPage", required: false)}
 </body>

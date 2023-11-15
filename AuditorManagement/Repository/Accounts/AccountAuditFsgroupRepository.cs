@@ -23,6 +23,7 @@ namespace Repository
                     {
                         var otable = context.Set<AccountAuditFsgroup>();
                         var potable = context.Set<AccountAuditFsgroupPolicy>();
+                        var ntable = context.Set<AccountAuditFsgroupNotefs>();
                         AccountAuditFsgroup val = new AccountAuditFsgroup();
                         val = otable.Where(a => a.AuditFsgroupId == input.AuditFsgroupId).FirstOrDefault();
                         if (val == null)
@@ -57,12 +58,29 @@ namespace Repository
                                         policy.Subject = obj.Subject;
                                         policy.Description = obj.Description;
                                         policy.IsDelete = obj.IsDelete;
+                                        policy.IsPrint = obj.IsPrint;
                                         policy.UpdatedOn = input.UpdatedOn;
                                         policy.UpdateBy = input.UpdateBy;
                                     }
                                 }
                                 context.SaveChanges();
                             }
+                        }
+
+                        if (input.NoteToFS?.Any() ?? false)
+                        {
+                            foreach (AccountAuditFsgroupNotefs note in input.NoteToFS)
+                            {
+                                AccountAuditFsgroupNotefs notefs = new AccountAuditFsgroupNotefs();
+                                notefs = ntable.Where(a => a.AuditNoteFsid == note.AuditNoteFsid).FirstOrDefault();
+                                if (notefs != null)
+                                {
+                                    notefs.IsPrint = note.IsPrint;
+                                    notefs.UpdatedOn = input.UpdatedOn;
+                                    notefs.UpdateBy = input.UpdateBy;
+                                }
+                            }
+                            context.SaveChanges();
                         }
                     }
                     scope.Complete();
@@ -87,6 +105,8 @@ namespace Repository
                         var etable = context.Set<AccountAuditFsgroupEvent>();
                         var actable = context.Set<AccountAuditAccount>();
                         var acetable = context.Set<AccountAuditAccountEvent>();
+                        var audittable = context.Set<AccountAuditAccountConclusion>();
+                        var reftable = context.Set<AccountAuditAccountReference>();
 
                         AccountAuditFsgroup val = new AccountAuditFsgroup();
                         val = otable.Where(a => a.AuditFsgroupId == input.AuditFsgroupId).FirstOrDefault();
@@ -107,6 +127,21 @@ namespace Repository
                         }
                         else if (Role == "Audit")
                         {
+
+                            if (input.PrepareStatus != Common.IsStatusWorkflowComfirm)
+                            {
+                                val.PreparedBy = input.AuditorBy;
+                                val.PrepareDate = input.AuditorDate;
+                                val.PrepareStatus = input.AuditorStatus;
+                            }
+
+                            if (input.ReveiwedStatus != Common.IsStatusWorkflowComfirm)
+                            {
+                                val.ReveiwedBy = input.AuditorBy;
+                                val.ReveiwedDate = input.AuditorDate;
+                                val.ReveiwedStatus = input.AuditorStatus;
+                            }
+
                             val.AuditorBy = input.AuditorBy;
                             val.AuditorDate = input.AuditorDate;
                             val.AuditorStatus = input.AuditorStatus;
@@ -128,7 +163,7 @@ namespace Repository
                         if (Events.IsEvent == Common.IsStatusWorkflowComfirm)
                         {
                             List<AccountAuditAccount> account = new List<AccountAuditAccount>();
-                            account = context.Set<AccountAuditAccount>().Where(a => a.FsgroupId == val.FsgroupId.Value).ToList();
+                            account = context.Set<AccountAuditAccount>().Where(a => a.FsgroupId == val.FsgroupId.Value).OrderBy(a => a.AuditAccountId).ToList();
                             if (account?.Any() ?? false)
                             {
                                 AccountAuditAccountEvent evact = new AccountAuditAccountEvent()
@@ -141,6 +176,17 @@ namespace Repository
 
                                 foreach (AccountAuditAccount act in account)
                                 {
+                                    AccountAuditAccountReference reference = new AccountAuditAccountReference();
+                                    reference = reftable.Where(a => a.AuditReferenceAuditAccountId == act.AuditAccountId).FirstOrDefault();
+                                    int accountrefid = act.AuditAccountId.Value;
+                                    if (reference != null)
+                                        accountrefid = reference.AuditAccountId;
+
+                                    AccountAuditAccountConclusion conclusion = new AccountAuditAccountConclusion();
+                                    conclusion = audittable.Where(a => a.AuditAccountId == accountrefid).FirstOrDefault();
+                                    if (conclusion == null)
+                                        throw new Exception("กรุณาเพิ่มรายการ Conclusion อย่างน้อย 1 รายการ ( เลขที่บัญชี : " + act.AccountRefCode + ")");
+
                                     if (Role == "Account1")
                                     {
                                         act.PreparedBy = input.PreparedBy;
@@ -155,6 +201,20 @@ namespace Repository
                                     }
                                     else if (Role == "Audit")
                                     {
+                                        if (input.PrepareStatus != Common.IsStatusWorkflowComfirm)
+                                        {
+                                            act.PreparedBy = input.AuditorBy;
+                                            act.PrepareDate = input.AuditorDate;
+                                            act.PrepareStatus = input.AuditorStatus;
+                                        }
+
+                                        if (input.ReveiwedStatus != Common.IsStatusWorkflowComfirm)
+                                        {
+                                            act.ReveiwedBy = input.AuditorBy;
+                                            act.ReveiwedDate = input.AuditorDate;
+                                            act.ReveiwedStatus = input.AuditorStatus;
+                                        }
+
                                         act.AuditorBy = input.AuditorBy;
                                         act.AuditorDate = input.AuditorDate;
                                         act.AuditorStatus = input.AuditorStatus;

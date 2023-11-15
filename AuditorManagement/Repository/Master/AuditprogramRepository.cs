@@ -51,10 +51,30 @@ namespace Repository
                     if (response != null && response.Count > 0)
                     {
                         var dtable = context.Set<AuditprogramDetail>();
+                        var utable = context.Set<AuditprogramDetailUse>();
+                        var ptable = context.Set<AccountPeriod>();
+                        var ustable = context.Set<User>();
+                        var etable = context.Set<Employee>();
                         foreach (Auditprogram obj in response)
                         {
                             obj.AuditDetail = new List<AuditprogramDetail>();
                             obj.AuditDetail = dtable.Where(a => a.Auditprogramid == obj.Auditprogramid && a.IsDelete == Common.NoDelete).ToList();
+
+                            foreach (AuditprogramDetail detail in obj.AuditDetail)
+                            {
+                                detail.DetailUse = new List<AuditprogramDetailUse>();
+                                detail.DetailUse = utable.Where(a => a.Auditprogramid == obj.Auditprogramid && a.AuditprogramDetailid == detail.AuditprogramDetailid).ToList();
+
+                                foreach (AuditprogramDetailUse sub in detail.DetailUse)
+                                {
+                                    sub.PeriodName = ptable.Where(a => a.PeriodId == sub.PeriodId).FirstOrDefault().Name;
+                                    User user = new User();
+                                    user = ustable.Where(a => a.UserId == sub.CreatedBy).FirstOrDefault();
+
+                                    sub.CreatedData = new Employee();
+                                    sub.CreatedData = etable.Where(a => a.EmpId == user.EmpId).FirstOrDefault();
+                                }
+                            }
                         }
                     }
                 }

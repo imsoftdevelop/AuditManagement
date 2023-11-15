@@ -282,7 +282,7 @@
     };
 
     $scope.range = function () {
-        $scope.itemsCount = $scope.Table.length;
+        $scope.itemsCount = $scope.Table != undefined ? $scope.Table.length : 0;
         $scope.pageshow = $scope.pageCount() > $scope.LimitPage && $scope.pageCount() > 0 ? 1 : 0;
 
         var rangeSize = 50;
@@ -321,6 +321,11 @@
     $scope.prevPage = function () {
         if ($scope.currentPage > 0) {
             $scope.currentPage--;
+
+            var type = $scope.retpage.filter(function (item) { return item.code == $scope.currentPage; });
+            if (type.length > 0) {
+                $scope.changePages = type[0];
+            }
         }
 
         if ($scope.currentPage < $scope.LimitFirst && $scope.currentPage >= 1) {
@@ -343,6 +348,11 @@
     $scope.nextPage = function () {
         if ($scope.currentPage < $scope.pageCount()) {
             $scope.currentPage++;
+
+            var type = $scope.retpage.filter(function (item) { return item.code == $scope.currentPage; });
+            if (type.length > 0) {
+                $scope.changePages = type[0];
+            }
         }
 
         if ($scope.currentPage >= $scope.LimitPage && $scope.currentPage <= $scope.pageCount()) {

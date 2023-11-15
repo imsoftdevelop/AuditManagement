@@ -1,4 +1,4 @@
-﻿var FOCUSAPP = angular.module('FOCUSAPP', ['ngFileUpload', 'ui.router', 'owner.route', 'oc.lazyLoad', 'ngAnimate', 'admin.route', 'office.router', 'account.router', 'audit.router','manager.router']);
+﻿var FOCUSAPP = angular.module('FOCUSAPP', ['ngFileUpload', 'ui.router', 'owner.route', 'oc.lazyLoad', 'ngAnimate', 'admin.route', 'office.router', 'account.router', 'audit.router', 'manager.router', 'customer.router','ngSanitize']);
 
 angular.module('FOCUSAPP').controller('FOCUSAPPController', function ($rootScope, $scope, $http, $timeout, $state, GlobalVar) {
     var baseURL = $("base")[0].href;//$("base").attr("href");
@@ -13,24 +13,36 @@ angular.module('FOCUSAPP').controller('FOCUSAPPController', function ($rootScope
 
     $scope.init = function () {
         try {
+           
+            
+           
             $http.get(baseURL + "Authen/GetProfiles?ref_key=" + makeid())
                 .then(function (response) {
+                    $state.go('audit-draftreport');
                     if (response.data.responsecode == '200' && response.data.responsedata != undefined && response.data.responsedata != "") {
 
                         $scope.UserProfiles = response.data.responsedata; console.log($scope.UserProfiles);
-                        $scope.UserProfiles.EmployeeData.FullName = $scope.UserProfiles.EmployeeData.FirstNameEn + '.' +
-                            ($scope.UserProfiles.EmployeeData.LastNameEn != undefined && $scope.UserProfiles.EmployeeData.LastNameEn != '' && $scope.UserProfiles.EmployeeData.LastNameEn != null ?
-                                $scope.UserProfiles.EmployeeData.LastNameEn.substring(0, 1,) : '');
+                        if ($scope.UserProfiles.EmployeeData != undefined) {
+                            $scope.UserProfiles.EmployeeData.FullName = $scope.UserProfiles.EmployeeData.FirstNameEn + '.' +
+                                ($scope.UserProfiles.EmployeeData.LastNameEn != undefined && $scope.UserProfiles.EmployeeData.LastNameEn != '' && $scope.UserProfiles.EmployeeData.LastNameEn != null ?
+                                    $scope.UserProfiles.EmployeeData.LastNameEn.substring(0, 1,) : '');
 
-                        $scope.UserProfiles.BranchDataMain = angular.copy($scope.UserProfiles.BranchData);
-                        $scope.UserProfiles.CustomerDataMain = angular.copy($scope.UserProfiles.CustomerData);
+                            $scope.UserProfiles.BranchDataMain = angular.copy($scope.UserProfiles.BranchData);
+                            $scope.UserProfiles.CustomerDataMain = angular.copy($scope.UserProfiles.CustomerData);
 
-                        $scope.BranchTotal = true;
-                        $scope.itemperBranch = 5;
-                        $scope.MainSearch = {};
+                            $scope.BranchTotal = true;
+                            $scope.itemperBranch = 5;
+                            $scope.MainSearch = {};
 
-                        $scope.CustomerTotal = true;
-                        $scope.itemperCustomer = 5;
+                            $scope.CustomerTotal = true;
+                            $scope.itemperCustomer = 5;
+                        }
+                        else if ($scope.UserProfiles.ProfileData != undefined) {
+                            $scope.UserProfiles.ProfileData.FullName = $scope.UserProfiles.ProfileData.FirstNameEn + '.' +
+                                ($scope.UserProfiles.ProfileData.LastNameEn != undefined && $scope.UserProfiles.ProfileData.LastNameEn != '' && $scope.UserProfiles.ProfileData.LastNameEn != null ?
+                                $scope.UserProfiles.ProfileData.LastNameEn.substring(0, 1,) : '');
+                            $state.go('customer-periodaccountlist');
+                        }
                     }
                 });
         }
@@ -125,7 +137,7 @@ angular.module('FOCUSAPP').controller('FOCUSAPPController', function ($rootScope
     }
 });
 
-angular.module('FOCUSAPP').controller('SUPERADMINAPPController', function ($rootScope, $scope, $http, $timeout, GlobalVar) {
+angular.module('FOCUSAPP').controller('SUPERADMINAPPController', function ($rootScope, $scope, $http, $timeout, $state, GlobalVar) {
     var baseURL = $("base")[0].href;//$("base").attr("href");
     var config = GlobalVar.HeaderConfig;
 
@@ -196,8 +208,6 @@ FOCUSAPP.directive("select2", function ($timeout, $parse) {
     };
 });
 
-
-
 FOCUSAPP.directive("numberOnly", function () {
     return {
         require: 'ngModel',
@@ -240,7 +250,6 @@ FOCUSAPP.filter('offset', function () {
         return start != undefined && input != undefined ?    input.slice(start) : undefined;
     };
 });
-
 
 FOCUSAPP.filter('minLength', function () {
     return function (input, len, pad) {

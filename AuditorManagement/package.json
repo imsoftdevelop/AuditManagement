@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@grapecity/gcdataviewer": "^1.2.0"
+  }
+}

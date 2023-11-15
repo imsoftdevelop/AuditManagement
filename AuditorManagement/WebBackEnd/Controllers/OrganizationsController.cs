@@ -123,6 +123,12 @@ namespace WebBackEnd.Controllers
         {
             return View();
         }
+
+        public IActionResult HourRate()
+        {
+            return View();
+        }
+
         #endregion
 
         #region Branch
@@ -1989,6 +1995,61 @@ namespace WebBackEnd.Controllers
                     responsecode = ((int)Abstract.ResponseCode.SuccessTransaction).ToString(),
                     responsedata = input
                 });
+            }
+            catch (Exception ex)
+            {
+                return WriteJson(new { responsecode = ((int)Abstract.ResponseCode.ErrorTransaction).ToString(), errormessage = ex.Message });
+            }
+        }
+
+        #endregion
+
+        #region Hour Rate
+
+        [HttpGet]
+        public ActionResult GetHourRate(string ref_key)
+        {
+            try
+            {
+                User user = GetProfileUser();
+
+                MasterHourRate response = new MasterHourRate();
+                using (MasterHourRateRepository MasterHourRateRepository = new MasterHourRateRepository())
+                    response = MasterHourRateRepository.Get(user.EmployeeData.OwnerId);
+
+                return WriteJson(new
+                {
+                    responsecode = ((int)Abstract.ResponseCode.SuccessTransaction).ToString(),
+                    responsedata = response
+                });
+
+            }
+            catch (Exception ex)
+            {
+                return WriteJson(new { responsecode = ((int)Abstract.ResponseCode.ErrorTransaction).ToString(), errormessage = ex.Message });
+            }
+        }
+
+        [HttpPost]
+        public ActionResult PostHourRate([FromBody] MasterHourRate input)
+        {
+            try
+            {
+                User user = GetProfileUser();
+                input.OwnerId = user.OwnerData.OwnerId;
+                input.UpdatedOn = DateTime.Now;
+                input.UpdateBy = user.UserId;
+
+                MasterHourRate response = new MasterHourRate();
+                using (MasterHourRateRepository MasterHourRateRepository = new MasterHourRateRepository())
+                    response = MasterHourRateRepository.Save(input);
+
+                return WriteJson(new
+                {
+                    responsecode = ((int)Abstract.ResponseCode.SuccessTransaction).ToString(),
+                    responsedata = response
+                });
+
             }
             catch (Exception ex)
             {

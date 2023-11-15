@@ -28,6 +28,7 @@
     <!-- Dropify Css-->
     <link href="~/assets/libs/dropify/dropify.min.css" rel="stylesheet" />
     <link href="~/assets/libs/jquery.toast/jquery.toast.min.css" rel="stylesheet" />
+    <link href="~/assets/css/draftreport.css" rel="stylesheet" />
 </head>
 <body data-topbar="dark" data-layout="horizontal" ng-app="FOCUSAPP" ng-controller="SUPERADMINAPPController" data-ng-init="init()">
     <div id="loading">
@@ -204,7 +205,7 @@
                                     </li>
 
                                     <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle arrow-none"  id="topnav-email" role="button"
+                                        <a class="nav-link dropdown-toggle arrow-none" id="topnav-email" role="button"
                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <i class="mdi mdi-account-supervisor-circle"></i>สมาชิก
                                         </a>
@@ -214,7 +215,7 @@
                                         </div>
                                     </li>
                                     <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle arrow-none"  id="topnav-components" role="button"
+                                        <a class="nav-link dropdown-toggle arrow-none" id="topnav-components" role="button"
                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <i class="mdi mdi-home-city-outline"></i>กิจการ
                                         </a>
@@ -224,7 +225,7 @@
                                     </li>
 
                                     <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle arrow-none"  id="topnav-forms" role="button"
+                                        <a class="nav-link dropdown-toggle arrow-none" id="topnav-forms" role="button"
                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <i class="mdi mdi-currency-usd"></i>ชำระเงิน
                                         </a>
@@ -236,7 +237,7 @@
                                     </li>
 
                                     <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle arrow-none"  id="topnav-forms" role="button"
+                                        <a class="nav-link dropdown-toggle arrow-none" id="topnav-forms" role="button"
                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <i class="mdi mdi-package-variant"></i>บริการ
                                         </a>
@@ -330,6 +331,10 @@
     <script src="~/assets/libs/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
     <script src="~/assets/libs/bootstrap-datepicker/bootstrap-datepicker.th.min.js"></script>
 
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
+    <script src="~/assets/libs/bootstrap-datepicker/plugin.js"></script>
+    @*<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>*@
+
     <!-- App js -->
     @*<script src="~/assets/js/app.js"></script>*@
 
@@ -340,10 +345,15 @@
     <script src="~/assets/libs/angularJS/ocLazyLoad.min.js"></script>
     <script src="~/assets/libs/angularJS/ui-bootstrap-tpls.min.js"></script>
     <script src="~/assets/libs/angularJS/ng-file-upload.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-sanitize.js"></script>
     <!-- Router -->
     <script src="~/controller/router/admin.router.js"></script>
     <script src="~/controller/router/owner.router.js"></script>
     <script src="~/controller/router/office.router.js"></script>
+    <script src="~/controller/router/account.router.js"></script>
+    <script src="~/controller/router/audit.router.js"></script>
+    <script src="~/controller/router/manager.router.js"></script>
+    <script src="~/controller/router/customer.router.js"></script>
 
     <script src="~/controller/appmain.js"></script>
     <script src="~/controller/custom.js"></script>
@@ -356,3 +366,4 @@
 </body>
 
 </html>
+

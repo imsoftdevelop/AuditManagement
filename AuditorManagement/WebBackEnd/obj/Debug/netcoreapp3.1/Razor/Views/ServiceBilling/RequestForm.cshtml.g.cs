@@ -28,7 +28,9 @@ using WebBackEnd.Models;
 #nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"e89d3a57cbdae3c08bbdbefcfcfbf62e2c34b8e4", @"/Views/ServiceBilling/RequestForm.cshtml")]
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"ead68448a78493b9f1b96ab94b1b134c0b39571e", @"/Views/_ViewImports.cshtml")]
+    #nullable restore
     public class Views_ServiceBilling_RequestForm : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<dynamic>
+    #nullable disable
     {
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("value", "00", global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_1 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("class", new global::Microsoft.AspNetCore.Html.HtmlString("text-muted"), global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
@@ -123,7 +125,7 @@ using WebBackEnd.Models;
                                     <div class=""form-input "">
                                         <select class=""dropdown2 form-control"" id=""exampleFormControlSelect11"" ng-model=""Search.SelectStatus"">
                                             ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e89d3a57cbdae3c08bbdbefcfcfbf62e2c34b8e49715", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e89d3a57cbdae3c08bbdbefcfcfbf62e2c34b8e49761", async() => {
                 WriteLiteral("ทั้งหมด");
             }
             );
@@ -144,7 +146,7 @@ using WebBackEnd.Models;
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             WriteLiteral("\r\n                                            ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e89d3a57cbdae3c08bbdbefcfcfbf62e2c34b8e411396", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e89d3a57cbdae3c08bbdbefcfcfbf62e2c34b8e411442", async() => {
                 WriteLiteral("รอดำเนินการ");
             }
             );
@@ -160,7 +162,7 @@ using WebBackEnd.Models;
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             WriteLiteral("\r\n                                            ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e89d3a57cbdae3c08bbdbefcfcfbf62e2c34b8e412605", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e89d3a57cbdae3c08bbdbefcfcfbf62e2c34b8e412651", async() => {
                 WriteLiteral("อยู่ระหว่างดำเนินการ");
             }
             );
@@ -176,7 +178,7 @@ using WebBackEnd.Models;
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             WriteLiteral("\r\n                                            ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e89d3a57cbdae3c08bbdbefcfcfbf62e2c34b8e413823", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e89d3a57cbdae3c08bbdbefcfcfbf62e2c34b8e413869", async() => {
                 WriteLiteral("ยกเลิกรายการ");
             }
             );
@@ -192,7 +194,7 @@ using WebBackEnd.Models;
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             WriteLiteral("\r\n                                            ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e89d3a57cbdae3c08bbdbefcfcfbf62e2c34b8e415033", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e89d3a57cbdae3c08bbdbefcfcfbf62e2c34b8e415079", async() => {
                 WriteLiteral("ดำเนินการเรียบร้อย");
             }
             );
@@ -334,7 +336,7 @@ WriteAttributeValue("", 10388, Url.Content("~/"), 10388, 18, false);
                                     <p class=""mr-2 mx-2 mb-0 font-size-16"">แสดง</p>
                                     <select class=""day form-control form-select form-select-sm"" style=""width: auto;"" ng-change=""OnClickChangePageTotal()"" ng-model=""itemsPerPage"">
                                         ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e89d3a57cbdae3c08bbdbefcfcfbf62e2c34b8e425155", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e89d3a57cbdae3c08bbdbefcfcfbf62e2c34b8e425201", async() => {
                 WriteLiteral("10");
             }
             );
@@ -350,7 +352,7 @@ WriteAttributeValue("", 10388, Url.Content("~/"), 10388, 18, false);
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             WriteLiteral("\r\n                                        ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e89d3a57cbdae3c08bbdbefcfcfbf62e2c34b8e426351", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e89d3a57cbdae3c08bbdbefcfcfbf62e2c34b8e426397", async() => {
                 WriteLiteral("20");
             }
             );
@@ -366,7 +368,7 @@ WriteAttributeValue("", 10388, Url.Content("~/"), 10388, 18, false);
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             WriteLiteral("\r\n                                        ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e89d3a57cbdae3c08bbdbefcfcfbf62e2c34b8e427547", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e89d3a57cbdae3c08bbdbefcfcfbf62e2c34b8e427593", async() => {
                 WriteLiteral("50");
             }
             );
@@ -382,7 +384,7 @@ WriteAttributeValue("", 10388, Url.Content("~/"), 10388, 18, false);
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             WriteLiteral("\r\n                                        ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e89d3a57cbdae3c08bbdbefcfcfbf62e2c34b8e428743", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e89d3a57cbdae3c08bbdbefcfcfbf62e2c34b8e428789", async() => {
                 WriteLiteral("100");
             }
             );
@@ -457,7 +459,7 @@ WriteAttributeValue("", 10388, Url.Content("~/"), 10388, 18, false);
                             <select select2 class=""dropdown1 form-control"" id=""exampleFormControlSelect32"" ng-model=""TableAdd.SelectTitle"" ng-disabled=""TableAdd.RequestKey != undefined""
                                     ng-options=""item as item.Name for item in Parameter.TitleRequest"">
                                 ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e89d3a57cbdae3c08bbdbefcfcfbf62e2c34b8e433717", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e89d3a57cbdae3c08bbdbefcfcfbf62e2c34b8e433763", async() => {
                 WriteLiteral("กรุณาเลือก");
             }
             );
@@ -602,16 +604,26 @@ WriteAttributeValue("", 10388, Url.Content("~/"), 10388, 18, false);
 <!-- /.modal -->");
         }
         #pragma warning restore 1998
+        #nullable restore
         [global::Microsoft.AspNetCore.Mvc.Razor.Internal.RazorInjectAttribute]
-        public global::Microsoft.AspNetCore.Mvc.ViewFeatures.IModelExpressionProvider ModelExpressionProvider { get; private set; }
+        public global::Microsoft.AspNetCore.Mvc.ViewFeatures.IModelExpressionProvider ModelExpressionProvider { get; private set; } = default!;
+        #nullable disable
+        #nullable restore
         [global::Microsoft.AspNetCore.Mvc.Razor.Internal.RazorInjectAttribute]
-        public global::Microsoft.AspNetCore.Mvc.IUrlHelper Url { get; private set; }
+        public global::Microsoft.AspNetCore.Mvc.IUrlHelper Url { get; private set; } = default!;
+        #nullable disable
+        #nullable restore
         [global::Microsoft.AspNetCore.Mvc.Razor.Internal.RazorInjectAttribute]
-        public global::Microsoft.AspNetCore.Mvc.IViewComponentHelper Component { get; private set; }
+        public global::Microsoft.AspNetCore.Mvc.IViewComponentHelper Component { get; private set; } = default!;
+        #nullable disable
+        #nullable restore
         [global::Microsoft.AspNetCore.Mvc.Razor.Internal.RazorInjectAttribute]
-        public global::Microsoft.AspNetCore.Mvc.Rendering.IJsonHelper Json { get; private set; }
+        public global::Microsoft.AspNetCore.Mvc.Rendering.IJsonHelper Json { get; private set; } = default!;
+        #nullable disable
+        #nullable restore
         [global::Microsoft.AspNetCore.Mvc.Razor.Internal.RazorInjectAttribute]
-        public global::Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper<dynamic> Html { get; private set; }
+        public global::Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper<dynamic> Html { get; private set; } = default!;
+        #nullable disable
     }
 }
 #pragma warning restore 1591

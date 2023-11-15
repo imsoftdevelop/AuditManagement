@@ -15,10 +15,6 @@
     {
         Layout = "_LayoutAudit";
     }
-    else if (@ViewBag.Role == "CUS001")
-    {
-        Layout = "_Layout";
-    }
     else if (@ViewBag.Role == "MAG001")
     {
         Layout = "_Layout";
@@ -26,6 +22,10 @@
     else if (@ViewBag.Role == "OFFICE001")
     {
         Layout = "_LayoutOffice";
+    }
+    else if (@ViewBag.Role == "CUS001")
+    {
+        Layout = "_LayoutCustomer";
     }
     else
     {

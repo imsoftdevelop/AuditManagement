@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Models;
+using Models.Master;
 using Models.Models;
 using System;
 
@@ -381,6 +382,10 @@ namespace Repository
 
                 entity.Property(e => e.AuditAccountId).HasColumnType("int(11)");
 
+                entity.Property(e => e.AuditprogramDetailid).HasColumnType("int(11)");
+
+                entity.Property(e => e.Auditprogramid).HasColumnType("int(11)");
+
                 entity.Property(e => e.ConclusionDesc).HasMaxLength(1000);
 
                 entity.Property(e => e.ConclusionRefCode).HasMaxLength(50);
@@ -590,7 +595,7 @@ namespace Repository
                 entity.ToTable("account_audit_fsgroup_assign");
 
                 entity.Property(e => e.AssignFsid)
-                      .HasColumnType("int(11)")
+                    .HasColumnType("int(11)")
                     .HasColumnName("AssignFSId");
 
                 entity.Property(e => e.AuditFsgroupId)
@@ -695,6 +700,8 @@ namespace Repository
                     .HasComment("utf8mb4_general_ci")
                     .HasCharSet("utf8mb4");
 
+                entity.Property(e => e.IsPrint).HasMaxLength(10);
+
                 entity.Property(e => e.NoteDetail).HasMaxLength(2000);
 
                 entity.Property(e => e.NoteFstype)
@@ -772,9 +779,7 @@ namespace Repository
 
                 entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 
-                entity.Property(e => e.Description)
-                    .IsRequired()
-                    .HasMaxLength(1000);
+                entity.Property(e => e.Description).HasMaxLength(1000);
 
                 entity.Property(e => e.Header).HasMaxLength(1000);
 
@@ -822,6 +827,8 @@ namespace Repository
                     .HasMaxLength(10)
                     .HasComment("utf8mb4_general_ci")
                     .HasCharSet("utf8mb4");
+
+                entity.Property(e => e.IsPrint).HasMaxLength(10);
 
                 entity.Property(e => e.Subject).HasMaxLength(200);
 
@@ -876,6 +883,18 @@ namespace Repository
 
                 entity.Property(e => e.IsAudit).HasMaxLength(10);
 
+                entity.Property(e => e.IsCompleteAudit).HasMaxLength(10);
+
+                entity.Property(e => e.IsCompleteAuditBy).HasMaxLength(36);
+
+                entity.Property(e => e.IsCompleteAuditDate).HasColumnType("datetime");
+
+                entity.Property(e => e.IsCompleteCustomer).HasMaxLength(10);
+
+                entity.Property(e => e.IsCompleteCustomerBy).HasMaxLength(36);
+
+                entity.Property(e => e.IsCompleteCustomerDate).HasColumnType("datetime");
+
                 entity.Property(e => e.IsDelete).HasMaxLength(10);
 
                 entity.Property(e => e.IsMapPeriod).HasMaxLength(10);
@@ -893,6 +912,8 @@ namespace Repository
                 entity.Property(e => e.PeriodCode).HasMaxLength(100);
 
                 entity.Property(e => e.PeriodType).HasMaxLength(10);
+
+                entity.Property(e => e.ProposalId).HasMaxLength(36);
 
                 entity.Property(e => e.Quater).HasColumnType("int(11)");
 
@@ -914,6 +935,156 @@ namespace Repository
                 entity.Property(e => e.UploadDate).HasColumnType("datetime");
 
                 entity.Property(e => e.Year).HasColumnType("int(11)");
+            });
+
+            modelBuilder.Entity<AccountPeriodProposal>(entity =>
+            {
+                entity.HasKey(e => e.ProposalId)
+                    .HasName("PRIMARY");
+
+                entity.ToTable("account_period_proposal");
+
+                entity.Property(e => e.ProposalId).HasMaxLength(36);
+
+                entity.Property(e => e.AuditAccountAmount).HasPrecision(22, 2);
+
+                entity.Property(e => e.AuditAmount).HasPrecision(22, 2);
+
+                entity.Property(e => e.AuditHour).HasColumnType("int(11)");
+
+                entity.Property(e => e.AuditPercent).HasPrecision(22, 2);
+
+                entity.Property(e => e.AuditRate).HasPrecision(22, 2);
+
+                entity.Property(e => e.CompleteBy).HasMaxLength(50);
+
+                entity.Property(e => e.CompleteOn).HasColumnType("datetime");
+
+                entity.Property(e => e.ConvertBy).HasMaxLength(50);
+
+                entity.Property(e => e.ConvertOn).HasColumnType("datetime");
+
+                entity.Property(e => e.CreatedBy)
+                    .HasMaxLength(50)
+                    .HasComment("utf8mb4_general_ci")
+                    .HasCharSet("utf8mb4");
+
+                entity.Property(e => e.CreatedOn)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("current_timestamp()");
+
+                entity.Property(e => e.CustomerId).HasMaxLength(36);
+
+                entity.Property(e => e.ExpireDate).HasColumnType("datetime");
+
+                entity.Property(e => e.GrandTotal).HasPrecision(22, 2);
+
+                entity.Property(e => e.IsDelete).HasMaxLength(10);
+
+                entity.Property(e => e.IsStatus).HasMaxLength(10);
+
+                entity.Property(e => e.ManagerAmount).HasPrecision(22, 2);
+
+                entity.Property(e => e.ManagerHour).HasColumnType("int(11)");
+
+                entity.Property(e => e.ManagerRate).HasPrecision(22, 2);
+
+                entity.Property(e => e.OwnerId).HasMaxLength(36);
+
+                entity.Property(e => e.PrepareAmount).HasPrecision(22, 2);
+
+                entity.Property(e => e.PrepareHour).HasColumnType("int(11)");
+
+                entity.Property(e => e.PrepareRate).HasPrecision(22, 2);
+
+                entity.Property(e => e.ProfitAccountAmount).HasPrecision(22, 2);
+
+                entity.Property(e => e.ProfitPercent).HasPrecision(22, 2);
+
+                entity.Property(e => e.ProposalCode).HasMaxLength(100);
+
+                entity.Property(e => e.ProposalName).HasMaxLength(200);
+
+                entity.Property(e => e.ProposalNameEn).HasMaxLength(200);
+
+                entity.Property(e => e.Remark).HasMaxLength(500);
+
+                entity.Property(e => e.ReviewAmount).HasPrecision(22, 2);
+
+                entity.Property(e => e.ReviewHour).HasColumnType("int(11)");
+
+                entity.Property(e => e.ReviewRate).HasPrecision(22, 2);
+
+                entity.Property(e => e.Section1).HasMaxLength(3000);
+
+                entity.Property(e => e.Section1En).HasMaxLength(2000);
+
+                entity.Property(e => e.Section2).HasMaxLength(3000);
+
+                entity.Property(e => e.Section2En).HasMaxLength(2000);
+
+                entity.Property(e => e.Section3).HasMaxLength(3000);
+
+                entity.Property(e => e.Section3En).HasMaxLength(2000);
+
+                entity.Property(e => e.Section4).HasMaxLength(2000);
+
+                entity.Property(e => e.Section4En).HasMaxLength(2000);
+
+                entity.Property(e => e.StartDate).HasColumnType("datetime");
+
+                entity.Property(e => e.TotalAmount).HasPrecision(22, 2);
+
+                entity.Property(e => e.UpdateBy)
+                    .HasMaxLength(50)
+                    .HasComment("utf8mb4_general_ci")
+                    .HasCharSet("utf8mb4");
+
+                entity.Property(e => e.UpdatedOn)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("current_timestamp()");
+            });
+
+            modelBuilder.Entity<AccountPeriodProposalSub>(entity =>
+            {
+                entity.HasKey(e => e.SubProposalId)
+                    .HasName("PRIMARY");
+
+                entity.ToTable("account_period_proposal_sub");
+
+                entity.Property(e => e.SubProposalId).HasColumnType("int(11)");
+
+                entity.Property(e => e.Amount).HasPrecision(22, 2);
+
+                entity.Property(e => e.CreatedBy)
+                    .HasMaxLength(50)
+                    .HasComment("utf8mb4_general_ci")
+                    .HasCharSet("utf8mb4");
+
+                entity.Property(e => e.CreatedOn)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("current_timestamp()");
+
+                entity.Property(e => e.Description).HasMaxLength(500);
+
+                entity.Property(e => e.DescriptionEn).HasMaxLength(500);
+
+                entity.Property(e => e.IsDelete).HasMaxLength(10);
+
+                entity.Property(e => e.ProposalId).HasMaxLength(36);
+
+                entity.Property(e => e.Unit).HasMaxLength(100);
+
+                entity.Property(e => e.UnitEn).HasMaxLength(100);
+
+                entity.Property(e => e.UpdateBy)
+                    .HasMaxLength(50)
+                    .HasComment("utf8mb4_general_ci")
+                    .HasCharSet("utf8mb4");
+
+                entity.Property(e => e.UpdatedOn)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("current_timestamp()");
             });
 
             modelBuilder.Entity<AccountTrialbalance>(entity =>
@@ -1049,6 +1220,54 @@ namespace Repository
                 entity.Property(e => e.UpdatedOn)
                     .HasColumnType("datetime")
                     .HasDefaultValueSql("current_timestamp()");
+            });
+
+            modelBuilder.Entity<AuditprogramDetailUse>(entity =>
+            {
+                entity.HasKey(e => e.Auditprogramuseid)
+                    .HasName("PRIMARY");
+
+                entity.ToTable("auditprogram_detail_use");
+
+                entity.Property(e => e.Auditprogramuseid)
+                    .HasColumnType("int(11)")
+                    .HasColumnName("auditprogramuseid");
+
+                entity.Property(e => e.AuditAccountId).HasColumnType("int(11)");
+
+                entity.Property(e => e.AuditprogramDetailid).HasColumnType("int(11)");
+
+                entity.Property(e => e.Auditprogramid)
+                    .HasColumnType("int(11)")
+                    .HasColumnName("auditprogramid");
+
+                entity.Property(e => e.CreatedBy)
+                    .HasMaxLength(50)
+                    .HasComment("utf8mb4_general_ci")
+                    .HasCharSet("utf8mb4");
+
+                entity.Property(e => e.CreatedOn)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("current_timestamp()");
+
+                entity.Property(e => e.FsgroupId)
+                    .HasColumnType("int(11)")
+                    .HasColumnName("FSGroupId");
+
+                entity.Property(e => e.Hours).HasPrecision(18, 2);
+
+                entity.Property(e => e.PeriodId).HasMaxLength(36);
+
+                entity.Property(e => e.UpdateBy)
+                    .HasMaxLength(50)
+                    .HasComment("utf8mb4_general_ci")
+                    .HasCharSet("utf8mb4");
+
+                entity.Property(e => e.UpdatedOn)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("current_timestamp()");
+
+                entity.Property(e => e.UserId).HasMaxLength(100);
             });
 
             modelBuilder.Entity<AuditprogramFsgroup>(entity =>
@@ -1456,6 +1675,11 @@ namespace Repository
 
                 entity.Property(e => e.IsAccept).HasMaxLength(10);
 
+                entity.Property(e => e.ProfileId)
+                    .HasMaxLength(36)
+                    .HasComment("utf8mb4_general_ci")
+                    .HasCharSet("utf8mb4");
+
                 entity.Property(e => e.UpdateBy)
                     .HasMaxLength(50)
                     .HasComment("utf8mb4_general_ci")
@@ -1466,12 +1690,15 @@ namespace Repository
 
             modelBuilder.Entity<CustomerInviteProfile>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e => e.ProfileId)
+                    .HasName("PRIMARY");
 
                 entity.ToTable("customer_invite_profile");
 
                 entity.HasCharSet("utf8mb4")
                     .UseCollation("utf8mb4_general_ci");
+
+                entity.Property(e => e.ProfileId).HasMaxLength(36);
 
                 entity.Property(e => e.Address).HasMaxLength(500);
 
@@ -1508,10 +1735,6 @@ namespace Repository
                 entity.Property(e => e.PostCode).HasMaxLength(5);
 
                 entity.Property(e => e.ProfileCode).HasMaxLength(50);
-
-                entity.Property(e => e.ProfileId)
-                    .IsRequired()
-                    .HasMaxLength(36);
 
                 entity.Property(e => e.Province).HasMaxLength(3);
 
@@ -1871,6 +2094,54 @@ namespace Repository
                     .HasDefaultValueSql("current_timestamp()");
             });
 
+            modelBuilder.Entity<MasterAccountPolicy>(entity =>
+            {
+                entity.HasKey(e => e.PolicyId)
+                    .HasName("PRIMARY");
+
+                entity.ToTable("master_account_policy");
+
+                entity.Property(e => e.PolicyId).HasColumnType("int(11)");
+
+                entity.Property(e => e.Code).HasMaxLength(10);
+
+                entity.Property(e => e.CreatedBy)
+                    .HasMaxLength(50)
+                    .HasComment("utf8mb4_general_ci")
+                    .HasCharSet("utf8mb4");
+
+                entity.Property(e => e.CreatedOn)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("current_timestamp()");
+
+                entity.Property(e => e.Description).HasMaxLength(500);
+
+                entity.Property(e => e.FsgroupId)
+                    .HasColumnType("int(11)")
+                    .HasColumnName("FSGroupId");
+
+                entity.Property(e => e.IsActive).HasMaxLength(10);
+
+                entity.Property(e => e.IsDelete).HasMaxLength(10);
+
+                entity.Property(e => e.IsSystem).HasMaxLength(10);
+
+                entity.Property(e => e.OwnerId).HasMaxLength(36);
+
+                entity.Property(e => e.Sequence).HasColumnType("int(11)");
+
+                entity.Property(e => e.Subject).HasMaxLength(250);
+
+                entity.Property(e => e.UpdateBy)
+                    .HasMaxLength(50)
+                    .HasComment("utf8mb4_general_ci")
+                    .HasCharSet("utf8mb4");
+
+                entity.Property(e => e.UpdatedOn)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("current_timestamp()");
+            });
+
             modelBuilder.Entity<MasterAuditreport>(entity =>
             {
                 entity.HasKey(e => e.AuditreportId)
@@ -2086,6 +2357,46 @@ namespace Repository
                 entity.Property(e => e.OwnerId).HasMaxLength(36);
 
                 entity.Property(e => e.Sequence).HasColumnType("int(11)");
+
+                entity.Property(e => e.UpdateBy)
+                    .HasMaxLength(50)
+                    .HasComment("utf8mb4_general_ci")
+                    .HasCharSet("utf8mb4");
+
+                entity.Property(e => e.UpdatedOn)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("current_timestamp()");
+            });
+
+            modelBuilder.Entity<MasterHourRate>(entity =>
+            {
+                entity.HasKey(e => e.HourId)
+                    .HasName("PRIMARY");
+
+                entity.ToTable("master_hour_rate");
+
+                entity.Property(e => e.HourId).HasColumnType("int(11)");
+
+                entity.Property(e => e.AuditHour).HasPrecision(22, 2);
+
+                entity.Property(e => e.CreatedBy)
+                    .HasMaxLength(50)
+                    .HasComment("utf8mb4_general_ci")
+                    .HasCharSet("utf8mb4");
+
+                entity.Property(e => e.CreatedOn)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("current_timestamp()");
+
+                entity.Property(e => e.ManagerHour).HasPrecision(22, 2);
+
+                entity.Property(e => e.OwnerId).HasMaxLength(36);
+
+                entity.Property(e => e.PrepareHour).HasPrecision(22, 2);
+
+                entity.Property(e => e.Remark).HasMaxLength(100);
+
+                entity.Property(e => e.ReviewHour).HasPrecision(22, 2);
 
                 entity.Property(e => e.UpdateBy)
                     .HasMaxLength(50)
@@ -2463,6 +2774,32 @@ namespace Repository
                 entity.Property(e => e.NameEn).HasMaxLength(50);
             });
 
+            modelBuilder.Entity<Parameterproposal>(entity =>
+            {
+                entity.HasKey(e => e.Code)
+                    .HasName("PRIMARY");
+
+                entity.ToTable("parameterproposal");
+
+                entity.Property(e => e.Code).HasColumnType("int(11)");
+
+                entity.Property(e => e.Section1).HasMaxLength(2000);
+
+                entity.Property(e => e.Section1En).HasMaxLength(2000);
+
+                entity.Property(e => e.Section2).HasMaxLength(2000);
+
+                entity.Property(e => e.Section2En).HasMaxLength(2000);
+
+                entity.Property(e => e.Section3).HasMaxLength(2000);
+
+                entity.Property(e => e.Section3En).HasMaxLength(2000);
+
+                entity.Property(e => e.Section4).HasMaxLength(2000);
+
+                entity.Property(e => e.Section4En).HasMaxLength(2000);
+            });
+
             modelBuilder.Entity<Parameterprovince>(entity =>
             {
                 entity.HasKey(e => e.Code)
@@ -2600,6 +2937,88 @@ namespace Repository
                 entity.Property(e => e.UserId).HasMaxLength(36);
             });
 
+            modelBuilder.Entity<Ruleprogram>(entity =>
+            {
+                entity.ToTable("ruleprogram");
+
+                entity.Property(e => e.Ruleprogramid)
+                    .HasColumnType("int(11)")
+                    .HasColumnName("ruleprogramid");
+
+                entity.Property(e => e.Code).HasMaxLength(10);
+
+                entity.Property(e => e.CreatedBy)
+                    .HasMaxLength(50)
+                    .HasComment("utf8mb4_general_ci")
+                    .HasCharSet("utf8mb4");
+
+                entity.Property(e => e.CreatedOn)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("current_timestamp()");
+
+                entity.Property(e => e.IsActive).HasMaxLength(10);
+
+                entity.Property(e => e.IsDelete).HasMaxLength(10);
+
+                entity.Property(e => e.IsSystem).HasMaxLength(10);
+
+                entity.Property(e => e.Name).HasMaxLength(250);
+
+                entity.Property(e => e.NameEn).HasMaxLength(250);
+
+                entity.Property(e => e.OwnerId).HasMaxLength(36);
+
+                entity.Property(e => e.Sequence).HasColumnType("int(11)");
+
+                entity.Property(e => e.UpdateBy)
+                    .HasMaxLength(50)
+                    .HasComment("utf8mb4_general_ci")
+                    .HasCharSet("utf8mb4");
+
+                entity.Property(e => e.UpdatedOn)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("current_timestamp()");
+            });
+
+            modelBuilder.Entity<RuleprogramDetail>(entity =>
+            {
+                entity.ToTable("ruleprogram_detail");
+
+                entity.Property(e => e.RuleprogramDetailid)
+                    .HasColumnType("int(11)")
+                    .HasColumnName("ruleprogram_detailid");
+
+                entity.Property(e => e.CreatedBy)
+                    .HasMaxLength(50)
+                    .HasComment("utf8mb4_general_ci")
+                    .HasCharSet("utf8mb4");
+
+                entity.Property(e => e.CreatedOn)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("current_timestamp()");
+
+                entity.Property(e => e.IsDelete).HasMaxLength(10);
+
+                entity.Property(e => e.Name).HasMaxLength(2500);
+
+                entity.Property(e => e.NameEn).HasMaxLength(2500);
+
+                entity.Property(e => e.Ruleprogramid)
+                    .HasColumnType("int(11)")
+                    .HasColumnName("ruleprogramid");
+
+                entity.Property(e => e.Sequence).HasColumnType("int(11)");
+
+                entity.Property(e => e.UpdateBy)
+                    .HasMaxLength(50)
+                    .HasComment("utf8mb4_general_ci")
+                    .HasCharSet("utf8mb4");
+
+                entity.Property(e => e.UpdatedOn)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("current_timestamp()");
+            });
+
             modelBuilder.Entity<User>(entity =>
             {
                 entity.ToTable("users");
@@ -2617,9 +3036,7 @@ namespace Repository
                     .HasColumnType("datetime")
                     .HasDefaultValueSql("current_timestamp()");
 
-                entity.Property(e => e.EmpId)
-                    .IsRequired()
-                    .HasMaxLength(36);
+                entity.Property(e => e.EmpId).HasMaxLength(36);
 
                 entity.Property(e => e.ExpireDate).HasColumnType("datetime");
 
@@ -2636,10 +3053,6 @@ namespace Repository
                 entity.Property(e => e.IsReset).HasMaxLength(10);
 
                 entity.Property(e => e.Password).HasMaxLength(50);
-
-                entity.Property(e => e.UProfileId)
-                    .HasMaxLength(36)
-                    .HasColumnName("UProfileId");
 
                 entity.Property(e => e.UpdateBy).HasMaxLength(50);
 
@@ -3040,6 +3453,7 @@ namespace Repository
             });
 
         }
+
 
     }
 }

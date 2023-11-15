@@ -28,6 +28,7 @@ namespace Repository
                             PrefixRepository PrefixRepository = new PrefixRepository();
                             input.AuditNoteFsrefCode = !string.IsNullOrEmpty(input.AuditNoteFsrefCode) ? input.AuditNoteFsrefCode : PrefixRepository.GetAllRefcode(Code.REFNOTEFS.ToString(), context, input.UpdateBy);
                             input.IsDelete = Common.NoDelete;
+                            input.IsPrint = Common.NoPrint;
                             input.CreatedBy = input.UpdateBy;
                             input.CreatedOn = input.UpdatedOn;
                             context.Add(input);

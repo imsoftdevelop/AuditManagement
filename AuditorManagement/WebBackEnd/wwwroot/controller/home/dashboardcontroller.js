@@ -20,6 +20,7 @@
 
     $scope.init = function () {
         try {
+            
             $("#loading").fadeIn();
             $("#loading").fadeOut();
         }

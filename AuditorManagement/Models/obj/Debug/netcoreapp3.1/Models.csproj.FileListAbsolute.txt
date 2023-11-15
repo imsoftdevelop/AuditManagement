@@ -9,4 +9,5 @@ E:\IM-Soft\_ระบบจัดการบัญชี Source Code\Auditor So
 E:\IM-Soft\_ระบบจัดการบัญชี Source Code\Auditor Source Code\AuditorManagement\Models\obj\Debug\netcoreapp3.1\Models.dll
 E:\IM-Soft\_ระบบจัดการบัญชี Source Code\Auditor Source Code\AuditorManagement\Models\obj\Debug\netcoreapp3.1\Models.pdb
 E:\IM-Soft\_ระบบจัดการบัญชี Source Code\Auditor Source Code\AuditorManagement\Models\obj\Debug\netcoreapp3.1\Models.genruntimeconfig.cache
-E:\IM-Soft\_ระบบจัดการบัญชี Source Code\Auditor Source Code\AuditorManagement\Models\obj\Debug\netcoreapp3.1\Models.csprojAssemblyReference.cache
+E:\IM-Soft\_ระบบจัดการบัญชี Source Code\Auditor Source Code\AuditorManagement\Models\obj\Debug\netcoreapp3.1\Models.csproj.AssemblyReference.cache
+E:\IM-Soft\_ระบบจัดการบัญชี Source Code\Auditor Source Code\AuditorManagement\Models\obj\Debug\netcoreapp3.1\Models.GeneratedMSBuildEditorConfig.editorconfig

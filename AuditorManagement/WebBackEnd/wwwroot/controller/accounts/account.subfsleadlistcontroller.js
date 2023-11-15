@@ -30,10 +30,12 @@
 
         $('#datetimepicker3').datetimepicker({
             pickDate: false,
+            pickSeconds: false
         });
 
         $('#datetimepicker4').datetimepicker({
             pickDate: false,
+            pickSeconds: false
         });
     }
 
@@ -417,6 +419,8 @@
                 throw "กรุณาระบุวันที่สิ้นสุด";
             else if ($scope.TableAdd.IsStatus == 'Confirm' && ($("#datetimepicker4").find("input").val() == undefined || $("#datetimepicker4").find("input").val() == ''))
                 throw "กรุณาระบุเวลาที่สิ้นสุด";
+            else if ($scope.TablePeriod.AccountSelect.Conclusions == undefined || $scope.TablePeriod.AccountSelect.Conclusions.length <= 0)
+                throw "กรุณาเพิ่มรายการ Conclusion อย่างน้อย 1 รายการ";
             else {
                 $("#loading").fadeIn();
 
@@ -888,7 +892,7 @@
             else {
                 $("#loading").fadeIn();
                 var data = {
-                    CustomerId: $scope.TableAdd.SelectCustomer != undefined ? $scope.TableAdd.SelectCustomer.CustomerId : undefined,
+                    CustomerId: $scope.UserProfiles.CustomerIdActive,
                     DocumentStyleId: $scope.TableAdd.SelectDocumentStyle != undefined ? $scope.TableAdd.SelectDocumentStyle.Code : undefined,
                     DocumentTypeId: $scope.TableAdd.SelectDocumentType != undefined ? $scope.TableAdd.SelectDocumentType.Documentid : undefined,
                     LinkPath: $scope.TableAdd.LinkPath,
@@ -1321,7 +1325,10 @@
                     VerifyDesc: $scope.TableAdd.VerifyDesc,
                     ConclusionDesc: $scope.TableAdd.ConclusionDesc,
                     IsConclusion: $scope.TableAdd.IsConclusion,
-                    SequenceAuditProgram: $scope.TableAdd.SequenceAuditProgram
+                    SequenceAuditProgram: $scope.TableAdd.SequenceAuditProgram,
+                    Auditprogramid : $scope.TableAdd.Auditprogramid,
+                    AuditprogramDetailid : $scope.TableAdd.AuditprogramDetailid
+
                 };
                 console.log(data);
 
@@ -1371,6 +1378,8 @@
         if (val != null) {
             $scope.TableAdd.VerifyDesc = val.Name;
             $scope.TableAdd.SequenceAuditProgram = val.Sequence;
+            $scope.TableAdd.Auditprogramid = val.Auditprogramid;
+            $scope.TableAdd.AuditprogramDetailid = val.AuditprogramDetailid;
         }
         $('#ModalConclusion').modal('show');
     }
@@ -1557,6 +1566,11 @@
     $scope.prevPage = function () {
         if ($scope.currentPage > 0) {
             $scope.currentPage--;
+
+            var type = $scope.retpage.filter(function (item) { return item.code == $scope.currentPage; });
+            if (type.length > 0) {
+                $scope.changePages = type[0];
+            }
         }
 
         if ($scope.currentPage < $scope.LimitFirst && $scope.currentPage >= 1) {
@@ -1579,6 +1593,11 @@
     $scope.nextPage = function () {
         if ($scope.currentPage < $scope.pageCount()) {
             $scope.currentPage++;
+
+            var type = $scope.retpage.filter(function (item) { return item.code == $scope.currentPage; });
+            if (type.length > 0) {
+                $scope.changePages = type[0];
+            }
         }
 
         if ($scope.currentPage >= $scope.LimitPage && $scope.currentPage <= $scope.pageCount()) {
@@ -1657,6 +1676,11 @@
     $scope.prevPage_1 = function () {
         if ($scope.currentPage_1 > 0) {
             $scope.currentPage_1--;
+
+            var type = $scope.retpage_1.filter(function (item) { return item.code == $scope.currentPage_1; });
+            if (type.length > 0) {
+                $scope.currentPage_1 = type[0];
+            }
         }
 
         if ($scope.currentPage_1 < $scope.LimitFirst && $scope.currentPage_1 >= 1) {
@@ -1679,6 +1703,11 @@
     $scope.nextPage_1 = function () {
         if ($scope.currentPage_1 < $scope.pageCount_1()) {
             $scope.currentPage_1++;
+
+            var type = $scope.retpage_1.filter(function (item) { return item.code == $scope.currentPage_1; });
+            if (type.length > 0) {
+                $scope.currentPage_1 = type[0];
+            }
         }
 
         if ($scope.currentPage_1 >= $scope.LimitPage && $scope.currentPage_1 <= $scope.pageCount_1()) {
@@ -1756,6 +1785,11 @@
     $scope.prevPage_2 = function () {
         if ($scope.currentPage_2 > 0) {
             $scope.currentPage_2--;
+
+            var type = $scope.retpage_2.filter(function (item) { return item.code == $scope.currentPage_2; });
+            if (type.length > 0) {
+                $scope.currentPage_2 = type[0];
+            }
         }
 
         if ($scope.currentPage_2 < $scope.LimitFirst && $scope.currentPage_2 >= 1) {
@@ -1778,6 +1812,11 @@
     $scope.nextPage_2 = function () {
         if ($scope.currentPage_2 < $scope.pageCount_2()) {
             $scope.currentPage_2++;
+
+            var type = $scope.retpage_2.filter(function (item) { return item.code == $scope.currentPage_2; });
+            if (type.length > 0) {
+                $scope.currentPage_2 = type[0];
+            }
         }
 
         if ($scope.currentPage_2 >= $scope.LimitPage && $scope.currentPage_2 <= $scope.pageCount_2()) {
@@ -1855,6 +1894,11 @@
     $scope.prevPage_3 = function () {
         if ($scope.currentPage_3 > 0) {
             $scope.currentPage_3--;
+
+            var type = $scope.retpage_3.filter(function (item) { return item.code == $scope.currentPage_3; });
+            if (type.length > 0) {
+                $scope.currentPage_3 = type[0];
+            }
         }
 
         if ($scope.currentPage_3 < $scope.LimitFirst && $scope.currentPage_3 >= 1) {
@@ -1877,6 +1921,11 @@
     $scope.nextPage_3 = function () {
         if ($scope.currentPage_3 < $scope.pageCount_3()) {
             $scope.currentPage_3++;
+
+            var type = $scope.retpage_3.filter(function (item) { return item.code == $scope.currentPage_3; });
+            if (type.length > 0) {
+                $scope.currentPage_3 = type[0];
+            }
         }
 
         if ($scope.currentPage_3 >= $scope.LimitPage && $scope.currentPage_3 <= $scope.pageCount_3()) {
@@ -1954,6 +2003,11 @@
     $scope.prevPage_4 = function () {
         if ($scope.currentPage_4 > 0) {
             $scope.currentPage_4--;
+
+            var type = $scope.retpage_4.filter(function (item) { return item.code == $scope.currentPage_4; });
+            if (type.length > 0) {
+                $scope.currentPage_4 = type[0];
+            }
         }
 
         if ($scope.currentPage_4 < $scope.LimitFirst && $scope.currentPage_4 >= 1) {
@@ -1976,6 +2030,11 @@
     $scope.nextPage_4 = function () {
         if ($scope.currentPage_4 < $scope.pageCount_4()) {
             $scope.currentPage_4++;
+
+            var type = $scope.retpage_4.filter(function (item) { return item.code == $scope.currentPage_4; });
+            if (type.length > 0) {
+                $scope.currentPage_4 = type[0];
+            }
         }
 
         if ($scope.currentPage_4 >= $scope.LimitPage && $scope.currentPage_4 <= $scope.pageCount_4()) {
@@ -2053,6 +2112,11 @@
     $scope.prevPage_5 = function () {
         if ($scope.currentPage_5 > 0) {
             $scope.currentPage_5--;
+
+            var type = $scope.retpage_5.filter(function (item) { return item.code == $scope.currentPage_5; });
+            if (type.length > 0) {
+                $scope.currentPage_5 = type[0];
+            }
         }
 
         if ($scope.currentPage_5 < $scope.LimitFirst && $scope.currentPage_5 >= 1) {
@@ -2075,6 +2139,11 @@
     $scope.nextPage_5 = function () {
         if ($scope.currentPage_5 < $scope.pageCount_5()) {
             $scope.currentPage_5++;
+
+            var type = $scope.retpage_5.filter(function (item) { return item.code == $scope.currentPage_5; });
+            if (type.length > 0) {
+                $scope.currentPage_5 = type[0];
+            }
         }
 
         if ($scope.currentPage_5 >= $scope.LimitPage && $scope.currentPage_5 <= $scope.pageCount_5()) {

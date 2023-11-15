@@ -2536,7 +2536,7 @@ body[data-layout=horizontal][data-layout-size=boxed] .container-fluid {
 
     .activity-feed .feed-item {
         position: relative;
-        padding-bottom: 29px;
+        padding-bottom: 5px;
         padding-left: 30px;
         border-left: 2px solid #f5f6f8
     }
@@ -6204,3 +6204,10 @@ body[data-layout=horizontal] .chat-conversation {
     .table-data .form-element:disabled {
         background: #f5f5f7 !important;
     }
+
+.table-width-fs {
+    width:3000px !important;
+}
+.border-none {
+    border:none;
+}

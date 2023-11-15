@@ -2,6 +2,21 @@
 FOCUSAPP.factory('serviceAccount', ['$http', '$q', function ($http, $q) {
     var baseURL = $("base")[0].href;
     return {
+        getAccountProposal: function () {
+            return $http.get(baseURL + "Accountings/GetAccountProposal?ref_key=" + makeid(), { cache: false });
+        },
+        postAccountProposal: function (data) {
+            return $http.post(baseURL + "Accountings/PostAccountProposal", data, HeaderConfig, { cache: false });
+        },
+        deleteAccountProposal: function (key) {
+            return $http.delete(baseURL + "Accountings/DeleteAccountProposal?ref_key=" + key, { cache: false });
+        },
+        setAccountProposal: function (key,key1) {
+            return $http.get(baseURL + "Accountings/SetAccountProposal?ref_key=" + key + "&ref_stat=" + key1, { cache: false });
+        },
+        getAccountProposalKey: function (key) {
+            return $http.get(baseURL + "Accountings/GetAccountProposalKey?ref_key=" + key, { cache: false });
+        },
         getAccountPeriods: function () { 
             return $http.get(baseURL + "Accountings/GetAccountPeriods?ref_key=" + makeid(), { cache: false });
         },
@@ -104,7 +119,9 @@ FOCUSAPP.factory('serviceAccount', ['$http', '$q', function ($http, $q) {
         confirmAuditAccountPeriods: function (key) {
             return $http.get(baseURL + "Accountings/ConfirmAuditAccountPeriods?ref_key=" + makeid() + "&ref_id=" + key, { cache: false });
         },
-        
+        getdraftreport: function (key) {
+            return $http.get(baseURL + "Accountings/GetDraftReport?ref_key=" + key, { cache: false });
+        },
     };
 }]);
 

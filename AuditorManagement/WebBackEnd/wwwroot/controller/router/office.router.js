@@ -149,7 +149,7 @@
             },
         })
         .state('office-periodaccountlist', {
-            url: "/Office-PeriodAccountList",
+            url: "/Office-PeriodAccountList/:ref_id",
             views: {
                 'container-view': {
                     templateUrl: "Accountings/PeriodAccountList",
@@ -181,6 +181,71 @@
                                 files: [
                                     'controller/accounts/office.trialbalancecontroller.js?noacche=' + makeid(),
                                     'controller/parameter/GlobalServiceControl.js?noacche=' + makeid(),
+                                    'controller/services/serviceaccountcontroller.js?noacche=' + makeid(),
+                                    'controller/services/serviceparametercontroller.js?noacche=' + makeid()
+                                ]
+                            });
+                        }]
+                    }
+                },
+            },
+        })
+        .state('office-hourrate', {
+            url: "/Office-HourRate",
+            views: {
+                'container-view': {
+                    templateUrl: "Organizations/HourRate",
+                    controller: "HourRateController",
+                    resolve: {
+                        load: ['$ocLazyLoad', function ($ocLazyLoad) {
+                            return $ocLazyLoad.load({
+                                files: [
+                                    'controller/organize/hourratecontroller.js?noacche=' + makeid(),
+                                    'controller/parameter/GlobalServiceControl.js?noacche=' + makeid(),
+                                    'controller/services/serviceorganizecontroller.js?noacche=' + makeid(),
+                                    'controller/services/serviceparametercontroller.js?noacche=' + makeid()
+                                ]
+                            });
+                        }]
+                    }
+                },
+            },
+        })
+        .state('office-proposallist', {
+            url: "/Office-ProposalList",
+            views: {
+                'container-view': {
+                    templateUrl: "Accountings/ProposalList",
+                    controller: "AccountProposalController",
+                    resolve: {
+                        load: ['$ocLazyLoad', function ($ocLazyLoad) {
+                            return $ocLazyLoad.load({
+                                files: [
+                                    'controller/accounts/accountproposalcontroller.js?noacche=' + makeid(),
+                                    'controller/parameter/GlobalServiceControl.js?noacche=' + makeid(),
+                                    'controller/services/serviceaccountcontroller.js?noacche=' + makeid(),
+                                    'controller/services/serviceparametercontroller.js?noacche=' + makeid(),
+                                    'controller/services/serviceorganizecontroller.js?noacche=' + makeid(),
+                                ]
+                            });
+                        }]
+                    }
+                },
+            },
+        })
+        .state('office-proposaladd', {
+            url: "/Office-ProposalAdd/:ref_id",
+            views: {
+                'container-view': {
+                    templateUrl: "Accountings/ProposalAdd",
+                    controller: "AccountProposalController",
+                    resolve: {
+                        load: ['$ocLazyLoad', function ($ocLazyLoad) {
+                            return $ocLazyLoad.load({
+                                files: [
+                                    'controller/accounts/accountproposalcontroller.js?noacche=' + makeid(),
+                                    'controller/parameter/GlobalServiceControl.js?noacche=' + makeid(),
+                                    'controller/services/serviceorganizecontroller.js?noacche=' + makeid(),
                                     'controller/services/serviceaccountcontroller.js?noacche=' + makeid(),
                                     'controller/services/serviceparametercontroller.js?noacche=' + makeid()
                                 ]

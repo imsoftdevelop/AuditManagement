@@ -74,6 +74,36 @@ FOCUSAPP.factory('serviceAccount', ['$http', '$q', function ($http, $q) {
         postAccountAuditAccountChangeStatus: function (data) {
             return $http.post(baseURL + "Accountings/PostAccountAuditAccountChangeStatus", data, HeaderConfig, { cache: false });
         },
+        postAccountAuditFSGroupChangeStatus: function (data) {
+            return $http.post(baseURL + "Accountings/PostAccountAuditFSGroupChangeStatus", data, HeaderConfig, { cache: false });
+        },
+        postAccountAuditAccountReference: function (key,data) {
+            return $http.post(baseURL + "Accountings/PostAccountAuditAccountReference?ref_key=" + key, data, HeaderConfig, { cache: false });
+        },
+        postAuditFSgroupNoteFS: function (data) {
+            return $http.post(baseURL + "Accountings/PostAuditFSgroupNoteFS", data, HeaderConfig, { cache: false });
+        },
+        deleteAuditNoteFS: function (key1) {
+            return $http.delete(baseURL + "Accountings/DeleteAuditNoteFS?ref_key=" + makeid() + "&ref_id=" + key1, { cache: false });
+        },
+        getAssignAuditFSGroup: function (key) {
+            return $http.get(baseURL + "Accountings/GetAssignAuditFSGroup?ref_key=" + makeid() + "&ref_id=" + key, { cache: false });
+        },
+        postAssignAuditFSGroup: function (data) {
+            return $http.post(baseURL + "Accountings/PostAssignAuditFSGroup", data, HeaderConfig, { cache: false });
+        },
+        deleteAssignAuditFSGroup: function (key) {
+            return $http.delete(baseURL + "Accountings/DeleteAssignAuditFSGroup?ref_key=" + key, { cache: false });
+        },
+        disabledAssignAuditFSGroup: function (key) {
+            return $http.delete(baseURL + "Accountings/DisabledAssignAuditFSGroup?ref_key=" + key, { cache: false });
+        },
+        onDisabledAssignAuditFSGroup: function (key) {
+            return $http.delete(baseURL + "Accountings/OnDisabledAssignAuditFSGroup?ref_key=" + key, { cache: false });
+        },
+        confirmAuditAccountPeriods: function (key) {
+            return $http.get(baseURL + "Accountings/ConfirmAuditAccountPeriods?ref_key=" + makeid() + "&ref_id=" + key, { cache: false });
+        },
         
     };
 }]);

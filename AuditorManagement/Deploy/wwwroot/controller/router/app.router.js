@@ -161,4 +161,29 @@
                 },
             },
         })
+        .state('customerdashboard', {
+            url: "/CustomerDashBoard",
+            views: {
+                'container-view': {
+                    templateUrl: "Home/CustomerDashBoard",
+                    controller: "CustomerController",
+                    resolve: {
+                        load: ['$ocLazyLoad', function ($ocLazyLoad) {
+                            return $ocLazyLoad.load({
+                                files: [
+                                    'controller/home/customercontroller.js?noacche=' + makeid(),
+                                    'controller/services/serviceauthencontroller.js?noacche=' + makeid(),
+                                    'controller/services/serviceparametercontroller.js?noacche=' + makeid(),
+                                    'controller/parameter/GlobalServiceControl.js?noacche=' + makeid(),
+                                    'controller/accounts/audit.confirmaccountperiodcontroller.js?noacche=' + makeid(),
+                                    'controller/services/serviceaccountcontroller.js?noacche=' + makeid(),
+                                    'controller/services/serviceorganizecontroller.js?noacche=' + makeid(),
+                                ]
+                            });
+                        }]
+                    }
+                },
+            },
+        })
+    
 }); 

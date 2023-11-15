@@ -29,7 +29,7 @@
     <link href="~/assets/libs/dropify/dropify.min.css" rel="stylesheet" />
     <link href="~/assets/libs/jquery.toast/jquery.toast.min.css" rel="stylesheet" />
     <link href="~/assets/css/site.css" rel="stylesheet" />
-
+    <link href="~/assets/css/draftreport.css" rel="stylesheet" />
 </head>
 <body data-topbar="dark" data-layout="horizontal" ng-app="FOCUSAPP" ng-controller="FOCUSAPPController" data-ng-init="init()">
 
@@ -288,7 +288,7 @@
                                     </li>
 
                                     <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle arrow-none"  id="topnav-email" role="button"
+                                        <a class="nav-link dropdown-toggle arrow-none" id="topnav-email" role="button"
                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <i class="mdi mdi-account-supervisor-circle"></i>ลูกค้า
                                         </a>
@@ -298,7 +298,7 @@
                                         </div>
                                     </li>
                                     <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle arrow-none"  id="topnav-components" role="button"
+                                        <a class="nav-link dropdown-toggle arrow-none" id="topnav-components" role="button"
                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <i class="mdi mdi-archive"></i>เอกสาร
                                         </a>
@@ -309,7 +309,7 @@
                                     </li>
 
                                     <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle arrow-none"  id="topnav-forms" role="button"
+                                        <a class="nav-link dropdown-toggle arrow-none" id="topnav-forms" role="button"
                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <i class="mdi mdi-alpha-a-circle"></i>บัญชี
                                         </a>
@@ -321,7 +321,7 @@
                                     </li>
 
                                     <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle arrow-none"  id="topnav-forms" role="button"
+                                        <a class="nav-link dropdown-toggle arrow-none" id="topnav-forms" role="button"
                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <i class="mdi mdi-checkbox-multiple-marked-circle-outline"></i>ตรวจสอบบัญชี
                                         </a>
@@ -332,7 +332,7 @@
                                     </li>
 
                                     <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle arrow-none"  id="topnav-forms" role="button"
+                                        <a class="nav-link dropdown-toggle arrow-none" id="topnav-forms" role="button"
                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <i class="mdi mdi-cog-outline"></i>พารามิเตอร์
                                         </a>
@@ -354,7 +354,7 @@
                                     </li>
 
                                     <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle arrow-none"  id="topnav-more" role="button"
+                                        <a class="nav-link dropdown-toggle arrow-none" id="topnav-more" role="button"
                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <i class="mdi mdi-database"></i>ตั้งค่า
                                         </a>
@@ -438,6 +438,7 @@
     <script src="~/assets/libs/angularJS/ocLazyLoad.min.js"></script>
     <script src="~/assets/libs/angularJS/ui-bootstrap-tpls.min.js"></script>
     <script src="~/assets/libs/angularJS/ng-file-upload.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-sanitize.js"></script>
     <!-- Router -->
     <script src="~/controller/router/admin.router.js"></script>
     <script src="~/controller/router/owner.router.js"></script>
@@ -445,6 +446,7 @@
     <script src="~/controller/router/account.router.js"></script>
     <script src="~/controller/router/audit.router.js"></script>
     <script src="~/controller/router/manager.router.js"></script>
+    <script src="~/controller/router/customer.router.js"></script>
 
     <script src="~/controller/appmain.js"></script>
     <script src="~/controller/custom.js"></script>

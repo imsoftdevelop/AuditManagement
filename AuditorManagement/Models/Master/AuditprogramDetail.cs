@@ -17,5 +17,6 @@ namespace Models.Models
         public DateTime? UpdatedOn { get; set; }
         public string UpdateBy { get; set; }
         public int? AuditprogramDetailid { get; set; }
+        public List<AuditprogramDetailUse> DetailUse { get; set; }
     }
 }

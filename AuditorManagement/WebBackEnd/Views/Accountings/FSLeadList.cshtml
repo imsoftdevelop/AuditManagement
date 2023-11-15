@@ -99,18 +99,18 @@
                                       'bg-success' : TablePeriod.FsSelect.PrepareStatus == 'Confirm',
                                       'bg-danger' : TablePeriod.FsSelect.PrepareStatus == 'Back'}">{{TablePeriod.FsSelect.PrepareStatus}}</span>
                                 <span class="display-block">{{TablePeriod.FsSelect.PrepareData.FullName}}</span>
-                                <span >{{TablePeriod.FsSelect.PrepareDate}}</span>
+                                <span>{{TablePeriod.FsSelect.PrepareDate}}</span>
                             </div>
                             <div class="p-1 ">
                                 <h5 class="font-weight-bold h5-span">
                                     Reveiwed by
                                 </h5>
-                                 <span class="badge font-size-14 display-block" ng-class="{ 'bg-info' : TablePeriod.FsSelect.ReveiwedStatus == 'Wait',
+                                <span class="badge font-size-14 display-block" ng-class="{ 'bg-info' : TablePeriod.FsSelect.ReveiwedStatus == 'Wait',
                                       'bg-success' : TablePeriod.FsSelect.ReveiwedStatus == 'Confirm',
                                       'bg-danger' : TablePeriod.FsSelect.ReveiwedStatus == 'Back'}">{{TablePeriod.FsSelect.ReveiwedStatus}}</span>
                                 <span class="display-block">{{TablePeriod.FsSelect.ReveiwedData.FullName}}</span>
                                 <span>{{TablePeriod.FsSelect.ReveiwedDate}}</span>
-                               
+
 
                             </div>
                             <div class="p-1 ">
@@ -194,10 +194,9 @@
                                         <tr ng-repeat="values in TablePeriod.AccountSelect" ng-show="TablePeriod.AccountSelect != undefined && TablePeriod.AccountSelect.length > 0">
                                             <td width="2%">{{values.Seq}}</td>
                                             <td width="23%">
-                                                <i ng-show="values.Status=='Confirm'" class="mdi mdi-check-circle-outline text-success"></i>
+                                                <i ng-show="values.Status=='Confirm'  || values.Status=='Lock'" class="mdi mdi-check-circle-outline text-success"></i>
                                                 <i ng-show="values.Status=='Back'" class="mdi mdi-alpha-b-circle-outline text-danger"></i>
-                                                <i ng-show="values.Status=='Wait' || values.Status=='Lock'" class="mdi mdi-alert-circle-outline text-info"></i>
-
+                                                <i ng-show="values.Status=='Wait'" class="mdi mdi-alert-circle-outline text-info"></i>
                                                 {{values.Code}} - {{values.Name}}
                                             </td>
                                             <td width="10%">{{values.SubFSGroup.Name}}</td>
@@ -336,8 +335,9 @@
                                     <thead>
                                         <tr class="headerRow">
                                             <th></th>
-                                            <th colspan="2">หัวข้อ</th>
-                                            <th colspan="2">รายละเอียด</th>
+                                            <th width="40%" colspan="2">หัวข้อ</th>
+                                            <th width="50%" colspan="2">รายละเอียด</th>
+                                            <th class="text-center" width="10%" >แสดงรายงาน</th>
                                             <th class="text-center">เพิ่มเติม</th>
                                         </tr>
                                     </thead>
@@ -348,14 +348,15 @@
                                             <td colspan="2">
                                                 {{values.Description}}
                                             </td>
+                                            <td class="text-center"><input type="checkbox" class="form-check" ng-model="values.IsPrint" /></td>
                                             <td class="text-center">
-                                                <button type="button" class="btn btn-outline-dark waves-effect waves-light px-3 py-1 dropdown-toggle font-size-15" 
+                                                <button type="button" class="btn btn-outline-dark waves-effect waves-light px-3 py-1 dropdown-toggle font-size-15"
                                                         data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                     ตัวเลือก <i class="mdi mdi-chevron-down"></i>
                                                 </button>
 
                                                 <div class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop1" style="">
-                                                    <a  class="dropdown-item font-size-15" ng-click="OnClickUpdatePolicy($index,values)"><i class="mdi mdi-circle-edit-outline"></i> แก้ไข</a>
+                                                    <a class="dropdown-item font-size-15" ng-click="OnClickUpdatePolicy($index,values)"><i class="mdi mdi-circle-edit-outline"></i> แก้ไข</a>
                                                     <a ng-show="TablePeriod.FsSelect.Status != 'Confirm'" class="dropdown-item font-size-15  a-status-danger" ng-click="OnClickDeletePolicy($index,values)"> <i class="mdi mdi-delete-circle-outline"></i> ลบ</a>
                                                 </div>
                                             </td>
@@ -418,6 +419,8 @@
                                     <div class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop1" style="">
                                         <a class="dropdown-item cursor-pointer" ng-click="OnClickAddNoteFS('Get')"> <i class="mdi mdi-card-search-outline"></i> เพิ่มรูปแบบดึงข้อมูล</a>
                                         <a class="dropdown-item cursor-pointer" ng-click="OnClickAddNoteFS('Table')"> <i class="mdi mdi-file-table-box"></i>เพิ่มรูปแบบตาราง</a>
+                                        <a class="dropdown-item cursor-pointer" ng-click="OnClickAddNoteFS('Excel')"> <i class="mdi mdi-file-upload-outline"></i>เพิ่มรูปแบบอัพโหดล</a>
+
                                     </div>
                                 </div>
 
@@ -431,7 +434,8 @@
                                             <th></th>
                                             <th width="10%">รหัสอ้างอิง</th>
                                             <th width="10%">รูปแบบการแสดง</th>
-                                            <th width="75%">รายละเอียด</th>
+                                            <th width="65%">รายละเอียด</th>
+                                            <th class="text-center" width="10%">แสดงรายงาน</th>
                                             <th width="5%" class="text-center">เพิ่มเติม</th>
                                         </tr>
                                     </thead>
@@ -447,8 +451,9 @@
                                             <td>
                                                 <span class="text-search" ng-show="values.NoteFstype == 'Get'" ng-click="OnClickTableNoteFSParagraph(values)">คลิกเพื่อแสดงข้อมูล</span>
                                                 <span ng-show="values.NoteFstype == 'Paragraph'">{{values.NoteDetail}}</span>
-                                                <span class="text-search" ng-show="values.NoteFstype == 'Table'" >คลิกเพื่อแสดงข้อมูล</span>
+                                                <span class="text-search" ng-click="OnClickTableNoteFSParagraph(values)" ng-show="values.NoteFstype == 'Table'">คลิกเพื่อแสดงข้อมูล</span>
                                             </td>
+                                            <td class="text-center"><input type="checkbox" class="form-check" ng-model="values.IsPrint" /></td>
                                             <td class="text-center">
                                                 <button type="button" class="btn btn-outline-dark waves-effect waves-light px-3 py-1 dropdown-toggle font-size-15" ng-show="TablePeriod.FsSelect.Status != 'Confirm'"
                                                         data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -649,7 +654,9 @@
                                 <thead>
                                     <tr class="headerRow">
                                         <th></th>
-                                        <th width="95%">ประกอบด้วย</th>
+                                        <th width="55%">ประกอบด้วย</th>
+                                        <th width="20%">Current Year</th>
+                                        <th width="20%">Last Year</th>
                                         <th width="5%"></th>
                                     </tr>
                                 </thead>
@@ -658,6 +665,12 @@
                                         <th> {{values.Seq}}</th>
                                         <td>
                                             {{values.SubFsgroupCode}} - {{values.SubFsgroupName}}
+                                        </td>
+                                        <td>
+                                            {{values.SubFsGroupSummary | number : 2}}
+                                        </td>
+                                        <td>
+                                            {{values.SubFsGroupSummaryPrev | number : 2}}
                                         </td>
                                         <td>
                                             <a class="btn btn-outline-danger btn-sm edit" ng-click="OnClickDeleteSubGroupNoteFS(values)" title="Edit" ng-show="TablePeriod.FsSelect.Status != 'Confirm'">
@@ -674,6 +687,18 @@
                                         </td>
                                     </tr>
                                 </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="2" class="text-right">รวม</td>
+                                        <td>
+                                            {{TableAdd.Footer.SubFsGroupSummary | number : 2}}
+                                        </td>
+                                        <td>
+                                            {{TableAdd.Footer.SubFsGroupSummaryPrev | number : 2}}
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                </tfoot>
                             </table>
                         </div>
                     </div>
@@ -762,7 +787,10 @@
                 <div class="row">
                     <div class="col-md-10">
                         <h4 class="card-title mt-2 font-size-16 font-weight-bold">รายละเอียดข้อมูล</h4>
-                        <button type="button" class="mt-1 btn btn-modal-add waves-effect waves-light" ng-click="OnClickSetHeaderNoteFS()" ng-show="TablePeriod.FsSelect.Status != 'Confirm'"><i class="mdi mdi-plus me-1"></i>ตั้งค่าตาราง</button>
+                        <div class="col-md-5 gap-2 d-flex">
+                            <button type="button" class="mt-1 btn btn-modal-add waves-effect waves-light" ng-click="OnClickSetHeaderNoteFS('Add')" ng-show="TablePeriod.FsSelect.Status != 'Confirm'"><i class="mdi mdi-plus me-1"></i>ตั้งค่าตาราง</button>
+                            <button type="button" class="mt-1 btn btn-modal-add waves-effect waves-light" ng-click="OnClickSetHeaderNoteFS('Edit')" ng-show="TablePeriod.FsSelect.Status != 'Confirm' && TableAdd.AuditNoteFsid != undefined"><i class="mdi mdi-circle-edit-outline me-1"></i>แก้ไขตั้งค่าตาราง</button>
+                        </div>
                     </div>
                     <div class="col-md-2 ">
                         <div class="form-input">
@@ -785,6 +813,8 @@
                                         <div class="form-element-bar"></div>
                                         <label class="form-element-label" for="name">หัวข้อ</label>
                                     </th>
+                                     <th>เส้นใต้
+                                    </th>
                                     <th>
                                     </th>
                                 </tr>
@@ -806,6 +836,7 @@
                                             <label class="form-element-label" for="name">รายละเอียด</label>
                                         </div>
                                     </td>
+                                    <td class="text-center"><input type="checkbox" class="form-check" ng-model="record.IsUnderline" /></td>
                                     <td>
                                         <a class="btn btn-outline-danger btn-sm edit" title="Edit" ng-click="OnClickRemoveRecordNoteFS($index)" ng-show="TablePeriod.FsSelect.Status != 'Confirm'">
                                             <i class="mdi mdi-delete" title="Save"></i>
@@ -1028,7 +1059,7 @@
         <div class="modal-content modal-sm">
             <div class="modal-header">
                 <h2 class="modal-title mt-0" id="myModalLabel">
-                    ตั้งค่าจำนวนหัวข้อ
+                    เพิ่มข้อมูล Note to FS รูปแบบรายละเอียด
                 </h2>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                         aria-label="Close"></button>
@@ -1037,7 +1068,7 @@
                 <div class="row">
                     <div class="col-md-12 ">
                         <div class="form-input">
-                            <input id="name" class="form-element-input form-element-input-show" type="text" placeholder="กรุณาระบุรหัส" ng-model="Header" />
+                            <input id="name" class="form-element-input form-element-input-show" type="text" placeholder="กรุณาระบุจำนวน" ng-model="Header" number-only />
                             <div class="form-element-bar"></div>
                             <label class="form-element-label" for="name">จำนวน</label>
                             <label class="form-element-required" for="name">* </label>
@@ -1046,8 +1077,51 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-light waves-effect px-5 py-2"ng-click="OnClickCloseSetHeaderNoteFS()">ยกเลิก</button>
+                <button type="button" class="btn btn-light waves-effect px-5 py-2" ng-click="OnClickCloseSetHeaderNoteFS()">ยกเลิก</button>
                 <button type="button" class="btn btn-primary waves-effect px-5 py-2" ng-click="OnClickSaveSetHeaderNoteFS()">บันทึกข้อมูล</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- sample modal content -->
+<div id="ModalNoteFSUpload" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog  modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title mt-0" id="myModalLabel">
+                    เพิ่มข้อมูล Note to FS รูปแบบอัพโหลด
+                </h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4 class="card-title mt-2 font-size-16 font-weight-bold">รายละเอียดข้อมูล</h4>
+                    </div>
+                </div>
+                <div class="row py-2">
+                    <div class="col-md-3 ">
+                        <div class="form-input">
+                            <input id="name" class="form-element-input form-element-input-show" type="text" placeholder="กรุณาระบุจำนวน" ng-model="Header" number-only />
+                            <div class="form-element-bar"></div>
+                            <label class="form-element-label" for="name">จำนวน</label>
+                            <label class="form-element-required" for="name">* </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row py-2">
+                    <div class="col-lg-12 pl-0">
+                        <div class="form-input">
+                            <input id="product_thumnail" type="file" ngf-select="UploadFiles($files)"
+                                   data-max-file-size="3M" data-allowed-file-extensions="xlsx" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light waves-effect px-5 py-2" data-bs-dismiss="modal" aria-label="Close">ยกเลิก</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

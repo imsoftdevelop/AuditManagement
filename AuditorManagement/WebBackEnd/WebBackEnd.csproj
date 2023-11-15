@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\index.html" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="wwwroot\assets\fonts\" />
     <Folder Include="wwwroot\assets\libs\select2\" />
     <Folder Include="wwwroot\controller\directive\" />
@@ -35,8 +39,12 @@
 
   <ItemGroup>
     <Reference Include="IMauchlyCore">
-      <HintPath>..\..\..\..\_EnjoyBook Source Code\EnjoyBook_MicroService\bin\Debug\netcoreapp3.1\IMauchlyCore.dll</HintPath>
+      <HintPath>..\..\..\..\Zonic\ZunicEcommerce\ZunicECommerce\Zunic.ECommerce.WebBackEnds\bin\Debug\net6.0\IMauchlyCore.dll</HintPath>
     </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="wwwroot\index.html" />
   </ItemGroup>
 
   <ItemGroup>

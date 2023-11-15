@@ -354,7 +354,7 @@ body[data-layout=horizontal] .navbar-brand-box {
 
 body[data-layout=horizontal] .page-content {
     /*margin-top: 70px;*/
-    padding: calc(130px + 24px) calc(24px / 2) 60px calc(24px / 2)
+    padding: calc(160px + 24px) calc(24px / 2) 60px calc(24px / 2)
 }
 
 @media (max-width:992px) {
@@ -1152,7 +1152,7 @@ body[data-sidebar=colored].vertical-collpsed .vertical-menu #sidebar-menu ul li 
     .topnav .navbar-nav .nav-link {
         font-size: 16px;
         position: relative;
-        padding: 25px 35px;
+        padding: 25px 33px;
         color: #545a6d
     }
 
@@ -2536,7 +2536,7 @@ body[data-layout=horizontal][data-layout-size=boxed] .container-fluid {
 
     .activity-feed .feed-item {
         position: relative;
-        padding-bottom: 29px;
+        padding-bottom: 5px;
         padding-left: 30px;
         border-left: 2px solid #f5f6f8
     }

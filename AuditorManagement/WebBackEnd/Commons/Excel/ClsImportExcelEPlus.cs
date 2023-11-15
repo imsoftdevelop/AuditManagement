@@ -128,6 +128,67 @@ namespace WebBackEnd.Commons.Excel
         }
 
         /// <summary>
+        /// Import Excel File to List
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="List"></param>
+        /// <returns></returns>
+        public ListImport ImportToTable()
+        {
+            try
+            {
+                ListImport list = new ListImport();
+                if (InitailChec())
+                {
+                    FileInfo File = new FileInfo(_FileExcel);
+                    using (ExcelPackage pk = new ExcelPackage(File))
+                    {
+                        ExcelWorksheet ws;
+                        if (!string.IsNullOrEmpty(_NameSheets))
+                        {
+                            ws = pk.Workbook.Worksheets[_NameSheets];
+                        }
+                        else
+                        {
+                            ws = pk.Workbook.Worksheets.FirstOrDefault();
+                        }
+                        ExcelCellAddress StrtEx = ws.Dimension.Start;
+                        ExcelCellAddress EndEx = ws.Dimension.End;
+                        AttibuteInfo AuttibuteClass = new AttibuteInfo();
+
+                       
+                        list.Header = new List<string>();
+                        list.Detail = new List<List<string>>();
+                        for (var colNum = 1; colNum <= ws.Dimension.End.Column; colNum++)
+                        {
+                            list.Header.Add(ws.Cells[1, colNum].Text);
+                        }
+
+                        for (var rowNum = 2; rowNum <= ws.Dimension.End.Row; rowNum++)
+                        {
+                            var wsRow = ws.Cells[rowNum, 1, rowNum, ws.Dimension.End.Column];
+                            List<string> add = new List<string>();
+                            foreach (var cell in wsRow)
+                            {
+                                add.Add(cell.Text);
+                            }
+                            list.Detail.Add(add);
+                        }
+                    }
+                    return list;
+                }
+                else
+                {
+                    return list;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        /// <summary>
         /// GetSheet Excel File
         /// </summary>
         /// <returns></returns>
@@ -225,5 +286,11 @@ namespace WebBackEnd.Commons.Excel
         public int total { get; set; }
         public int success { get; set; }
         public int error { get; set; }
+    }
+
+    public class ListImport
+    {
+        public List<string> Header { get; set; }
+        public List<List<string>> Detail { get; set; }
     }
 }

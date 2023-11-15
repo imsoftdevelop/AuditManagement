@@ -48,13 +48,26 @@ namespace WebBackEnd.Controllers
                         val.PermissionNameActive = permis.Name;
                     }
 
-                    Branch branch = new Branch();
-                    branch = val.BranchData.FirstOrDefault();
-                    if (branch != null)
+                    if (val.BranchData?.Any() ?? false)
                     {
-                        val.BranchIdActive = branch.BranchId;
-                        val.BranchCodeActive = branch.BranchCode;
-                        val.BranchNameActive = branch.Name;
+                        Branch branch = new Branch();
+                        branch = val.BranchData.FirstOrDefault();
+                        if (branch != null)
+                        {
+                            val.BranchIdActive = branch.BranchId;
+                            val.BranchCodeActive = branch.BranchCode;
+                            val.BranchNameActive = branch.Name;
+                        }
+                    }
+
+                    if (val.UserCustomerData?.Any() ?? false)
+                    {
+                        Userscustomer userCustomer = new Userscustomer();
+                        userCustomer = val.UserCustomerData.FirstOrDefault();
+                        if (userCustomer != null)
+                        {
+                            val.CustomerIdActive = userCustomer.CustomerId;
+                        }
                     }
 
                     var tmp = JsonConvert.SerializeObject(val);

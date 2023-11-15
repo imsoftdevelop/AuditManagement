@@ -165,6 +165,8 @@ function GetDatetimeNow() {
     var dd = today.getDate();
     var mm = today.getMonth() + 1; //January is 0!
     var yyyy = today.getFullYear();
+    var hh = today.getHours();
+    var ms = today.getMinutes();
 
     if (dd < 10) {
         dd = '0' + dd
@@ -174,7 +176,15 @@ function GetDatetimeNow() {
         mm = '0' + mm
     }
 
-    today = dd + '/' + mm + '/' + yyyy;
+    if (hh < 10) {
+        hh = '0' + hh
+    }
+
+    if (ms < 10) {
+        ms = '0' + ms
+    }
+
+    today = dd + '/' + mm + '/' + yyyy + ' ' + hh + ':' + ms;
     //var todayre = formatDate(today);
     return today
 }
@@ -188,6 +198,8 @@ function GetDatetimeNowAddDay(day) {
     var dd = tomorrow.getDate();
     var mm = tomorrow.getMonth() + 1; //January is 0!
     var yyyy = tomorrow.getFullYear();
+    var hh = today.getHours();
+    var ms = tody.getMinutes();
 
     if (dd < 10) {
         dd = '0' + dd
@@ -197,7 +209,15 @@ function GetDatetimeNowAddDay(day) {
         mm = '0' + mm
     }
 
-    tomorrow = dd + '/' + mm + '/' + yyyy;
+    if (hh < 10) {
+        hh = '0' + h
+    }
+
+    if (ms < 10) {
+        ms = '0' + ms
+    }
+
+    tomorrow = dd + '/' + mm + '/' + yyyy + ' ' + hh + ':' + ms;
     return tomorrow
 }
 
@@ -216,7 +236,7 @@ function GetMonthNow() {
     var dd = today.getDate();
     var mm = today.getMonth() + 1; //January is 0!
     var yyyy = today.getFullYear();
-
+  
     if (dd < 10) {
         dd = '0' + dd
     }
@@ -225,7 +245,7 @@ function GetMonthNow() {
         mm = '0' + mm
     }
 
-    today = yyyy + '-' + mm + '-' + dd;
+   
     var todayre = formatDate(today);
     return todayre
 }

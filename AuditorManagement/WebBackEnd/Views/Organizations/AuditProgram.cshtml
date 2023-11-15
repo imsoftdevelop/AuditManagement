@@ -374,7 +374,8 @@
                             <thead>
                                 <tr class="headerRow">
                                     <th></th>
-                                    <th width="90%">ชื่อข้อมูล</th>
+                                    <th width="75%">ชื่อข้อมูล</th>
+                                    <th width="20%">จำนวนชั่วโมง</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -384,12 +385,16 @@
                                     <td>
                                         {{values.Name}}<br />
                                     </td>
+                                    <td class="text-center">
+                                        {{values.SumHour}}
+                                    </td>
                                     <td>
                                         <button type="button" class="btn btn-outline-dark waves-effect waves-light px-3 py-1 dropdown-toggle font-size-15"
                                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             ตัวเลือก <i class="mdi mdi-chevron-down"></i>
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop1" style="">
+                                            <a class="dropdown-item font-size-15 cursor-pointer " ng-click="OnClickDetailReference($index,values)"><i class="mdi mdi-magnify"></i>ดูข้อมูล</a>
                                             <a class="dropdown-item font-size-15 cursor-pointer " ng-click="OnClickUpdateDetail($index,values)"><i class="mdi mdi-circle-edit-outline"></i> แก้ไข</a>
                                             <a class="dropdown-item font-size-15 a-status-danger  cursor-pointer" ng-show="TableAdd.IsSystem == 'No'" ng-click="OnClickDeleteDetail($index,values)"> <i class="mdi mdi-delete-circle-outline"></i> ลบ</a>
                                         </div>
@@ -611,3 +616,97 @@
     </div><!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
+<!-- sample modal content -->
+<div id="ModalRefernce" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog  modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title mt-0" id="myModalLabel">
+                    ตารางข้อมูล เรียกใช้ Audit Program
+                </h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4 class="card-title mt-2 font-size-16 font-weight-bold">ชื่อข้อมูล : {{TableAddDetail.Name}}</h4>
+                    </div>
+                </div>
+                <div class="table-rep-plugin mt-3">
+                    <div class="table-responsive mb-0" data-pattern="priority-columns">
+                        <table id="tech-companies-1" class="table-data  table-striped">
+                            <thead>
+                                <tr class="headerRow">
+                                    <th></th>
+                                    <th width="30%">ชื่อรอบบัญชี</th>
+                                    <th width="30%">ชื่อผู้ใช้งาน</th>
+                                    <th width="15%">จำนวนชั่วโมง</th>
+                                    <th width="20%">วันที่ทำรายการ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="values in TableAddDetail.DetailUse | offset: currentPage_3*itemsPerPage_3 | limitTo: itemsPerPage_3  ">
+                                    <th>{{values.Seq}}</th>
+                                    <td>
+                                        {{values.PeriodName}}<br />
+                                    </td>
+                                    <td>
+                                        {{values.CreatedData.FullName}}
+                                    </td>
+                                    <td>
+                                        {{values.Hours}}
+                                    </td>
+                                    <td>
+                                        {{values.CreatedOn}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tbody ng-show="TableAddDetail.DetailUse == undefined || TableAddDetail.DetailUse.length == 0">
+                                <tr class="text-center ">
+                                    <td colspan="8" class="empty">
+                                        <img src="@Url.Content("~/")assets/images/icons/icon-list.png" width="60" class="d-block m-auto">
+                                        ไม่พบรายการ
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <hr />
+                        <div class="d-flex justify-content-end">
+                            <div data-v-e8100c36="" class="numberShow">
+                                <p class="mr-2 mx-2 mb-0 font-size-16">แสดง</p>
+                                <select class="day form-control form-select form-select-sm" style="width: auto;" ng-change="OnClickChangePageTotal_3()" ng-model="itemsPerPage_3">
+                                    <option value="10">10</option>
+                                    <option value="20">20</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                </select>
+                                <div data-v-76901dc6="" class="selectInputDropdown noLabel" style="width: 100%;">
+                                    <p class="mr-2 mx-2 mb-0 font-size-16">รายการ</p>
+                                </div>
+                            </div>
+                            <div data-v-e8100c36="" class="page-data">
+                                <div data-v-e8100c36="" class="prevArrow" ng-class="prevPageDisabled_3()" ng-click="prevPage_3()">
+                                    <i data-v-e8100c36="" class="fa fa-chevron-left"></i>
+                                </div>
+                                <p data-v-e8100c36="" class="mr-2 mx-2 mb-0 font-size-16">หน้า</p>
+                                <select class="day form-control form-select form-select-sm" style="width: auto;" ng-options="item as item.name for item in retpage_3" ng-model="changePages_3" ng-change="setPage_3(item)">
+                                    @*<option ng-repeat="rows in retpage" value="{{rows.code}}" >{{rows.name}}</option>*@
+                                </select>
+                                <div data-v-e8100c36="" class="nextArrow" ng-class="nextPageDisabled_3()" ng-click="nextPage_3()">
+                                    <i data-v-e8100c36="" class="fa fa-chevron-right"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light waves-effect px-5 py-2" ng-click="OnClickCloseReference()">ปิดหน้าต่าง</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- Add -->

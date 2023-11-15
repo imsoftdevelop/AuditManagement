@@ -67,7 +67,7 @@ namespace Repository
                         if (response.ReferenceVerify != null)
                         {
                             response.ReferenceVerify.AuditAccount = new AccountAuditAccount();
-                            response.ReferenceVerify.AuditAccount = otable.Where(a => a.AuditAccountId == response.ReferenceVerify.AuditAccountId ).FirstOrDefault();
+                            response.ReferenceVerify.AuditAccount = otable.Where(a => a.AuditAccountId == response.ReferenceVerify.AuditAccountId).FirstOrDefault();
                         }
 
                         response.References = new List<AccountAuditAccountReference>();
@@ -277,11 +277,20 @@ namespace Repository
                     {
                         var otable = context.Set<AccountAuditAccount>();
                         var etable = context.Set<AccountAuditAccountEvent>();
+                        var rtable = context.Set<AccountAuditAccountReference>();
 
                         AccountAuditAccount val = new AccountAuditAccount();
                         val = otable.Where(a => a.AuditAccountId == input.AuditAccountId).FirstOrDefault();
                         if (val == null)
                             throw new Exception("ไม่พบข้อมูล Sub Lead ในระบบ");
+
+                        List<AccountAuditAccountReference> actReference = new List<AccountAuditAccountReference>();
+                        actReference = rtable.Where(a => a.AuditAccountId == val.AuditAccountId).ToList();
+                        int[] convertId = actReference.ConvertAll(a => a.AuditReferenceAuditAccountId.Value).ToArray();
+                        List<AccountAuditAccount> auditReference = new List<AccountAuditAccount>();
+                        auditReference = otable.Where(a => convertId.Contains(a.AuditAccountId.Value)).ToList();
+
+                        int hour = 0;
 
                         if (Role == "Account1")
                         {
@@ -290,12 +299,28 @@ namespace Repository
                                 val.PrepareDateStart = input.PrepareDateStart;
                                 val.PrepareDateEnd = input.PrepareDateEnd;
                                 val.PrepareTimeUseHour = input.PrepareTimeUseHour;
+                                hour = val.PrepareTimeUseHour.Value;
                                 val.PrepareTimeUseMinute = input.PrepareTimeUseMinute;
                             }
                             val.PreparedBy = input.PreparedBy;
                             val.PrepareDate = input.PrepareDate;
                             val.PrepareStatus = input.PrepareStatus;
                             val.PrepareRemark = input.PrepareRemark;
+
+                            foreach (AccountAuditAccount act in auditReference)
+                            {
+                                if (input.PrepareStatus == Common.IsStatusWorkflowComfirm)
+                                {
+                                    act.PrepareDateStart = input.PrepareDateStart;
+                                    act.PrepareDateEnd = input.PrepareDateEnd;
+                                    act.PrepareTimeUseHour = input.PrepareTimeUseHour;
+                                    act.PrepareTimeUseMinute = input.PrepareTimeUseMinute;
+                                }
+                                act.PreparedBy = input.PreparedBy;
+                                act.PrepareDate = input.PrepareDate;
+                                act.PrepareStatus = input.PrepareStatus;
+                                act.PrepareRemark = input.PrepareRemark;
+                            }
                         }
                         else if (Role == "Account2")
                         {
@@ -304,26 +329,80 @@ namespace Repository
                                 val.ReviewedDateStart = input.ReviewedDateStart;
                                 val.ReviewedDateEnd = input.ReviewedDateEnd;
                                 val.ReviewedTimeUseHour = input.ReviewedTimeUseHour;
+                                hour = val.ReviewedTimeUseHour.Value;
                                 val.ReviewedTimeUseMinute = input.ReviewedTimeUseMinute;
                             }
                             val.ReveiwedBy = input.ReveiwedBy;
                             val.ReveiwedDate = input.ReveiwedDate;
                             val.ReveiwedStatus = input.ReveiwedStatus;
                             val.ReviewedRemark = input.ReviewedRemark;
+
+                            foreach (AccountAuditAccount act in auditReference)
+                            {
+                                if (input.ReveiwedStatus == Common.IsStatusWorkflowComfirm)
+                                {
+                                    act.ReviewedDateStart = input.ReviewedDateStart;
+                                    act.ReviewedDateEnd = input.ReviewedDateEnd;
+                                    act.ReviewedTimeUseHour = input.ReviewedTimeUseHour;
+                                    act.ReviewedTimeUseMinute = input.ReviewedTimeUseMinute;
+                                }
+                                act.ReveiwedBy = input.ReveiwedBy;
+                                act.ReveiwedDate = input.ReveiwedDate;
+                                act.ReveiwedStatus = input.ReveiwedStatus;
+                                act.ReviewedRemark = input.ReviewedRemark;
+                            }
                         }
                         else if (Role == "Audit")
                         {
                             if (input.AuditorStatus == Common.IsStatusWorkflowComfirm)
                             {
+                                if (input.PrepareStatus != Common.IsStatusWorkflowComfirm)
+                                {
+                                    val.PrepareDateStart = input.AuditorDateStart;
+                                    val.PrepareDateEnd = input.AuditorDateEnd;
+                                    val.PrepareTimeUseHour = input.AuditorTimeUseHour;
+                                    val.PrepareTimeUseMinute = input.AuditorTimeUseMinute;
+                                    val.PreparedBy = input.AuditorBy;
+                                    val.PrepareDate = input.AuditorDate;
+                                    val.PrepareStatus = input.AuditorStatus;
+                                }
+
+                                if (input.ReveiwedStatus != Common.IsStatusWorkflowComfirm)
+                                {
+                                    val.ReviewedDateStart = input.AuditorDateStart;
+                                    val.ReviewedDateEnd = input.AuditorDateEnd;
+                                    val.ReviewedTimeUseHour = input.AuditorTimeUseHour;
+                                    val.ReviewedTimeUseMinute = input.AuditorTimeUseMinute;
+                                    val.ReveiwedBy = input.AuditorBy;
+                                    val.ReveiwedDate = input.AuditorDate;
+                                    val.ReveiwedStatus = input.AuditorStatus;
+                                }
+
                                 val.AuditorDateStart = input.AuditorDateStart;
                                 val.AuditorDateEnd = input.AuditorDateEnd;
                                 val.AuditorTimeUseHour = input.AuditorTimeUseHour;
+                                hour = val.AuditorTimeUseHour.Value;
                                 val.AuditorTimeUseMinute = input.AuditorTimeUseMinute;
                             }
                             val.AuditorBy = input.AuditorBy;
                             val.AuditorDate = input.AuditorDate;
                             val.AuditorStatus = input.AuditorStatus;
                             val.AuditorRemark = input.AuditorRemark;
+
+                            foreach (AccountAuditAccount act in auditReference)
+                            {
+                                if (input.ReveiwedStatus == Common.IsStatusWorkflowComfirm)
+                                {
+                                    act.AuditorDateStart = input.AuditorDateStart;
+                                    act.AuditorDateEnd = input.AuditorDateEnd;
+                                    act.AuditorTimeUseHour = input.AuditorTimeUseHour;
+                                    act.AuditorTimeUseMinute = input.AuditorTimeUseMinute;
+                                }
+                                act.AuditorBy = input.AuditorBy;
+                                act.AuditorDate = input.AuditorDate;
+                                act.AuditorStatus = input.AuditorStatus;
+                                act.AuditorRemark = input.AuditorRemark;
+                            }
                         }
                         else if (Role == "Manager")
                         {
@@ -339,6 +418,48 @@ namespace Repository
                         etable.Add(Events);
                         context.SaveChanges();
 
+                        // กรณี Confirm Audit program จะต้อง อัพเดท
+                        if (Common.IsStatusWorkflowComfirm == Events.IsEvent)
+                        {
+                            var autable = context.Set<AuditprogramDetailUse>();
+                            var clutable = context.Set<AccountAuditAccountConclusion>();
+                            List<AccountAuditAccountConclusion> conclusion = new List<AccountAuditAccountConclusion>();
+                            conclusion = clutable.Where(a => a.AuditAccountId == val.AuditAccountId).ToList();
+                            if (conclusion.Any())
+                            {
+                                foreach (AccountAuditAccountConclusion sel in conclusion)
+                                {
+                                    if (sel.Auditprogramid.HasValue && sel.AuditprogramDetailid.HasValue)
+                                    {
+                                        AuditprogramDetailUse validate = new AuditprogramDetailUse();
+                                        validate = autable.Where(a => a.Auditprogramid == sel.Auditprogramid.Value &&
+                                        a.AuditprogramDetailid == sel.AuditprogramDetailid.Value &&
+                                        a.PeriodId == val.PeriodId && a.AuditAccountId == val.AuditAccountId && a.FsgroupId == val.FsgroupId).FirstOrDefault();
+                                        if (validate == null)
+                                        {
+                                            AuditprogramDetailUse use = new AuditprogramDetailUse()
+                                            {
+                                                Auditprogramid = sel.Auditprogramid,
+                                                AuditprogramDetailid = sel.AuditprogramDetailid,
+                                                PeriodId = val.PeriodId,
+                                                UserId = val.UpdateBy,
+                                                Hours = hour,
+                                                AuditAccountId = val.AuditAccountId,
+                                                FsgroupId = val.FsgroupId,
+                                                CreatedBy = input.UpdateBy,
+                                                UpdateBy = input.UpdateBy,
+                                                CreatedOn = input.UpdatedOn,
+                                                UpdatedOn = input.UpdatedOn,
+                                            };
+                                            autable.Add(use);
+                                            context.SaveChanges();
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        // กรณี กด Back SubLead  Leadจะ Back อัตโนมัติ
                         if (Common.IsStatusWorkflowBack == Events.IsEvent)
                         {
                             var fstable = context.Set<AccountAuditFsgroup>();

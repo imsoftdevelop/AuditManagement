@@ -46,6 +46,16 @@ namespace Models.Models
         public string IsCompleteCustomer { get; set; }
         public string IsCompleteCustomerBy { get; set; }
         public DateTime? IsCompleteCustomerDate { get; set; }
+        public string ProposalId { get; set; }
+        public string SignatureNameFile { get; set; }
+        public string SignaturePathFile { get; set; }
+        public string SignatureExtension { get; set; }
+        public decimal? SignatureSize { get; set; }
+        public string ReportSignNameFile { get; set; }
+        public string ReportSignPathFile { get; set; }
+        public string ReportSignExtension { get; set; }
+        public decimal? ReportSignSize { get; set; }
+        public string RemarkSignReportDraft { get; set; }
 
         [NotMapped]
         public Customer Customer { get; set; }
@@ -72,5 +82,11 @@ namespace Models.Models
         public Employee CompleteAuditBy { get; set; }
         [NotMapped]
         public CustomerInviteProfile CompleteCustomerBy { get; set; }
+
+        [NotMapped]
+        public List<VDocumentlist> DocumentList { get; set; }
+
+        [NotMapped]
+        public List<AccountAuditAccountAuditissue > AuditIssue { get; set; }
     }
 }

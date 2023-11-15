@@ -20,6 +20,8 @@ namespace Models.Models
         public string CreatedBy { get; set; }
         public DateTime? UpdatedOn { get; set; }
         public string UpdateBy { get; set; }
+        public int? Auditprogramid { get; set; }
+        public int? AuditprogramDetailid { get; set; }
 
         [NotMapped]
         public Employee CreatedData { get; set; }

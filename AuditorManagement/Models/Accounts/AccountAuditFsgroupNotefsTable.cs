@@ -18,7 +18,8 @@ namespace Models.Models
         public string CreatedBy { get; set; }
         public DateTime? UpdatedOn { get; set; }
         public string UpdateBy { get; set; }
-
+        public string IsUnderline { get; set; }
+        
         [NotMapped]
         public List<string> HeaderInput { get; set; }
         [NotMapped]

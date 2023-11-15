@@ -191,6 +191,12 @@ FOCUSAPP.factory('serviceOrganize', ['$http', '$q', function ($http, $q) {
         deleteDocumentList: function (key) {
             return $http.delete(baseURL + "Organizations/DeleteDocumentList?ref_key=" + key, { cache: false });
         },
+        getHourRate: function () {
+            return $http.get(baseURL + "Organizations/GetHourRate?ref_key=" + makeid(), { cache: false });
+        },
+        postHourRate: function (data) {
+            return $http.post(baseURL + "Organizations/PostHourRate", data, HeaderConfig, { cache: false });
+        },
     };
 }]);
 

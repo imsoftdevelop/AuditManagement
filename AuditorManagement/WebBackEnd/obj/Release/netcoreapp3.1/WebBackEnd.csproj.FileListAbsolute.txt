@@ -186,3 +186,5 @@ E:\IM-Soft\_ระบบจัดการบัญชี Source Code\Auditor So
 E:\IM-Soft\_ระบบจัดการบัญชี Source Code\Auditor Source Code\AuditorManagement\WebBackEnd\obj\Release\netcoreapp3.1\Razor\Views\SuperAdmin\FSGroup.cshtml.g.cs
 E:\IM-Soft\_ระบบจัดการบัญชี Source Code\Auditor Source Code\AuditorManagement\WebBackEnd\obj\Release\netcoreapp3.1\Razor\Views\SuperAdmin\HistoryRequestForm.cshtml.g.cs
 E:\IM-Soft\_ระบบจัดการบัญชี Source Code\Auditor Source Code\AuditorManagement\WebBackEnd\obj\Release\netcoreapp3.1\Razor\Views\SuperAdmin\RequestForm.cshtml.g.cs
+E:\IM-Soft\_ระบบจัดการบัญชี Source Code\Auditor Source Code\AuditorManagement\WebBackEnd\obj\Release\netcoreapp3.1\Razor\Views\Customers\Profiles.cshtml.g.cs
+E:\IM-Soft\_ระบบจัดการบัญชี Source Code\Auditor Source Code\AuditorManagement\WebBackEnd\obj\Release\netcoreapp3.1\Razor\Views\Home\CustomerDashBoard.cshtml.g.cs

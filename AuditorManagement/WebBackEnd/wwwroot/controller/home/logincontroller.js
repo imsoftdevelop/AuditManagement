@@ -59,8 +59,9 @@
     }
 
     $scope.OnClickLogin = function () {
-        $state.go('customerdashboard');
-        // window.location.href = baseURL + "Home/Default";
+        
+        //$state.go('customerdashboard');
+        window.location.href = baseURL + "Home/Default";
         try {
             if ($scope.Login.Email == undefined || $scope.Login.Email == '')
                 throw "กรุณากรอกอีเมล";
@@ -82,13 +83,16 @@
                         try {
                             if (response != undefined && response != "") {
                                 if (response.data.responsecode == 200) {
+                                    
                                     $scope.Data = response.data.responsedata;
                                     if ($scope.Data != undefined && $scope.Data.PermissionData.length > 1)
                                         window.location.href = "#/RoleList";
                                     else {
                                         if ($scope.Data.PermissionCodeActive == 'ASSIS001' || $scope.Data.PermissionCodeActive == 'ASSIS002' || $scope.Data.PermissionCodeActive == 'AUDIT001'
                                             || $scope.Data.PermissionCodeActive == 'MAG001')
-                                            $state.go('customerlist');
+                                            $state.go('customerdashboard');
+                                        else if ($scope.Data.PermissionCodeActive == 'CUS001')
+                                            window.location.href = baseURL + "Home/Default";
                                         else
                                             window.location.href = baseURL + "Home/Default";
                                     }

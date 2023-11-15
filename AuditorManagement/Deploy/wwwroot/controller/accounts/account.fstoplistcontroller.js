@@ -175,6 +175,13 @@
         $('#ModalPeriod').modal('show');
     }
 
+    $scope.OnClickChangePeriod = function () {
+        $('#ModalPeriod').modal('show');
+        $("#selecrperiod").select2({
+            dropdownParent: $("#ModalPeriod")
+        });
+    }
+
     $scope.OnClickModalPeriod = function () {
         try {
             $http.get(baseURL + "Authen/SelectPeriod?ref_key=" + makeid() + '&ref_id=' + $scope.Search.SelectPeriod.PeriodId)
@@ -198,7 +205,7 @@
             if ($scope.Search.SelectPeriod == undefined)
                 throw "กรุณาเลือกรอบบัญชี";
             else if ($scope.Search.SelectCustomer != undefined && $scope.Search.SelectPeriod != undefined) {
-
+                $("#loading").fadeIn();
                 var qq = $q.all([serviceAccount.getAccountPeriodsWithKey($scope.Search.SelectPeriod.PeriodId), serviceParameter.getParameterFSTopParentFSgroup()
                     , serviceParameter.getParameterFSGroupWithOwnerIsActiveForTrialBalance()]).then(function (data) {
                         try {

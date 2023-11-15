@@ -162,14 +162,14 @@
         $state.go('account-periodaccountlist');
     }
 
-    $scope.OnClickChangePeriod = function () {
+    $scope.OnClickChangePeriod = function () { //เปลี่ยนรอบบัญชี
         $('#ModalPeriod').modal('show');
         $("#selecrperiod").select2({
             dropdownParent: $("#ModalPeriod")
         });
     }
 
-    $scope.OnClickModalPeriod = function () {
+    $scope.OnClickModalPeriod = function () { //คลิกจาก popup รอบบัญชี
         try {
             $http.get(baseURL + "Authen/SelectPeriod?ref_key=" + makeid() + '&ref_id=' + $scope.Search.SelectPeriod.PeriodId)
                 .then(function (response) {
@@ -429,14 +429,26 @@
                                     $scope.TablePeriod.Footer.Percent = $scope.TablePeriod.Footer.Move != 0 && $scope.TablePeriod.Footer.Previous != 0 ? $scope.TablePeriod.Footer.Move / $scope.TablePeriod.Footer.Previous * 100 : 0;
 
                                     $scope.itemsPerPage = "10";
-                                    globalService.SetupSequence($scope.TablePeriod.FsSelect.Policys);
-                                    $scope.retpage = [];
-                                    $scope.range();
+                                    if ($scope.TablePeriod.FsSelect.Policys != undefined && $scope.TablePeriod.FsSelect.Policys.length > 0) {
+                                        globalService.SetupSequence($scope.TablePeriod.FsSelect.Policys);
+                                        _.each($scope.TablePeriod.FsSelect.Policys, function (item) {
+                                            item.IsPrint = item.IsPrint == 'Yes' ? true : false;
+                                        })
+                                        $scope.retpage = [];
+                                        $scope.range();
+                                    }
+
 
                                     $scope.itemsPerPage_1 = "10";
-                                    globalService.SetupSequence($scope.TablePeriod.FsSelect.NoteToFS);
-                                    $scope.retpage_1 = [];
-                                    $scope.range_1();
+                                    if ($scope.TablePeriod.FsSelect.NoteToFS != undefined && $scope.TablePeriod.FsSelect.NoteToFS.length > 0) {
+                                        globalService.SetupSequence($scope.TablePeriod.FsSelect.NoteToFS);
+                                        _.each($scope.TablePeriod.FsSelect.NoteToFS, function (item) {
+                                            item.IsPrint = item.IsPrint == 'Yes' ? true : false;
+                                        })
+                                        $scope.retpage_1 = [];
+                                        $scope.range_1();
+                                    }
+
 
 
                                     if ($scope.UserProfiles.PermissionCodeActive == 'ASSIS001') {
@@ -519,9 +531,20 @@
                     AuditPolicyRefCode: item.AuditPolicyRefCode,
                     Subject: item.Subject,
                     Description: item.Description,
-                    IsDelete: item.IsDelete
+                    IsDelete: item.IsDelete,
+                    IsPrint: item.IsPrint ? 'Yes' : 'No'
                 };
                 data.Policys.push(poli);
+            });
+
+            data.NoteToFS = [];
+            _.each($scope.TablePeriod.FsSelect.NoteToFS, function (item) {
+                var poli = {
+                    AuditNoteFsid: item.AuditNoteFsid,
+                    AuditFsgroupId: item.AuditFsgroupId,
+                    IsPrint: item.IsPrint ? 'Yes' : 'No'
+                };
+                data.NoteToFS.push(poli);
             });
 
             console.log(data);
@@ -582,7 +605,8 @@
                         AuditPolicyRefCode: $scope.TableAdd.AuditPolicyRefCode,
                         Subject: $scope.TableAdd.Subject,
                         Description: $scope.TableAdd.Description,
-                        IsDelete: 'No'
+                        IsDelete: 'No',
+                        IsPrint: 'Yes'
                     };
                     $scope.TablePeriod.FsSelect.Policys.push(data);
                 }
@@ -649,33 +673,35 @@
     $scope.OnClickModalConfirmWorkflow = function () {
         try {
             $("#loading").fadeIn();
+            if ($scope.TablePeriod.FsSelect.ConclusionDesc == undefined || $scope.TablePeriod.FsSelect.ConclusionDesc == '')
+                throw "กรุณาระบุ Audit Conclusion";
+            else {
+                var data = {
+                    AuditFsgroupId: $scope.TablePeriod.FsSelect.AuditFsgroupId,
+                    IsStatus: $scope.TableAdd.IsStatus,
+                };
 
-
-            var data = {
-                AuditFsgroupId: $scope.TablePeriod.FsSelect.AuditFsgroupId,
-                IsStatus: $scope.TableAdd.IsStatus,
-            };
-
-            console.log(data);
-            var qq = $q.all([serviceAccount.postAccountAuditFSGroupChangeStatus(data)]).then(function (data) {
-                try {
-                    if (data[0] != undefined && data[0] != "") {
-                        if (data[0].data.responsecode == 200) {
-                            showSuccessText('บันทึกรายการเรียบร้อย');
-                            $('#ModalConfirm').modal('hide');
-                            $scope.OnClickFSGroup();
+                console.log(data);
+                var qq = $q.all([serviceAccount.postAccountAuditFSGroupChangeStatus(data)]).then(function (data) {
+                    try {
+                        if (data[0] != undefined && data[0] != "") {
+                            if (data[0].data.responsecode == 200) {
+                                showSuccessText('บันทึกรายการเรียบร้อย');
+                                $('#ModalConfirm').modal('hide');
+                                $scope.OnClickFSGroup();
+                            }
+                            else
+                                showErrorToast(data[0].data.errormessage);
                         }
                         else
                             showErrorToast(data[0].data.errormessage);
-                    }
-                    else
-                        showErrorToast(data[0].data.errormessage);
 
-                }
-                catch (err) {
-                    showErrorToast(response.data.errormessage);
-                }
-            });
+                    }
+                    catch (err) {
+                        showErrorToast(response.data.errormessage);
+                    }
+                });
+            }
         }
         catch (err) {
             showWariningToast(err);
@@ -694,6 +720,10 @@
             $('#ModalNoteFSTable').modal('show');
         else if (type == 'Paragraph')
             $('#ModalNoteFSParagraph').modal('show');
+        else if (type == 'Excel') {
+            initdropify('');
+            $('#ModalNoteFSUpload').modal('show');
+        }
     }
 
     $scope.OnClickSaveNoteFSParaGraph = function (action) {
@@ -749,62 +779,6 @@
         }
     }
 
-    $scope.OnClickSaveNoteFSGet = function (action) {
-        try {
-            if ($scope.TableAdd.SubGroups == undefined)
-                throw "กรุณาเลือก Sub Group อย่างน้อย 1 รายการ";
-            else if ($scope.TableAdd.SubGroups != undefined && $scope.TableAdd.SubGroups.length == 0)
-                throw "กรุณาเลือก Sub Group อย่างน้อย 1 รายการ";
-            else {
-                var data = {
-                    AuditNoteFsid: $scope.TableAdd.AuditNoteFsid,
-                    AuditFsgroupId: $scope.TablePeriod.FsSelect.AuditFsgroupId,
-                    AuditNoteFsrefCode: $scope.TableAdd.AuditNoteFsrefCode,
-                    NoteFstype: $scope.TableAdd.NoteFstype,
-                    NoteDetail: $scope.TableAdd.NoteDetail,
-                };
-                if (data.NoteFstype == 'Get') {
-                    data.SubGroups = [];
-                    _.each($scope.TableAdd.SubGroups, function (item) {
-                        data.SubGroups.push({
-                            AuditNoteFsid: item.AuditNoteFsid,
-                            AuditSubNoteFsid: item.AuditSubNoteFsid,
-                            SubFsgroupId: item.SubFsgroupId,
-                            IsDelete: item.IsDelete
-                        });
-                    });
-                }
-
-                var qq = $q.all([serviceAccount.postAuditFSgroupNoteFS(data)]).then(function (data) {
-                    try {
-                        if (data[0] != undefined && data[0] != "") {
-                            if (data[0].data.responsecode == 200) {
-                                showSuccessText('บันทึกรายการเรียบร้อย');
-                                $scope.TableAdd = {};
-                                $scope.OnClickFSGroup();
-                                if (action == 'close') {
-                                    $('#ModalNoteFSParagraph').modal('hide');
-                                    $('#ModalNoteFSGet').modal('hide');
-                                }
-                            }
-                            else
-                                showErrorToast(data[0].data.errormessage);
-                        }
-                        else
-                            showErrorToast(data[0].data.errormessage);
-
-                    }
-                    catch (err) {
-                        showErrorToast(data[0].data.errormessage);
-                    }
-                });
-            }
-        }
-        catch (ex) {
-            showWariningToast(ex);
-        }
-    }
-
     $scope.OnClickTableNoteFSParagraph = function (val) {
         if (val != undefined) {
             $scope.TableAdd = {};
@@ -817,6 +791,7 @@
                         item.SubFsgroupName = filter.Name;
                     }
                 });
+                $scope.OnCalculateSubGroup();
                 $('#ModalNoteFSGet').modal('show');
             }
             else if ($scope.TableAdd.NoteFstype == 'Table') {
@@ -834,6 +809,7 @@
                 _.each($scope.TableAdd.Tables, function (item) {
                     var insert = {};
                     insert.Description = item.Description;
+                    insert.IsUnderline = item.IsUnderline == 'Yes' ? true : false;
                     insert.DetailArray = [];
                     var datas = JSON.parse(item.Column);
                     for (var i = 1; i <= $scope.TableAdd.HeaderQty; i++) {
@@ -894,6 +870,63 @@
     }
 
     //Note FS GET
+
+    $scope.OnClickSaveNoteFSGet = function (action) {
+        try {
+            if ($scope.TableAdd.SubGroups == undefined)
+                throw "กรุณาเลือก Sub Group อย่างน้อย 1 รายการ";
+            else if ($scope.TableAdd.SubGroups != undefined && $scope.TableAdd.SubGroups.length == 0)
+                throw "กรุณาเลือก Sub Group อย่างน้อย 1 รายการ";
+            else {
+                var data = {
+                    AuditNoteFsid: $scope.TableAdd.AuditNoteFsid,
+                    AuditFsgroupId: $scope.TablePeriod.FsSelect.AuditFsgroupId,
+                    AuditNoteFsrefCode: $scope.TableAdd.AuditNoteFsrefCode,
+                    NoteFstype: $scope.TableAdd.NoteFstype,
+                    NoteDetail: $scope.TableAdd.NoteDetail,
+                };
+                if (data.NoteFstype == 'Get') {
+                    data.SubGroups = [];
+                    _.each($scope.TableAdd.SubGroups, function (item) {
+                        data.SubGroups.push({
+                            AuditNoteFsid: item.AuditNoteFsid,
+                            AuditSubNoteFsid: item.AuditSubNoteFsid,
+                            SubFsgroupId: item.SubFsgroupId,
+                            IsDelete: item.IsDelete
+                        });
+                    });
+                }
+
+                var qq = $q.all([serviceAccount.postAuditFSgroupNoteFS(data)]).then(function (data) {
+                    try {
+                        if (data[0] != undefined && data[0] != "") {
+                            if (data[0].data.responsecode == 200) {
+                                showSuccessText('บันทึกรายการเรียบร้อย');
+                                $scope.TableAdd = {};
+                                $scope.OnClickFSGroup();
+                                if (action == 'close') {
+                                    $('#ModalNoteFSParagraph').modal('hide');
+                                    $('#ModalNoteFSGet').modal('hide');
+                                }
+                            }
+                            else
+                                showErrorToast(data[0].data.errormessage);
+                        }
+                        else
+                            showErrorToast(data[0].data.errormessage);
+
+                    }
+                    catch (err) {
+                        showErrorToast(data[0].data.errormessage);
+                    }
+                });
+            }
+        }
+        catch (ex) {
+            showWariningToast(ex);
+        }
+    }
+
     $scope.OnClickAddSubGroupNoteFS = function () {
         try {
             if ($scope.TableAdd.SelectSubFSGroup == undefined)
@@ -905,8 +938,10 @@
                 var check = _.where($scope.TableAdd.SubGroups, { SubFsgroupId: $scope.TableAdd.SelectSubFSGroup.SubFsgroupId, IsDelete: 'No' })[0];
                 if (check != undefined)
                     throw "Sub Group นี้ซ้ำกรุณาเลือกใหม่อีกครั้ง";
-                else
+                else {
                     $scope.TableAdd.SubGroups.push({ SubFsgroupId: $scope.TableAdd.SelectSubFSGroup.SubFsgroupId, SubFsgroupCode: $scope.TableAdd.SelectSubFSGroup.Code, SubFsgroupName: $scope.TableAdd.SelectSubFSGroup.Name, IsDelete: 'No' });
+                    $scope.OnCalculateSubGroup();
+                }
             }
         }
         catch (ex) {
@@ -914,15 +949,62 @@
         }
     }
 
+    $scope.OnCalculateSubGroup = function () {
+        if ($scope.TableAdd.SubGroups != undefined && $scope.TableAdd.SubGroups.length > 0) {
+
+            _.each($scope.TableAdd.SubGroups, function (item) {
+                if (item.IsDelete == 'No') {
+                    var filter = _.where($scope.TablePeriod.Accounts, { SubFsgroupId: item.SubFsgroupId });
+                    if (filter != undefined && filter.length > 0) {
+
+                        item.SubFsGroupSummary = 0;
+                        item.SubFsGroupSummaryPrev = 0;
+
+                        _.each(filter, function (item1) {
+                            var account = _.where($scope.TablePeriod.TableMain, { TrialBalanceId: item1.TrialBalanceId })[0];
+                            console.log(account);
+                            item.SubFsGroupSummary += account.Audit;
+                            item.SubFsGroupSummaryPrev += account.PreviousYear;
+                        });
+
+                        item.SubFsGroupSummary = item.SubFsGroupSummary == undefined ? 0 : item.SubFsGroupSummary;
+                        item.SubFsGroupSummaryPrev = item.SubFsGroupSummaryPrev == undefined ? 0 : item.SubFsGroupSummaryPrev;
+                    }
+                }
+                else {
+                    item.SubFsGroupSummary = 0;
+                    item.SubFsGroupSummaryPrev = 0;
+                }
+            });
+
+            $scope.TableAdd.Footer = {};
+            $scope.TableAdd.Footer.SubFsGroupSummary = 0;
+            $scope.TableAdd.Footer.SubFsGroupSummaryPrev = 0;
+
+            amount = $scope.TableAdd.SubGroups.reduce((s, f) => {
+                return s + parseFloat(f.SubFsGroupSummary);
+            }, 0);
+            $scope.TableAdd.Footer.SubFsGroupSummary = amount;
+
+            amount = $scope.TableAdd.SubGroups.reduce((s, f) => {
+                return s + parseFloat(f.SubFsGroupSummaryPrev);
+            }, 0);
+            $scope.TableAdd.Footer.SubFsGroupSummaryPrev = amount;
+        }
+    }
+
     $scope.OnClickDeleteSubGroupNoteFS = function (val) {
         if (val != undefined) {
             val.IsDelete = 'Yes';
+            $scope.OnCalculateSubGroup();
         }
     }
 
     //Note FS Table
-    $scope.OnClickSetHeaderNoteFS = function () {
+    $scope.OnClickSetHeaderNoteFS = function (val) {
         $scope.Header = '';
+        $scope.IsAction = val;
+        $scope.Header = $scope.TableAdd.HeaderQty;
         $('#ModalNoteFSTable').modal('hide');
         $('#ModalNoteFSSetHeadder').modal('show');
     }
@@ -932,20 +1014,71 @@
             showWariningToast('กรุณาระบุจำนวน');
         else {
             $scope.TableAdd.HeaderQty = $scope.Header;
+
+            if ($scope.IsAction == 'Edit') {
+                $scope.TableAdd.HeaderArrayKeep = angular.copy($scope.TableAdd.HeaderArray);
+                $scope.TableAdd.RecordArrayKeep = angular.copy($scope.TableAdd.RecordArray);
+            }
+
             $scope.TableAdd.HeaderArray = [];
             $scope.TableAdd.RecordArray = [];
 
+            console.log($scope.TableAdd.HeaderArrayKeep);
             var detail = [];
             for (var i = 1; i <= $scope.TableAdd.HeaderQty; i++) {
                 var item = {};
+                if ($scope.IsAction == 'Edit') {
+                    if ($scope.TableAdd.HeaderArrayKeep[i - 1] != undefined)
+                        item.Text = $scope.TableAdd.HeaderArrayKeep[i - 1].Text;
+                }
                 $scope.TableAdd.HeaderArray.push(item);
                 var item1 = {};
+
                 detail.push(item1);
             }
             $scope.TableAdd.RecordArray.push({
                 Description: '',
                 DetailArray: detail
             });
+
+            if ($scope.IsAction == 'Edit') {
+                $scope.TableAdd.RecordArray = [];
+                _.each($scope.TableAdd.RecordArrayKeep, function (record) {
+                    var detail = [];
+                    console.log(record);
+                    for (var i = 1; i <= $scope.TableAdd.HeaderQty; i++) {
+                        var item1 = {};
+
+                        if (record.DetailArray[i - 1] != undefined)
+                            item1.Text = record.DetailArray[i - 1].Text;
+                        detail.push(item1);
+                    }
+
+                    $scope.TableAdd.RecordArray.push({
+                        Description: record.Description,
+                        DetailArray: detail
+                    });
+                });
+            }
+
+            //if ($scope.IsAction == 'Edit') {
+
+            //    _.each($scope.TableAdd.RecordArrayKeep, function (item) {
+            //        var items = {};
+            //        items.AuditNoteFsid = $scope.TableAdd.AuditNoteFsid;
+            //        items.Description = item.Description;
+            //        items.HeaderInput = [];
+            //        _.each($scope.TableAdd.HeaderArray, function (head) { items.HeaderInput.push(head.Text); });
+
+            //        items.ColumnInput = [];
+            //        _.each(item.DetailArray, function (head) { items.ColumnInput.push(head.Text); });
+
+            //        data.Tables.push(
+            //            items
+            //        );
+            //    });
+
+            //}
 
             $('#ModalNoteFSTable').modal('show');
             $('#ModalNoteFSSetHeadder').modal('hide');
@@ -960,7 +1093,8 @@
         }
         $scope.TableAdd.RecordArray.push({
             Description: '',
-            DetailArray: detail
+            DetailArray: detail,
+            IsUnderline : false
         });
         $('#ModalNoteFSTable').modal('show');
         $('#ModalNoteFSSetHeadder').modal('hide');
@@ -997,6 +1131,7 @@
                     _.each($scope.TableAdd.RecordArray, function (item) {
                         var items = {};
                         items.AuditNoteFsid = $scope.TableAdd.AuditNoteFsid;
+                        items.IsUnderline = item.IsUnderline ? 'Yes' : 'No';
                         items.Description = item.Description;
                         items.HeaderInput = [];
                         _.each($scope.TableAdd.HeaderArray, function (head) { items.HeaderInput.push(head.Text); });
@@ -1008,8 +1143,9 @@
                             items
                         );
                     });
+                   
                 }
-
+                console.log(data.Tables)
                 var qq = $q.all([serviceAccount.postAuditFSgroupNoteFS(data)]).then(function (data) {
                     try {
                         if (data[0] != undefined && data[0] != "") {
@@ -1040,6 +1176,137 @@
             showWariningToast(ex);
         }
     }
+
+    //Note FS Excel
+
+    function initdropify(path) {
+        $("#product_thumnail").addClass('dropify');
+        var publicpath_identity_picture = path;
+
+        var drEvent = $('.dropify').dropify();
+        //drEvent.on('dropify.afterClear', function (event, element) {
+        //    $scope.DeleteImages = 1;
+        //});
+        drEvent = drEvent.data('dropify');
+        drEvent.resetPreview();
+        drEvent.clearElement();
+        drEvent.settings.defaultFile = publicpath_identity_picture;
+        drEvent.destroy();
+
+        drEvent.init();
+
+        drEvent = $('.dropify').dropify();
+        drEvent.on('dropify.afterClear', function (event, element) {
+            $scope.DeleteImages = 1;
+        });
+
+        $('.dropify#identity_picture').dropify({
+            defaultFile: publicpath_identity_picture,
+        });
+
+        $('.dropify').dropify();
+    }
+
+    $scope.UploadFiles = function (files) {
+        $scope.Upload = 1;
+        $scope.SelectedFiles = files;
+        $scope.OnClickAfterUploadNoteFS();
+    };
+
+    $scope.OnClickAfterUploadNoteFS = function () {
+        try {
+            if ($scope.Header == undefined || $scope.Header == '')
+                showWariningToast('กรุณาระบุจำนวน');
+            else {
+                $("#loading").fadeIn();
+                var input = document.getElementById("product_thumnail");
+                var files = input.files;
+                var formData = new FormData();
+                if (files != undefined) {
+                    for (var i = 0; i != files.length; i++) {
+                        formData.append("files", files[i]);
+                    }
+
+                    $.ajax(
+                        {
+                            url: baseURL + "Accountings/UploadNoteToFS",
+                            data: formData,
+                            processData: false,
+                            contentType: false,
+                            type: "POST",
+                            success: function (data) {
+                                if (data.responsecode == 200) {
+                                    showSuccessText('อัพโหลดข้อมูลเรียบร้อย');
+                                    console.log(data.responsedata);
+                                    var values = data.responsedata;
+
+                                    $scope.TableAdd.HeaderQty = $scope.Header;
+                                    $scope.TableAdd.NoteFstype = 'Table'
+                                    $scope.TableAdd.HeaderArray = [];
+                                    $scope.TableAdd.RecordArray = [];
+
+                                    var detail = [];
+                                    for (var i = 1; i <= $scope.TableAdd.HeaderQty; i++) {
+                                        var item = {};
+
+                                        if (values.Header != undefined && values.Header.length > 0) {
+                                            if (values.Header[i - 1] != undefined)
+                                                item.Text = values.Header[i - 1];
+                                        }
+
+                                        $scope.TableAdd.HeaderArray.push(item);
+                                        var item1 = {};
+
+                                        detail.push(item1);
+                                    }
+                                    $scope.TableAdd.RecordArray.push({
+                                        Description: '',
+                                        DetailArray: detail
+                                    });
+
+                                    if (values.Detail != undefined && values.Detail.length > 0) {
+                                        $scope.TableAdd.RecordArray = [];
+                                        _.each(values.Detail, function (record) {
+                                            var detail = [];
+                                            console.log(record);
+                                            for (var i = 1; i <= $scope.TableAdd.HeaderQty; i++) {
+                                                var item1 = {};
+
+                                                if (record[i - 1] != undefined)
+                                                    item1.Text = record[i - 1];
+                                                detail.push(item1);
+                                            }
+
+                                            $scope.TableAdd.RecordArray.push({
+                                                Description: record.Description,
+                                                DetailArray: detail
+                                            });
+                                        });
+                                    }
+
+                                    $('#ModalNoteFSTable').modal('show');
+                                    $('#ModalNoteFSUpload').modal('hide');
+                                    $scope.$apply();
+                                }
+                                else
+                                    showErrorToast(data.errormessage);
+                            },
+                            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                showErrorToast(textStatus);
+                            }
+                        }
+                    );
+                }
+            }
+        }
+        catch (err) {
+            showErrorToast(err);
+        }
+        finally {
+            $("#loading").fadeOut();
+        }
+    }
+
 
     $scope.currentPage = 0;
 
@@ -1098,6 +1365,11 @@
     $scope.prevPage = function () {
         if ($scope.currentPage > 0) {
             $scope.currentPage--;
+
+            var type = $scope.retpage.filter(function (item) { return item.code == $scope.currentPage; });
+            if (type.length > 0) {
+                $scope.changePages = type[0];
+            }
         }
 
         if ($scope.currentPage < $scope.LimitFirst && $scope.currentPage >= 1) {
@@ -1120,6 +1392,11 @@
     $scope.nextPage = function () {
         if ($scope.currentPage < $scope.pageCount()) {
             $scope.currentPage++;
+
+            var type = $scope.retpage.filter(function (item) { return item.code == $scope.currentPage; });
+            if (type.length > 0) {
+                $scope.changePages = type[0];
+            }
         }
 
         if ($scope.currentPage >= $scope.LimitPage && $scope.currentPage <= $scope.pageCount()) {
@@ -1197,6 +1474,11 @@
     $scope.prevPage_1 = function () {
         if ($scope.currentPage_1 > 0) {
             $scope.currentPage_1--;
+
+            var type = $scope.retpage_1.filter(function (item) { return item.code == $scope.currentPage_1; });
+            if (type.length > 0) {
+                $scope.currentPage_1 = type[0];
+            }
         }
 
         if ($scope.currentPage_1 < $scope.LimitFirst && $scope.currentPage_1 >= 1) {
@@ -1219,6 +1501,11 @@
     $scope.nextPage_1 = function () {
         if ($scope.currentPage_1 < $scope.pageCount_1()) {
             $scope.currentPage_1++;
+
+            var type = $scope.retpage_1.filter(function (item) { return item.code == $scope.currentPage_1; });
+            if (type.length > 0) {
+                $scope.currentPage_1 = type[0];
+            }
         }
 
         if ($scope.currentPage_1 >= $scope.LimitPage && $scope.currentPage_1 <= $scope.pageCount_1()) {

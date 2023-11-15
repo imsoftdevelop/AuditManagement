@@ -501,7 +501,7 @@ namespace WebBackEnd.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetParameterFSgroupParentSubFSGroup(string ref_key,int ref_id)
+        public ActionResult GetParameterFSgroupParentSubFSGroup(string ref_key, int ref_id)
         {
             try
             {
@@ -509,7 +509,7 @@ namespace WebBackEnd.Controllers
 
                 List<FsgroupParentSubfsgroup> response = new List<FsgroupParentSubfsgroup>();
                 using (FsgroupParentSubfsgroupRepository FsgroupParentSubfsgroupRepository = new FsgroupParentSubfsgroupRepository())
-                    response = FsgroupParentSubfsgroupRepository.Get(users.OwnerData.OwnerId,ref_id).ToList();
+                    response = FsgroupParentSubfsgroupRepository.Get(users.OwnerData.OwnerId, ref_id).ToList();
 
                 return WriteJson(new
                 {
@@ -573,7 +573,7 @@ namespace WebBackEnd.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetParameterAccountAuditAccountWithPeriod( string ref_acc)
+        public ActionResult GetParameterAccountAuditAccountWithPeriod(string ref_acc)
         {
             try
             {
@@ -582,6 +582,105 @@ namespace WebBackEnd.Controllers
                 List<AccountAuditAccount> response = new List<AccountAuditAccount>();
                 using (AccountAuditAccountRepository AccountAuditAccountRepository = new AccountAuditAccountRepository())
                     response = AccountAuditAccountRepository.GetParemeterPeriod(ref_acc).ToList();
+
+                return WriteJson(new
+                {
+                    responsecode = ((int)Abstract.ResponseCode.SuccessTransaction).ToString(),
+                    responsedata = response
+                });
+
+            }
+            catch (Exception ex)
+            {
+                return WriteJson(new { responsecode = ((int)Abstract.ResponseCode.ErrorTransaction).ToString(), errormessage = ex.Message });
+            }
+        }
+
+        [HttpGet]
+        public ActionResult GetParemeterProposal(string ref_key)
+        {
+            try
+            {
+                Parameterproposal response = new Parameterproposal();
+                    using (ParameterproposalRepository ParameterproposalRepository = new ParameterproposalRepository())
+                        response = ParameterproposalRepository.GetDataAll().FirstOrDefault();
+
+                return WriteJson(new
+                {
+                    responsecode = ((int)Abstract.ResponseCode.SuccessTransaction).ToString(),
+                    responsedata = response
+                });
+
+            }
+            catch (Exception ex)
+            {
+                return WriteJson(new { responsecode = ((int)Abstract.ResponseCode.ErrorTransaction).ToString(), errormessage = ex.Message });
+            }
+        }
+
+        [HttpGet]
+        public ActionResult GetParameterProposalWithOwner(string ref_key)
+        {
+            try
+            {
+                User users = GetProfileUser();
+
+                List<AccountPeriodProposal> response = new List<AccountPeriodProposal>();
+                    using (AccountPeriodProposalRepository AccountPeriodProposalRepository = new AccountPeriodProposalRepository())
+                        response = AccountPeriodProposalRepository.SelectDataWithCondition(a => a.OwnerId.ToUpper() == users.OwnerData.OwnerId.ToUpper() 
+                        && a.IsStatus == Common.IsProposalApprove
+                        && a.IsDelete == Common.NoDelete)
+                        .OrderBy(a => a.ProposalCode).ToList();
+
+
+                return WriteJson(new
+                {
+                    responsecode = ((int)Abstract.ResponseCode.SuccessTransaction).ToString(),
+                    responsedata = response
+                });
+
+            }
+            catch (Exception ex)
+            {
+                return WriteJson(new { responsecode = ((int)Abstract.ResponseCode.ErrorTransaction).ToString(), errormessage = ex.Message });
+            }
+        }
+
+        [HttpGet]
+        public ActionResult GetParameterFSTopParentFSgroupWithOwnerId(string ref_key,string ref_owner)
+        {
+            try
+            {
+                User users = GetProfileUser();
+
+                List<FstopParentFsgroup> response = new List<FstopParentFsgroup>();
+                using (FstopParentFsgroupRepository FstopParentFsgroupRepository = new FstopParentFsgroupRepository())
+                    response = FstopParentFsgroupRepository.SelectDataWithCondition(a => (a.OwnerId.ToUpper() == ref_owner.ToUpper() || a.IsSystem == Common.IsSystem)
+                    && a.IsDelete == Common.NoDelete).OrderBy(a => a.FstopId).ToList();
+
+                return WriteJson(new
+                {
+                    responsecode = ((int)Abstract.ResponseCode.SuccessTransaction).ToString(),
+                    responsedata = response
+                });
+
+            }
+            catch (Exception ex)
+            {
+                return WriteJson(new { responsecode = ((int)Abstract.ResponseCode.ErrorTransaction).ToString(), errormessage = ex.Message });
+            }
+        }
+
+        [HttpGet]
+        public ActionResult GetParameterFSGroupWithOwnerIsActiveForTrialBalanceWithOwnerId(string ref_key, string ref_owner)
+        {
+            try
+            {
+                User users = GetProfileUser();
+
+                List<Fsgroup> response = new List<Fsgroup>();
+                using (FsgroupRepository FsgroupRepository = new FsgroupRepository())
+                    response = FsgroupRepository.GetIsActive(ref_owner);
 
                 return WriteJson(new
                 {

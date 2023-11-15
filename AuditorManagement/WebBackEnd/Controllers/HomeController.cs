@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -95,7 +95,7 @@ namespace WebBackEnd.Controllers
             string passencry = Encryption.MD5Hash("123456");
             User val = new User();
             using (UsersRepository UsersRepository = new UsersRepository())
-                val = UsersRepository.Authen("account2@gmail.com", passencry);
+                val = UsersRepository.Authen("customer@gmail.com", passencry);
 
             VUserspermission permis = new VUserspermission();
             permis = val.PermissionData.FirstOrDefault();
@@ -105,13 +105,26 @@ namespace WebBackEnd.Controllers
                 val.PermissionNameActive = permis.Name;
             }
 
-            Branch branch = new Branch();
-            branch = val.BranchData.FirstOrDefault();
-            if (branch != null)
+            if (val.BranchData?.Any() ?? false)
             {
-                val.BranchIdActive = branch.BranchId;
-                val.BranchCodeActive = branch.BranchCode;
-                val.BranchNameActive = branch.Name;
+                Branch branch = new Branch();
+                branch = val.BranchData.FirstOrDefault();
+                if (branch != null)
+                {
+                    val.BranchIdActive = branch.BranchId;
+                    val.BranchCodeActive = branch.BranchCode;
+                    val.BranchNameActive = branch.Name;
+                }
+            }
+
+            if (val.UserCustomerData?.Any() ?? false)
+            {
+                Userscustomer userCustomer = new Userscustomer();
+                userCustomer = val.UserCustomerData.FirstOrDefault();
+                if (userCustomer != null)
+                {
+                    val.CustomerIdActive = userCustomer.CustomerId;
+                }
             }
 
             var tmp = JsonConvert.SerializeObject(val);

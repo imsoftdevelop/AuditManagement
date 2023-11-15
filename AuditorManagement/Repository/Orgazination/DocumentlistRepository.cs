@@ -52,11 +52,30 @@ namespace Repository
                     string[] cusary = cus.ConvertAll(a => a.CustomerId).ToArray();
 
                     var dtable = context.Set<VDocumentlist>();
-                    response = dtable.Where(a => a.OwnerId.ToUpper() == OwnerId.ToUpper() 
+                    response = dtable.Where(a => a.OwnerId.ToUpper() == OwnerId.ToUpper()
                     && a.BranchId.ToUpper() == BranchId.ToUpper()
                     && (cusary.Contains(a.CustomerId) || string.IsNullOrEmpty(a.CustomerId))
                     && a.IsDelete == Common.NoDelete)
                         .OrderBy(a => a.CustomerId).ToList();
+                }
+                return response;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public List<VDocumentlist> GetCustomerDocument(string CustomerId)
+        {
+            try
+            {
+                List<VDocumentlist> response = new List<VDocumentlist>();
+                using (AuditDataContext context = new AuditDataContext())
+                {
+                    var otable = context.Set<VDocumentlist>();
+                    response = otable.Where(a => a.CustomerId == CustomerId && a.IsDelete == Common.NoDelete)
+                        .OrderByDescending(a => a.CreatedOn).ToList();
                 }
                 return response;
             }
@@ -146,6 +165,39 @@ namespace Repository
             }
         }
 
+        public Documentlist SaveFileFromCustomer(Documentlist input)
+        {
+            try
+            {
+                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted }))
+                {
+                    using (AuditDataContext context = new AuditDataContext())
+                    {
+                        var otable = context.Set<Documentlist>();
+                        Documentlist val = otable.Where(a => a.DocumentListId == input.DocumentListId.ToUpper()).FirstOrDefault();
+                        if (val == null)
+                            throw new Exception("ไม่พบข้อมูล เอกสาร ในระบบ");
+
+                        val.PathFile = input.PathFile;
+                        val.NameFile = input.NameFile;
+                        val.Size = input.Size;
+                        val.Extension = input.Extension;
+                        val.UpdatedOn = input.UpdatedOn;
+                        val.UpdateBy = input.UpdateBy;
+                        context.SaveChanges();
+                        input = val;
+                    }
+                    scope.Complete();
+                }
+
+                return input;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
         public Documentlist Delete(Documentlist input)
         {
             try
@@ -156,6 +208,36 @@ namespace Repository
                     {
                         var otable = context.Set<Documentlist>();
                         Documentlist val = otable.Where(a => a.DocumentListId == input.DocumentListId.ToUpper() && a.OwnerId == input.OwnerId.ToUpper() && a.BranchId == input.BranchId.ToUpper()).FirstOrDefault();
+                        if (val == null)
+                            throw new Exception("ไม่พบข้อมูล เอกสาร ในระบบ");
+
+                        val.IsDelete = Common.IsDelete;
+                        val.UpdatedOn = input.UpdatedOn;
+                        val.UpdateBy = input.UpdateBy;
+                        input = val;
+                        context.SaveChanges();
+                    }
+                    scope.Complete();
+                }
+
+                return input;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public Documentlist DeleteCustomer(Documentlist input)
+        {
+            try
+            {
+                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted }))
+                {
+                    using (AuditDataContext context = new AuditDataContext())
+                    {
+                        var otable = context.Set<Documentlist>();
+                        Documentlist val = otable.Where(a => a.DocumentListId == input.DocumentListId.ToUpper()).FirstOrDefault();
                         if (val == null)
                             throw new Exception("ไม่พบข้อมูล เอกสาร ในระบบ");
 

@@ -68,8 +68,20 @@ FOCUSAPP.factory('serviceParameter', ['$http', '$q', function ($http, $q) {
         getParameterSubFSGroup: function () {
             return $http.get(baseURL + "Parameter/GetParameterSubFSGroup?ref_key=" + makeid(), { cache: false });
         },
-        
-        
+        getParemeterProposal: function () {
+            return $http.get(baseURL + "Parameter/GetParemeterProposal?ref_key=" + makeid(), { cache: false });
+        },
+        getParameterProposalWithOwner: function () {
+            return $http.get(baseURL + "Parameter/GetParameterProposalWithOwner?ref_key=" + makeid(), { cache: false });
+        },
+
+        getParameterFSTopParentFSgroupWithOwnerId: function (key) {
+            return $http.get(baseURL + "Parameter/GetParameterFSTopParentFSgroupWithOwnerId?ref_key=" + makeid() + "&ref_owner=" + key, { cache: false });
+        },
+        getParameterFSGroupWithOwnerIsActiveForTrialBalanceWithOwnerId: function (key) {
+            return $http.get(baseURL + "Parameter/GetParameterFSGroupWithOwnerIsActiveForTrialBalanceWithOwnerId?ref_key=" + makeid() + "&ref_owner=" + key, { cache: false });
+        },
+
     };
 }]);
 

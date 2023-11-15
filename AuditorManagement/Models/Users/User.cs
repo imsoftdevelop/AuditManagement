@@ -28,6 +28,8 @@ namespace Models.Models
         [NotMapped]
         public Employee EmployeeData { get; set; }
         [NotMapped]
+        public CustomerInviteProfile ProfileData { get; set; }
+        [NotMapped]
         public List<VUserspermission> PermissionData { get; set; }
         [NotMapped]
         public Package PackageData { get; set; }
@@ -37,6 +39,8 @@ namespace Models.Models
         public List<Branch> BranchData { get; set; }
         [NotMapped]
         public List<Customer> CustomerData { get; set; }
+        [NotMapped]
+        public List<Userscustomer> UserCustomerData { get; set; }
 
         [NotMapped]
         public string BranchIdActive { get; set; }

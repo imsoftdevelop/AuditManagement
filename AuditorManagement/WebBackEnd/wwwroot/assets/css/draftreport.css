@@ -1,0 +1,269 @@
+﻿page {
+    background: white;
+  
+}
+
+@media print {
+    body, page {
+        background: white;
+        margin: 0px;
+        box-shadow: 0;
+        padding: 0px;
+    }
+
+    .noPrint {
+        display: none;
+    }
+
+    .pagebreak {
+        clear: both;
+        page-break-after: always;
+    }
+
+    .pagebreak-b {
+        clear: both;
+        page-break-after: always;
+    }
+
+    page[size="A4"] {
+        transform-origin: 0 0;
+        margin: 0px;
+        padding: 0;
+        page: portrait;
+        border: none;
+        background: none;
+    }
+
+        .landscape {
+            transform: rotate(270deg) translate(-350mm, -0mm);
+            width:140%;
+            transform-origin: 0 0;
+            margin: 0;
+            padding: 0;
+            border: none;
+            background: none;
+        }
+
+            .landscape table {
+                /*font-size: 14px !important;*/
+            }
+
+                .landscape table tbody tr td:first-child {
+                    width: 200px;
+                }
+
+
+    .header-remark {
+        display: block;
+        position: fixed;
+        top: 50px;
+    }
+
+    .row {
+         margin-right: 0px; 
+         margin-left: 0px; 
+    }
+
+    .row > * {
+         padding-right: 0px; 
+         padding-left: 0px; 
+    }
+}
+
+.draft-report-cover {
+    height: 900px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 30px;
+}
+
+    .draft-report-cover h4 {
+        font-size: 24px !important;
+    }
+
+.draft-text-indent {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    text-indent: 36px;
+    line-height: 30px;
+}
+
+.draft-ul {
+    padding-left: 55px;
+}
+
+    .draft-ul li {
+        margin-top: 20px;
+        line-height: 30px;
+    }
+
+.draft-sign {
+    text-align: center;
+    border-top: 1px solid #000;
+    margin-top: 100px;
+    margin-right: 150px;
+    line-height: 35px;
+}
+
+.unit-point {
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+    border-bottom: 1px solid #000;
+    text-align: right;
+    font-size: 14px;
+}
+
+.unit-point-before {
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+    text-align: right;
+    font-size: 14px;
+}
+
+.year-point {
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+    border-bottom: 2px solid #000;
+    text-align: center;
+    font-size: 14px;
+}
+
+.remark {
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+    text-align: center;
+    font-size: 14px;
+    margin-top: 30px;
+}
+
+.hr-section {
+    width: 100%;
+    border-top: 4px double #000 !important;
+}
+
+.draft-top-title {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.first-title {
+    margin-top: 20px;
+}
+
+.draft-title {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.draft-footer {
+    padding-top: 50px;
+    padding-bottom: 5px;
+}
+
+.draft-sub-title {
+    padding-left: 30px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+
+.draft-detail-first {
+    padding-top: 16px;
+    padding-bottom: 15px;
+    content: '';
+}
+
+.draft-detail {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    content: '';
+}
+
+.draft-sum-detail {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #000;
+}
+
+.draft-sum-lasted-detail {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-bottom: double;
+    border-left: 0px;
+    border-top: 0px;
+    border-right: 0px;
+}
+
+.draft-number {
+    margin-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.draft-start-remark {
+    padding-left: 36px;
+}
+
+.draft-start-remark-get {
+    padding-left: 36px;
+    padding-top: 24px;
+}
+
+.draft-start-remark-detail {
+    padding-left: 61px;
+    padding-top: 5px;
+}
+
+.draft-start-remark-detail-table {
+    padding-top: 5px;
+}
+
+.draft-text-table {
+    padding: 5px;
+}
+
+.table-width-100 {
+    width:100%;
+}
+
+.draft-table {
+    margin-left: 36px;
+    width: 95.5%;
+}
+
+    .draft-table thead th:first-child {
+        align-items: left;
+        text-align: left;
+        text-wrap: wrap;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    .draft-table thead th {
+        align-items: center;
+        text-align: center;
+        text-wrap: wrap;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    .draft-table tbody td:first-child {
+        text-align: left;
+        text-wrap: wrap;
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+
+    .draft-table tbody td {
+        text-align: right;
+        text-wrap: wrap;
+        padding: 5px;
+    }
+
+.draft-table-header {
+    border-top: 1px solid #000;
+    border-bottom: 2px solid #000;
+}

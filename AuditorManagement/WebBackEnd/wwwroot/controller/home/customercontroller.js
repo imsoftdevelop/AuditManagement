@@ -22,7 +22,6 @@
                             if ($scope.Parameter.Customer != undefined && $scope.Parameter.Customer.length > 0) {
                                 _.each($scope.Parameter.Customer, function (item) {
                                     item.NameSplit = item.NameEn != undefined ? item.NameEn.substring(0, 1) : item.Name.substring(0, 1);
-                                    alert(item.NameSplit)
                                 });
                                 
 

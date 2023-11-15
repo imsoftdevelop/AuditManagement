@@ -41,6 +41,9 @@ namespace Models.Master
         public const string IsAudit = "Yes";
         public const string NoAudit = "No";
 
+        public const string IsPrint = "Yes";
+        public const string NoPrint = "No";
+
         public const string AuditWait = "Wait";
         public const string AuditBack = "Back";
         public const string AuditConfirm = "Confirm";
@@ -58,6 +61,10 @@ namespace Models.Master
         public const string IsStatusWorkflowComfirm = "Confirm";
         public const string IsStatusWorkflowBack = "Back";
 
+        public const string IsProposalWait = "Wait";
+        public const string IsProposalCancel = "Cancel";
+        public const string IsProposalApprove = "Approve";
+        public const string IsProposalConvert = "Convert";
         public const string FreePackage= "e9aea508-8441-11ed-b3d7-5882a88ed22a";
         
     }

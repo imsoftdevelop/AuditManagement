@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "CRNojDwml1/C3OHFMQsLeLS7QVPgbT7m3tzl/RjCIXo/kaGgg80aXa22YI4hbGy/ZW/a3q3jedo+Bv7LlAIIbA==",
+  "dgSpecHash": "kAuJImlmmv6BO/4+4v/OzGySXsGvh1l0UUZL9fhdE1PQ0QlkhwxD/XKPewZ2r/KkK7myXq0mBU+o9Z/QoIk87Q==",
   "success": true,
   "projectFilePath": "E:\\IM-Soft\\_ระบบจัดการบัญชี Source Code\\Auditor Source Code\\AuditorManagement\\WebBackEnd\\WebBackEnd.csproj",
   "expectedPackageFiles": [
@@ -180,7 +180,8 @@
     "C:\\Users\\Robowarrior-Book\\.nuget\\packages\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512",
     "C:\\Users\\Robowarrior-Book\\.nuget\\packages\\system.xml.xpath\\4.3.0\\system.xml.xpath.4.3.0.nupkg.sha512",
     "C:\\Users\\Robowarrior-Book\\.nuget\\packages\\system.xml.xpath.xdocument\\4.3.0\\system.xml.xpath.xdocument.4.3.0.nupkg.sha512",
-    "C:\\Users\\Robowarrior-Book\\.nuget\\packages\\system.xml.xpath.xmldocument\\4.3.0\\system.xml.xpath.xmldocument.4.3.0.nupkg.sha512"
+    "C:\\Users\\Robowarrior-Book\\.nuget\\packages\\system.xml.xpath.xmldocument\\4.3.0\\system.xml.xpath.xmldocument.4.3.0.nupkg.sha512",
+    "C:\\Users\\Robowarrior-Book\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\3.1.30\\microsoft.netcore.app.host.win-x64.3.1.30.nupkg.sha512"
   ],
   "logs": []
 }

@@ -1,68 +1,7 @@
 ﻿@{
-    Layout = "_LayoutCustomer";
+    Layout = null;
 }
-@section RenderScriptWithPage
-    {
-    <script src="~/assets/libs/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
-    <script src="~/assets/libs/bootstrap-datepicker/bootstrap-datepicker.th.min.js"></script>
-    <script>
-        $('.form-element-input').change(function () {
-            if ($(this).val()) {
-                $(this).addClass('hasValue');
-            } else {
-                $(this).removeClass('hasValue');
-            }
-        });
-
-        $('.form-element-input-show').addClass('hasValue');
-
-
-        (function ($) {
-
-            $('.dropdown1').select2();
-            $('.dropdown5').select2();
-            $('.dropdown2').select2();
-            $('.dropdown3').select2();
-            $('.dropdown4').select2();
-
-            if ($("#inputreceivechaque-popup").length) {
-                $('#inputreceivechaque-popup').datepicker({
-                    enableOnReadonly: true,
-                    todayHighlight: true,
-                    autoclose: true
-                });
-            }
-
-            $("#product_thumnail").addClass('dropify');
-            $("#product_thumnail1").addClass('dropify');
-
-            //var publicpath_identity_picture = path;
-
-            var drEvent = $('.dropify').dropify();
-            //drEvent.on('dropify.afterClear', function (event, element) {
-            //    $scope.DeleteImages = 1;
-            //});
-            drEvent = drEvent.data('dropify');
-            drEvent.resetPreview();
-            drEvent.clearElement();
-            drEvent.settings.defaultFile = publicpath_identity_picture;
-            drEvent.destroy();
-
-            drEvent.init();
-
-            //$('.dropify#identity_picture').dropify({
-            //    defaultFile: publicpath_identity_picture
-            //});
-
-        })(jQuery);
-
-
-
-    </script>
-
-}
-
-<div class="container-fluid">
+<div class="container-fluid" data-ng-init="init()">
 
     <div class="row">
         <div class="col-sm-3">
@@ -97,56 +36,32 @@
                     <div class="row m-0">
                         <div class="col-md-12 ">
                             <h5 class="card-title mt-1 px-0 ">
-                                <span class="font-weight-bold">ชื่อลูกค้า : </span> บริษัททดสอบมหาชนจำกัด
+                                <span class="font-weight-bold">ชื่อลูกค้า : </span> {{CustomerData.Name}}
                             </h5>
                         </div>
                     </div>
                     <div class="row m-0">
                         <div class="col-md-12 ">
-                            <ul class="ul-menulist metismenu list-unstyled" id="side-menu">
-                                <li>
-                                    <a href="javascript: void(0);" aria-expanded="true"><i class="mdi mdi-chevron-double-down"></i> ข้อมูลปี 2565</a>
-                                    <ul class="sub-menu mm-collapse mm-show" aria-expanded="true" style="">
-                                        <li><a href="javascript: void(0);">รอบบัญชีประจำปี 2565</a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="javascript: void(0);"><i class="mdi mdi-chevron-double-right"></i> ข้อมูลปี 2564</a>
-                                    <ul class="sub-menu" aria-expanded="true" style="">
-                                        <li><a href="javascript: void(0);">รอบบัญชีประจำไตรมาส 1</a></li>
-                                        <li><a href="javascript: void(0);">รอบบัญชีประจำไตรมาส 2</a></li>
-                                        <li><a href="javascript: void(0);">รอบบัญชีประจำไตรมาส 3</a></li>
-                                        <li><a href="javascript: void(0);">รอบบัญชีประจำไตรมาส 4</a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="javascript: void(0);"><i class="mdi mdi-chevron-double-right"></i> ข้อมูลปี 2563</a>
-                                    <ul class="sub-menu" aria-expanded="true" style="">
-                                        <li><a href="javascript: void(0);">รอบบัญชีประจำไตรมาส 1</a></li>
-                                        <li><a href="javascript: void(0);">รอบบัญชีประจำไตรมาส 2</a></li>
-                                        <li><a href="javascript: void(0);">รอบบัญชีประจำไตรมาส 3</a></li>
-                                        <li><a href="javascript: void(0);">รอบบัญชีประจำไตรมาส 4</a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="javascript: void(0);"><i class="mdi mdi-chevron-double-right"></i> ข้อมูลปี 2562</a>
-                                    <ul class="sub-menu" aria-expanded="true" style="">
-                                        <li><a href="javascript: void(0);">รอบบัญชีประจำไตรมาส 1</a></li>
-                                        <li><a href="javascript: void(0);">รอบบัญชีประจำไตรมาส 2</a></li>
-                                        <li><a href="javascript: void(0);">รอบบัญชีประจำไตรมาส 3</a></li>
-                                        <li><a href="javascript: void(0);">รอบบัญชีประจำไตรมาส 4</a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="javascript: void(0);"><i class="mdi mdi-chevron-double-right"></i> ข้อมูลปี 2561</a>
-                                    <ul class="sub-menu" aria-expanded="true" style="">
-                                        <li><a href="javascript: void(0);">รอบบัญชีประจำไตรมาส 1</a></li>
-                                        <li><a href="javascript: void(0);">รอบบัญชีประจำไตรมาส 2</a></li>
-                                        <li><a href="javascript: void(0);">รอบบัญชีประจำไตรมาส 3</a></li>
-                                        <li><a href="javascript: void(0);">รอบบัญชีประจำไตรมาส 4</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
+                            <div class="accordion accordion-flush" id="accordionFlushExample">
+                                <div class="accordion-item" ng-repeat="year in Table">
+                                    <h2 class="accordion-header" id="flush-headingOne">
+                                        <button class="font-size-14 text-black accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne{{$index}}" aria-expanded="false" aria-controls="flush-collapseOne">
+                                            ข้อมูลปี {{year.Year}}
+                                        </button>
+                                    </h2>
+                                    <div id="flush-collapseOne{{$index}}" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample" style="">
+                                        <ol class="activity-feed mb-0">
+                                            <li class="feed-item cursor-pointer" ng-repeat="values in year.Detail" ng-click="OnClickPeriod(values)">
+                                                <div class="feed-item-list">
+                                                    <span class="date">วันที่รอบบัญชี : {{values.StartDate}} - {{values.EndDate }}</span>
+                                                    <span class="activity-text text-black">ชื่อรอบบัญชี : {{values.Name}}</span>
+                                                </div>
+                                            </li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
 
@@ -167,6 +82,24 @@
                         <span class="d-none d-sm-block">Trial Balance</span>
                     </a>
                 </li>
+                <li class="nav-item" data-bs-toggle="tab" href="#adjustment" role="tab">
+                    <a class="nav-link">
+                        <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
+                        <span class="d-none d-sm-block">Adjustment</span>
+                    </a>
+                </li>
+                <li class="nav-item" data-bs-toggle="tab" href="#fstop" role="tab">
+                    <a class="nav-link">
+                        <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
+                        <span class="d-none d-sm-block">FS Top</span>
+                    </a>
+                </li>
+                <li class="nav-item" data-bs-toggle="tab" href="#fslead" role="tab">
+                    <a class="nav-link">
+                        <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
+                        <span class="d-none d-sm-block">FS Lead</span>
+                    </a>
+                </li>
                 <li class="nav-item" data-bs-toggle="tab" href="#document" role="tab">
                     <a class="nav-link">
                         <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
@@ -185,7 +118,7 @@
                     <div class="card-body card-body-table">
                         <div class="row">
                             <div class="col-md-12">
-                                <h4 class="card-title mb-3">
+                                <h4 class="card-title mb-1">
                                     ข้อมูลรอบบัญชี
                                 </h4>
                             </div>
@@ -200,18 +133,10 @@
                         </div>
                         <div class="row">
                             <div class="col-md-3 ">
-                                <p class="px-4 font-weight-bold">ชื่อบริษัท :</p>
-                            </div>
-                            <div class="col-md-9">
-                                <p class="px-3">บริษัททดสอบมหาชนจำกัด</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-3 ">
                                 <p class="px-4 font-weight-bold">ข้อมูลปี :</p>
                             </div>
                             <div class="col-md-9">
-                                <p class="px-3">2565</p>
+                                <p class="px-3">{{TablePeriod.Year}}</p>
                             </div>
                         </div>
                         <div class="row">
@@ -219,7 +144,7 @@
                                 <p class="px-4 font-weight-bold">ชื่อรอบบัญชี :</p>
                             </div>
                             <div class="col-md-9">
-                                <p class="px-3">รอบบัญชีประจำปี 2565</p>
+                                <p class="px-3">{{TablePeriod.Name}}</p>
                             </div>
                         </div>
                         <div class="row">
@@ -227,7 +152,7 @@
                                 <p class="px-4 font-weight-bold">ประเภทรอบบัญชี :</p>
                             </div>
                             <div class="col-md-9">
-                                <p class="px-3">ไตรมาส</p>
+                                <p class="px-3">{{TablePeriod.Type}} {{TablePeriod.Quater}}</p>
                             </div>
                         </div>
                         <div class="row">
@@ -235,15 +160,7 @@
                                 <p class="px-4 font-weight-bold">วันที่รอบบัญชี :</p>
                             </div>
                             <div class="col-md-9">
-                                <p class="px-3">01/01/2565 - 31/03/2565</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-3 ">
-                                <p class="px-4 font-weight-bold">ชื่อผู้ดูแล :</p>
-                            </div>
-                            <div class="col-md-9">
-                                <p class="px-3">นายทดสอบระบบ </p>
+                                <p class="px-3">{{TablePeriod.Date}}</p>
                             </div>
                         </div>
                         <div class="row">
@@ -251,7 +168,7 @@
                                 <p class="px-4 font-weight-bold">วันที่บันทึกรายการ :</p>
                             </div>
                             <div class="col-md-9">
-                                <p class="px-3">12/01/2565 </p>
+                                <p class="px-3">{{TablePeriod.UpdatedOn}}</p>
                             </div>
                         </div>
                         <div class="row">
@@ -259,7 +176,9 @@
                                 <p class="px-4 font-weight-bold">ข้อมูล Trial Balancee :</p>
                             </div>
                             <div class="col-md-9 d-flex">
-                                <p class="px-3 text-success">อัพโหลดเรียบร้อย</p> / <p class="px-3 text-info">รออัพโหลดข้อมูล</p> / <p class="px-3 text-danger"> แจ้งให้อัพโหลดข้อมูลอีกครั้ง </p>
+                                <p ng-show="TablePeriod.IsUploadTrial == 'Yes'" class="px-3 text-success">อัพโหลดเรียบร้อย</p>
+                                <p ng-show="TablePeriod.IsUploadTrial == 'No'" class="px-3 text-info">รออัพโหลดข้อมูล</p>
+                                <p ng-show="TablePeriod.IsRequestUpload == 'Yes' && TablePeriod.IsUploadTrial == 'No'" class="px-3 text-danger"> แจ้งให้อัพโหลดข้อมูลอีกครั้ง </p>
                             </div>
                         </div>
                         <div class="row">
@@ -267,7 +186,7 @@
                                 <p class="px-4 font-weight-bold">วันที่อัพโหลด Trial Balancee ล่าสุด:</p>
                             </div>
                             <div class="col-md-9">
-                                <p class="px-3 ">01/01/2565</p>
+                                <p class="px-3">{{TablePeriod.UploadDate}}</p>
                             </div>
                         </div>
                     </div>
@@ -282,7 +201,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="d-flex flex-wrap  justify-content-end">
-                                    <button type="button" class="btn btn-outline-dark waves-effect mx-2 py-2 px-3" data-bs-toggle="modal" data-bs-target="#myModal3">
+                                    <button type="button" class="btn btn-outline-dark waves-effect mx-2 py-2 px-3" ng-show="TablePeriod.IsRequestUpload == 'Yes'" data-bs-toggle="modal" data-bs-target="#myModal3">
                                         <i class="mdi mdi-file-upload-outline mx-2"></i> อัพโหลด Trial Balance
                                     </button>
                                 </div>
@@ -296,91 +215,1143 @@
                                             <th></th>
                                             <th>A/C Name</th>
                                             <th>A/C Code</th>
-                                            <th>Amount</th>
+                                            <th class="text-right">Amount</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <th>1</th>
-                                            <td>เงินสด</td>
-                                            <td>1111-00</td>
-                                            <td>10,000.00</td>
-                                        </tr>
-                                        <tr>
-                                            <th>1</th>
-                                            <td>เงินสด</td>
-                                            <td>1111-00</td>
-                                            <td>10,000.00</td>
-                                        </tr>
-                                        <tr>
-                                            <th>1</th>
-                                            <td>เงินสด</td>
-                                            <td>1111-00</td>
-                                            <td>10,000.00</td>
-                                        </tr>
-                                        <tr>
-                                            <th>1</th>
-                                            <td>เงินสด</td>
-                                            <td>1111-00</td>
-                                            <td>10,000.00</td>
-                                        </tr>
-                                        <tr>
-                                            <th>1</th>
-                                            <td>เงินสด</td>
-                                            <td>1111-00</td>
-                                            <td>10,000.00</td>
-                                        </tr>
-                                        <tr>
-                                            <th>1</th>
-                                            <td>เงินสด</td>
-                                            <td>1111-00</td>
-                                            <td>10,000.00</td>
-                                        </tr>
-                                        <tr>
-                                            <th>1</th>
-                                            <td>เงินสด</td>
-                                            <td>1111-00</td>
-                                            <td>10,000.00</td>
-                                        </tr>
-                                        <tr>
-                                            <th>1</th>
-                                            <td>เงินสด</td>
-                                            <td>1111-00</td>
-                                            <td>10,000.00</td>
+                                        <tr ng-repeat="values in TablePeriod.TrialBalance| offset: currentPage*itemsPerPage | limitTo: itemsPerPage  ">
+                                            <th>{{values.Seq}}</th>
+                                            <td>{{values.AccountName}}</td>
+                                            <td>{{values.AccountCode}}</td>
+                                            <td class="text-right">{{values.Amount | number : 2}}</td>
                                         </tr>
                                     </tbody>
-                                    <tfoot>
+                                    <tfoot ng-show="TablePeriod.TrialBalance != undefined && TablePeriod.TrialBalance.length > 0">
                                         <tr>
                                             <th></th>
-                                            <td colspan="2">รวม</td>
-                                            <td class="text-primary">5,561.92</td>
+                                            <td colspan="2" class="text-right">รวม</td>
+                                            <td class="text-right">{{TablePeriod.Footer.Amount | number :2}}</td>
                                         </tr>
                                     </tfoot>
+                                    <tbody ng-show="TablePeriod.TrialBalance == undefined || TablePeriod.TrialBalance.length == 0">
+                                        <tr class="text-center ">
+                                            <td colspan="4" class="empty">
+                                                <img src="@Url.Content("~/")assets/images/icons/icon-list.png" width="60" class="d-block m-auto">
+                                                ไม่พบรายการ
+                                            </td>
+                                        </tr>
+                                    </tbody>
                                 </table>
                                 <hr />
                                 <div class="d-flex justify-content-end">
                                     <div data-v-e8100c36="" class="numberShow">
                                         <p class="mr-2 mx-2 mb-0 font-size-16">แสดง</p>
-                                        <select class="day form-control form-select form-select-sm" style="width: auto;">
-                                            <option selected value="10">10</option>
+                                        <select class="day form-control form-select form-select-sm" style="width: auto;" ng-change="OnClickChangePageTotal()" ng-model="itemsPerPage">
+                                            <option value="10">10</option>
+                                            <option value="22">20</option>
                                             <option value="50">50</option>
-                                            <option value="3">100</option>
+                                            <option value="100">100</option>
                                         </select>
                                         <div data-v-76901dc6="" class="selectInputDropdown noLabel" style="width: 100%;">
                                             <p class="mr-2 mx-2 mb-0 font-size-16">รายการ</p>
                                         </div>
                                     </div>
                                     <div data-v-e8100c36="" class="page-data">
-                                        <div data-v-e8100c36="" class="prevArrow disabled">
+                                        <div data-v-e8100c36="" class="prevArrow" ng-class="prevPageDisabled()" ng-click="prevPage()">
                                             <i data-v-e8100c36="" class="fa fa-chevron-left"></i>
                                         </div>
                                         <p data-v-e8100c36="" class="mr-2 mx-2 mb-0 font-size-16">หน้า</p>
-                                        <select class="day form-control form-select form-select-sm" style="width: auto;"><option value=""></option><option selected value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option></select>
-                                        <div data-v-e8100c36="" class="nextArrow disabled"><i data-v-e8100c36="" class="fa fa-chevron-right"></i></div>
+                                        <select class="day form-control form-select form-select-sm" style="width: auto;" ng-options="item as item.name for item in retpage" ng-model="changePages" ng-change="setPage(item)">
+                                            @*<option ng-repeat="rows in retpage" value="{{rows.code}}" >{{rows.name}}</option>*@
+                                        </select>
+                                        <div data-v-e8100c36="" class="nextArrow" ng-class="nextPageDisabled()" ng-click="nextPage()">
+                                            <i data-v-e8100c36="" class="fa fa-chevron-right"></i>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+                <div class=" tab-pane card " id="adjustment" role="tabpanel">
+                    <div class="card-body card-body-table">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h4 class="card-title mb-3">
+                                    ข้อมูล Adjustment
+                                </h4>
+                            </div>
+                        </div>
+                        <div class="row py-2">
+                            <div class="col-md-12">
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li class="nav-item active" data-bs-toggle="tab" href="#AJA" role="tab">
+                                        <a class="nav-link">
+                                            <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
+                                            <span class="d-none d-sm-block">Adjustment - Agree</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item" data-bs-toggle="tab" href="#AJDA" role="tab">
+                                        <a class="nav-link">
+                                            <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
+                                            <span class="d-none d-sm-block">Adjustment - Disagree</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item" data-bs-toggle="tab" href="#PAJA" role="tab">
+                                        <a class="nav-link">
+                                            <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
+                                            <span class="d-none d-sm-block">Previous Adjustment - Agree</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item" data-bs-toggle="tab" href="#PAJDA" role="tab">
+                                        <a class="nav-link">
+                                            <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
+                                            <span class="d-none d-sm-block">Previous Adjustment - Disagree</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div class=" tab-pane card active" id="AJA" role="tabpanel">
+                                        <div class="card-body card-body-table card-accordion pt-0">
+                                            <div class="table-rep-plugin mt-3">
+                                                <div class="table-responsive mb-0" data-pattern="priority-columns">
+                                                    <table id="tech-companies-1" class="table-data-mulH  table-striped">
+                                                        <thead>
+                                                            <tr class="headerRow">
+                                                                <th class="text-center" colspan="5">Description</th>
+                                                                <th class="text-center" colspan="2">Balance Sheet</th>
+                                                                <th class="text-center" colspan="2">P&L</th>
+                                                            </tr>
+                                                            <tr class="headerRow">
+                                                                <th width="2%"></th>
+                                                                <th width="5%">Dr/Cr</th>
+                                                                <th width="13%">A/C Name</th>
+                                                                <th width="10%">A/C Code</th>
+                                                                <th width="10%">Ref No</th>
+                                                                <th class="text-center" width="15%">Dr</th>
+                                                                <th class="text-center" width="15%">Cr</th>
+                                                                <th class="text-center" width="15%">Dr</th>
+                                                                <th class="text-center" width="15%">Cr</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody ng-show="TablePeriod.TableAdjustmentsAgree != undefined && TablePeriod.TableAdjustmentsAgree.length > 0">
+                                                            <tr>
+                                                                <td colspan="9">
+                                                                    <table id="tech-companies-1" class="table-inner  table-striped" ng-repeat="detail in TablePeriod.TableAdjustmentsAgree">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th width="2%">{{detail.Seq}}</th>
+                                                                                <td width="30%" class="font-weight-bold" colspan="3">
+                                                                                    {{detail.Name}}
+                                                                                </td>
+                                                                                <td width="25%" class="font-weight-bold" colspan="2">
+                                                                                    <span class="text-link" ng-click="OnClickTable(detail)"> {{detail.Code}}</span>
+                                                                                </td>
+                                                                                <td width="15%">
+                                                                                </td>
+                                                                                <td width="15%">
+                                                                                </td>
+                                                                                <td width="15%" class="text-right">
+                                                                                </td>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr ng-repeat="subdetail in detail.SubAdjustment">
+                                                                                <th width="2%"></th>
+                                                                                <td width="5%">
+                                                                                    {{subdetail.AdjustmentType}}
+                                                                                </td>
+                                                                                <td width="13%">{{subdetail.AccountName}}</td>
+                                                                                <td width="20%" colspan="2">{{subdetail.AccountCode}}</td>
+                                                                                <td width="15%" class="text-right text-danger">
+                                                                                    <span ng-show="subdetail.AdjustmentModel == 'BS' && subdetail.AdjustmentType == 'Debit'">{{subdetail.Debit | number : 2}}</span>
+                                                                                    <span ng-show="subdetail.AdjustmentModel == 'PL' || subdetail.AdjustmentType == 'Credit'">-</span>
+                                                                                </td>
+                                                                                <td width="15%" class="text-right text-danger">
+                                                                                    <span ng-show="subdetail.AdjustmentModel == 'BS' && subdetail.AdjustmentType == 'Credit'">{{subdetail.Credit | number : 2}}</span>
+                                                                                    <span ng-show="subdetail.AdjustmentModel == 'PL' || subdetail.AdjustmentType == 'Debit'">-</span>
+                                                                                </td>
+                                                                                <td width="15%" class="text-right text-danger">
+                                                                                    <span ng-show="subdetail.AdjustmentModel == 'PL' && subdetail.AdjustmentType == 'Debit'">{{subdetail.Debit | number : 2}}</span>
+                                                                                    <span ng-show="subdetail.AdjustmentModel == 'BS' || subdetail.AdjustmentType == 'Credit'">-</span>
+                                                                                </td>
+                                                                                <td width="15%" class="text-right text-danger">
+                                                                                    <span ng-show="subdetail.AdjustmentModel == 'PL' && subdetail.AdjustmentType == 'Credit'">{{subdetail.Credit | number : 2}}</span>
+                                                                                    <span ng-show="subdetail.AdjustmentModel == 'BS' || subdetail.AdjustmentType == 'Debit'">-</span>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                        <tfoot ng-show="TablePeriod.TableAdjustmentsAgree != undefined && TablePeriod.TableAdjustmentsAgree.length > 0">
+                                                            <tr>
+                                                                <th></th>
+                                                                <td colspan="4">รวม</td>
+                                                                <td class="text-right text-danger">{{TablePeriod.Footer.SumAgreeBSDebit  | number : 2}}</td>
+                                                                <td class="text-right text-danger">{{TablePeriod.Footer.SumAgreeBSCredit | number : 2}}</td>
+                                                                <td class="text-right text-danger">{{TablePeriod.Footer.SumAgreePLDebit  | number : 2}}</td>
+                                                                <td class="text-right text-danger">{{TablePeriod.Footer.SumAgreePLCredit | number : 2}}</td>
+                                                            </tr>
+                                                        </tfoot>
+                                                        <tbody ng-show="TablePeriod.TableAdjustmentsAgree == undefined || TablePeriod.TableAdjustmentsAgree.length == 0">
+                                                            <tr class="text-center ">
+                                                                <td colspan="9" class="empty">
+                                                                    <img src="@Url.Content("~/")assets/images/icons/icon-list.png" width="60" class="d-block m-auto">
+                                                                    ไม่พบรายการ
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-content">
+                                    <div class=" tab-pane card" id="AJDA" role="tabpanel">
+                                        <div class="card-body card-body-table card-accordion pt-0">
+                                            <div class="table-rep-plugin mt-3">
+                                                <div class="table-responsive mb-0" data-pattern="priority-columns">
+                                                    <table id="tech-companies-1" class="table-data-mulH  table-striped">
+                                                        <thead>
+                                                            <tr class="headerRow">
+                                                                <th class="text-center" colspan="5">Description</th>
+                                                                <th class="text-center" colspan="2">Balance Sheet</th>
+                                                                <th class="text-center" colspan="2">P&L</th>
+                                                            </tr>
+                                                            <tr class="headerRow">
+                                                                <th width="2%"></th>
+                                                                <th width="5%">Dr/Cr</th>
+                                                                <th width="13%">A/C Name</th>
+                                                                <th width="10%">A/C Code</th>
+                                                                <th width="10%">Ref No</th>
+                                                                <th class="text-center" width="15%">Dr</th>
+                                                                <th class="text-center" width="15%">Cr</th>
+                                                                <th class="text-center" width="15%">Dr</th>
+                                                                <th class="text-center" width="15%">Cr</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody ng-show="TablePeriod.TableAdjustmentsDisAgree != undefined && TablePeriod.TableAdjustmentsDisAgree.length > 0">
+                                                            <tr>
+                                                                <td colspan="9">
+                                                                    <table id="tech-companies-1" class="table-inner  table-striped" ng-repeat="detail in TablePeriod.TableAdjustmentsDisAgree">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th width="2%">{{detail.Seq}}</th>
+                                                                                <td width="30%" class="font-weight-bold" colspan="3">
+                                                                                    {{detail.Name}}
+                                                                                </td>
+                                                                                <td width="25%" class="font-weight-bold" colspan="2">
+                                                                                    <span class="text-link" ng-click="OnClickTable(detail)"> {{detail.Code}}</span>
+                                                                                </td>
+                                                                                <td width="15%">
+                                                                                </td>
+                                                                                <td width="15%">
+                                                                                </td>
+                                                                                <td width="15%" class="text-right">
+                                                                                </td>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr ng-repeat="subdetail in detail.SubAdjustment">
+                                                                                <th width="2%"></th>
+                                                                                <td width="5%">
+                                                                                    {{subdetail.AdjustmentType}}
+                                                                                </td>
+                                                                                <td width="13%">{{subdetail.AccountName}}</td>
+                                                                                <td width="20%" colspan="2">{{subdetail.AccountCode}}</td>
+                                                                                <td width="15%" class="text-right text-danger">
+                                                                                    <span ng-show="subdetail.AdjustmentModel == 'BS' && subdetail.AdjustmentType == 'Debit'">{{subdetail.Debit | number : 2}}</span>
+                                                                                    <span ng-show="subdetail.AdjustmentModel == 'PL' || subdetail.AdjustmentType == 'Credit'">-</span>
+                                                                                </td>
+                                                                                <td width="15%" class="text-right text-danger">
+                                                                                    <span ng-show="subdetail.AdjustmentModel == 'BS' && subdetail.AdjustmentType == 'Credit'">{{subdetail.Credit | number : 2}}</span>
+                                                                                    <span ng-show="subdetail.AdjustmentModel == 'PL' || subdetail.AdjustmentType == 'Debit'">-</span>
+                                                                                </td>
+                                                                                <td width="15%" class="text-right text-danger">
+                                                                                    <span ng-show="subdetail.AdjustmentModel == 'PL' && subdetail.AdjustmentType == 'Debit'">{{subdetail.Debit | number : 2}}</span>
+                                                                                    <span ng-show="subdetail.AdjustmentModel == 'BS' || subdetail.AdjustmentType == 'Credit'">-</span>
+                                                                                </td>
+                                                                                <td width="15%" class="text-right text-danger">
+                                                                                    <span ng-show="subdetail.AdjustmentModel == 'PL' && subdetail.AdjustmentType == 'Credit'">{{subdetail.Credit | number : 2}}</span>
+                                                                                    <span ng-show="subdetail.AdjustmentModel == 'BS' || subdetail.AdjustmentType == 'Debit'">-</span>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                        <tfoot ng-show="TablePeriod.TableAdjustmentsDisAgree != undefined && TablePeriod.TableAdjustmentsDisAgree.length > 0">
+                                                            <tr>
+                                                                <th></th>
+                                                                <td colspan="4">รวม</td>
+                                                                <td class="text-right text-danger">{{TablePeriod.Footer.SumDisAgreeBSDebit  | number : 2}}</td>
+                                                                <td class="text-right text-danger">{{TablePeriod.Footer.SumDisAgreeBSCredit | number : 2}}</td>
+                                                                <td class="text-right text-danger">{{TablePeriod.Footer.SumDisAgreePLDebit  | number : 2}}</td>
+                                                                <td class="text-right text-danger">{{TablePeriod.Footer.SumDisAgreePLCredit | number : 2}}</td>
+                                                            </tr>
+                                                        </tfoot>
+                                                        <tbody ng-show="TablePeriod.TableAdjustmentsDisAgree == undefined || TablePeriod.TableAdjustmentsDisAgree.length == 0">
+                                                            <tr class="text-center ">
+                                                                <td colspan="9" class="empty">
+                                                                    <img src="@Url.Content("~/")assets/images/icons/icon-list.png" width="60" class="d-block m-auto">
+                                                                    ไม่พบรายการ
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-content">
+                                    <div class=" tab-pane card" id="PAJA" role="tabpanel">
+                                        <div class="card-body card-body-table card-accordion pt-0">
+                                            <div class="table-rep-plugin mt-3">
+                                                <div class="table-responsive mb-0" data-pattern="priority-columns">
+                                                    <table id="tech-companies-1" class="table-data-mulH  table-striped">
+                                                        <thead>
+                                                            <tr class="headerRow">
+                                                                <th class="text-center" colspan="5">Description</th>
+                                                                <th class="text-center" colspan="2">Balance Sheet</th>
+                                                                <th class="text-center" colspan="2">P&L</th>
+                                                            </tr>
+                                                            <tr class="headerRow">
+                                                                <th width="2%"></th>
+                                                                <th width="5%">Dr/Cr</th>
+                                                                <th width="13%">A/C Name</th>
+                                                                <th width="10%">A/C Code</th>
+                                                                <th width="10%">Ref No</th>
+                                                                <th class="text-center" width="15%">Dr</th>
+                                                                <th class="text-center" width="15%">Cr</th>
+                                                                <th class="text-center" width="15%">Dr</th>
+                                                                <th class="text-center" width="15%">Cr</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody ng-show="TablePeriod.TableAdjustmentPreviousAgree != undefined && TablePeriod.TableAdjustmentPreviousAgree.length > 0">
+                                                            <tr>
+                                                                <td colspan="9">
+                                                                    <table id="tech-companies-1" class="table-inner  table-striped" ng-repeat="detail in TablePeriod.TableAdjustmentPreviousAgree">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th width="2%">{{detail.Seq}}</th>
+                                                                                <td width="30%" class="font-weight-bold" colspan="3">
+                                                                                    {{detail.Name}}
+                                                                                </td>
+                                                                                <td width="25%" class="font-weight-bold" colspan="2">
+                                                                                    <span class="text-link" ng-click="OnClickTable(detail)"> {{detail.Code}}</span>
+                                                                                </td>
+                                                                                <td width="15%">
+                                                                                </td>
+                                                                                <td width="15%">
+                                                                                </td>
+                                                                                <td width="15%" class="text-right">
+                                                                                </td>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr ng-repeat="subdetail in detail.SubAdjustment">
+                                                                                <th width="2%"></th>
+                                                                                <td width="5%">
+                                                                                    {{subdetail.AdjustmentType}}
+                                                                                </td>
+                                                                                <td width="13%">{{subdetail.AccountName}}</td>
+                                                                                <td width="20%" colspan="2">{{subdetail.AccountCode}}</td>
+                                                                                <td width="15%" class="text-right text-danger">
+                                                                                    <span ng-show="subdetail.AdjustmentModel == 'BS' && subdetail.AdjustmentType == 'Debit'">{{subdetail.Debit | number : 2}}</span>
+                                                                                    <span ng-show="subdetail.AdjustmentModel == 'PL' || subdetail.AdjustmentType == 'Credit'">-</span>
+                                                                                </td>
+                                                                                <td width="15%" class="text-right text-danger">
+                                                                                    <span ng-show="subdetail.AdjustmentModel == 'BS' && subdetail.AdjustmentType == 'Credit'">{{subdetail.Credit | number : 2}}</span>
+                                                                                    <span ng-show="subdetail.AdjustmentModel == 'PL' || subdetail.AdjustmentType == 'Debit'">-</span>
+                                                                                </td>
+                                                                                <td width="15%" class="text-right text-danger">
+                                                                                    <span ng-show="subdetail.AdjustmentModel == 'PL' && subdetail.AdjustmentType == 'Debit'">{{subdetail.Debit | number : 2}}</span>
+                                                                                    <span ng-show="subdetail.AdjustmentModel == 'BS' || subdetail.AdjustmentType == 'Credit'">-</span>
+                                                                                </td>
+                                                                                <td width="15%" class="text-right text-danger">
+                                                                                    <span ng-show="subdetail.AdjustmentModel == 'PL' && subdetail.AdjustmentType == 'Credit'">{{subdetail.Credit | number : 2}}</span>
+                                                                                    <span ng-show="subdetail.AdjustmentModel == 'BS' || subdetail.AdjustmentType == 'Debit'">-</span>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                        <tfoot ng-show="TablePeriod.TableAdjustmentPreviousAgree != undefined && TablePeriod.TableAdjustmentPreviousAgree.length > 0">
+                                                            <tr>
+                                                                <th></th>
+                                                                <td colspan="4">รวม</td>
+                                                                <td class="text-right text-danger">{{TablePeriod.Footer.SumPreviousAgreeBSDebit  | number : 2}}</td>
+                                                                <td class="text-right text-danger">{{TablePeriod.Footer.SumPreviousAgreeBSCredit | number : 2}}</td>
+                                                                <td class="text-right text-danger">{{TablePeriod.Footer.SumPreviousAgreePLDebit  | number : 2}}</td>
+                                                                <td class="text-right text-danger">{{TablePeriod.Footer.SumPreviousAgreePLCredit | number : 2}}</td>
+                                                            </tr>
+                                                        </tfoot>
+                                                        <tbody ng-show="TablePeriod.TableAdjustmentPreviousAgree == undefined || TablePeriod.TableAdjustmentPreviousAgree.length == 0">
+                                                            <tr class="text-center ">
+                                                                <td colspan="9" class="empty">
+                                                                    <img src="@Url.Content("~/")assets/images/icons/icon-list.png" width="60" class="d-block m-auto">
+                                                                    ไม่พบรายการ
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-content">
+                                    <div class=" tab-pane card" id="PAJDA" role="tabpanel">
+                                        <div class="card-body card-body-table card-accordion pt-0">
+                                            <div class="table-rep-plugin">
+                                                <div class="table-responsive mb-0" data-pattern="priority-columns">
+                                                    <table id="tech-companies-1" class="table-data-mulH  table-striped">
+                                                        <thead>
+                                                            <tr class="headerRow">
+                                                                <th class="text-center" colspan="5">Description</th>
+                                                                <th class="text-center" colspan="2">Balance Sheet</th>
+                                                                <th class="text-center" colspan="2">P&L</th>
+                                                            </tr>
+                                                            <tr class="headerRow">
+                                                                <th width="2%"></th>
+                                                                <th width="5%">Dr/Cr</th>
+                                                                <th width="13%">A/C Name</th>
+                                                                <th width="10%">A/C Code</th>
+                                                                <th width="10%">Ref No</th>
+                                                                <th class="text-center" width="15%">Dr</th>
+                                                                <th class="text-center" width="15%">Cr</th>
+                                                                <th class="text-center" width="15%">Dr</th>
+                                                                <th class="text-center" width="15%">Cr</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody ng-show="TablePeriod.TableAdjustmentPreviousDisAgree != undefined && TablePeriod.TableAdjustmentPreviousDisAgree.length > 0">
+                                                            <tr>
+                                                                <td colspan="9">
+                                                                    <table id="tech-companies-1" class="table-inner  table-striped" ng-repeat="detail in TablePeriod.TableAdjustmentPreviousDisAgree">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th width="2%">{{detail.Seq}}</th>
+                                                                                <td width="30%" class="font-weight-bold" colspan="3">
+                                                                                    {{detail.Name}}
+                                                                                </td>
+                                                                                <td width="25%" class="font-weight-bold" colspan="2">
+                                                                                    <span class="text-link" ng-click="OnClickTable(detail)"> {{detail.Code}}</span>
+                                                                                </td>
+                                                                                <td width="15%">
+                                                                                </td>
+                                                                                <td width="15%">
+                                                                                </td>
+                                                                                <td width="15%" class="text-right">
+                                                                                </td>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr ng-repeat="subdetail in detail.SubAdjustment">
+                                                                                <th width="2%"></th>
+                                                                                <td width="5%">
+                                                                                    {{subdetail.AdjustmentType}}
+                                                                                </td>
+                                                                                <td width="13%">{{subdetail.AccountName}}</td>
+                                                                                <td width="20%" colspan="2">{{subdetail.AccountCode}}</td>
+                                                                                <td width="15%" class="text-right text-danger">
+                                                                                    <span ng-show="subdetail.AdjustmentModel == 'BS' && subdetail.AdjustmentType == 'Debit'">{{subdetail.Debit | number : 2}}</span>
+                                                                                    <span ng-show="subdetail.AdjustmentModel == 'PL' || subdetail.AdjustmentType == 'Credit'">-</span>
+                                                                                </td>
+                                                                                <td width="15%" class="text-right text-danger">
+                                                                                    <span ng-show="subdetail.AdjustmentModel == 'BS' && subdetail.AdjustmentType == 'Credit'">{{subdetail.Credit | number : 2}}</span>
+                                                                                    <span ng-show="subdetail.AdjustmentModel == 'PL' || subdetail.AdjustmentType == 'Debit'">-</span>
+                                                                                </td>
+                                                                                <td width="15%" class="text-right text-danger">
+                                                                                    <span ng-show="subdetail.AdjustmentModel == 'PL' && subdetail.AdjustmentType == 'Debit'">{{subdetail.Debit | number : 2}}</span>
+                                                                                    <span ng-show="subdetail.AdjustmentModel == 'BS' || subdetail.AdjustmentType == 'Credit'">-</span>
+                                                                                </td>
+                                                                                <td width="15%" class="text-right text-danger">
+                                                                                    <span ng-show="subdetail.AdjustmentModel == 'PL' && subdetail.AdjustmentType == 'Credit'">{{subdetail.Credit | number : 2}}</span>
+                                                                                    <span ng-show="subdetail.AdjustmentModel == 'BS' || subdetail.AdjustmentType == 'Debit'">-</span>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                        <tfoot ng-show="TablePeriod.TableAdjustmentPreviousDisAgree != undefined && TablePeriod.TableAdjustmentPreviousDisAgree.length > 0">
+                                                            <tr>
+                                                                <th></th>
+                                                                <td colspan="4">รวม</td>
+                                                                <td class="text-right text-danger">{{TablePeriod.Footer.SumPreviousDisAgreeBSDebit  | number : 2}}</td>
+                                                                <td class="text-right text-danger">{{TablePeriod.Footer.SumPreviousDisAgreeBSCredit | number : 2}}</td>
+                                                                <td class="text-right text-danger">{{TablePeriod.Footer.SumPreviousDisAgreePLDebit  | number : 2}}</td>
+                                                                <td class="text-right text-danger">{{TablePeriod.Footer.SumPreviousDisAgreePLCredit | number : 2}}</td>
+                                                            </tr>
+                                                        </tfoot>
+                                                        <tbody ng-show="TablePeriod.TableAdjustmentPreviousDisAgree == undefined || TablePeriod.TableAdjustmentPreviousDisAgree.length == 0">
+                                                            <tr class="text-center ">
+                                                                <td colspan="9" class="empty">
+                                                                    <img src="@Url.Content("~/")assets/images/icons/icon-list.png" width="60" class="d-block m-auto">
+                                                                    ไม่พบรายการ
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class=" tab-pane card " id="fstop" role="tabpanel">
+                    <div class="card-body card-body-table">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h4 class="card-title mb-3">
+                                    ข้อมูล FS Top
+                                </h4>
+                            </div>
+                        </div>
+                        <div class="row py-2">
+                            <div class="col-md-12 text-center" ng-show="!TablePeriod.IsShowFSTop">
+                                <img src="@Url.Content("~/")assets/images/icons/icon-list.png" width="60" class="d-block m-auto">
+                                อยู่ระหว่างดำเนินการ
+                            </div>
+                            <div class="col-md-12" ng-show="TablePeriod.IsShowFSTop">
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li class="nav-item active" data-bs-toggle="tab" href="#AST" role="tab">
+                                        <a class="nav-link">
+                                            <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
+                                            <span class="d-none d-sm-block">ASSET</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item" data-bs-toggle="tab" href="#LSE" role="tab">
+                                        <a class="nav-link">
+                                            <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
+                                            <span class="d-none d-sm-block">LIABILITIES AND SHAREHOLDERS' EQUITY</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item" data-bs-toggle="tab" href="#FCI" role="tab">
+                                        <a class="nav-link">
+                                            <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
+                                            <span class="d-none d-sm-block">FINANCIAL COST AND INCOME TAX</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div class=" tab-pane card active" id="AST" role="tabpanel">
+                                        <div class="card-body card-body-table card-accordion pt-0">
+                                            <div class="table-rep-plugin">
+                                                <div class="table-responsive mb-0" data-pattern="priority-columns">
+                                                    <table id="tech-companies-1" class="table-data-mulH  table-striped">
+                                                        <thead>
+                                                            <tr class="headerRow">
+                                                                <th width="2%" rowspan="2"></th>
+                                                                <th width="15%" rowspan="2" class="text-center">Name</th>
+                                                                <th width="8%" rowspan="2" class="text-center">W/P No</th>
+                                                                <th width="15%" class="text-center" rowspan="2">Current Year</th>
+                                                                <th width="20%" colspan="2" class="text-center">Adj / Rje</th>
+                                                                <th width="10%" class="text-center" rowspan="2">Per Audit</th>
+                                                                <th width="10%" class="text-center" rowspan="2">Last Year</th>
+                                                                <th width="20%" class="text-center" colspan="2">Movement</th>
+                                                            </tr>
+                                                            <tr class="headerRow">
+                                                                <th width="10%" class="text-center">Dr</th>
+                                                                <th width="10%" class="text-center">Cr</th>
+                                                                <th width="10%" class="text-center">In (de)</th>
+                                                                <th width="10%" class="text-center">%</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td colspan="10">
+                                                                    <table id="tech-companies-1" class="table-inner  table-striped">
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <td></td>
+                                                                                <td class="font-weight-bold" colspan="10">
+                                                                                    Current Assets
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr ng-repeat="values in TablePeriod.Asset" ng-show="TablePeriod.Asset != undefined && TablePeriod.Asset.length >= 1">
+                                                                                <td width="2%">{{values.Seq}}</td>
+                                                                                <td width="15%">{{values.Name}}</td>
+                                                                                <td width="8%" class="text-center text-search"><a ng-click="OnClickAuditFSGroup(values)"><i class="mdi mdi-magnify font-size-18"></i>{{values.Code}}</a></td>
+                                                                                <td width="15%" class="text-right">{{values.Current | number : 2}}</td>
+                                                                                <td width="10%" class="text-right text-danger">{{values.Debit| number : 2}}</td>
+                                                                                <td width="10%" class="text-right text-danger">{{values.Credit| number : 2}}</td>
+                                                                                <td width="10%" class="text-right">{{values.Audit| number : 2}}</td>
+                                                                                <td width="10%" class="text-right">{{values.Previous| number : 2}}</td>
+                                                                                <td width="10%" class="text-right">{{values.Move| number : 2}}</td>
+                                                                                <td width="10%" class="text-right">{{values.Percent| number : 2}}%</td>
+                                                                            </tr>
+                                                                            <tr class="text-center " ng-show="TablePeriod.Asset == undefined || TablePeriod.Asset.length == 0">
+                                                                                <td colspan="10" class="empty">
+                                                                                    <img src="@Url.Content("~/")assets/images/icons/icon-list.png" width="60" class="d-block m-auto">
+                                                                                    ไม่พบรายการ
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                        <tfoot>
+                                                                            <tr>
+                                                                                <th></th>
+                                                                                <td class="text-right font-weight-bold" colspan="2">Total Current Assets</td>
+                                                                                <td class="text-right font-weight-bold">{{TablePeriod.Footer.Asset.Current | number : 2}}</td>
+                                                                                <td class="text-right font-weight-bold text-danger">{{TablePeriod.Footer.Asset.Debit | number : 2}}</td>
+                                                                                <td class="text-right font-weight-bold text-danger">{{TablePeriod.Footer.Asset.Credit | number : 2}}</td>
+                                                                                <td class="text-right font-weight-bold">{{TablePeriod.Footer.Asset.Audit | number : 2}}</td>
+                                                                                <td class="text-right font-weight-bold">{{TablePeriod.Footer.Asset.Previous | number : 2}}</td>
+                                                                                <td class="text-right font-weight-bold">{{TablePeriod.Footer.Asset.Move | number : 2}}</td>
+                                                                                <td class="text-right font-weight-bold">{{TablePeriod.Footer.Asset.Percent | number : 2}}%</td>
+                                                                            </tr>
+                                                                        </tfoot>
+                                                                    </table>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td colspan="10">
+                                                                    <table id="tech-companies-1" class="table-inner  table-striped">
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <td></td>
+                                                                                <td class="font-weight-bold" colspan="10">
+                                                                                    NON-Current Assets
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr ng-repeat="values in TablePeriod.NonAsset" ng-show="TablePeriod.NonAsset != undefined && TablePeriod.NonAsset.length >= 1">
+                                                                                <td width="2%">{{values.Seq}}</td>
+                                                                                <td width="15%">{{values.Name}}</td>
+                                                                                <td width="8%" class="text-center text-search"><a ng-click="OnClickAuditFSGroup(values)"><i class="mdi mdi-magnify font-size-18"></i>{{values.Code}}</a></td>
+                                                                                <td width="15%" class="text-right">{{values.Current | number : 2}}</td>
+                                                                                <td width="10%" class="text-right text-danger">{{values.Debit| number : 2}}</td>
+                                                                                <td width="10%" class="text-right text-danger">{{values.Credit| number : 2}}</td>
+                                                                                <td width="10%" class="text-right">{{values.Audit| number : 2}}</td>
+                                                                                <td width="10%" class="text-right">{{values.Previous| number : 2}}</td>
+                                                                                <td width="10%" class="text-right">{{values.Move| number : 2}}</td>
+                                                                                <td width="10%" class="text-right">{{values.Percent| number : 2}}%</td>
+                                                                            </tr>
+                                                                            <tr class="text-center " ng-show="TablePeriod.NonAsset == undefined || TablePeriod.NonAsset.length == 0">
+                                                                                <td colspan="10" class="empty">
+                                                                                    <img src="@Url.Content("~/")assets/images/icons/icon-list.png" width="60" class="d-block m-auto">
+                                                                                    ไม่พบรายการ
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                        <tfoot>
+                                                                            <tr>
+                                                                                <th></th>
+                                                                                <td class="text-right font-weight-bold" colspan="2">Total NON-Current Assets</td>
+                                                                                <td class="text-right font-weight-bold">{{TablePeriod.Footer.NonAsset.Current | number : 2}}</td>
+                                                                                <td class="text-right font-weight-bold text-danger">{{TablePeriod.Footer.NonAsset.Debit | number : 2}}</td>
+                                                                                <td class="text-right font-weight-bold text-danger">{{TablePeriod.Footer.NonAsset.Credit | number : 2}}</td>
+                                                                                <td class="text-right font-weight-bold">{{TablePeriod.Footer.NonAsset.Audit | number : 2}}</td>
+                                                                                <td class="text-right font-weight-bold">{{TablePeriod.Footer.NonAsset.Previous | number : 2}}</td>
+                                                                                <td class="text-right font-weight-bold">{{TablePeriod.Footer.NonAsset.Move | number : 2}}</td>
+                                                                                <td class="text-right font-weight-bold">{{TablePeriod.Footer.NonAsset.Percent | number : 2}}%</td>
+                                                                            </tr>
+                                                                        </tfoot>
+                                                                    </table>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                        <tfoot>
+                                                            <tr>
+                                                                <th></th>
+                                                                <td class="text-right font-weight-bold" colspan="2">Total Assets</td>
+                                                                <td class="text-right font-weight-bold">{{TablePeriod.Footer.SumAsset.Current | number : 2}}</td>
+                                                                <td class="text-right font-weight-bold text-danger">{{TablePeriod.Footer.SumAsset.Debit | number : 2}}</td>
+                                                                <td class="text-right font-weight-bold text-danger">{{TablePeriod.Footer.SumAsset.Credit | number : 2}}</td>
+                                                                <td class="text-right font-weight-bold">{{TablePeriod.Footer.SumAsset.Audit | number : 2}}</td>
+                                                                <td class="text-right font-weight-bold">{{TablePeriod.Footer.SumAsset.Previous | number : 2}}</td>
+                                                                <td class="text-right font-weight-bold">{{TablePeriod.Footer.SumAsset.Move | number : 2}}</td>
+                                                                <td class="text-right font-weight-bold">{{TablePeriod.Footer.SumAsset.Percent | number : 2}}%</td>
+                                                            </tr>
+                                                        </tfoot>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-content">
+                                    <div class=" tab-pane card" id="LSE" role="tabpanel">
+                                        <div class="card-body card-body-table card-accordion pt-0">
+                                            <div class="table-rep-plugin">
+                                                <div class="table-responsive mb-0" data-pattern="priority-columns">
+                                                    <table id="tech-companies-1" class="table-data-mulH  table-striped">
+                                                        <thead>
+                                                            <tr class="headerRow">
+                                                                <th width="2%" rowspan="2"></th>
+                                                                <th width="15%" rowspan="2" class="text-center">Name</th>
+                                                                <th width="8%" rowspan="2" class="text-center">W/P No</th>
+                                                                <th width="15%" class="text-center" rowspan="2">Current Year</th>
+                                                                <th width="20%" colspan="2" class="text-center">Adj / Rje</th>
+                                                                <th width="10%" class="text-center" rowspan="2">Per Audit</th>
+                                                                <th width="10%" class="text-center" rowspan="2">Last Year</th>
+                                                                <th width="20%" class="text-center" colspan="2">Movement</th>
+                                                            </tr>
+                                                            <tr class="headerRow">
+                                                                <th width="10%" class="text-center">Dr</th>
+                                                                <th width="10%" class="text-center">Cr</th>
+                                                                <th width="10%" class="text-center">In (de)</th>
+                                                                <th width="10%" class="text-center">%</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td colspan="10">
+                                                                    <table id="tech-companies-1" class="table-inner  table-striped">
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <td></td>
+                                                                                <td class="font-weight-bold" colspan="10">
+                                                                                    Current Liabilities
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr ng-repeat="values in TablePeriod.Liabilities" ng-show="TablePeriod.Liabilities != undefined && TablePeriod.Liabilities.length >= 1">
+                                                                                <td width="2%">{{values.Seq}}</td>
+                                                                                <td width="15%">{{values.Name}}</td>
+                                                                                <td width="8%" class="text-center text-search"><a ng-click="OnClickAuditFSGroup(values)"><i class="mdi mdi-magnify font-size-18"></i>{{values.Code}}</a></td>
+                                                                                <td width="15%" class="text-right">{{values.Current | number : 2}}</td>
+                                                                                <td width="10%" class="text-right text-danger">{{values.Debit| number : 2}}</td>
+                                                                                <td width="10%" class="text-right text-danger">{{values.Credit| number : 2}}</td>
+                                                                                <td width="10%" class="text-right">{{values.Audit| number : 2}}</td>
+                                                                                <td width="10%" class="text-right">{{values.Previous| number : 2}}</td>
+                                                                                <td width="10%" class="text-right">{{values.Move| number : 2}}</td>
+                                                                                <td width="10%" class="text-right">{{values.Percent| number : 2}}%</td>
+                                                                            </tr>
+                                                                            <tr class="text-center " ng-show="TablePeriod.Liabilities == undefined || TablePeriod.Liabilities.length == 0">
+                                                                                <td colspan="10" class="empty">
+                                                                                    <img src="@Url.Content("~/")assets/images/icons/icon-list.png" width="60" class="d-block m-auto">
+                                                                                    ไม่พบรายการ
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                        <tfoot>
+                                                                            <tr>
+                                                                                <th></th>
+                                                                                <td class="text-right font-weight-bold" colspan="2">Total Current Liabilities</td>
+                                                                                <td class="text-right font-weight-bold">{{TablePeriod.Footer.Liabilities.Current | number : 2}}</td>
+                                                                                <td class="text-right font-weight-bold text-danger">{{TablePeriod.Footer.Liabilities.Debit | number : 2}}</td>
+                                                                                <td class="text-right font-weight-bold text-danger">{{TablePeriod.Footer.Liabilities.Credit | number : 2}}</td>
+                                                                                <td class="text-right font-weight-bold">{{TablePeriod.Footer.Liabilities.Audit | number : 2}}</td>
+                                                                                <td class="text-right font-weight-bold">{{TablePeriod.Footer.Liabilities.Previous | number : 2}}</td>
+                                                                                <td class="text-right font-weight-bold">{{TablePeriod.Footer.Liabilities.Move | number : 2}}</td>
+                                                                                <td class="text-right font-weight-bold">{{TablePeriod.Footer.Liabilities.Percent | number : 2}}%</td>
+                                                                            </tr>
+                                                                        </tfoot>
+                                                                    </table>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td colspan="10">
+                                                                    <table id="tech-companies-1" class="table-inner  table-striped">
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <td></td>
+                                                                                <td class="font-weight-bold" colspan="10">
+                                                                                    NON-Current Liabilities
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr ng-repeat="values in TablePeriod.NonLiabilities" ng-show="TablePeriod.NonLiabilities != undefined && TablePeriod.NonLiabilities.length >= 1">
+                                                                                <td width="2%">{{values.Seq}}</td>
+                                                                                <td width="15%">{{values.Name}}</td>
+                                                                                <td width="8%" class="text-center text-search"><a ng-click="OnClickAuditFSGroup(values)"><i class="mdi mdi-magnify font-size-18"></i>{{values.Code}}</a></td>
+                                                                                <td width="15%" class="text-right">{{values.Current | number : 2}}</td>
+                                                                                <td width="10%" class="text-right text-danger">{{values.Debit| number : 2}}</td>
+                                                                                <td width="10%" class="text-right text-danger">{{values.Credit| number : 2}}</td>
+                                                                                <td width="10%" class="text-right">{{values.Audit| number : 2}}</td>
+                                                                                <td width="10%" class="text-right">{{values.Previous| number : 2}}</td>
+                                                                                <td width="10%" class="text-right">{{values.Move| number : 2}}</td>
+                                                                                <td width="10%" class="text-right">{{values.Percent| number : 2}}%</td>
+                                                                            </tr>
+                                                                            <tr class="text-center " ng-show="TablePeriod.NonLiabilities == undefined || TablePeriod.NonLiabilities.length == 0">
+                                                                                <td colspan="10" class="empty">
+                                                                                    <img src="@Url.Content("~/")assets/images/icons/icon-list.png" width="60" class="d-block m-auto">
+                                                                                    ไม่พบรายการ
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                        <tfoot>
+                                                                            <tr>
+                                                                                <th></th>
+                                                                                <td class="text-right font-weight-bold" colspan="2">Total Liabilities</td>
+                                                                                <td class="text-right font-weight-bold">{{TablePeriod.Footer.SumLiabilities.Current | number : 2}}</td>
+                                                                                <td class="text-right font-weight-bold text-danger">{{TablePeriod.Footer.SumLiabilities.Debit | number : 2}}</td>
+                                                                                <td class="text-right font-weight-bold text-danger">{{TablePeriod.Footer.SumLiabilities.Credit | number : 2}}</td>
+                                                                                <td class="text-right font-weight-bold">{{TablePeriod.Footer.SumLiabilities.Audit | number : 2}}</td>
+                                                                                <td class="text-right font-weight-bold">{{TablePeriod.Footer.SumLiabilities.Previous | number : 2}}</td>
+                                                                                <td class="text-right font-weight-bold">{{TablePeriod.Footer.SumLiabilities.Move | number : 2}}</td>
+                                                                                <td class="text-right font-weight-bold">{{TablePeriod.Footer.SumLiabilities.Percent | number : 2}}%</td>
+                                                                            </tr>
+                                                                        </tfoot>
+                                                                        <tfoot>
+                                                                            <tr>
+                                                                                <th></th>
+                                                                                <td class="text-right font-weight-bold" colspan="2">Total NON-Current Liabilities</td>
+                                                                                <td class="text-right font-weight-bold">{{TablePeriod.Footer.NonLiabilities.Current | number : 2}}</td>
+                                                                                <td class="text-right font-weight-bold text-danger">{{TablePeriod.Footer.NonLiabilities.Debit | number : 2}}</td>
+                                                                                <td class="text-right font-weight-bold text-danger">{{TablePeriod.Footer.NonLiabilities.Credit | number : 2}}</td>
+                                                                                <td class="text-right font-weight-bold">{{TablePeriod.Footer.NonLiabilities.Audit | number : 2}}</td>
+                                                                                <td class="text-right font-weight-bold">{{TablePeriod.Footer.NonLiabilities.Previous | number : 2}}</td>
+                                                                                <td class="text-right font-weight-bold">{{TablePeriod.Footer.NonLiabilities.Move | number : 2}}</td>
+                                                                                <td class="text-right font-weight-bold">{{TablePeriod.Footer.NonLiabilities.Percent | number : 2}}%</td>
+                                                                            </tr>
+                                                                        </tfoot>
 
+                                                                    </table>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td colspan="10">
+                                                                    <table id="tech-companies-1" class="table-inner  table-striped">
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <td></td>
+                                                                                <td class="font-weight-bold" colspan="10">
+                                                                                    Shareholders' Equity
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr ng-repeat="values in TablePeriod.Shareholder" ng-show="TablePeriod.Shareholder != undefined && TablePeriod.Shareholder.length >= 1">
+                                                                                <td width="2%">{{values.Seq}}</td>
+                                                                                <td width="15%">{{values.Name}}</td>
+                                                                                <td width="8%" class="text-center text-search"><a ng-click="OnClickAuditFSGroup(values)"><i class="mdi mdi-magnify font-size-18"></i>{{values.Code}}</a></td>
+                                                                                <td width="15%" class="text-right">{{values.Current | number : 2}}</td>
+                                                                                <td width="10%" class="text-right text-danger">{{values.Debit| number : 2}}</td>
+                                                                                <td width="10%" class="text-right text-danger">{{values.Credit| number : 2}}</td>
+                                                                                <td width="10%" class="text-right">{{values.Audit| number : 2}}</td>
+                                                                                <td width="10%" class="text-right">{{values.Previous| number : 2}}</td>
+                                                                                <td width="10%" class="text-right">{{values.Move| number : 2}}</td>
+                                                                                <td width="10%" class="text-right">{{values.Percent| number : 2}}%</td>
+                                                                            </tr>
+                                                                            <tr class="text-center " ng-show="TablePeriod.Shareholder == undefined || TablePeriod.Shareholder.length == 0">
+                                                                                <td colspan="10" class="empty">
+                                                                                    <img src="@Url.Content("~/")assets/images/icons/icon-list.png" width="60" class="d-block m-auto">
+                                                                                    ไม่พบรายการ
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                        <tfoot>
+                                                                            <tr>
+                                                                                <th></th>
+                                                                                <td class="text-right font-weight-bold" colspan="2">Total Shareholders' Equity</td>
+                                                                                <td class="text-right font-weight-bold">{{TablePeriod.Footer.Shareholder.Current | number : 2}}</td>
+                                                                                <td class="text-right font-weight-bold text-danger">{{TablePeriod.Footer.Shareholder.Debit | number : 2}}</td>
+                                                                                <td class="text-right font-weight-bold text-danger">{{TablePeriod.Footer.Shareholder.Credit | number : 2}}</td>
+                                                                                <td class="text-right font-weight-bold">{{TablePeriod.Footer.Shareholder.Audit | number : 2}}</td>
+                                                                                <td class="text-right font-weight-bold">{{TablePeriod.Footer.Shareholder.Previous | number : 2}}</td>
+                                                                                <td class="text-right font-weight-bold">{{TablePeriod.Footer.Shareholder.Move | number : 2}}</td>
+                                                                                <td class="text-right font-weight-bold">{{TablePeriod.Footer.Shareholder.Percent | number : 2}}%</td>
+                                                                            </tr>
+                                                                        </tfoot>
+                                                                    </table>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                        <tfoot>
+                                                            <tr>
+                                                                <th></th>
+                                                                <td class="text-right font-weight-bold" colspan="2">Total Liabilities And Shareholders' Equity</td>
+                                                                <td class="text-right font-weight-bold">{{TablePeriod.Footer.SumLiqShare.Current | number : 2}}</td>
+                                                                <td class="text-right font-weight-bold text-danger">{{TablePeriod.Footer.SumLiqShare.Debit | number : 2}}</td>
+                                                                <td class="text-right font-weight-bold text-danger">{{TablePeriod.Footer.SumLiqShare.Credit | number : 2}}</td>
+                                                                <td class="text-right font-weight-bold">{{TablePeriod.Footer.SumLiqShare.Audit | number : 2}}</td>
+                                                                <td class="text-right font-weight-bold">{{TablePeriod.Footer.SumLiqShare.Previous | number : 2}}</td>
+                                                                <td class="text-right font-weight-bold">{{TablePeriod.Footer.SumLiqShare.Move | number : 2}}</td>
+                                                                <td class="text-right font-weight-bold">{{TablePeriod.Footer.SumLiqShare.Percent | number : 2}}%</td>
+                                                            </tr>
+                                                        </tfoot>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-content">
+                                    <div class=" tab-pane card" id="FCI" role="tabpanel">
+                                        <div class="card-body card-body-table card-accordion pt-0">
+                                            <div class="table-rep-plugin">
+                                                <div class="table-responsive mb-0" data-pattern="priority-columns">
+                                                    <table id="tech-companies-1" class="table-data-mulH  table-striped">
+                                                        <thead>
+                                                            <tr class="headerRow">
+                                                                <th width="2%" rowspan="2"></th>
+                                                                <th width="15%" rowspan="2" class="text-center">Name</th>
+                                                                <th width="8%" rowspan="2" class="text-center">W/P No</th>
+                                                                <th width="15%" class="text-center" rowspan="2">Current Year</th>
+                                                                <th width="20%" colspan="2" class="text-center">Adj / Rje</th>
+                                                                <th width="10%" class="text-center" rowspan="2">Per Audit</th>
+                                                                <th width="10%" class="text-center" rowspan="2">Last Year</th>
+                                                                <th width="20%" class="text-center" colspan="2">Movement</th>
+                                                            </tr>
+                                                            <tr class="headerRow">
+                                                                <th width="10%" class="text-center">Dr</th>
+                                                                <th width="10%" class="text-center">Cr</th>
+                                                                <th width="10%" class="text-center">In (de)</th>
+                                                                <th width="10%" class="text-center">%</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td colspan="10">
+                                                                    <table id="tech-companies-1" class="table-inner  table-striped">
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <td></td>
+                                                                                <td class="font-weight-bold" colspan="10">
+                                                                                    Revenues
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr ng-repeat="values in TablePeriod.Revenues" ng-show="TablePeriod.Revenues != undefined && TablePeriod.Revenues.length >= 1">
+                                                                                <td width="2%">{{values.Seq}}</td>
+                                                                                <td width="15%">{{values.Name}}</td>
+                                                                                <td width="8%" class="text-center text-search"><a ng-click="OnClickAuditFSGroup(values)"><i class="mdi mdi-magnify font-size-18"></i>{{values.Code}}</a></td>
+                                                                                <td width="15%" class="text-right">{{values.Current | number : 2}}</td>
+                                                                                <td width="10%" class="text-right text-danger">{{values.Debit| number : 2}}</td>
+                                                                                <td width="10%" class="text-right text-danger">{{values.Credit| number : 2}}</td>
+                                                                                <td width="10%" class="text-right">{{values.Audit| number : 2}}</td>
+                                                                                <td width="10%" class="text-right">{{values.Previous| number : 2}}</td>
+                                                                                <td width="10%" class="text-right">{{values.Move| number : 2}}</td>
+                                                                                <td width="10%" class="text-right">{{values.Percent| number : 2}}%</td>
+                                                                            </tr>
+                                                                            <tr class="text-center " ng-show="TablePeriod.Revenues == undefined || TablePeriod.Revenues.length == 0">
+                                                                                <td colspan="10" class="empty">
+                                                                                    <img src="@Url.Content("~/")assets/images/icons/icon-list.png" width="60" class="d-block m-auto">
+                                                                                    ไม่พบรายการ
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                        <tfoot>
+                                                                            <tr>
+                                                                                <th></th>
+                                                                                <td class="text-right font-weight-bold" colspan="2">Total Revenues</td>
+                                                                                <td class="text-right font-weight-bold">{{TablePeriod.Footer.Revenues.Current | number : 2}}</td>
+                                                                                <td class="text-right font-weight-bold text-danger">{{TablePeriod.Footer.Revenues.Debit | number : 2}}</td>
+                                                                                <td class="text-right font-weight-bold text-danger">{{TablePeriod.Footer.Revenues.Credit | number : 2}}</td>
+                                                                                <td class="text-right font-weight-bold">{{TablePeriod.Footer.Revenues.Audit | number : 2}}</td>
+                                                                                <td class="text-right font-weight-bold">{{TablePeriod.Footer.Revenues.Previous | number : 2}}</td>
+                                                                                <td class="text-right font-weight-bold">{{TablePeriod.Footer.Revenues.Move | number : 2}}</td>
+                                                                                <td class="text-right font-weight-bold">{{TablePeriod.Footer.Revenues.Percent | number : 2}}%</td>
+                                                                            </tr>
+                                                                        </tfoot>
+                                                                    </table>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td colspan="10">
+                                                                    <table id="tech-companies-1" class="table-inner  table-striped">
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <td></td>
+                                                                                <td class="font-weight-bold" colspan="10">
+                                                                                    Expenses
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr ng-repeat="values in TablePeriod.Expenses" ng-show="TablePeriod.Expenses != undefined && TablePeriod.Expenses.length >= 1">
+                                                                                <td width="2%">{{values.Seq}}</td>
+                                                                                <td width="15%">{{values.Name}}</td>
+                                                                                <td width="8%" class="text-center text-search"><a ng-click="OnClickAuditFSGroup(values)"><i class="mdi mdi-magnify font-size-18"></i>{{values.Code}}</a></td>
+                                                                                <td width="15%" class="text-right">{{values.Current | number : 2}}</td>
+                                                                                <td width="10%" class="text-right text-danger">{{values.Debit| number : 2}}</td>
+                                                                                <td width="10%" class="text-right text-danger">{{values.Credit| number : 2}}</td>
+                                                                                <td width="10%" class="text-right">{{values.Audit| number : 2}}</td>
+                                                                                <td width="10%" class="text-right">{{values.Previous| number : 2}}</td>
+                                                                                <td width="10%" class="text-right">{{values.Move| number : 2}}</td>
+                                                                                <td width="10%" class="text-right">{{values.Percent| number : 2}}%</td>
+                                                                            </tr>
+                                                                            <tr class="text-center " ng-show="TablePeriod.Expenses == undefined || TablePeriod.Expenses.length == 0">
+                                                                                <td colspan="10" class="empty">
+                                                                                    <img src="@Url.Content("~/")assets/images/icons/icon-list.png" width="60" class="d-block m-auto">
+                                                                                    ไม่พบรายการ
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                        <tfoot>
+                                                                            <tr>
+                                                                                <th></th>
+                                                                                <td class="text-right font-weight-bold" colspan="2">Earnings Before Financial Cost And Income Tax</td>
+                                                                                <td class="text-right font-weight-bold">{{TablePeriod.Footer.SumEarnings.Current | number : 2}}</td>
+                                                                                <td class="text-right font-weight-bold text-danger">{{TablePeriod.Footer.SumEarnings.Debit | number : 2}}</td>
+                                                                                <td class="text-right font-weight-bold text-danger">{{TablePeriod.Footer.SumEarnings.Credit | number : 2}}</td>
+                                                                                <td class="text-right font-weight-bold">{{TablePeriod.Footer.SumEarnings.Audit | number : 2}}</td>
+                                                                                <td class="text-right font-weight-bold">{{TablePeriod.Footer.SumEarnings.Previous | number : 2}}</td>
+                                                                                <td class="text-right font-weight-bold">{{TablePeriod.Footer.SumEarnings.Move | number : 2}}</td>
+                                                                                <td class="text-right font-weight-bold">{{TablePeriod.Footer.SumEarnings.Percent | number : 2}}%</td>
+                                                                            </tr>
+                                                                        </tfoot>
+                                                                        <tfoot>
+                                                                            <tr>
+                                                                                <th></th>
+                                                                                <td class="text-right font-weight-bold" colspan="2">Total Expenses</td>
+                                                                                <td class="text-right font-weight-bold">{{TablePeriod.Footer.Expenses.Current | number : 2}}</td>
+                                                                                <td class="text-right font-weight-bold text-danger">{{TablePeriod.Footer.Expenses.Debit | number : 2}}</td>
+                                                                                <td class="text-right font-weight-bold text-danger">{{TablePeriod.Footer.Expenses.Credit | number : 2}}</td>
+                                                                                <td class="text-right font-weight-bold">{{TablePeriod.Footer.Expenses.Audit | number : 2}}</td>
+                                                                                <td class="text-right font-weight-bold">{{TablePeriod.Footer.Expenses.Previous | number : 2}}</td>
+                                                                                <td class="text-right font-weight-bold">{{TablePeriod.Footer.Expenses.Move | number : 2}}</td>
+                                                                                <td class="text-right font-weight-bold">{{TablePeriod.Footer.Expenses.Percent | number : 2}}%</td>
+                                                                            </tr>
+                                                                        </tfoot>
+
+                                                                    </table>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td colspan="10">
+                                                                    <table id="tech-companies-1" class="table-inner  table-striped">
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <td></td>
+                                                                                <td class="font-weight-bold" colspan="10">
+                                                                                    Finance Costs
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr ng-repeat="values in TablePeriod.Financecosts" ng-show="TablePeriod.Financecosts != undefined && TablePeriod.Financecosts.length >= 1">
+                                                                                <td width="2%">{{values.Seq}}</td>
+                                                                                <td width="15%">{{values.Name}}</td>
+                                                                                <td width="8%" class="text-center text-search"><a ng-click="OnClickAuditFSGroup(values)"><i class="mdi mdi-magnify font-size-18"></i>{{values.Code}}</a></td>
+                                                                                <td width="15%" class="text-right">{{values.Current | number : 2}}</td>
+                                                                                <td width="10%" class="text-right text-danger">{{values.Debit| number : 2}}</td>
+                                                                                <td width="10%" class="text-right text-danger">{{values.Credit| number : 2}}</td>
+                                                                                <td width="10%" class="text-right">{{values.Audit| number : 2}}</td>
+                                                                                <td width="10%" class="text-right">{{values.Previous| number : 2}}</td>
+                                                                                <td width="10%" class="text-right">{{values.Move| number : 2}}</td>
+                                                                                <td width="10%" class="text-right">{{values.Percent| number : 2}}%</td>
+                                                                            </tr>
+                                                                            <tr class="text-center " ng-show="TablePeriod.Financecosts == undefined || TablePeriod.Financecosts.length == 0">
+                                                                                <td colspan="10" class="empty">
+                                                                                    <img src="@Url.Content("~/")assets/images/icons/icon-list.png" width="60" class="d-block m-auto">
+                                                                                    ไม่พบรายการ
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                        <tfoot>
+                                                                            <tr>
+                                                                                <th></th>
+                                                                                <td class="text-right font-weight-bold" colspan="2">Total Financial Cost And Income Tax</td>
+                                                                                <td class="text-right font-weight-bold">{{TablePeriod.Footer.Financecosts.Current | number : 2}}</td>
+                                                                                <td class="text-right font-weight-bold text-danger">{{TablePeriod.Footer.Financecosts.Debit | number : 2}}</td>
+                                                                                <td class="text-right font-weight-bold text-danger">{{TablePeriod.Footer.Financecosts.Credit | number : 2}}</td>
+                                                                                <td class="text-right font-weight-bold">{{TablePeriod.Footer.Financecosts.Audit | number : 2}}</td>
+                                                                                <td class="text-right font-weight-bold">{{TablePeriod.Footer.Financecosts.Previous | number : 2}}</td>
+                                                                                <td class="text-right font-weight-bold">{{TablePeriod.Footer.Financecosts.Move | number : 2}}</td>
+                                                                                <td class="text-right font-weight-bold">{{TablePeriod.Footer.Financecosts.Percent | number : 2}}%</td>
+                                                                            </tr>
+                                                                        </tfoot>
+                                                                    </table>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                        <tfoot>
+                                                            <tr>
+                                                                <th></th>
+                                                                <td class="text-right font-weight-bold" colspan="2">NET PROFIT (LOSS)</td>
+                                                                <td class="text-right font-weight-bold">{{TablePeriod.Footer.NetProfit.Current | number : 2}}</td>
+                                                                <td class="text-right font-weight-bold text-danger">{{TablePeriod.Footer.NetProfit.Debit | number : 2}}</td>
+                                                                <td class="text-right font-weight-bold text-danger">{{TablePeriod.Footer.NetProfit.Credit | number : 2}}</td>
+                                                                <td class="text-right font-weight-bold">{{TablePeriod.Footer.NetProfit.Audit | number : 2}}</td>
+                                                                <td class="text-right font-weight-bold">{{TablePeriod.Footer.NetProfit.Previous | number : 2}}</td>
+                                                                <td class="text-right font-weight-bold">{{TablePeriod.Footer.NetProfit.Move | number : 2}}</td>
+                                                                <td class="text-right font-weight-bold">{{TablePeriod.Footer.NetProfit.Percent | number : 2}}%</td>
+                                                            </tr>
+                                                        </tfoot>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class=" tab-pane card " id="fslead" role="tabpanel">
+                    <div class="card-body card-body-table">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h4 class="card-title mb-3">
+                                    ข้อมูล FS Lead
+                                </h4>
+                            </div>
+                            <div class="col-md-4 ps-4">
+                                <div class="form-input ">
+                                    <select select2 class="dropdown2 form-control" id="selectfsgroup" ng-change="OnChangeFSGroup()" ng-options="item as item.Code + ' - ' + item.Name for item in Parameter.FSGroup"
+                                            ng-model="Search.SelectFsGroup">
+                                        <option value="" class="text-muted" selected style="display:none">กรุณาเลือก</option>
+                                    </select>
+                                    <label class="form-element-dropdown ml-1" for="name">เลือก W/P No.</label>
+                                    <label class="form-element-required" for="name">* </label>
+                                </div>
+                            </div>
+                            <div class="col-md-12 text-center" ng-show="!TablePeriod.IsShowFSTop">
+                                <img src="@Url.Content("~/")assets/images/icons/icon-list.png" width="60" class="d-block m-autรแีรแo">
+                                อยู่ระหว่างดำเนินการ
+                            </div>
+                            <div class="table-rep-plugin">
+                                <div class="table-responsive mb-0" data-pattern="priority-columns">
+                                    <table id="tech-companies-1" class="table-data-mulH-padding   table-striped">
+                                        <thead>
+                                            <tr class="headerRow">
+                                                <th width="2%" rowspan="2"></th>
+                                                <th width="23%" rowspan="2" class="text-center">A/C Code - Name</th>
+                                                <th width="10%" class="text-center" rowspan="2">Current Year</th>
+                                                <th width="16%" colspan="2" class="text-center">Adj / Rje</th>
+                                                <th width="10%" class="text-center" rowspan="2">Per Audit</th>
+                                                <th width="10%" class="text-center" rowspan="2">Last Year</th>
+                                                <th width="14%" class="text-center" colspan="2">Movement</th>
+                                            </tr>
+                                            <tr class="headerRow">
+                                                <th width="8%" class="text-center">Dr</th>
+                                                <th width="8%" class="text-center">Cr</th>
+                                                <th width="8%" class="text-center">In (de)</th>
+                                                <th width="6%" class="text-center">%</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="values in TablePeriod.AccountSelect" ng-show="TablePeriod.AccountSelect != undefined && TablePeriod.AccountSelect.length > 0">
+                                                <td width="2%">{{values.Seq}}</td>
+                                                <td width="23%">
+                                                    {{values.Code}} - {{values.Name}}
+                                                </td>
+                                                <td width="10%" class="text-right">{{values.Current | number : 2}}</td>
+                                                <td width="8%" class="text-right text-danger">{{values.Debit| number : 2}}</td>
+                                                <td width="8%" class="text-right text-danger">{{values.Credit| number : 2}}</td>
+                                                <td width="10%" class="text-right">{{values.Audit| number : 2}}</td>
+                                                <td width="10%" class="text-right">{{values.Previous| number : 2}}</td>
+                                                <td width="8%" class="text-right">{{values.Move| number : 2}}</td>
+                                                <td width="6%" class="text-right">{{values.Percent| number : 2}}%</td>
+                                            </tr>
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th></th>
+                                                <td class="text-right font-weight-bold" >รวม</td>
+                                                <td class="text-right font-weight-bold">{{TablePeriod.Footer.Current | number : 2}}</td>
+                                                <td class="text-right font-weight-bold text-danger">{{TablePeriod.Footer.Debit | number : 2}}</td>
+                                                <td class="text-right font-weight-bold text-danger">{{TablePeriod.Footer.Credit | number : 2}}</td>
+                                                <td class="text-right font-weight-bold">{{TablePeriod.Footer.Audit | number : 2}}</td>
+                                                <td class="text-right font-weight-bold">{{TablePeriod.Footer.Previous | number : 2}}</td>
+                                                <td class="text-right font-weight-bold">{{TablePeriod.Footer.Move | number : 2}}</td>
+                                                <td class="text-right font-weight-bold">{{TablePeriod.Footer.Percent | number : 2}}%</td>
+                                            </tr>
+                                        </tfoot>
+                                        <tbody>
+                                            <tr class="text-center " ng-show="TablePeriod.AccountSelect == undefined || TablePeriod.AccountSelect.length <= 0">
+                                                <td colspan="9" class="empty">
+                                                    ไม่พบรายการ
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -394,9 +1365,9 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="d-flex flex-wrap  justify-content-end">
-                                    <a type="button" class="btn btn-outline-dark waves-effect waves-light px-4 dropdown-toggle  mx-2" data-bs-toggle="modal" data-bs-target="#myModal2">
-                                        <i class="mdi mdi-file-upload mx-2"></i>อัพโหลดเอกสาร
-                                    </a>
+                                    @*<button type="button" class="btn btn-outline-dark waves-effect waves-light px-4 dropdown-toggle  mx-2" ng-click="OnClickAddDocument()">
+                                    <i class="mdi mdi-file-upload mx-2"></i>อัพโหลดเอกสาร
+                                    </button>*@
                                 </div>
                             </div>
                         </div>
@@ -406,108 +1377,49 @@
                                     <thead>
                                         <tr class="headerRow">
                                             <th></th>
-                                            <th>เลขที่</th>
-                                            <th>ประเภทเอกสาร</th>
-                                            <th>ชื่อเอกสาร</th>
-                                            <th>ขนาดเอกสาร</th>
-                                            <th>ชื่อผู้อัพโหลด</th>
-                                            <th class="text-center">เพิ่มเติม</th>
+                                            <th width="5%">เลขที่</th>
+                                            <th width="20%">รูปแบบเอกสาร</th>
+                                            <th width="20%">ประเภทเอกสาร</th>
+                                            <th width="20%">ชื่อเอกสาร</th>
+                                            <th width="15%">ขนาดเอกสาร</th>
+                                            <th width="15%">วันที่เอกสาร</th>
+                                            @*<th class="text-center">เพิ่มเติม</th>*@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <th>1</th>
-                                            <td width="50px"><span class="text-link">C000001</span></td>
-                                            <td>ใบจดทะเบียนบริษัท</td>
-                                            <td>เอกสารจดทะเบียน.pdf</td>
-                                            <td>1.21 MB</td>
-                                            <td>นายทดสอบ</td>
-                                            <td class="text-center">
-                                                <button type="button" class="btn btn-outline-dark waves-effect waves-light px-3 py-1 dropdown-toggle font-size-15"
-                                                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    ตัวเลือก <i class="mdi mdi-chevron-down"></i>
-                                                </button>
-
-                                                <div class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop1" style="">
-                                                    <a class="dropdown-item font-size-15" href="#"><i class="mdi mdi-open-in-new"></i> ดูเอกสาร</a>
-                                                    <a class="dropdown-item font-size-15" href="#"> <i class="mdi mdi-delete-circle-outline"></i> ลบ</a>
-                                                </div>
+                                        <tr ng-repeat="values in DocumentList | offset: currentPage_1*itemsPerPage_1 | limitTo: itemsPerPage_1  ">
+                                            <th>{{values.Seq}}</th>
+                                            <td width="50px"><span class="text-link">{{values.DocumentListCode}}</span></td>
+                                            <td>{{values.DocumentStyleName}}</td>
+                                            <td>{{values.DocumentTypeName}}</td>
+                                            <td ng-click="OnClickView(values)">
+                                                <i class="mdi mdi-search-web"></i>
+                                                <span ng-show="values.DocumentStyleId == 'DS001'" class="text-link font-size-16">{{values.NameFile}}</span>
+                                                <span ng-show="values.DocumentStyleId == 'DS002'" class="text-link font-size-16">{{values.LinkPath}}</span>
                                             </td>
-                                        </tr>
-                                        <tr>
-                                            <th>1</th>
-                                            <td width="50px"><span class="text-link">C000001</span></td>
-                                            <td>ใบจดทะเบียนบริษัท</td>
-                                            <td>เอกสารจดทะเบียน.pdf</td>
-                                            <td>1.21 MB</td>
-                                            <td>นายทดสอบ</td>
-                                            <td class="text-center">
-                                                <button type="button" class="btn btn-outline-dark waves-effect waves-light px-3 py-1 dropdown-toggle font-size-15"
-                                                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    ตัวเลือก <i class="mdi mdi-chevron-down"></i>
-                                                </button>
-
-                                                <div class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop1" style="">
-                                                    <a class="dropdown-item font-size-15" href="#"><i class="mdi mdi-open-in-new"></i> ดูเอกสาร</a>
-                                                    <a class="dropdown-item font-size-15" href="#"> <i class="mdi mdi-delete-circle-outline"></i> ลบ</a>
-                                                </div>
+                                            <td>
+                                                <span ng-show="values.DocumentStyleId == 'DS001'" class="font-size-16">{{values.Size | number : 2 }} MB.</span>
+                                                <span ng-show="values.DocumentStyleId == 'DS002'" class="font-size-16">-</span>
                                             </td>
-                                        </tr>
-                                        <tr>
-                                            <th>1</th>
-                                            <td width="50px"><span class="text-link">C000001</span></td>
-                                            <td>ใบจดทะเบียนบริษัท</td>
-                                            <td>เอกสารจดทะเบียน.pdf</td>
-                                            <td>1.21 MB</td>
-                                            <td>นายทดสอบ</td>
-                                            <td class="text-center">
-                                                <button type="button" class="btn btn-outline-dark waves-effect waves-light px-3 py-1 dropdown-toggle font-size-15"
-                                                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    ตัวเลือก <i class="mdi mdi-chevron-down"></i>
-                                                </button>
+                                            <td>{{values.CreatedOn}}</td>
+                                            @*<td class="text-center">
+                                            <button type="button" class="btn btn-outline-dark waves-effect waves-light px-3 py-1 dropdown-toggle font-size-15"
+                                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            ตัวเลือก <i class="mdi mdi-chevron-down"></i>
+                                            </button>
 
-                                                <div class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop1" style="">
-                                                    <a class="dropdown-item font-size-15" href="#"><i class="mdi mdi-open-in-new"></i> ดูเอกสาร</a>
-                                                    <a class="dropdown-item font-size-15" href="#"> <i class="mdi mdi-delete-circle-outline"></i> ลบ</a>
-                                                </div>
-                                            </td>
+                                            <div class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop1" style="">
+                                            <a ng-show="values.CreatedBy == Profiles.UserId" class="dropdown-item font-size-15 a-status-danger  cursor-pointer"
+                                            ng-click="OnClickDelete(values)"> <i class="mdi mdi-delete-circle-outline"></i> ลบ</a>
+                                            </div>
+                                            </td>*@
                                         </tr>
-                                        <tr>
-                                            <th>1</th>
-                                            <td width="50px"><span class="text-link">C000001</span></td>
-                                            <td>ใบจดทะเบียนบริษัท</td>
-                                            <td>เอกสารจดทะเบียน.pdf</td>
-                                            <td>1.21 MB</td>
-                                            <td>นายทดสอบ</td>
-                                            <td class="text-center">
-                                                <button type="button" class="btn btn-outline-dark waves-effect waves-light px-3 py-1 dropdown-toggle font-size-15"
-                                                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    ตัวเลือก <i class="mdi mdi-chevron-down"></i>
-                                                </button>
-
-                                                <div class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop1" style="">
-                                                    <a class="dropdown-item font-size-15" href="#"><i class="mdi mdi-open-in-new"></i> ดูเอกสาร</a>
-                                                    <a class="dropdown-item font-size-15" href="#"> <i class="mdi mdi-delete-circle-outline"></i> ลบ</a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>1</th>
-                                            <td width="50px"><span class="text-link">C000001</span></td>
-                                            <td>ใบจดทะเบียนบริษัท</td>
-                                            <td>เอกสารจดทะเบียน.pdf</td>
-                                            <td>1.21 MB</td>
-                                            <td>นายทดสอบ</td>
-                                            <td class="text-center">
-                                                <button type="button" class="btn btn-outline-dark waves-effect waves-light px-3 py-1 dropdown-toggle font-size-15"
-                                                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    ตัวเลือก <i class="mdi mdi-chevron-down"></i>
-                                                </button>
-
-                                                <div class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop1" style="">
-                                                    <a class="dropdown-item font-size-15" href="#"><i class="mdi mdi-open-in-new"></i> ดูเอกสาร</a>
-                                                    <a class="dropdown-item font-size-15" href="#"> <i class="mdi mdi-delete-circle-outline"></i> ลบ</a>
-                                                </div>
+                                    </tbody>
+                                    <tbody ng-show="DocumentList == undefined || DocumentList.length == 0">
+                                        <tr class="text-center ">
+                                            <td colspan="7" class="empty">
+                                                <img src="@Url.Content("~/")assets/images/icons/icon-list.png" width="60" class="d-block m-auto">
+                                                ไม่พบรายการ
                                             </td>
                                         </tr>
                                     </tbody>
@@ -516,26 +1428,30 @@
                                 <div class="d-flex justify-content-end">
                                     <div data-v-e8100c36="" class="numberShow">
                                         <p class="mr-2 mx-2 mb-0 font-size-16">แสดง</p>
-                                        <select class="day form-control form-select form-select-sm" style="width: auto;">
-                                            <option selected value="10">10</option>
+                                        <select class="day form-control form-select form-select-sm" style="width: auto;" ng-change="OnClickChangePageTotal_1()" ng-model="itemsPerPage_1">
+                                            <option value="10">10</option>
+                                            <option value="20">20</option>
                                             <option value="50">50</option>
-                                            <option value="3">100</option>
+                                            <option value="100">100</option>
                                         </select>
                                         <div data-v-76901dc6="" class="selectInputDropdown noLabel" style="width: 100%;">
                                             <p class="mr-2 mx-2 mb-0 font-size-16">รายการ</p>
                                         </div>
                                     </div>
                                     <div data-v-e8100c36="" class="page-data">
-                                        <div data-v-e8100c36="" class="prevArrow disabled">
+                                        <div data-v-e8100c36="" class="prevArrow" ng-class="prevPageDisabled_1()" ng-click="prevPage_1()">
                                             <i data-v-e8100c36="" class="fa fa-chevron-left"></i>
                                         </div>
                                         <p data-v-e8100c36="" class="mr-2 mx-2 mb-0 font-size-16">หน้า</p>
-                                        <select class="day form-control form-select form-select-sm" style="width: auto;"><option value=""></option><option selected value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option></select>
-                                        <div data-v-e8100c36="" class="nextArrow disabled"><i data-v-e8100c36="" class="fa fa-chevron-right"></i></div>
+                                        <select class="day form-control form-select form-select-sm" style="width: auto;" ng-options="item as item.name for item in retpage_1" ng-model="changePages_1" ng-change="setPage_1(item)">
+                                            @*<option ng-repeat="rows in retpage" value="{{rows.code}}" >{{rows.name}}</option>*@
+                                        </select>
+                                        <div data-v-e8100c36="" class="nextArrow" ng-class="nextPageDisabled_1()" ng-click="nextPage_1()">
+                                            <i data-v-e8100c36="" class="fa fa-chevron-right"></i>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -554,84 +1470,74 @@
                                     <thead>
                                         <tr class="headerRow">
                                             <th></th>
-                                            <th width="200px">รายละเอียด</th>
-                                            <th>วิธีแก้ไข</th>
-                                            <th class="text-center">สถานะ</th>
-                                            <th>ผู้รับผิดชอบ</th>
-                                            <th>วันที่เพิ่มข้อมูล</th>
-                                            <th class="text-center">เพิ่มเติม</th>
+                                            <th width="10%">รหัสอ้างอิง</th>
+                                            <th width="20%">รายละเอียด</th>
+                                            <th width="20%">วิธีแก้ไข</th>
+                                            <th class="text-center" width="10%">สถานะ</th>
+                                            <th class="text-center" width="10%">วันที่เพิ่มข้อมูล</th>
+                                            <th width="10%" class="text-center">เพิ่มเติม</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <th>1</th>
-                                            <td>เอกสารไม่ครบ เลขที่บัญชีไม่ตรงกับ Account No</td>
-                                            <td>อัพโหลดเอกสารใหม่</td>
-                                            <td class="text-center"><span class="badge bg-success font-size-16">ดำเนินการเรียบร้อย</span></td>
-                                            <td>นายทดสอบระบบ</td>
-                                            <td>15/10/2565 12:45</td>
+                                        <tr ng-repeat="values in AuditIssue | offset: currentPage_2*itemsPerPage_2 | limitTo: itemsPerPage_2  ">
+                                            <th>{{values.Seq}}</th>
+                                            <td ng-click="OnClickTableIssue(values)" width="50px"><span class="text-link">{{values.AuditIssueRefCode}}</span></td>
+                                            <td> <div class="text-long">{{values.Issue}}</div></td>
+                                            <td> <div class="text-long">{{values.Solution}}</div></td>
                                             <td class="text-center">
-                                                <button type="button" class="btn btn-outline-dark waves-effect waves-light px-3 py-1 dropdown-toggle font-size-15"
-                                                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    ตัวเลือก <i class="mdi mdi-chevron-down"></i>
-                                                </button>
-
-                                                <div class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop1" style="">
-                                                    <a class="dropdown-item font-size-15" href="#"><i class="mdi mdi-circle-edit-outline"></i> ดูข้อมูล</a>
-                                                </div>
+                                                <span ng-show="values.IsStatus == 'Complete'" class="badge bg-success font-size-16">ดำเนินการเรียบร้อย</span>
+                                                <span ng-show="values.IsStatus == 'Wait'" class="badge bg-info font-size-16">รอดำเนินการ</span>
+                                                <span ng-show="values.IsStatus == 'Cancel'" class="badge bg-danger font-size-16">ยกเลิกรายการ</span>
                                             </td>
-                                        </tr>
-                                        <tr>
-                                            <th>1</th>
-                                            <td>เอกสารไม่ครบ เลขที่บัญชีไม่ตรงกับ Account No</td>
-                                            <td></td>
-                                            <td class="text-center"><span class="badge bg-info font-size-16">รอดำเนินการ</span></td>
-                                            <td>นายทดสอบระบบ</td>
-                                            <td>15/10/2565 12:45</td>
+                                            <td class="text-center">{{values.CreatedOn}}</td>
                                             <td class="text-center">
-                                                <button type="button" class="btn btn-outline-dark waves-effect waves-light px-3 py-1 dropdown-toggle font-size-15"
+                                                <button type="button" class="btn btn-outline-dark waves-effect waves-light px-3 py-1 dropdown-toggle font-size-15" ng-hide="TablePeriod.AccountSelect.Status == 'Confirm'"
                                                         data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                     ตัวเลือก <i class="mdi mdi-chevron-down"></i>
                                                 </button>
 
                                                 <div class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop1" style="">
-                                                    <a class="dropdown-item font-size-15" href="#"><i class="mdi mdi-circle-edit-outline"></i> ดูข้อมูล</a>
+                                                    <a class="dropdown-item font-size-15" ng-click="OnClickTableIssue(values)"><i class="mdi mdi-circle-edit-outline"></i> แก้ไข</a>
                                                 </div>
                                             </td>
                                         </tr>
                                     </tbody>
-                                    @*<tbody>
-                    <tr class="text-center ">
-                        <td colspan="6" class="empty">
-                            ไม่พบรายการ
-                        </td>
-                    </tr>
-                </tbody>*@
+                                    <tbody ng-show="AuditIssue == undefined || AuditIssue.length == 0">
+                                        <tr class="text-center ">
+                                            <td colspan="8" class="empty">
+                                                <img src="@Url.Content("~/")assets/images/icons/icon-list.png" width="60" class="d-block m-auto">
+                                                ไม่พบรายการ
+                                            </td>
+                                        </tr>
+                                    </tbody>
                                 </table>
                                 <hr />
                                 <div class="d-flex justify-content-end">
                                     <div data-v-e8100c36="" class="numberShow">
                                         <p class="mr-2 mx-2 mb-0 font-size-16">แสดง</p>
-                                        <select class="day form-control form-select form-select-sm" style="width: auto;">
-                                            <option selected value="10">10</option>
+                                        <select class="day form-control form-select form-select-sm" style="width: auto;" ng-change="OnClickChangePageTotal_2()" ng-model="itemsPerPage_2">
+                                            <option value="10">10</option>
+                                            <option value="22">20</option>
                                             <option value="50">50</option>
-                                            <option value="3">100</option>
+                                            <option value="100">100</option>
                                         </select>
                                         <div data-v-76901dc6="" class="selectInputDropdown noLabel" style="width: 100%;">
                                             <p class="mr-2 mx-2 mb-0 font-size-16">รายการ</p>
                                         </div>
                                     </div>
                                     <div data-v-e8100c36="" class="page-data">
-                                        <div data-v-e8100c36="" class="prevArrow disabled">
+                                        <div data-v-e8100c36="" class="prevArrow" ng-class="prevPageDisabled_2()" ng-click="prevPage_2()">
                                             <i data-v-e8100c36="" class="fa fa-chevron-left"></i>
                                         </div>
                                         <p data-v-e8100c36="" class="mr-2 mx-2 mb-0 font-size-16">หน้า</p>
-                                        <select class="day form-control form-select form-select-sm" style="width: auto;"><option value=""></option><option selected value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option></select>
-                                        <div data-v-e8100c36="" class="nextArrow disabled"><i data-v-e8100c36="" class="fa fa-chevron-right"></i></div>
+                                        <select class="day form-control form-select form-select-sm" style="width: auto;" ng-options="item as item.name for item in retpage_2" ng-model="changePages_2" ng-change="setPage_2(item)">
+                                        </select>
+                                        <div data-v-e8100c36="" class="nextArrow" ng-class="nextPageDisabled_2()" ng-click="nextPage_2()">
+                                            <i data-v-e8100c36="" class="fa fa-chevron-right"></i>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -640,15 +1546,13 @@
     </div>
 
     <div class="row">
-
-
     </div> <!-- container-fluid -->
 </div>
 
 
 <!-- sample modal content -->
-<div id="myModal2" class="modal fade" tabindex="-1" role="dialog"
-     aria-labelledby="myModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+<div id="ModalDocument" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
     <div class="modal-dialog  modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
@@ -665,41 +1569,73 @@
                     </div>
                     <div class="col-md-4 ">
                         <div class="form-input">
-                            <input id="name" class="form-element-input form-element-input-show" type="input" placeholder="กรุณาระบุรหัส" required />
+                            <input id="name" class="form-element-input" type="text" placeholder="กรุณาระบุรหัส" ng-model="TableAdd.RefCode" />
                             <div class="form-element-bar"></div>
-                            <label class="form-element-label" for="name">เลขที่</label>
+                            <label class="form-element-label" for="name">รหัสอ้างอิง</label>
                             <label class="form-element-required" for="name">* </label>
                         </div>
                     </div>
                 </div>
                 <div class="row py-2">
                     <div class="col-lg-12 pl-0">
-                        <div class="form-input">
-                            <select class="dropdown1 form-control" id="exampleFormControlSelect322">
+                        <div class="form-input ">
+                            <select select2 class="dropdown2 form-control" id="exampleFormControlSelect2" ng-options="item as item.Name for item in Parameter.DocumentStyle"
+                                    ng-model="TableAdd.SelectDocumentStyle" ng-disabled="TableAdd.DocumentListId != undefined">
                                 <option value="" class="text-muted" selected style="display:none">กรุณาเลือก</option>
                             </select>
-                            <label class="form-element-dropdown" for="name">หมวดหมู่เอกสาร</label>
+                            <label class="form-element-dropdown" for="name">รูปแบบเอกสาร</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row py-2">
+                    <div class="col-lg-12 pl-0">
+                        <div class="form-input ">
+                            <select select2 class="dropdown2 form-control" id="exampleFormControlSelect2" ng-options="item as item.Name for item in Parameter.DocumentType"
+                                    ng-model="TableAdd.SelectDocumentType">
+                                <option value="" class="text-muted" selected style="display:none">กรุณาเลือก</option>
+                            </select>
+                            <label class="form-element-dropdown" for="name">ประเภทเอกสาร</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row py-2" ng-show="TableAdd.SelectDocumentStyle.Code == 'DS001' || TableAdd.SelectDocumentStyle == undefined">
+                    <div class="col-lg-12 pl-0">
+                        <div class="form-input">
+                            <input id="product_thumnail" type="file" ngf-select="UploadFiles($files)"
+                                   data-max-file-size="3M" data-allowed-file-extensions="jpg png jpeg" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row py-2" ng-show="TableAdd.SelectDocumentStyle.Code == 'DS002'">
+                    <div class="col-lg-12 pl-0">
+                        <div class="form-input">
+                            <input class="form-element-input" type="url" placeholder="example* ( https://example.com )" ng-model="TableAdd.LinkPath" />
+                            <div class="form-element-bar"></div>
+                            <label class="form-element-label">ลิ้งค์</label>
+                            <label class="form-element-required">* </label>
                         </div>
                     </div>
                 </div>
                 <div class="row py-2">
                     <div class="col-lg-12 pl-0">
                         <div class="form-input">
-                            <input id="product_thumnail1" type="file" ngf-select="UploadFiles($files)"
-                                   data-max-file-size="3M" data-allowed-file-extensions="jpg png jpeg" />
+                            <textarea rows="5" id="name" class="form-element-input form-element-input-textarea" type="text" placeholder="กรุณาระบุหมายเหตุ" ng-model="TableAdd.Remark"></textarea>
+                            <div class="form-element-bar"></div>
+                            <label class="form-element-label" for="name">หมายเหตุ (ถ้ามี)</label>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-light waves-effect px-5 py-2" data-bs-dismiss="modal">ยกเลิก</button>
-                <button type="button" class="btn btn-primary waves-effect waves-light px-4 py-2 dropdown-toggle"
-                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    อัพโหลด <i class="mdi mdi-chevron-down"></i>
-                </button>
-
-                <div class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop1" style="">
-                    <a class="dropdown-item" href="#">อัพโหลด และทำรายการใหม่</a>
+                <button type="button" class="btn btn-light waves-effect px-5 py-2" data-bs-dismiss="modal" aria-label="Close">ยกเลิก</button>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary  waves-effect waves-light px-3 py-2 aksorn f-1-2" ng-click="OnClickSaveDocument()">บันทึกเอกสาร</button>
+                    <button type="button" class="btn btn-primary   waves-effect waves-light px-2 py-1 dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="mdi mdi-chevron-down"></i>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop1" style="">
+                        <a class="dropdown-item cursor-pointer" ng-click="OnClickSaveDocument('back')">บันทึก และย้อนกลับ</a>
+                    </div>
                 </div>
             </div>
         </div><!-- /.modal-content -->
@@ -737,3 +1673,94 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+<!-- sample modal content -->
+<div id="ModalIssue" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog  modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title mt-0" id="myModalLabel">
+                    Audit Issue
+                </h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h4 class="card-title mt-2 font-size-16 font-weight-bold">รายละเอียดข้อมูล</h4>
+                    </div>
+                    <div class="col-md-4 ">
+                        <div class="form-input">
+                            <input id="name" disabled class="form-element-input form-element-input-show" type="text" placeholder="กรุณาระบุรหัส" ng-model="TableAdd.AuditIssueRefCode" />
+                            <div class="form-element-bar"></div>
+                            <label class="form-element-label" for="name">รหัส</label>
+                            <label class="form-element-required" for="name">* </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row py-2">
+                    <div class="col-lg-12 pl-0">
+                        <div class="form-input">
+                            <textarea rows="5" disabled id="name" class="form-element-input form-element-input-show form-element-input-textarea" type="input" placeholder="กรุณาระบุรายละเอียด" ng-model="TableAdd.Issue"></textarea>
+                            <div class="form-element-bar"></div>
+                            <label class="form-element-label" for="name">รายละเอียด</label>
+                            <label class="form-element-required" for="name">* </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row py-2">
+                    <div class="col-lg-12 pl-0">
+                        <div class="form-input">
+                            <textarea rows="5" id="name" ng-disabled="TableAdd.IsStatus != 'Wait'" class="form-element-input form-element-input-show form-element-input-textarea" type="input" placeholder="กรุณาระบุวิธีการแก้ไข" ng-model="TableAdd.Solution"></textarea>
+                            <div class="form-element-bar"></div>
+                            <label class="form-element-label" for="name">วิธีการแก้ไข</label>
+                            <label class="form-element-required" for="name">* </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light waves-effect px-5 py-2" data-bs-dismiss="modal" aria-label="Close">ยกเลิก</button>
+                <div class="btn-group" ng-show="TableAdd.IsStatus == 'Wait'">
+                    <button type="button" class="btn btn-primary  waves-effect waves-light px-3 py-2 aksorn f-1-2" ng-click="OnClickSaveIssue()">บันทึกข้อมูล</button>
+                    <button type="button" class="btn btn-primary   waves-effect waves-light px-2 py-1 dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="mdi mdi-chevron-down"></i>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop1" style="">
+                        <a class="dropdown-item cursor-pointer" ng-click="OnClickSaveIssue('back')">บันทึก และย้อนกลับ</a>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- Confirm -->
+<div id="ModalConfirm" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog  modal-dialog-scrollable">
+        <div class="modal-content modal-sm">
+            <div class="modal-header">
+                <h2 class="modal-title mt-0" id="myModalLabel">
+                    ยืนยันทำรายการ
+                </h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3 class="card-title mt-2 font-size-16 font-weight-bold">ยืนยันทำรายการลบข้อมูล</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light waves-effect px-5 py-2" data-bs-dismiss="modal">ยกเลิก</button>
+                <button type="button" class="btn btn-primary waves-effect waves-light px-5 py-2" ng-click="OnClickConfirmAll()">
+                    ยืนยัน
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>

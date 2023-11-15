@@ -8,7 +8,14 @@
       "TRACE",
       "DEBUG",
       "NETCOREAPP",
-      "NETCOREAPP3_1"
+      "NETCOREAPP3_1",
+      "NETCOREAPP1_0_OR_GREATER",
+      "NETCOREAPP1_1_OR_GREATER",
+      "NETCOREAPP2_0_OR_GREATER",
+      "NETCOREAPP2_1_OR_GREATER",
+      "NETCOREAPP2_2_OR_GREATER",
+      "NETCOREAPP3_0_OR_GREATER",
+      "NETCOREAPP3_1_OR_GREATER"
     ],
     "languageVersion": "8.0",
     "platform": "",
@@ -38,7 +45,7 @@
           "System.ServiceModel.Http": "4.4.4",
           "System.ServiceModel.NetTcp": "4.4.4",
           "System.ServiceModel.Security": "4.4.4",
-          "IMauchlyCore": "1.0.4.0",
+          "IMauchlyCore": "1.0.5.0",
           "Microsoft.AspNetCore.Antiforgery": "3.1.0.0",
           "Microsoft.AspNetCore.Authentication.Abstractions": "3.1.0.0",
           "Microsoft.AspNetCore.Authentication.Cookies": "3.1.0.0",
@@ -2371,11 +2378,11 @@
           "Repository.dll": {}
         }
       },
-      "IMauchlyCore/1.0.4.0": {
+      "IMauchlyCore/1.0.5.0": {
         "runtime": {
           "IMauchlyCore.dll": {
-            "assemblyVersion": "1.0.4.0",
-            "fileVersion": "1.0.4.0"
+            "assemblyVersion": "1.0.5.0",
+            "fileVersion": "1.0.5.0"
           }
         },
         "compile": {
@@ -5283,7 +5290,7 @@
       "serviceable": false,
       "sha512": ""
     },
-    "IMauchlyCore/1.0.4.0": {
+    "IMauchlyCore/1.0.5.0": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""

@@ -1,4 +1,4 @@
-﻿angular.module('FOCUSAPP').controller('LoginController', function ($scope, $http, $timeout, GlobalVar, $q,$state) {
+﻿angular.module('FOCUSAPP').controller('LoginController', function ($scope, $http, $timeout, GlobalVar, $q, $state) {
     var baseURL = $("base")[0].href;//$("base").attr("href");
     var config = GlobalVar.HeaderConfig;
     $scope.Login = {};
@@ -59,46 +59,53 @@
     }
 
     $scope.OnClickLogin = function () {
-        $state.go('customerlist');
-       // window.location.href = baseURL + "Home/Default";
+        //$state.go('customerdashboard');
+         // window.location.href = baseURL + "Home/Default";
         try {
             if ($scope.Login.Email == undefined || $scope.Login.Email == '')
                 throw "กรุณากรอกอีเมล";
             else if ($scope.Login.Password == undefined || $scope.Login.Password == '')
                 throw "กรุณากรอกรหัสผ่าน";
             else {
-            //    if (typeof (grecaptcha) != 'undefined') {
-            //        var response = grecaptcha.getResponse();
-            //        (response.length === 0) ? (message = 'Captcha verification failed') : (message = 'Success!');
-            //    }
-            //    if (message == 'Success!') {
-            //        $("#loading").fadeIn();
-                    var data = {
-                        Email: $scope.Login.Email,
-                        Password: $scope.Login.Password
-                    };
-                    $http.post(baseURL + "Authen/Login", data, config).then(
-                        function (response) {
-                            try {
-                                if (response != undefined && response != "") {
-                                    if (response.data.responsecode == 200) {
-                                        $scope.Data = response.data.responsedata;
-                                        if ($scope.Data != undefined && $scope.Data.PermissionData.length > 1)
-                                            window.location.href = "#/RoleList";
+                //    if (typeof (grecaptcha) != 'undefined') {
+                //        var response = grecaptcha.getResponse();
+                //        (response.length === 0) ? (message = 'Captcha verification failed') : (message = 'Success!');
+                //    }
+                //    if (message == 'Success!') {
+                //        $("#loading").fadeIn();
+                var data = {
+                    Email: $scope.Login.Email,
+                    Password: $scope.Login.Password
+                };
+                $http.post(baseURL + "Authen/Login", data, config).then(
+                    function (response) {
+                        try {
+                            if (response != undefined && response != "") {
+                                if (response.data.responsecode == 200) {
+                                    $scope.Data = response.data.responsedata;
+                                    if ($scope.Data != undefined && $scope.Data.PermissionData.length > 1)
+                                        window.location.href = "#/RoleList";
+                                    else {
+                                        if ($scope.Data.PermissionCodeActive == 'ASSIS001' || $scope.Data.PermissionCodeActive == 'ASSIS002' || $scope.Data.PermissionCodeActive == 'AUDIT001'
+                                            || $scope.Data.PermissionCodeActive == 'MAG001')
+                                            $state.go('customerdashboard');
+                                        else if ($scope.Data.PermissionCodeActive == 'CUS001' )
+                                            window.location.href = baseURL + "Home/Default";
                                         else
                                             window.location.href = baseURL + "Home/Default";
                                     }
-                                    else {
-                                        $("#loading").fadeOut();
-                                        showErrorToast(response.data.errormessage);
-                                    }
+                                }
+                                else {
+                                    $("#loading").fadeOut();
+                                    showErrorToast(response.data.errormessage);
                                 }
                             }
-                            catch (err) {
-                                $("#loading").fadeOut();
-                                showErrorToast(err);
-                            }
-                        });
+                        }
+                        catch (err) {
+                            $("#loading").fadeOut();
+                            showErrorToast(err);
+                        }
+                    });
                 //}
                 //else {
                 //    throw "กรุณาตรวจสอบโปรแรกมอัตโนมัติ (Captcha)";

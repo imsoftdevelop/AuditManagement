@@ -13,6 +13,7 @@ angular.module('FOCUSAPP').controller('FOCUSAPPController', function ($rootScope
 
     $scope.init = function () {
         try {
+           
             $http.get(baseURL + "Home/GetProfilesPages?ref_key=" + makeid())
                 .then(function (response) {
                     if (response.data.responsecode == '200' && response.data.responsedata != undefined && response.data.responsedata != "") {

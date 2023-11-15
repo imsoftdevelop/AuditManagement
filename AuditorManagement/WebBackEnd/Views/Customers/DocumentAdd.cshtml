@@ -1,68 +1,8 @@
 ﻿@{
-    Layout = "_LayoutCustomer";
-}
-@section RenderScriptWithPage
-    {
-    <script src="~/assets/libs/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
-    <script src="~/assets/libs/bootstrap-datepicker/bootstrap-datepicker.th.min.js"></script>
-    <script>
-        $('.form-element-input').change(function () {
-            if ($(this).val()) {
-                $(this).addClass('hasValue');
-            } else {
-                $(this).removeClass('hasValue');
-            }
-        });
-
-        $('.form-element-input-show').addClass('hasValue');
-
-
-        (function ($) {
-
-            $('.dropdown1').select2();
-            $('.dropdown5').select2();
-            $('.dropdown2').select2();
-            $('.dropdown3').select2();
-            $('.dropdown4').select2();
-
-            if ($("#inputreceivechaque-popup").length) {
-                $('#inputreceivechaque-popup').datepicker({
-                    enableOnReadonly: true,
-                    todayHighlight: true,
-                    autoclose: true
-                });
-            }
-
-            $("#product_thumnail").addClass('dropify');
-            $("#product_thumnail1").addClass('dropify');
-
-            //var publicpath_identity_picture = path;
-
-            var drEvent = $('.dropify').dropify();
-            //drEvent.on('dropify.afterClear', function (event, element) {
-            //    $scope.DeleteImages = 1;
-            //});
-            drEvent = drEvent.data('dropify');
-            drEvent.resetPreview();
-            drEvent.clearElement();
-            drEvent.settings.defaultFile = publicpath_identity_picture;
-            drEvent.destroy();
-
-            drEvent.init();
-
-            //$('.dropify#identity_picture').dropify({
-            //    defaultFile: publicpath_identity_picture
-            //});
-
-        })(jQuery);
-
-
-
-    </script>
-
+    Layout = null;
 }
 
-<div class="container-fluid">
+<div class="container-fluid" data-ng-init="initAdd()">
 
     <div class="row">
         <div class="col-sm-12">
@@ -89,7 +29,7 @@
 
                         <div class="col-lg-3 pl-0">
                             <div class="form-input">
-                                <input id="name" class="form-element-input" type="input" placeholder="" required />
+                                <input id="name" class="form-element-input" type="text" placeholder="กรุณาระบุรหัส" ng-model="TableAdd.DocumentListCode" />
                                 <div class="form-element-bar"></div>
                                 <label class="form-element-label" for="name">รหัสเอกสาร</label>
                                 <label class="form-element-required" for="name">* </label>
@@ -103,25 +43,46 @@
                         <div class="col-md-4">
                             <h4 class="card-title mb-2 font-weight-bold h4-flex"><i data-v-4e8aa93a="" class="color-circle"></i>ข้อมูลเเอกสาร</h4>
                         </div>
-                        <div class="col-lg-8 pl-0">
+                        <div class="col-lg-4 pl-0">
                             <div class="form-input ">
-                                <select class="dropdown2 form-control" id="exampleFormControlSelect2">
+                                <select select2 class="dropdown2 form-control" id="exampleFormControlSelect2" ng-options="item as item.Name for item in Parameter.DocumentStyle"
+                                        ng-model="TableAdd.SelectDocumentStyle" ng-disabled="TableAdd.DocumentListId != undefined">
                                     <option value="" class="text-muted" selected style="display:none">กรุณาเลือก</option>
-                                    <option value="">บริษัทจำกัด</option>
-                                    <option value="">ห้างหุ้นส่วน</option>
                                 </select>
-                                <label class="form-element-dropdown" for="name">หมวดหมู่เอกสาร</label>
+                                <label class="form-element-dropdown" for="name">รูปแบบเอกสาร</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 pl-0">
+                            <div class="form-input ">
+                                <select select2 class="dropdown2 form-control" id="exampleFormControlSelect2" ng-options="item as item.Name for item in Parameter.DocumentType"
+                                        ng-model="TableAdd.SelectDocumentType">
+                                    <option value="" class="text-muted" selected style="display:none">กรุณาเลือก</option>
+                                </select>
+                                <label class="form-element-dropdown" for="name">ประเภทเอกสาร</label>
                             </div>
                         </div>
                     </div>
                     <hr />
-                    <div class="row  row-form ">
+                    <div class="row  row-form " ng-show="TableAdd.SelectDocumentStyle.Code == 'DS001' || TableAdd.SelectDocumentStyle == undefined">
                         <div class="col-md-4">
                             <h4 class="card-title mb-2 font-weight-bold h4-flex"><i class="color-circle"></i>อัพโหลด</h4>
                         </div>
                         <div class="col-lg-8 pl-0">
-                            <input id="product_thumnail1" type="file" ngf-select="UploadFiles($files)"
-                                   data-max-file-size="3M" data-allowed-file-extensions="jpg png jpeg" />
+                            <input id="product_thumnail" type="file" ngf-select="UploadFiles($files)"
+                                   data-max-file-size="3M" data-allowed-file-extensions="jpg png jpeg pdf xlsx xls" ng-disabled="TableAdd.DocumentListId != undefined" />
+                        </div>
+                    </div>
+                    <div class="row  row-form " ng-show="TableAdd.SelectDocumentStyle.Code == 'DS002'">
+                        <div class="col-md-4">
+                            <h4 class="card-title mb-2 font-weight-bold h4-flex"><i class="color-circle"></i>แหล่งที่มาข้อมูล</h4>
+                        </div>
+                        <div class="col-lg-8 pl-0">
+                            <div class="form-input">
+                                <input class="form-element-input" type="url" placeholder="example* ( https://example.com )" ng-model="TableAdd.LinkPath" />
+                                <div class="form-element-bar"></div>
+                                <label class="form-element-label">ลิ้งค์</label>
+                                <label class="form-element-required">* </label>
+                            </div>
                         </div>
                     </div>
                     <hr />
@@ -131,7 +92,7 @@
                         </div>
                         <div class="col-lg-8 pl-0">
                             <div class="form-input">
-                                <textarea rows="5" id="name" class="form-element-input form-element-input-textarea" type="input" placeholder="กรุณาระบุหมายเหตุ" required></textarea>
+                                <textarea rows="5" id="name" class="form-element-input form-element-input-textarea" type="text" placeholder="กรุณาระบุหมายเหตุ" ng-model="TableAdd.Remark"></textarea>
                                 <div class="form-element-bar"></div>
                                 <label class="form-element-label" for="name">หมายเหตุ (ถ้ามี)</label>
                             </div>
@@ -140,15 +101,15 @@
                     <div class="row mt-5">
                         <div class="col-md-12">
                             <div class="d-flex flex-wrap gap-3 justify-content-end">
-                                <button type="button" class="btn btn-light waves-effect px-5 py-2">ยกเลิก</button>
-                                <button type="button" class="btn btn-primary waves-effect waves-light px-4 py-2 dropdown-toggle"
-                                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    บันทึกข้อมูล <i class="mdi mdi-chevron-down"></i>
-                                </button>
-
-                                <div class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop1" style="">
-                                    <a class="dropdown-item" href="#">บันทึก และทำรายการใหม่</a>
-                                    <a class="dropdown-item" href="#">บันทึก และย้อนกลับ</a>
+                                <button type="button" class="btn btn-light waves-effect px-5 py-2" ui-sref="customer-documentlist">ยกเลิก</button>
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-primary  waves-effect waves-light px-3 py-2 aksorn f-1-2" ng-click="OnClickSave()">บันทึกเอกสาร</button>
+                                    <button type="button" class="btn btn-primary   waves-effect waves-light px-2 py-1 dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="mdi mdi-chevron-down"></i>
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop1" style="">
+                                        <a class="dropdown-item cursor-pointer" ng-click="OnClickSave('back')">บันทึก และย้อนกลับ</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>

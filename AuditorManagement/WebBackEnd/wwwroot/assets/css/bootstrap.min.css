@@ -5436,7 +5436,9 @@ textarea.form-control-lg {
 
         .accordion-item:last-of-type .accordion-collapse {
             border-bottom-right-radius: var(--bs-accordion-border-radius);
-            border-bottom-left-radius: var(--bs-accordion-border-radius)
+            border-bottom-left-radius: var(--bs-accordion-border-radius);
+            -webkit-transition: all .4s ease-out;
+            transition: all .4s ease-out;
         }
 
 .accordion-body {
@@ -5450,7 +5452,9 @@ textarea.form-control-lg {
 .accordion-flush .accordion-item {
     border-right: 0;
     border-left: 0;
-    border-radius: 0
+    border-radius: 0 ;
+    -webkit-transition: all .4s ease-out;
+    transition: all .4s ease-out;
 }
 
     .accordion-flush .accordion-item:first-child {

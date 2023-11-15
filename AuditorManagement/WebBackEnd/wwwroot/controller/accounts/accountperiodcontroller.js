@@ -33,7 +33,7 @@
             $scope.initComponent();
 
             $("#loading").fadeIn();
-            var qq = $q.all([serviceAccount.getAccountPeriods(), serviceParameter.getParameterCustomerWithOwner()]).then(function (data) {
+            var qq = $q.all([serviceAccount.getAccountPeriods(), serviceParameter.getParameterCustomerWithOwner(), serviceParameter.getParameterProposalWithOwner()]).then(function (data) {
                 try {
                     if (data[0] != undefined && data[0] != "") {
                         if (data[0].data.responsecode == '200' && data[0].data.responsedata != undefined && data[0].data.responsedata != "") {
@@ -51,12 +51,65 @@
                         else if (data[1].data.responsecode == '400') { showErrorToast(data[1].data.errormessage); }
                     }
 
+                    if (data[2] != undefined && data[2] != "") {
+                        if (data[2].data.responsecode == '200' && data[2].data.responsedata != undefined && data[2].data.responsedata != "") {
+                            $scope.Parameter.Proposal = data[2].data.responsedata;
+                        }
+                        else if (data[2].data.responsecode == '400') { showErrorToast(data[2].data.errormessage); }
+                    }
+
                     $scope.Parameter.Year = [];
                     var today = new Date();
                     var year = today.getFullYear();
                     for (var i = 0; i >= -10; i--) {
                         var j = year + i;
                         $scope.Parameter.Year.push(j);
+                    }
+
+                    if ($stateParams.ref_id != undefined && $stateParams.ref_id != '') {
+                        
+                        var qq = $q.all([serviceAccount.getAccountProposalKey($stateParams.ref_id)]).then(function (data1) {
+                            try {
+                                if (data1[0] != undefined && data1[0] != "") {
+                                    if (data1[0].data.responsecode == 200) {
+                                        $scope.TableProposal = data1[0].data.responsedata;
+
+                                        $scope.TableAdd = {};
+                                        $scope.TableAdd.Action = 'เพิ่ม';
+                                        $scope.TableAdd.IsActive = true;
+                                        $scope.TableAdd.IsMapPeriod = 'Y';
+                                        $scope.TableAdd.SelectCustomer = undefined;
+                                        $scope.TableAdd.SelectPeriodType = undefined;
+                                        $scope.TableAdd.Year = undefined;
+
+                                        var type = $scope.Parameter.Proposal.filter(function (item) { return item.ProposalId == $scope.TableProposal.ProposalId; });
+                                        if (type.length > 0)
+                                            $scope.TableAdd.SelectProposal = type[0];
+
+                                        var type = $scope.Parameter.Customer.filter(function (item) { return item.CustomerId == $scope.TableProposal.CustomerId; });
+                                            if (type.length > 0)
+                                                $scope.TableAdd.SelectCustomer = type[0];
+
+                                        $scope.TableAdd.Name = $scope.TableProposal.ProposalName;
+                                        $scope.TableAdd.StartDate = formatDate($scope.TableProposal.StartDate);
+                                        $scope.TableAdd.EndDate = formatDate($scope.TableProposal.ExpireDate);
+                                        $scope.TableAdd.ProposalId = $scope.TableProposal.ProposalId;
+                                        
+                                        $('#ModalAdd').modal('show');
+
+                                    }
+                                    else {
+                                        showErrorToast(data1[0].data.errormessage);
+                                    }
+                                }
+                                else {
+                                    showErrorToast(data1[0].data.errormessage);
+                                }
+                            }
+                            catch (err) {
+                                showErrorToast(data1[0].data.errormessage);
+                            }
+                        });
                     }
                 }
                 catch (err) {
@@ -282,6 +335,54 @@
         }
     }
 
+    $scope.OnChangeProposal = function () {
+        if ($scope.TableAdd.SelectProposal != undefined) {
+
+            var qq = $q.all([serviceAccount.getAccountProposalKey($scope.TableAdd.SelectProposal.ProposalId)]).then(function (data1) {
+                try {
+                    if (data1[0] != undefined && data1[0] != "") {
+                        if (data1[0].data.responsecode == 200) {
+                            $scope.TableProposal = data1[0].data.responsedata;
+
+                            $scope.TableAdd = {};
+                            $scope.TableAdd.Action = 'เพิ่ม';
+                            $scope.TableAdd.IsActive = true;
+                            $scope.TableAdd.IsMapPeriod = 'Y';
+                            $scope.TableAdd.SelectCustomer = undefined;
+                            $scope.TableAdd.SelectPeriodType = undefined;
+                            $scope.TableAdd.Year = undefined;
+
+                            var type = $scope.Parameter.Proposal.filter(function (item) { return item.ProposalId == $scope.TableProposal.ProposalId; });
+                            if (type.length > 0)
+                                $scope.TableAdd.SelectProposal = type[0];
+
+                            var type = $scope.Parameter.Customer.filter(function (item) { return item.CustomerId == $scope.TableProposal.CustomerId; });
+                            if (type.length > 0)
+                                $scope.TableAdd.SelectCustomer = type[0];
+
+                            $scope.TableAdd.Name = $scope.TableProposal.ProposalName;
+                            $scope.TableAdd.StartDate = formatDate($scope.TableProposal.StartDate);
+                            $scope.TableAdd.EndDate = formatDate($scope.TableProposal.ExpireDate);
+                            $scope.TableAdd.ProposalId = $scope.TableProposal.ProposalId;
+
+                            $('#ModalAdd').modal('show');
+
+                        }
+                        else {
+                            showErrorToast(data1[0].data.errormessage);
+                        }
+                    }
+                    else {
+                        showErrorToast(data1[0].data.errormessage);
+                    }
+                }
+                catch (err) {
+                    showErrorToast(data1[0].data.errormessage);
+                }
+            });
+        }
+    }
+
     $scope.OnClickSave = function (after) {
         try {
             if ($scope.TableAdd.SelectCustomer == undefined)
@@ -317,6 +418,7 @@
                     MapPeriodId: $scope.TableAdd.IsMapPeriod == 'N' ? undefined : $scope.TableAdd.SelectMapId != undefined ? $scope.TableAdd.SelectMapId.PeriodId : undefined,
                     Remark: $scope.TableAdd.Remark,
                     IsActive: $scope.TableAdd.IsActive ? 'Yes' : 'No',
+                    ProposalId: $scope.TableAdd.SelectProposal.ProposalId,
                 };
 
                 console.log(data);
@@ -460,6 +562,11 @@
     $scope.prevPage = function () {
         if ($scope.currentPage > 0) {
             $scope.currentPage--;
+
+            var type = $scope.retpage.filter(function (item) { return item.code == $scope.currentPage; });
+            if (type.length > 0) {
+                $scope.changePages = type[0];
+            }
         }
 
         if ($scope.currentPage < $scope.LimitFirst && $scope.currentPage >= 1) {
@@ -482,6 +589,11 @@
     $scope.nextPage = function () {
         if ($scope.currentPage < $scope.pageCount()) {
             $scope.currentPage++;
+
+            var type = $scope.retpage.filter(function (item) { return item.code == $scope.currentPage; });
+            if (type.length > 0) {
+                $scope.changePages = type[0];
+            }
         }
 
         if ($scope.currentPage >= $scope.LimitPage && $scope.currentPage <= $scope.pageCount()) {

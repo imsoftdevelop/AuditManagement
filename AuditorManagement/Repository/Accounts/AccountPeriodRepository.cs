@@ -93,7 +93,7 @@ namespace Repository
                             if (UserCuss != null)
                             {
                                 obj.CompleteCustomerBy = new CustomerInviteProfile();
-                                obj.CompleteCustomerBy = citable.Where(a => a.ProfileId == Users.UProfileId).FirstOrDefault();
+                                obj.CompleteCustomerBy = citable.Where(a => a.ProfileId == UserCuss.UProfileId).FirstOrDefault();
                             }
 
                         }
@@ -107,6 +107,36 @@ namespace Repository
             }
         }
 
+        public List<AccountPeriod> Get(string CustomerId)
+        {
+            try
+            {
+                List<AccountPeriod> response = new List<AccountPeriod>();
+                using (AuditDataContext context = new AuditDataContext())
+                {
+                    var otable = context.Set<AccountPeriod>();
+                    response = otable.Where(a => a.CustomerId.ToUpper() == CustomerId.ToUpper() && a.IsDelete == Common.NoDelete)
+                        .OrderByDescending(a => a.CustomerId).ToList();
+
+                    if (response != null && response.Count > 0)
+                    {
+                        var dtable = context.Set<Customer>();
+
+
+                        foreach (AccountPeriod obj in response)
+                        {
+                            obj.Customer = new Customer();
+                            obj.Customer = dtable.Where(a => a.CustomerId == obj.CustomerId).FirstOrDefault();
+                        }
+                    }
+                }
+                return response;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
         public AccountPeriod GetWithKey(string PeriodId)
         {
             try
@@ -328,6 +358,7 @@ namespace Repository
                     using (AuditDataContext context = new AuditDataContext())
                     {
                         var otable = context.Set<AccountPeriod>();
+                        var ptable = context.Set<AccountPeriodProposal>();
                         if (string.IsNullOrEmpty(input.PeriodId))
                         {
                             PrefixRepository PrefixRepository = new PrefixRepository();
@@ -342,6 +373,21 @@ namespace Repository
                             input.CreatedOn = input.UpdatedOn;
                             context.Add(input);
                             context.SaveChanges();
+
+                            if (!string.IsNullOrEmpty(input.ProposalId))
+                            {
+                                AccountPeriodProposal proposal = new AccountPeriodProposal();
+                                proposal = ptable.Where(a => a.ProposalId == input.ProposalId).FirstOrDefault();
+                                if (proposal != null)
+                                {
+                                    proposal.IsStatus = Common.IsProposalConvert;
+                                    proposal.UpdateBy = input.UpdateBy;
+                                    proposal.UpdatedOn = input.UpdatedOn;
+                                    proposal.ConvertBy = input.UpdateBy;
+                                    proposal.ConvertOn = input.UpdatedOn;
+                                    context.SaveChanges();
+                                }
+                            }
                         }
                         else
                         {
@@ -540,6 +586,9 @@ namespace Repository
 
                         var afstable = context.Set<AccountAuditFsgroup>();
                         var atatable = context.Set<AccountAuditAccount>();
+                        var politable = context.Set<MasterAccountPolicy>();
+                        var fspolitable = context.Set<AccountAuditFsgroupPolicy>();
+                        PrefixRepository PrefixRepository = new PrefixRepository();
 
                         foreach (var obj in FSGroupBy)
                         {
@@ -586,6 +635,61 @@ namespace Repository
                                 }
                             }
                             context.SaveChanges();
+
+                            if (val.IsMapPeriod == "N")
+                            {
+                                // ดึงข้อมูล Policy Master 
+                                List<MasterAccountPolicy> policy = new List<MasterAccountPolicy>();
+                                policy = politable.Where(a => a.FsgroupId == group.FsgroupId).ToList();
+
+                                foreach (MasterAccountPolicy pol in policy)
+                                {
+                                    AccountAuditFsgroupPolicy AccountFsGroup = new AccountAuditFsgroupPolicy()
+                                    {
+                                        AuditPolicyRefCode = PrefixRepository.GetAccountPolicy(context, input.UpdateBy),
+                                        IsDelete = Common.NoDelete,
+                                        CreatedOn = input.UpdatedOn,
+                                        CreatedBy = input.UpdateBy,
+                                        UpdateBy = input.UpdateBy,
+                                        UpdatedOn = input.UpdatedOn,
+                                        AuditFsgroupId = group.AuditFsgroupId,
+                                        Description = pol.Description,
+                                        Subject = pol.Subject,
+                                        IsPrint = Common.IsPrint
+                                    };
+                                    fspolitable.Add(AccountFsGroup);
+                                }
+                            }
+                            else if (val.IsMapPeriod == "Y")
+                            {
+                                // ดึงข้อมูล Policy After Period
+                                List<AccountAuditFsgroup> auditFsgroup = new List<AccountAuditFsgroup>();
+                                auditFsgroup = afstable.Where(a => a.PeriodId == val.PeriodId && a.FsgroupId == obj.FsgroupId).ToList();
+
+                                foreach (AccountAuditFsgroup adf in auditFsgroup)
+                                {
+                                    List<AccountAuditFsgroupPolicy> policy = new List<AccountAuditFsgroupPolicy>();
+                                    policy = fspolitable.Where(a => a.AuditFsgroupId == adf.AuditFsgroupId).ToList();
+                                    foreach (AccountAuditFsgroupPolicy pol in policy)
+                                    {
+                                        AccountAuditFsgroupPolicy AccountFsGroup = new AccountAuditFsgroupPolicy()
+                                        {
+                                            AuditPolicyRefCode = PrefixRepository.GetAccountPolicy(context, input.UpdateBy),
+                                            IsDelete = Common.NoDelete,
+                                            CreatedOn = input.UpdatedOn,
+                                            CreatedBy = input.UpdateBy,
+                                            UpdateBy = input.UpdateBy,
+                                            UpdatedOn = input.UpdatedOn,
+                                            AuditFsgroupId = group.AuditFsgroupId,
+                                            Description = pol.Description,
+                                            Subject = pol.Subject,
+                                            IsPrint = Common.IsPrint
+                                        };
+                                        fspolitable.Add(AccountFsGroup);
+                                    }
+                                }
+                            }
+
                         }
                         context.SaveChanges();
                     }
@@ -609,16 +713,23 @@ namespace Repository
                     using (AuditDataContext context = new AuditDataContext())
                     {
                         var otable = context.Set<AccountPeriod>();
-                            AccountPeriod val = otable.Where(a => a.PeriodId == input.PeriodId).FirstOrDefault();
-                            if (val == null)
-                                throw new Exception("ไม่พบข้อมูล รอบบัญชี ในระบบ");
+                        AccountPeriod val = otable.Where(a => a.PeriodId == input.PeriodId).FirstOrDefault();
+                        if (val == null)
+                            throw new Exception("ไม่พบข้อมูล รอบบัญชี ในระบบ");
 
-                            val.IsCompleteAudit = Common.AuditConfirm;
-                            val.IsCompleteAuditBy = input.UpdateBy;
-                            val.IsCompleteAuditDate = input.UpdatedOn;
-                            val.UpdatedOn = input.UpdatedOn;
-                            val.UpdateBy = input.UpdateBy;
-                            input = val;
+                        var fstable = context.Set<AccountAuditFsgroup>();
+                        List<AccountAuditFsgroup> fsgroup = new List<AccountAuditFsgroup>();
+                        fsgroup = fstable.Where(a => a.PeriodId == input.PeriodId).ToList();
+                        foreach (AccountAuditFsgroup fs in fsgroup)
+                            if (fs.AuditorStatus != Common.IsStatusWorkflowComfirm)
+                                throw new Exception("ไม่สามารถยืนยันรอบบัญชีได้ เนื่องจากยังยืนยันตรวจสอบบัญชีไม่ครบ ( FS Lead : " + fs.Code + " )");
+
+                        val.IsCompleteAudit = Common.AuditConfirm;
+                        val.IsCompleteAuditBy = input.UpdateBy;
+                        val.IsCompleteAuditDate = input.UpdatedOn;
+                        val.UpdatedOn = input.UpdatedOn;
+                        val.UpdateBy = input.UpdateBy;
+                        input = val;
 
                         context.SaveChanges();
                     }
@@ -626,6 +737,117 @@ namespace Repository
                 }
 
                 return input;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public AccountPeriod ConfirmAfterCustomer(AccountPeriod input)
+        {
+            try
+            {
+                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted }))
+                {
+                    using (AuditDataContext context = new AuditDataContext())
+                    {
+                        var otable = context.Set<AccountPeriod>();
+                        AccountPeriod val = otable.Where(a => a.PeriodId == input.PeriodId).FirstOrDefault();
+                        if (val == null)
+                            throw new Exception("ไม่พบข้อมูล รอบบัญชี ในระบบ");
+
+                        if (val.IsUploadTrial == Common.NoUploadTrial)
+                            throw new Exception("ไม่สามารถยืนยันรอบบัญชีได้ เนื่องจากผู้ตรวจสอบยังยืนยันไม่เรียบร้อย");
+
+                        var fstable = context.Set<AccountAuditFsgroup>();
+                        List<AccountAuditFsgroup> fsgroup = new List<AccountAuditFsgroup>();
+                        fsgroup = fstable.Where(a => a.PeriodId == input.PeriodId).ToList();
+                        foreach (AccountAuditFsgroup fs in fsgroup)
+                            if (fs.AuditorStatus != Common.IsStatusWorkflowComfirm)
+                                throw new Exception("ไม่สามารถยืนยันรอบบัญชีได้ เนื่องจากผู้ตรวจสอบยังยืนยันไม่เรียบร้อย");
+
+                        val.IsCompleteCustomer = Common.AuditConfirm;
+                        val.IsCompleteCustomerBy = input.UpdateBy;
+                        val.IsCompleteCustomerDate = input.UpdatedOn;
+                        val.UpdatedOn = input.UpdatedOn;
+                        val.UpdateBy = input.UpdateBy;
+                        input = val;
+
+                        context.SaveChanges();
+                    }
+                    scope.Complete();
+                }
+
+                return input;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public AccountPeriod GetDocument(string PeriodId)
+        {
+            try
+            {
+                AccountPeriod response = new AccountPeriod();
+                using (AuditDataContext context = new AuditDataContext())
+                {
+                    var otable = context.Set<AccountPeriod>();
+                    response = otable.Where(a => a.PeriodId.ToUpper() == PeriodId.ToUpper() && a.IsDelete == Common.NoDelete).FirstOrDefault();
+
+                    if (response != null)
+                    {
+                        var auftable = context.Set<AccountAuditFsgroup>();
+                        var auatable = context.Set<AccountAuditAccount>();
+                        var dauatable = context.Set<AccountAuditAccountDoucment>();
+                        var ustable = context.Set<VDocumentlist>();
+
+                        List<AccountAuditAccount> Accounts = new List<AccountAuditAccount>();
+                        Accounts = auatable.Where(a => a.PeriodId.ToUpper() == PeriodId.ToUpper()).ToList();
+                        int[] accid = Accounts.ConvertAll(a => a.AuditAccountId.Value).ToArray();
+
+                        List<AccountAuditAccountDoucment> Documents = new List<AccountAuditAccountDoucment>();
+                        Documents = dauatable.Where(a => accid.Contains(a.AuditAccountId)).ToList();
+                        string[] docid = Documents.ConvertAll(a => a.DocumentListId).ToArray();
+
+                        response.DocumentList = ustable.Where(a => docid.Contains(a.DocumentListId)).ToList();
+                    }
+                }
+                return response;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public AccountPeriod GetAuditIssue(string PeriodId)
+        {
+            try
+            {
+                AccountPeriod response = new AccountPeriod();
+                using (AuditDataContext context = new AuditDataContext())
+                {
+                    var otable = context.Set<AccountPeriod>();
+                    response = otable.Where(a => a.PeriodId.ToUpper() == PeriodId.ToUpper() && a.IsDelete == Common.NoDelete).FirstOrDefault();
+
+                    if (response != null)
+                    {
+                        var auftable = context.Set<AccountAuditFsgroup>();
+                        var auatable = context.Set<AccountAuditAccount>();
+                        var ustable = context.Set<AccountAuditAccountAuditissue>();
+
+                        List<AccountAuditAccount> Accounts = new List<AccountAuditAccount>();
+                        Accounts = auatable.Where(a => a.PeriodId.ToUpper() == PeriodId.ToUpper()).ToList();
+                        int[] accid = Accounts.ConvertAll(a => a.AuditAccountId.Value).ToArray();
+
+                        List<AccountAuditAccountAuditissue> Documents = new List<AccountAuditAccountAuditissue>();
+                        response.AuditIssue = ustable.Where(a => accid.Contains(a.AuditAccountId)).ToList();
+                    }
+                }
+                return response;
             }
             catch (Exception ex)
             {

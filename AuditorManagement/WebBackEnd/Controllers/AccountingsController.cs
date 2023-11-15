@@ -16,6 +16,8 @@ using System.IO;
 using WebBackEnd.Commons.Excel;
 using Models.apis.request;
 using Newtonsoft.Json;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.Information;
+using Accounting_Management.Report;
 
 namespace WebBackEnd.Controllers
 {
@@ -67,6 +69,159 @@ namespace WebBackEnd.Controllers
             return View();
         }
 
+        public IActionResult ProposalList()
+        {
+            return View();
+        }
+
+        public IActionResult ProposalAdd()
+        {
+            return View();
+        }
+
+        public IActionResult DraftReport()
+        {
+            return View();
+        }
+
+        public IActionResult PrintReport()
+        {
+            return View();
+        }
+        #region Account Period & Trial Balance
+
+        [HttpGet]
+        public ActionResult GetAccountProposal(string ref_key)
+        {
+            try
+            {
+                User user = GetProfileUser();
+                List<AccountPeriodProposal> response = new List<AccountPeriodProposal>();
+                using (AccountPeriodProposalRepository AccountPeriodProposalRepository = new AccountPeriodProposalRepository())
+                    response = AccountPeriodProposalRepository.Get(user.OwnerData.OwnerId);
+
+                return WriteJson(new
+                {
+                    responsecode = ((int)Abstract.ResponseCode.SuccessTransaction).ToString(),
+                    responsedata = response,
+                }); ;
+
+            }
+            catch (Exception ex)
+            {
+                return WriteJson(new { responsecode = ((int)Abstract.ResponseCode.ErrorTransaction).ToString(), errormessage = ex.Message });
+            }
+        }
+
+        [HttpGet]
+        public ActionResult GetAccountProposalKey(string ref_key)
+        {
+            try
+            {
+                User user = GetProfileUser();
+
+                AccountPeriodProposal response = new AccountPeriodProposal();
+                using (AccountPeriodProposalRepository AccountPeriodProposalRepository = new AccountPeriodProposalRepository())
+                    response = AccountPeriodProposalRepository.GetWithKey(ref_key);
+
+                return WriteJson(new
+                {
+                    responsecode = ((int)Abstract.ResponseCode.SuccessTransaction).ToString(),
+                    responsedata = response
+                });
+
+            }
+            catch (Exception ex)
+            {
+                return WriteJson(new { responsecode = ((int)Abstract.ResponseCode.ErrorTransaction).ToString(), errormessage = ex.Message });
+            }
+        }
+
+        [HttpPost]
+        public ActionResult PostAccountProposal([FromBody] AccountPeriodProposal input)
+        {
+            try
+            {
+                User user = GetProfileUser();
+                input.OwnerId = user.OwnerData.OwnerId.ToUpper();
+                input.UpdatedOn = DateTime.Now;
+                input.UpdateBy = user.UserId;
+
+                AccountPeriodProposal response = new AccountPeriodProposal();
+                using (AccountPeriodProposalRepository AccountPeriodProposalRepository = new AccountPeriodProposalRepository())
+                    response = AccountPeriodProposalRepository.Save(input);
+
+                return WriteJson(new
+                {
+                    responsecode = ((int)Abstract.ResponseCode.SuccessTransaction).ToString(),
+                    responsedata = response
+                });
+
+            }
+            catch (Exception ex)
+            {
+                return WriteJson(new { responsecode = ((int)Abstract.ResponseCode.ErrorTransaction).ToString(), errormessage = ex.Message });
+            }
+        }
+
+        [HttpDelete]
+        public ActionResult DeleteAccountProposal(string ref_key)
+        {
+            try
+            {
+                User user = GetProfileUser();
+                AccountPeriodProposal input = new AccountPeriodProposal();
+                input.ProposalId = ref_key;
+                input.UpdatedOn = DateTime.Now;
+                input.UpdateBy = user.UserId;
+
+                using (AccountPeriodProposalRepository AccountPeriodProposalRepository = new AccountPeriodProposalRepository())
+                    AccountPeriodProposalRepository.Delete(input);
+
+                return WriteJson(new
+                {
+                    responsecode = ((int)Abstract.ResponseCode.SuccessTransaction).ToString(),
+                    responsedata = "ลบข้อมูลเรียบร้อย"
+                });
+
+            }
+            catch (Exception ex)
+            {
+                return WriteJson(new { responsecode = ((int)Abstract.ResponseCode.ErrorTransaction).ToString(), errormessage = ex.Message });
+            }
+        }
+
+        [HttpGet]
+        public ActionResult SetAccountProposal(string ref_key,string ref_stat)
+        {
+            try
+            {
+                User user = GetProfileUser();
+                AccountPeriodProposal input = new AccountPeriodProposal();
+                input.ProposalId = ref_key;
+                input.IsStatus = ref_stat;
+                input.UpdatedOn = DateTime.Now;
+                input.UpdateBy = user.UserId;
+
+                using (AccountPeriodProposalRepository AccountPeriodProposalRepository = new AccountPeriodProposalRepository())
+                    AccountPeriodProposalRepository.ChangeStatus(input);
+
+                return WriteJson(new
+                {
+                    responsecode = ((int)Abstract.ResponseCode.SuccessTransaction).ToString(),
+                    responsedata = "ลบข้อมูลเรียบร้อย"
+                }); ;
+
+            }
+            catch (Exception ex)
+            {
+                return WriteJson(new { responsecode = ((int)Abstract.ResponseCode.ErrorTransaction).ToString(), errormessage = ex.Message });
+            }
+        }
+
+
+        #endregion
+
         #region Account Period & Trial Balance
 
         [HttpGet]
@@ -76,6 +231,7 @@ namespace WebBackEnd.Controllers
             {
                 User user = GetProfileUser();
                 List<AccountPeriod> response = new List<AccountPeriod>();
+                List<int> Year = new List<int>();
                 if (GetCustomerAssign(user.PermissionCodeActive))
                 {
                     using (AccountPeriodRepository AccountPeriodRepository = new AccountPeriodRepository())
@@ -84,6 +240,13 @@ namespace WebBackEnd.Controllers
                     if (!string.IsNullOrEmpty(user.CustomerIdActive))
                         response = response.Where(a => a.CustomerId == user.CustomerIdActive).ToList();
                 }
+                else if (GetRoleCustomer(user.PermissionCodeActive))
+                {
+                    using (AccountPeriodRepository AccountPeriodRepository = new AccountPeriodRepository())
+                        response = AccountPeriodRepository.Get(user.CustomerIdActive);
+
+                    Year = response.GroupBy(a => a.Year).Select(x => x.Key.Value).OrderByDescending(x => x).ToList();
+                }
                 else
                     using (AccountPeriodRepository AccountPeriodRepository = new AccountPeriodRepository())
                         response = AccountPeriodRepository.Get(user.OwnerData.OwnerId, user.BranchIdActive);
@@ -91,8 +254,9 @@ namespace WebBackEnd.Controllers
                 return WriteJson(new
                 {
                     responsecode = ((int)Abstract.ResponseCode.SuccessTransaction).ToString(),
-                    responsedata = response
-                });
+                    responsedata = response,
+                    responsegroup = Year
+                }); ;
 
             }
             catch (Exception ex)
@@ -1366,6 +1530,74 @@ namespace WebBackEnd.Controllers
             }
         }
 
+        [RequestFormLimits(MultipartBodyLengthLimit = 52428800)]
+        [RequestSizeLimit(52428800)]
+        [HttpPost]
+        public IActionResult UploadNoteToFS(List<IFormFile> files)
+        {
+            try
+            {
+                User user = GetProfileUser();
+                long size = files.Sum(f => f.Length);
+
+                // full path to file in temp location
+
+                string webRootPath = _hostingEnvironment.WebRootPath;
+                string pathuploads = _config["ConfigSystem:UploadsPath"];
+                string pathsignature = _config["ConfigSystem:TempPath"];
+                pathuploads = pathuploads.Replace("/", "");
+                pathsignature = pathsignature.Replace("/", "");
+                string fullpath = Path.Combine(webRootPath, pathuploads);
+                string fullpathwithowner = Path.Combine(fullpath, user.EmployeeData.OwnerId);
+
+                if (!Directory.Exists(fullpathwithowner))
+                {
+                    Directory.CreateDirectory(fullpathwithowner);
+                }
+
+                string fullpathsignature = Path.Combine(fullpathwithowner, pathsignature);
+
+                if (!Directory.Exists(fullpathsignature))
+                {
+                    Directory.CreateDirectory(fullpathsignature);
+                }
+
+                string filename = string.Empty;
+
+                foreach (var formFile in files)
+                {
+                    filename = Guid.NewGuid().ToString() + Path.GetExtension(formFile.FileName);
+                    fullpath = Path.Combine(fullpathsignature, filename);
+                    if (formFile.Length > 0)
+                    {
+                        using (var stream = new FileStream(fullpath, FileMode.Create))
+                        {
+                            formFile.CopyTo(stream);
+                        }
+                    }
+                }
+
+                ListImport importfile = new ListImport();
+
+                Commons.Excel.ClsImportExcelEPlus import = new Commons.Excel.ClsImportExcelEPlus();
+                import.FileExcel = fullpath;
+                importfile = import.ImportToTable();
+
+                //if (importfile == null || importfile.Count <= 0)
+                //    throw new Exception("ไม่พบข้อมูลที่ อัพโหลด");
+
+                return WriteJson(new
+                {
+                    responsecode = ((int)Abstract.ResponseCode.SuccessTransaction).ToString(),
+                    responsedata = importfile,
+                });
+            }
+            catch (Exception ex)
+            {
+                return WriteJson(new { responsecode = ((int)Abstract.ResponseCode.ErrorTransaction).ToString(), errormessage = ex.Message });
+            }
+        }
+
         #endregion
 
         #region Audit Assign
@@ -1499,6 +1731,182 @@ namespace WebBackEnd.Controllers
             {
                 return WriteJson(new { responsecode = ((int)Abstract.ResponseCode.ErrorTransaction).ToString(), errormessage = ex.Message });
             }
+        }
+
+        #endregion
+
+        #region Audit Draft Report
+
+        [HttpGet]
+        public ActionResult GetDraftReport(string ref_key)
+        {
+            try
+            {
+                User users = GetProfileUser();
+
+                #region Get Data
+
+                AccountPeriod period = new AccountPeriod();
+                using (AccountPeriodRepository AccountPeriodRepository = new AccountPeriodRepository())
+                    period = AccountPeriodRepository.GetWithKey(ref_key);
+
+                List<MasterFstop> fstop = new List<MasterFstop>();
+                using (MasterFstopRepository MasterFstopRepository = new MasterFstopRepository())
+                    fstop = MasterFstopRepository.SelectDataWithCondition(a => (a.OwnerId.ToUpper() == period.OwnerId.ToUpper() || a.IsSystem == Common.IsSystem)
+                    && a.IsDelete == Common.NoDelete).OrderBy(a => a.FstopId).ToList();
+
+                List<FstopParentFsgroup> fstopparent = new List<FstopParentFsgroup>();
+                using (FstopParentFsgroupRepository FstopParentFsgroupRepository = new FstopParentFsgroupRepository())
+                    fstopparent = FstopParentFsgroupRepository.SelectDataWithCondition(a => (a.OwnerId.ToUpper() == period.OwnerId.ToUpper() || a.IsSystem == Common.IsSystem)
+                    && a.IsDelete == Common.NoDelete).OrderBy(a => a.FstopId).ToList();
+
+                List<Fsgroup> fsgroup = new List<Fsgroup>();
+                using (FsgroupRepository FsgroupRepository = new FsgroupRepository())
+                    fsgroup = FsgroupRepository.GetIsActive(period.OwnerId.ToUpper());
+
+                Ruleprogram rule = new Ruleprogram();
+                using (RuleprogramRepository RuleprogramRepository = new RuleprogramRepository())
+                    rule = RuleprogramRepository.GetByKey(1);
+
+                List<MasterSubfsgroup> subfsgroup = new List<MasterSubfsgroup>();
+                using (MasterSubfsgroupRepository MasterSubfsgroupRepository = new MasterSubfsgroupRepository())
+                    subfsgroup = MasterSubfsgroupRepository.Get(period.OwnerId);
+
+                #endregion 
+
+                #region Calculate TrailBalance + Adjust 
+
+                if (period.SubAdjustments?.Any() ?? false)
+                {
+                    List<AccountAdjustmentSub> agreeadjustment = period.SubAdjustments.Where(a => a.AdjustmentAgree == "Agree" && a.AdjustmentPeriod == "Current").ToList();
+                    foreach (AccountAdjustmentSub agree in agreeadjustment)
+                    {
+                        AccountTrialbalance trial = period.TrialBalance.Where(a => a.AccountCode == agree.AccountCode).FirstOrDefault();
+                        trial.Debit = trial.Debit.HasValue ? trial.Debit : 0; trial.Credit = trial.Credit.HasValue ? trial.Credit : 0;
+                        trial.Debit += agree.Debit.HasValue ? agree.Debit : 0;
+                        trial.Credit = agree.Credit.HasValue ? agree.Credit : 0;
+                    }
+
+                    List<AccountAdjustmentSub> perioddjustment = period.SubAdjustments.Where(a => a.AdjustmentAgree == "Agree" && a.AdjustmentPeriod == "Previous").ToList();
+                    foreach (AccountAdjustmentSub addperiod in perioddjustment)
+                    {
+                        AccountTrialbalance trial = period.TrialBalance.Where(a => a.AccountCode == addperiod.AccountCode).FirstOrDefault();
+                        trial.PreviousYear = trial.PreviousYear.HasValue ? trial.PreviousYear : 0;
+                        trial.PreviousYear += addperiod.Debit.HasValue ? addperiod.Debit : 0;
+                        trial.PreviousYear -= addperiod.Credit.HasValue ? addperiod.Debit : 0;
+                    }
+
+                    foreach (AccountTrialbalance trial in period.TrialBalance)
+                    {
+                        trial.Audit = trial.Audit.HasValue ? trial.Audit : 0;
+                        trial.Audit = trial.Amount + (trial.Debit.HasValue ? trial.Debit : 0);
+                        trial.Audit = trial.Audit - (trial.Credit.HasValue ? trial.Credit : 0);
+                    }
+                }
+
+                #endregion
+
+
+                return WriteJson(new
+                {
+                    responsecode = ((int)Abstract.ResponseCode.SuccessTransaction).ToString(),
+                    responsedataperiod = period,
+                    responsedatafstop = fstop,
+                    responsedatafstopparent = fstopparent,
+                    responsedatafsgroup = fsgroup,
+                    responsedatarule = rule,
+                    responsedatasubfsgroup = subfsgroup
+                });
+
+            }
+            catch (Exception ex)
+            {
+                return WriteJson(new { responsecode = ((int)Abstract.ResponseCode.ErrorTransaction).ToString(), errormessage = ex.Message });
+            }
+        }
+
+        [HttpPost]
+        public JsonResult DownloadDraftReport(string ref_key)
+        {
+
+            User users = GetProfileUser();
+
+            AccountPeriod period = new AccountPeriod();
+            using (AccountPeriodRepository AccountPeriodRepository = new AccountPeriodRepository())
+                period = AccountPeriodRepository.GetWithKey(ref_key);
+
+            List<MasterFstop> fstop = new List<MasterFstop>();
+            using (MasterFstopRepository MasterFstopRepository = new MasterFstopRepository())
+                fstop = MasterFstopRepository.SelectDataWithCondition(a => (a.OwnerId.ToUpper() == users.OwnerData.OwnerId.ToUpper() || a.IsSystem == Common.IsSystem)
+                && a.IsDelete == Common.NoDelete).OrderBy(a => a.FstopId).ToList();
+
+            List<FstopParentFsgroup> fstopparent = new List<FstopParentFsgroup>();
+            using (FstopParentFsgroupRepository FstopParentFsgroupRepository = new FstopParentFsgroupRepository())
+                fstopparent = FstopParentFsgroupRepository.SelectDataWithCondition(a => (a.OwnerId.ToUpper() == users.OwnerData.OwnerId.ToUpper() || a.IsSystem == Common.IsSystem)
+                && a.IsDelete == Common.NoDelete).OrderBy(a => a.FstopId).ToList();
+
+            List<Fsgroup> fsgroup = new List<Fsgroup>();
+            using (FsgroupRepository FsgroupRepository = new FsgroupRepository())
+                fsgroup = FsgroupRepository.GetIsActive(users.OwnerData.OwnerId);
+
+            string webRootPath = _hostingEnvironment.WebRootPath;
+            string pathuploads = _config["ConfigSystem:UploadsPath"];
+            string pathtemplate = _config["ConfigSystem:TemplatePath"];
+            string fileimport = _config["ConfigSystem:TemplateDraft"];
+
+            pathuploads = pathuploads.Replace("/", "");
+            pathtemplate = pathtemplate.Replace("/", "");
+            string webpath = Path.Combine(webRootPath, pathuploads, pathtemplate);
+            string fullPath = Path.Combine(webpath, fileimport);
+
+
+            string pathdraft = _config["ConfigSystem:DraftPath"];
+            pathdraft = pathdraft.Replace("/", "");
+            string pathexport = Path.Combine(webRootPath, pathuploads);
+            string filenae = Guid.NewGuid().ToString() + ".xlsx";
+            string fullpathexport = Path.Combine(pathexport, users.EmployeeData.OwnerId, pathdraft);
+            string filedraft = Path.Combine(fullpathexport, filenae);
+            if (!Directory.Exists(fullpathexport))
+            {
+                Directory.CreateDirectory(fullpathexport);
+            }
+
+            XlsDraftReport rpt = new XlsDraftReport();
+            rpt.period = period;
+            rpt.mfstop = fstop;
+            rpt.mfsgroup = fsgroup;
+            rpt.pfstop = fstopparent;
+
+            rpt.WritesTemplate(filedraft, fullPath);
+
+
+
+            return Json(new { IsSuccess = true, Msg = filenae });
+        }
+
+        [HttpGet]
+        public ActionResult DownloadSpreadsheet(string file)
+        {
+            User users = GetProfileUser();
+            string webRootPath = _hostingEnvironment.WebRootPath;
+            string pathuploads = _config["ConfigSystem:UploadsPath"];
+            string pathdraft = _config["ConfigSystem:DraftPath"];
+            pathuploads = pathuploads.Replace("/", "");
+            pathdraft = pathdraft.Replace("/", "");
+            string pathexport = Path.Combine(webRootPath, pathuploads);
+            string fullpathexport = Path.Combine(pathexport, users.EmployeeData.OwnerId, pathdraft);
+            string fullPath = Path.Combine(fullpathexport, file);
+
+            var memory = new MemoryStream();
+            using (var stream = new FileStream(fullPath, FileMode.Open))
+            {
+                stream.CopyTo(memory);
+            }
+            memory.Position = 0;
+
+            //return File(memory, GetContentType(filePath), file);
+
+            return File(memory, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", file);
         }
 
         #endregion

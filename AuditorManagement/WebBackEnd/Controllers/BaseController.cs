@@ -45,8 +45,17 @@ namespace WebBackEnd.Controllers
             User user = GetProfileUser();
             if (user != null)
             {
-                ViewBag.FullName = user.EmployeeData.FirstName + " " + user.EmployeeData.LastName;
-                ViewBag.Email = user.EmployeeData.Email;
+                if (user.EmployeeData != null)
+                {
+                    ViewBag.FullName = user.EmployeeData.FirstName + " " + user.EmployeeData.LastName;
+                    ViewBag.Email = user.EmployeeData.Email;
+                }
+                else if (user.ProfileData != null)
+                {
+                    ViewBag.FullName = user.ProfileData.FirstName + " " + user.ProfileData.LastName;
+                    ViewBag.Email = user.ProfileData.Email;
+                }
+
                 ViewBag.Role = user.PermissionCodeActive;
             }
         }
@@ -91,6 +100,15 @@ namespace WebBackEnd.Controllers
         {
             bool res = false;
             if (PermissionCode == "MAG001")
+                res = true;
+
+            return res;
+        }
+
+        public bool GetRoleCustomer(string PermissionCode)
+        {
+            bool res = false;
+            if (PermissionCode == "CUS001")
                 res = true;
 
             return res;

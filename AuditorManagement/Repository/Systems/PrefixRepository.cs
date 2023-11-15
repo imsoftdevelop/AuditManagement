@@ -21,7 +21,9 @@ namespace Repository.Systems
             REFDOC,
             REFISS,
             REFCON,
-            REFNOTEFS
+            REFNOTEFS,
+            PF,
+            PPL
         }
         public string GetEmployeeCode(AuditDataContext context, string UserID)
         {

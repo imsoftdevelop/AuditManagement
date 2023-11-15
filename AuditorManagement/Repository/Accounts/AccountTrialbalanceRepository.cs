@@ -21,11 +21,13 @@ namespace Repository
                 {
                     using (AuditDataContext context = new AuditDataContext())
                     {
+                        bool isnew = false;
                         var otable = context.Set<AccountTrialbalance>();
                         foreach (AccountTrialbalance obj in input)
                         {
                             if (!obj.TrialBalanceId.HasValue)
                             {
+                                isnew = true;
                                 obj.CustomerId = CustomerId;
                                 obj.PeriodId = PeriodId;
                                 obj.IsDelete = Common.NoDelete;
@@ -60,6 +62,38 @@ namespace Repository
                             val.IsUploadTrial = Common.IsUploadTrial;
                             val.UploadDate = DateTime.Now;
                             val.UploadBy = UpdateBy;
+                            context.SaveChanges();
+                        }
+
+                        // อัพโหลดใหม่ และ Mapping Period
+                        if (isnew && val.IsMapPeriod == "Y")
+                        {
+                            var adtable = context.Set<AccountAdjustmentSub>();
+                            List<AccountTrialbalance> TrialCurrent = new List<AccountTrialbalance>();
+                            List<AccountTrialbalance> TrialPrevious = new List<AccountTrialbalance>();
+                            List<AccountAdjustmentSub> AdjustmentPrevious = new List<AccountAdjustmentSub>();
+                            TrialPrevious = otable.Where(a => a.PeriodId == val.MapPeriodId && a.IsDelete == Common.NoDelete).ToList();
+                            TrialCurrent = otable.Where(a => a.PeriodId == val.PeriodId && a.IsDelete == Common.NoDelete).ToList();
+                            AdjustmentPrevious  = adtable.Where(a => a.PeriodId == val.MapPeriodId && a.IsDelete == Common.NoDelete && a.AdjustmentAgree == "Agree" && a.AdjustmentPeriod == "Current").ToList();
+
+                            foreach (AccountTrialbalance cur in TrialCurrent)
+                            {
+                                decimal previous = 0;
+                                AccountTrialbalance account = new AccountTrialbalance();
+                                account = TrialPrevious.Where(a => a.AccountCode == cur.AccountCode).FirstOrDefault();
+                                if (account != null)
+                                {
+                                    previous = account.Amount.HasValue ? account.Amount.Value : 0;
+                                    List<AccountAdjustmentSub> Adjustment = new List<AccountAdjustmentSub>();
+                                    Adjustment = AdjustmentPrevious.Where(a => a.AccountCode == cur.AccountCode).ToList();
+                                    foreach (AccountAdjustmentSub adj in Adjustment)
+                                    {
+                                        previous += adj.Debit.HasValue ? adj.Debit.Value : 0;
+                                        previous -= adj.Credit.HasValue ? adj.Credit.Value : 0;
+                                    }
+                                }
+                                cur.PreviousYear = previous;
+                            }
                             context.SaveChanges();
                         }
 

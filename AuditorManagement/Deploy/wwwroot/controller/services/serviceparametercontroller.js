@@ -47,6 +47,9 @@ FOCUSAPP.factory('serviceParameter', ['$http', '$q', function ($http, $q) {
         getParameterTrialBalanceWithCustomerAndPeriod: function (cusid, accid) {
             return $http.get(baseURL + "Parameter/GetParameterTrialBalanceWithCustomerAndPeriod?ref_cus=" + cusid + "&ref_acc=" + accid, { cache: false });
         },
+        getParameterFSTop: function (key) {
+            return $http.get(baseURL + "Parameter/GetParameterFSTop?ref_key=" + makeid(), { cache: false });
+        },
         getParameterFSTopParentFSgroup: function (key) {
             return $http.get(baseURL + "Parameter/GetParameterFSTopParentFSgroup?ref_key=" + makeid(), { cache: false });
         },
@@ -59,6 +62,13 @@ FOCUSAPP.factory('serviceParameter', ['$http', '$q', function ($http, $q) {
         getParameterAuditProgram: function (key) {
             return $http.get(baseURL + "Parameter/GetParameterAuditProgram?ref_key=" + makeid() + "&ref_id=" + key, { cache: false });
         },
+        getParameterAccountAuditAccountWithPeriod: function (key) {
+            return $http.get(baseURL + "Parameter/GetParameterAccountAuditAccountWithPeriod?ref_acc=" + key, { cache: false });
+        },
+        getParameterSubFSGroup: function () {
+            return $http.get(baseURL + "Parameter/GetParameterSubFSGroup?ref_key=" + makeid(), { cache: false });
+        },
+        
         
     };
 }]);

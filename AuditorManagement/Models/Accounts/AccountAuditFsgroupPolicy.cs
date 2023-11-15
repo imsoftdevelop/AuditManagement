@@ -13,6 +13,7 @@ namespace Models.Models
         public string Subject { get; set; }
         public string Description { get; set; }
         public string IsDelete { get; set; }
+        public string IsPrint { get; set; }
         public DateTime? CreatedOn { get; set; }
         public string CreatedBy { get; set; }
         public DateTime? UpdatedOn { get; set; }

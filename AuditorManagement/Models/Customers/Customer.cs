@@ -17,6 +17,7 @@ namespace Models.Models
         public string TaxId { get; set; }
         public decimal? NumberOfShare { get; set; }
         public decimal? RegisteredCapital { get; set; }
+        public decimal? PriceStock { get; set; }
         public DateTime? RegisterDate { get; set; }
         public string DirectorName { get; set; }
         public string Address { get; set; }

@@ -1,0 +1,390 @@
+﻿@{
+    Layout = null;
+}
+
+<div class="container-fluid" data-ng-init="initAdd()">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="page-title-box">
+                <h4>Audit Proposal</h4>
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">ลูกค้า</a></li>
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Audit Proposal</a></li>
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">เพิ่มข้อมูล</a></li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card ">
+                <div class="card-body card-form">
+
+                    <div class="row">
+                        <div class="col-md-9">
+                            <h2 class="card-title mb-2">ข้อมูล Audit Proposal</h2>
+                        </div>
+                        <div class="col-lg-3 pl-0">
+                            <div class="form-input">
+                                <input id="name" class="form-element-input" type="text" placeholder="กรุณาระบุรหัส" ng-model="TableAdd.ProposalCode" ng-disabled="TableAdd.IsStatus != 'Wait' && TableAdd.IsStatus != undefined"/>
+                                <div class="form-element-bar"></div>
+                                <label class="form-element-label" for="name">รหัส</label>
+                                <label class="form-element-required" for="name">* </label>
+                            </div>
+                        </div>
+
+                        <!-- end col -->
+                    </div>
+                    <hr />
+                    <div class="row row-form">
+                        <div class="col-md-4">
+                            <h4 class="card-title mb-2 font-weight-bold h4-flex"><i data-v-4e8aa93a="" class="color-circle"></i>ข้อมูลลูกค้า</h4>
+                        </div>
+                        <div class="col-lg-8 pl-0">
+                            <div class="form-input ">
+                                <select select2 class="dropdown2 form-control" id="exampleFormControlSelect31" ng-options="item as item.Name for item in Parameter.Customer"
+                                        ng-model="TableAdd.SelectCustomer" ng-disabled="TableAdd.IsStatus != 'Wait' && TableAdd.IsStatus != undefined">
+                                    <option value="" class="text-muted" selected style="display:none">กรุณาเลือก</option>
+                                </select>
+                                <label class="form-element-dropdown" for="name">ชื่อลูกค้า</label>
+                                <label class="form-element-required" for="name">* </label>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row row-form">
+                        <div class="col-md-4">
+                            <h4 class="card-title mb-2 font-weight-bold h4-flex"><i data-v-4e8aa93a="" class="color-circle"></i>ข้อมูลทั่วไป</h4>
+                        </div>
+                        <div class="col-lg-8 pl-0">
+                            <div class="form-input">
+                                <input class="form-element-input" type="text" placeholder="กรุณาระบุชื่อรอบบัญชี" ng-model="TableAdd.ProposalName"
+                                       ng-disabled="TableAdd.IsStatus != 'Wait' && TableAdd.IsStatus != undefined"/>
+                                <div class="form-element-bar"></div>
+                                <label class="form-element-label">ชื่อรอบบัญชี ( ภาษาไทย )</label>
+                                <label class="form-element-required">* </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row row-form">
+                        <div class="col-md-4">
+                        </div>
+                        <div class="col-lg-8 pl-0">
+                            <div class="form-input">
+                                <input class="form-element-input" type="text" placeholder="กรุณาระบุรอบบัญชี" ng-model="TableAdd.ProposalNameEn"
+                                       ng-disabled="TableAdd.IsStatus != 'Wait' && TableAdd.IsStatus != undefined"/>
+                                <div class="form-element-bar"></div>
+                                <label class="form-element-label">ชื่อรอบบัญชี ( ภาษาอังกฤษ )</label>
+                                <label class="form-element-required">* </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row row-form">
+                        <div class="col-md-4">
+                        </div>
+                        <div class="col-lg-4 pl-0">
+                            <div class="form-input">
+                                <div id="inputstart-popup" class="input-group-date date datepicker no-border">
+                                    <input type="text" class="form-element-input input-group-addon" onkeydown="return false" ng-model="TableAdd.StartDate"
+                                           ng-disabled="TableAdd.IsStatus != 'Wait' && TableAdd.IsStatus != undefined">
+                                    <div class="form-element-bar"></div>
+                                    <label class="form-element-label">วันที่เริ่มรอบบัญชี</label>
+                                    <label class="form-element-required">* </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 pl-0">
+                            <div class="form-input">
+                                <div id="inputexpire-popup" class="input-group-date date datepicker no-border">
+                                    <input type="text" class="form-element-input input-group-addon" onkeydown="return false" ng-model="TableAdd.ExpireDate"
+                                           ng-disabled="TableAdd.IsStatus != 'Wait' && TableAdd.IsStatus != undefined">
+                                    <div class="form-element-bar"></div>
+                                    <label class="form-element-label">วันที่สิ้นสุดรอบบัญชี</label>
+                                    <label class="form-element-required">* </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row row-form">
+                        <div class="col-md-4">
+                            <h4 class="card-title mb-2 font-weight-bold h4-flex"><i data-v-4e8aa93a="" class="color-circle"></i>ข้อมูลคำนวณรายได้</h4>
+                        </div>
+                        <div class="col-lg-8 pl-0">
+                            <h5 class="card-title mb-2 font-weight-bold h4-flex">ผู้สอบบัญชี</h5>
+                        </div>
+                        <div class="col-md-4">
+                        </div>
+                        <div class="col-lg-3 pl-0">
+                            <div class="form-input">
+                                <input class="form-element-input" type="text" placeholder="0.00" decimal-only ng-model="TableAdd.AuditRate" disabled />
+                                <div class="form-element-bar"></div>
+                                <label class="form-element-label">อัตรา/ชั่วโมง</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 pl-0">
+                            <div class="form-input">
+                                <input class="form-element-input" type="text" placeholder="กรุณาระบุชั่วโมง" ng-blur="OnChangeRate('Audit')" number-only ng-model="TableAdd.AuditHour"
+                                       ng-disabled="TableAdd.IsStatus != 'Wait' && TableAdd.IsStatus != undefined"/>
+                                <div class="form-element-bar"></div>
+                                <label class="form-element-label">จำนวนชั่วโมง</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 pl-0">
+                            <div class="form-input">
+                                <input class="form-element-input" type="text" placeholder="0.00" decimal-only ng-model="TableAdd.AuditAmount" disabled />
+                                <div class="form-element-bar"></div>
+                                <label class="form-element-label">รวม</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                        </div>
+                        <div class="col-lg-8 pl-0 py-2">
+                            <h5 class="card-title mb-2 font-weight-bold h4-flex">ผู้ช่วยผู้สอบบัญชี Lv 1</h5>
+                        </div>
+                        <div class="col-md-4">
+                        </div>
+                        <div class="col-lg-3 pl-0">
+                            <div class="form-input">
+                                <input class="form-element-input" type="text" placeholder="0.00" decimal-only ng-model="TableAdd.PrepareRate" disabled />
+                                <div class="form-element-bar"></div>
+                                <label class="form-element-label">อัตรา/ชั่วโมง</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 pl-0">
+                            <div class="form-input">
+                                <input class="form-element-input" type="text" placeholder="กรุณาระบุชั่วโมง" ng-blur="OnChangeRate('Prepare')" number-only ng-model="TableAdd.PrepareHour"
+                                       ng-disabled="TableAdd.IsStatus != 'Wait' && TableAdd.IsStatus != undefined"/>
+                                <div class="form-element-bar"></div>
+                                <label class="form-element-label">จำนวนชั่วโมง</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 pl-0">
+                            <div class="form-input">
+                                <input class="form-element-input" type="text" placeholder="0.00" decimal-only ng-model="TableAdd.PrepareAmount" disabled />
+                                <div class="form-element-bar"></div>
+                                <label class="form-element-label">รวม</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                        </div>
+                        <div class="col-lg-8 pl-0 py-2">
+                            <h5 class="card-title mb-2 font-weight-bold h4-flex">ผู้ช่วยผู้สอบบัญชี Lv 2</h5>
+                        </div>
+                        <div class="col-md-4">
+                        </div>
+                        <div class="col-lg-3 pl-0">
+                            <div class="form-input">
+                                <input class="form-element-input" type="text" placeholder="0.00" decimal-only ng-model="TableAdd.ReviewRate" disabled />
+                                <div class="form-element-bar"></div>
+                                <label class="form-element-label">อัตรา/ชั่วโมง</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 pl-0">
+                            <div class="form-input">
+                                <input class="form-element-input" type="text" placeholder="กรุณาระบุชั่วโมง" ng-blur="OnChangeRate('Review')" number-only ng-model="TableAdd.ReviewHour"
+                                       ng-disabled="TableAdd.IsStatus != 'Wait' && TableAdd.IsStatus != undefined"/>
+                                <div class="form-element-bar"></div>
+                                <label class="form-element-label">จำนวนชั่วโมง</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 pl-0">
+                            <div class="form-input">
+                                <input class="form-element-input" type="text" placeholder="0.00" decimal-only ng-model="TableAdd.ReviewAmount" disabled />
+                                <div class="form-element-bar"></div>
+                                <label class="form-element-label">รวม</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                        </div>
+                        <div class="col-lg-8 pl-0 py-2">
+                            <h5 class="card-title mb-2 font-weight-bold h4-flex">ผู้จัดการ</h5>
+                        </div>
+                        <div class="col-md-4">
+                        </div>
+                        <div class="col-lg-3 pl-0">
+                            <div class="form-input">
+                                <input class="form-element-input" type="text" placeholder="0.00" decimal-only ng-model="TableAdd.ManagerRate" disabled />
+                                <div class="form-element-bar"></div>
+                                <label class="form-element-label">อัตรา/ชั่วโมง</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 pl-0">
+                            <div class="form-input">
+                                <input class="form-element-input" type="text" placeholder="กรุณาระบุชั่วโมง" ng-blur="OnChangeRate('Manager')" number-only ng-model="TableAdd.ManagerHour"
+                                       ng-disabled="TableAdd.IsStatus != 'Wait' && TableAdd.IsStatus != undefined"/>
+                                <div class="form-element-bar"></div>
+                                <label class="form-element-label">จำนวนชั่วโมง</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 pl-0">
+                            <div class="form-input">
+                                <input class="form-element-input" type="text" placeholder="0.00" decimal-only ng-model="TableAdd.ManagerAmount" disabled />
+                                <div class="form-element-bar"></div>
+                                <label class="form-element-label">รวม</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                        </div>
+                        <div class="col-lg-4 pl-0 py-4">
+                            <div class="form-input">
+                                <input class="form-element-input" type="text" placeholder="0.00" ng-blur="OnChangeRate('Profit')" decimal-only ng-model="TableAdd.ProfitPercent"
+                                       ng-disabled="TableAdd.IsStatus != 'Wait' && TableAdd.IsStatus != undefined"/>
+                                <div class="form-element-bar"></div>
+                                <label class="form-element-label">กำไรสำนักงาน (%)</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 pl-0  py-4">
+                            <div class="form-input">
+                                <input class="form-element-input" type="text" placeholder="0.00" ng-blur="OnChangeRate('Profit')" decimal-only ng-model="TableAdd.AuditPercent"
+                                       ng-disabled="TableAdd.IsStatus != 'Wait' && TableAdd.IsStatus != undefined"/>
+                                <div class="form-element-bar"></div>
+                                <label class="form-element-label">ค่าสอบบัญชี (%)</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                        </div>
+                        <div class="col-lg-8 pl-0 py-2">
+                            <h5 class="card-title mb-2 font-weight-bold h4-flex">ตารางสรุปค่าใช้จ่าย</h5>
+                        </div>
+                        <div class="col-md-4">
+                        </div>
+                        <div class="col-lg-8 pl-0 py-2">
+                            <div class="table-rep-plugin">
+                                <div class="table-responsive mb-0" data-pattern="priority-columns">
+                                    <table id="tech-companies-1" class="table-data  table-striped">
+                                        <thead>
+                                            <tr class="headerRow">
+                                                <th width="75%">รายการ</th>
+                                                <th class="text-right" width="25%">ราคา</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>ผู้สอบบัญชี</td>
+                                                <td class="text-right">{{TableAdd.AuditAmount | number : 2}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>ผู้ช่วยผู้สอบบัญชี Lv1</td>
+                                                <td class="text-right">{{TableAdd.PrepareAmount | number : 2}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>ผู้ช่วยผู้สอบบัญชี Lv2</td>
+                                                <td class="text-right">{{TableAdd.ReviewAmount | number : 2}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>ผู้จัดการ</td>
+                                                <td class="text-right">{{TableAdd.ManagerAmount | number : 2}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="font-weight-bold">รวม</td>
+                                                <td class="font-weight-bold text-right">{{TableAdd.TotalAmount | number : 2}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>ค่าสอบบัญชี</td>
+                                                <td class="text-right">{{TableAdd.AuditAccountAmount | number : 2}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>กำไรสักนักงาน</td>
+                                                <td class="text-right">{{TableAdd.ProfitAccountAmount | number : 2}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="font-weight-bold">รวมทั้งหมด</td>
+                                                <td class="font-weight-bold text-right">{{TableAdd.GrandTotal | number : 2}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <hr />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row row-form">
+                        <div class="col-md-4">
+                            <h4 class="card-title mb-2 font-weight-bold h4-flex"><i data-v-4e8aa93a="" class="color-circle"></i>ข้อมูล Proposal</h4>
+                        </div>
+                        <div class="col-lg-8 pl-0 py-2">
+                            <h5 class="card-title mb-2 font-weight-bold h4-flex">Audit responsibilities and limitations</h5>
+                        </div>
+                        <div class="col-md-4">
+                        </div>
+                        <div class="col-lg-8 pl-0">
+                            <div class="form-input">
+                                <textarea class="form-element-input form-element-input-textarea" id="section1" name="message" rows="6" placeholder="กรอกวาระการประชุม"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                        </div>
+                        <div class="col-lg-8 pl-0 py-2">
+                            <h5 class="card-title mb-2 font-weight-bold h4-flex">Management’s responsibilities</h5>
+                        </div>
+                        <div class="col-md-4">
+                        </div>
+                        <div class="col-lg-8 pl-0">
+                            <div class="form-input">
+                                <textarea class="form-element-input form-element-input-textarea" id="section2" name="message" rows="6" placeholder="กรอกวาระการประชุม"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                        </div>
+                        <div class="col-lg-8 pl-0 py-2">
+                            <h5 class="card-title mb-2 font-weight-bold h4-flex">Audit fees</h5>
+                        </div>
+                        <div class="col-md-4">
+                        </div>
+                        <div class="col-lg-8 pl-0">
+                            <div class="form-input">
+                                <textarea class="form-element-input form-element-input-textarea" id="section3" name="message" rows="6" placeholder="กรอกวาระการประชุม"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                        </div>
+                        <div class="col-lg-8 pl-0 py-2">
+                            <h5 class="card-title mb-2 font-weight-bold h4-flex">Acknowledgement</h5>
+                        </div>
+                        <div class="col-md-4">
+                        </div>
+                        <div class="col-lg-8 pl-0">
+                            <div class="form-input">
+                                <textarea class="form-element-input form-element-input-textarea" id="section4" name="message"
+                                          ng-disabled="TableAdd.IsStatus != 'Wait' && TableAdd.IsStatus != undefined" rows="6" placeholder="กรอกวาระการประชุม"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row row-form ">
+                        <div class="col-md-4">
+                        </div>
+                        <div class="col-lg-8 pl-0">
+                            <div class="form-input">
+                                <textarea rows="5" class="form-element-input form-element-input-textarea" type="text" placeholder="กรุณาระบุหมายเหตุ" 
+                                          ng-disabled="TableAdd.IsStatus != 'Wait' && TableAdd.IsStatus != undefined" ng-model="TableAdd.Remark"></textarea>
+                                <div class="form-element-bar"></div>
+                                <label class="form-element-label">หมายเหตุ</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-5">
+                        <div class="col-md-12">
+                            <div class="d-flex flex-wrap gap-3 justify-content-end">
+                                <button type="button" class="btn btn-light waves-effect px-5 py-2" ui-sref="office-proposallist">ยกเลิก</button>
+                                <div class="btn-group" ng-show="TableAdd.IsStatus == 'Wait' || TableAdd.IsStatus == undefined">
+                                    <button type="button" class="btn btn-primary  waves-effect waves-light px-3 py-2 aksorn f-1-2" ng-click="OnClickSave()">บันทึกข้อมูล</button>
+                                    <button type="button" class="btn btn-primary   waves-effect waves-light px-2 py-1 dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="mdi mdi-chevron-down"></i>
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop1" style="">
+                                        <a class="dropdown-item cursor-pointer" ng-click="OnClickSave('new')">บันทึก และทำรายการใหม่</a>
+                                        <a class="dropdown-item cursor-pointer" ng-click="OnClickSave('back')">บันทึก และย้อนกลับ</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

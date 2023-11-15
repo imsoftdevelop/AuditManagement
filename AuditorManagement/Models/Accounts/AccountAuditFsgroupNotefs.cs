@@ -16,6 +16,7 @@ namespace Models.Models
         public string NoteFstype { get; set; }
         public string NoteDetail { get; set; }
         public string IsDelete { get; set; }
+        public string IsPrint { get; set; }
         public DateTime? CreatedOn { get; set; }
         public string CreatedBy { get; set; }
         public DateTime? UpdatedOn { get; set; }

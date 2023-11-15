@@ -1,0 +1,89 @@
+﻿@{
+    Layout = null;
+}
+
+<div class="container-fluid" data-ng-init="init()">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="page-title-box">
+                <h4>Hour Rate</h4>
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">พารามิเตอร์</a></li>
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Hour Rate</a></li>
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">ภาพรวมทั้งหมด</a></li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-xl-12">
+            <div class="card">
+                <div class="card-body card-body-table card-accordion">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4 class="card-title mb-3">
+                                <span class="badge-table"><i class="mdi mdi-playlist-minus mx-2"></i></span>
+                                ตารางข้อมูล Hour Rate
+                            </h4>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex flex-wrap  justify-content-end">
+                                <button type="button" class="btn btn-primary waves-effect waves-light px-5 py-2" ng-click="OnClickSave()" >
+                                    บันทึกข้อมูล
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="table-rep-plugin">
+                        <div class="table-responsive mb-0" data-pattern="priority-columns">
+                            <table id="tech-companies-1" class="table-data  table-striped">
+                                <thead>
+                                    <tr class="headerRow">
+                                        <th></th>
+                                        <th>ตำแหน่ง</th>
+                                        <th>อัตราต่อชั่วโมง</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th>1</th>
+                                        <td>ผู้ตรวจสอบบัญชี</td>
+                                        <td>
+                                            <input id="name" class="form-element-input-table" type="text" decimal-only placeholder="0.00" ng-model="TableAdd.AuditHour" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>2</th>
+                                        <td>ผู้ช่วยผู้ตรวจสอบ Lv 1</td>
+                                        <td>
+                                            <input id="name" class="form-element-input-table" type="text" decimal-only placeholder="0.00" ng-model="TableAdd.PrepareHour" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>3</th>
+                                        <td>ผู้ช่วยผู้ตรวจสอบ Lv 2</td>
+                                        <td>
+                                            <input id="name" class="form-element-input-table" type="text" decimal-only placeholder="0.00" ng-model="TableAdd.ReviewHour" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>4</th>
+                                        <td>หัวหน้าผู้ช่วยสอบบัญชี</td>
+                                        <td>
+                                            <input id="name" class="form-element-input-table" type="text" decimal-only placeholder="0.00" ng-model="TableAdd.ManagerHour" />
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- container-fluid -->
+</div>
+

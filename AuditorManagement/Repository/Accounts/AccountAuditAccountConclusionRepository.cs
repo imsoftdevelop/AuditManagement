@@ -40,6 +40,8 @@ namespace Repository
                                 throw new Exception("ไม่พบข้อมูล Adjustment ในระบบ");
 
                             val.SequenceAuditProgram = input.SequenceAuditProgram;
+                            val.AuditprogramDetailid = input.AuditprogramDetailid;
+                            val.Auditprogramid = input.Auditprogramid;
                             val.VerifyDesc = input.VerifyDesc;
                             val.ConclusionDesc = input.ConclusionDesc;
                             val.IsConclusion= input.IsConclusion;

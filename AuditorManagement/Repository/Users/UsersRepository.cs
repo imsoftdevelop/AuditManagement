@@ -25,24 +25,36 @@ namespace Repository
                     if (val == null)
                         throw new Exception("กรุณาตรวจสอบ Username และ Password อีกครั้ง");
 
-                    val.EmployeeData = new Employee();
-                    val.EmployeeData = context.Set<Employee>().Where(a => a.EmpId.ToUpper() == val.EmpId.ToUpper()).FirstOrDefault();
+                    if (!string.IsNullOrEmpty(val.EmpId))
+                    {
+                        val.EmployeeData = new Employee();
+                        val.EmployeeData = context.Set<Employee>().Where(a => a.EmpId.ToUpper() == val.EmpId.ToUpper()).FirstOrDefault();
+
+                        if (!string.IsNullOrEmpty(val.EmployeeData.OwnerId))
+                        {
+                            val.OwnerData = new Owner();
+                            val.OwnerData = context.Set<Owner>().Where(a => a.OwnerId.ToUpper() == val.EmployeeData.OwnerId.ToUpper()).FirstOrDefault();
+
+                            val.PackageData = new Package();
+                            val.PackageData = context.Set<Package>().Where(a => a.PackageId.ToUpper() == val.OwnerData.PackageId.ToUpper()).FirstOrDefault();
+
+                            val.BranchData = new List<Branch>();
+                            val.BranchData = context.Set<Branch>().Where(a => a.OwnerId.ToUpper() == val.EmployeeData.OwnerId.ToUpper() && a.IsDelete == Common.NoDelete).ToList();
+
+                        }
+                    }
+                    else if (!string.IsNullOrEmpty(val.UProfileId))
+                    {
+                        val.ProfileData = new CustomerInviteProfile();
+                        val.ProfileData = context.Set<CustomerInviteProfile>().Where(a => a.ProfileId.ToUpper() == val.UProfileId.ToUpper()).FirstOrDefault();
+
+                        val.UserCustomerData = new List<Userscustomer>();
+                        val.UserCustomerData = context.Set<Userscustomer>().Where(a => a.UserId.ToUpper() == val.UserId.ToUpper()).ToList();
+
+                    }
 
                     val.PermissionData = new List<VUserspermission>();
                     val.PermissionData = context.Set<VUserspermission>().Where(a => a.UserId.ToUpper() == val.UserId.ToUpper() && a.IsDelete == Common.NoDelete).ToList();
-
-                    if (!string.IsNullOrEmpty(val.EmployeeData.OwnerId))
-                    {
-                        val.OwnerData = new Owner();
-                        val.OwnerData = context.Set<Owner>().Where(a => a.OwnerId.ToUpper() == val.EmployeeData.OwnerId.ToUpper()).FirstOrDefault();
-
-                        val.PackageData = new Package();
-                        val.PackageData = context.Set<Package>().Where(a => a.PackageId.ToUpper() == val.OwnerData.PackageId.ToUpper()).FirstOrDefault();
-
-                        val.BranchData = new List<Branch>();
-                        val.BranchData = context.Set<Branch>().Where(a => a.OwnerId.ToUpper() == val.EmployeeData.OwnerId.ToUpper() && a.IsDelete == Common.NoDelete).ToList();
-
-                    }
 
                     if (val.IsActive == Common.NoActive)
                         throw new Exception("อีเมลนี้ถูกล็อค กรุณาติดต่อผู้ดูแลระบบ");

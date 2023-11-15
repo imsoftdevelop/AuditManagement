@@ -28,5 +28,11 @@ namespace Models.Models
         public string iserror { get; set; }
         [NotMapped]
         public string error { get; set; }
+        [NotMapped]
+        public decimal? Debit { get; set; }
+        [NotMapped]
+        public decimal? Credit { get; set; }
+        [NotMapped]
+        public decimal? Audit { get; set; }
     }
 }

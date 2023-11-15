@@ -341,4 +341,26 @@
                 },
             },
         })
+        .state('audit-draftreport', {
+            url: "/Audit-draftreport/:ref_id",
+            views: {
+                'container-view': {
+                    templateUrl: "Accountings/DraftReport",
+                    controller: "AuditDraftReportController",
+                    resolve: {
+                        load: ['$ocLazyLoad', function ($ocLazyLoad) {
+                            return $ocLazyLoad.load({
+                                files: [
+                                    'controller/accounts/audit.draftreportcontroller.js?noacche=' + makeid(),
+                                    'controller/parameter/GlobalServiceControl.js?noacche=' + makeid(),
+                                    'controller/services/serviceaccountcontroller.js?noacche=' + makeid(),
+                                    'controller/services/serviceparametercontroller.js?noacche=' + makeid(),
+                                    'controller/services/serviceorganizecontroller.js?noacche=' + makeid(),
+                                ]
+                            });
+                        }]
+                    }
+                },
+            },
+        })
 }); 

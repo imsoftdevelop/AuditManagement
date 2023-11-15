@@ -11,6 +11,7 @@ namespace Models.Models
         public DateTime? InviteDate { get; set; }
         public string InviteCode { get; set; }
         public string CustomerId { get; set; }
+        public string ProfileId { get; set; }
         public string ContractId { get; set; }
         public string OwnerId { get; set; }
         public string IsAccept { get; set; }

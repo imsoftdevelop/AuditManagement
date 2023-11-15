@@ -37,7 +37,41 @@
     height: 65px;
 }
 
+.form-element-input-table {
+    outline: none;
+    height: 2.3rem;
+    display: block;
+    background: none;
+    padding: 0rem 0.6rem 0.0625rem;
+    font-size: 16px;
+    line-height: 1.5;
+    width: 100%;
+    color: #3297ff;
+    box-shadow: none;
+    opacity: 0.001;
+    transition: opacity 0.28s ease;
+    will-change: opacity;
+    border-radius: 4px;
+    opacity: 1;
+    border: 1px solid #dadbe6;
+    -webkit-transition: all .5s ease !important;
+    transition: all .5s ease !important;
+    height: 40px;
+}
 
+    .form-element-input-table.hasValue,
+    .form-element-input-table:focus {
+        opacity: 1;
+        border: 1px solid #dadbe6;
+        -webkit-transition: all .5s ease !important;
+        transition: all .5s ease !important;
+        border-radius: 4px;
+        color: #3297ff;
+    }
+
+    .form-element-input-table:hover {
+        border: 1px solid rgb(99, 99, 132)
+    }
 
 
 .form-element-input::placeholder {

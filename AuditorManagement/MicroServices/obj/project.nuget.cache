@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "6eRnufBeKH64dCWRdKT0fkqJyFRecIL+i0JNLl/p1WhN88k7d3acZuMc1Ka9/WW6HMI09NnM52Zec99elK26fg==",
+  "dgSpecHash": "eIIA7xFCjzKUYRORmeC5OlvXhnYGypGcYh8sS8fDhsKD902H9Ri75DtftpaEPFEBVMa0JT49Jf0Sr6iRH5zfHQ==",
   "success": true,
   "projectFilePath": "E:\\IM-Soft\\_ระบบจัดการบัญชี Source Code\\Auditor Source Code\\AuditorManagement\\MicroServices\\MicroServices.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Robowarrior-Book\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\3.1.30\\microsoft.netcore.app.host.win-x64.3.1.30.nupkg.sha512"
+  ],
   "logs": []
 }

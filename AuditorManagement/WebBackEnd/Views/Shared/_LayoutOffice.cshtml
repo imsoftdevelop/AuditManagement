@@ -28,7 +28,8 @@
     <!-- Dropify Css-->
     <link href="~/assets/libs/dropify/dropify.min.css" rel="stylesheet" />
     <link href="~/assets/libs/jquery.toast/jquery.toast.min.css" rel="stylesheet" />
-
+    <link href="~/assets/libs/summernote/summernote.min.css" rel="stylesheet" />
+    <link href="~/assets/css/draftreport.css" rel="stylesheet" />
 </head>
 <body data-topbar="dark" data-layout="horizontal" ng-app="FOCUSAPP" ng-controller="FOCUSAPPController" data-ng-init="init()">
 
@@ -259,7 +260,7 @@
                                         <div class="dropdown-menu dropdown-menu-left" aria-labelledby="topnav-email">
                                             <a class="dropdown-item" ui-sref-active="active" ui-sref="office-customermanagelist">ภาพรวมทั้งหมด</a>
                                             <a class="dropdown-item" ui-sref-active="active" ui-sref="office-customerdetailmanage">เพิ่มข้อมูล</a>
-                                            <a class="dropdown-item" asp-controller="Organizations" asp-action="OrganizationAdd">Audit Proprosal</a>
+                                            <a class="dropdown-item" ui-sref-active="active" ui-sref="office-proposallist">Audit Proprosal</a>
                                         </div>
                                     </li>
                                     <li class="nav-item dropdown">
@@ -303,6 +304,7 @@
                                             <a ui-sref-active="active" ui-sref="owner-ppegroup" class="dropdown-item">PPE Group</a>
                                             <a ui-sref-active="active" ui-sref="owner-iagroup" class="dropdown-item">IA Group</a>
                                             <a ui-sref-active="active" ui-sref="owner-customeradd" class="dropdown-item">Audit Report</a>
+                                            <a ui-sref-active="active" ui-sref="office-hourrate" class="dropdown-item">Audit Hour Rate</a>
                                         </div>
                                     </li>
 
@@ -379,6 +381,8 @@
     <!-- App js -->
     @*<script src="~/assets/js/app.js"></script>*@
 
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+
     <!-- Component -->
     <script src="~/assets/libs/angularJS/angular.js"></script>
     <script src="~/assets/libs/angularJS/angular-ui-router.js"></script>
@@ -386,6 +390,7 @@
     <script src="~/assets/libs/angularJS/ocLazyLoad.min.js"></script>
     <script src="~/assets/libs/angularJS/ui-bootstrap-tpls.min.js"></script>
     <script src="~/assets/libs/angularJS/ng-file-upload.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-sanitize.js"></script>
     <!-- Router -->
     <script src="~/controller/router/admin.router.js"></script>
     <script src="~/controller/router/owner.router.js"></script>
@@ -393,6 +398,7 @@
     <script src="~/controller/router/account.router.js"></script>
     <script src="~/controller/router/audit.router.js"></script>
     <script src="~/controller/router/manager.router.js"></script>
+    <script src="~/controller/router/customer.router.js"></script>
 
     <script src="~/controller/appmain.js"></script>
     <script src="~/controller/custom.js"></script>
